@@ -1,10 +1,33 @@
-from flask import Flask
+from flask import Flask, render_template, request
+import pandas as pd
 
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+#@app.route("/home")
+def home():
+    return render_template('index.html')
+
+@app.route("/sel", methods=['POST'])
+#@app.route("/home")
+def seleccionar():
+
+    pais = str(request.form['Pais'])
+    ciudad = str(request.form['Ciudad'])
+
+    
+    #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
+    df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
+    #df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
+
+    val_df= df.iloc[[1]].to_dict(orient="records")
+    #print(val_df)
+    tamano=df.size
+    nFilasYColumnas=df.shape
+    nFilas=len(df.index)
+    #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
+
+    return render_template('index.html', mensaje=f'Usted a seleccionado {ciudad},{pais},{val_df}', mensaje2=f'{df}')
 
 if __name__ == "__main__":
     app.run()
