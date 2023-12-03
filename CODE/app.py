@@ -20,6 +20,8 @@ def seleccionar():
     df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
     #df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
 
+    diccionarioDatos = df.to_dict(orient="index")
+
     val_df= df.iloc[[1]].to_dict(orient="records")
     #print(val_df)
     tamano=df.size
@@ -27,7 +29,7 @@ def seleccionar():
     nFilas=len(df.index)
     #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
 
-    return render_template('index.html', mensaje=f'Usted a seleccionado {ciudad},{pais},{val_df}', mensaje2=f'{df}')
+    return render_template('index.html', ciudad = ciudad, pais = pais)
 
 if __name__ == "__main__":
     app.run()
