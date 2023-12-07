@@ -4,12 +4,10 @@ import pandas as pd
 app = Flask(__name__)
 
 @app.route("/")
-#@app.route("/home")
 def home():
     return render_template('index.html')
 
 @app.route("/sel", methods=['POST'])
-#@app.route("/home")
 def seleccionar():
 
     pais = str(request.form['Pais'])
