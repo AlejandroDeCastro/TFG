@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CODE"
+    "\\CODE",
+    "\\CODE\\static",
+    "\\CODE\\static\\css"
   ],
+  "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false
 }

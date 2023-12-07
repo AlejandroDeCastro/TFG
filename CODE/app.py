@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
 import pandas as pd
 
@@ -10,8 +11,20 @@ def home():
 @app.route("/sel", methods=['POST'])
 def seleccionar():
 
-    pais = str(request.form['Pais'])
+    pais = str(request.form['Pais']) 
     ciudad = str(request.form['Ciudad'])
+
+    ciudadMalaga = {
+        'Nombre' : 'Malaga',
+        'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
+        }
+
+    ciudadMadrid = {
+        'Nombre' : 'Madrid',
+        'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
+    }
+
+    listaCiudades = ['Malaga', 'Madrid']
 
     #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
     df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
@@ -26,7 +39,8 @@ def seleccionar():
     nFilas=len(df.index)
     #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
 
-    return render_template('index.html', ciudad = ciudad, pais = pais)
+    return render_template('index.html', ciudad = ciudad, pais = pais, listaCiudades=listaCiudades)
+
 
 if __name__ == "__main__":
     app.run()
