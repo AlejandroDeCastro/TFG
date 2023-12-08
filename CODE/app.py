@@ -49,5 +49,10 @@ def ciudadSeleccionada():
     return render_template('ciudad.html', ciudadElegida=ciudadMalaga)
 
 
+
+def pagina_no_encontrada(error):
+    return render_template('404.html'), 404
+
 if __name__ == "__main__":
+    app.register_error_handler(404, pagina_no_encontrada)
     app.run()
