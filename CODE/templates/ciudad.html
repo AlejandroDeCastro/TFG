@@ -4,6 +4,14 @@
 
 {% block body %}
 <h1>{{ciudadElegida.Nombre}}</h1>
-<p>SIII</p>
+
+<p>HAY LAS SIGUIENTES OPCIONES:</p>
+    
+<ul>
+    {% for opcion in ciudadElegida.Opciones %}
+    <li>{{ opcion }}</li>
+    {% endfor %}
+</ul>
+
 
 {% endblock %}

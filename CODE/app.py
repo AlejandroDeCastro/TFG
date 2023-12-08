@@ -17,17 +17,20 @@ ciudadMadrid = {
 
 listaCiudades = ['Malaga', 'Madrid']
 
-
-
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template('index.html', listaCiudades=listaCiudades)
 
-@app.route("/sel", methods=['POST'])
+@app.route("/ciudad", methods=['POST'])
 def seleccionar():
 
-    pais = str(request.form['Pais']) 
-    ciudad = str(request.form['Ciudad'])
+    #pais = str(request.form['Pais']) 
+    ciudad = str(request.form['ciudadElegida'])
+
+    if ciudad == "Malaga":
+        ciudadElegida=ciudadMalaga
+    else:
+        ciudadElegida=ciudadMadrid
 
     #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
     df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
@@ -42,7 +45,7 @@ def seleccionar():
     nFilas=len(df.index)
     #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
 
-    return render_template('index.html', ciudad = ciudad, pais = pais, listaCiudades=listaCiudades)
+    return render_template('ciudad.html', ciudadElegida = ciudadElegida)
 
 
 @app.route("/ciudad")

@@ -3,11 +3,11 @@
 {% block title %}Menu{% endblock %}
 
 {% block body %}
-<h1>SmartCities</h1>
+<h1 align="center">SmartCities</h1>
 
 <div class="login">
-    <p>Introduce el país y la cuidad</p>
-    HAY LAS IGUIENTES CIUDADES:
+    <p>Debe seleccionar la cuidad</p>
+    HAY LAS SIGUIENTES CIUDADES:
     <ul>
         {% for ciudad in listaCiudades %}
         <li>{{ ciudad }}</li>
@@ -16,16 +16,25 @@
 
     <form action="{{url_for('seleccionar')}}" method="post" accept-charset="UTF-8">
 
-        <input type="text" name="Pais" placeholder="Seleccione País" required="required">
-        <input type="text" name="Ciudad" placeholder="Seleccione Ciudad" required="required">
+
+        <div class="container">
+            <p>LISTA DE CIUDADES</p>
+            <div class="row">
+                <label>Seleccionar Ciudad</label>
+                <select name="ciudadElegida" data-live-search="true" class="form-control" title="Seleccionar ciudad">
+                    {% for ciudad in listaCiudades %}
+                    <option value="{{ ciudad }}">{{ ciudad }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <!--<input type="text" name="Pais" placeholder="Seleccione País" required="required">-->
+        <!--<input type="text" name="Ciudad" placeholder="Seleccione Ciudad" required="required">-->
         <button type="submit" class="btn btn-primary btn-block btn-large">CONSULTAR</button>
 
     </form>
 </div>
-<br />
-<br />
-    USTED HA SELECCIONADO {{ciudad}} , {{pais}}
-<br />
-
 
 {% endblock %}
