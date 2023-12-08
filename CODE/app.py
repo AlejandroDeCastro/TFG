@@ -4,6 +4,20 @@ import pandas as pd
 
 app = Flask(__name__)
 
+ciudadMalaga = {
+    'Nombre' : 'Malaga',
+    'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
+    }
+
+ciudadMadrid = {
+    'Nombre' : 'Madrid',
+    'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
+    }
+
+listaCiudades = ['Malaga', 'Madrid']
+
+
+
 @app.route("/")
 def home():
     return render_template('index.html')
@@ -13,18 +27,6 @@ def seleccionar():
 
     pais = str(request.form['Pais']) 
     ciudad = str(request.form['Ciudad'])
-
-    ciudadMalaga = {
-        'Nombre' : 'Malaga',
-        'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
-        }
-
-    ciudadMadrid = {
-        'Nombre' : 'Madrid',
-        'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
-    }
-
-    listaCiudades = ['Malaga', 'Madrid']
 
     #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
     df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
@@ -40,6 +42,11 @@ def seleccionar():
     #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
 
     return render_template('index.html', ciudad = ciudad, pais = pais, listaCiudades=listaCiudades)
+
+
+@app.route("/ciudad")
+def ciudadSeleccionada():
+    return render_template('ciudad.html', ciudadElegida=ciudadMalaga)
 
 
 if __name__ == "__main__":
