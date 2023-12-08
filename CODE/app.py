@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
+from flask.helpers import url_for
 import pandas as pd
 
 app = Flask(__name__)
@@ -51,7 +52,9 @@ def ciudadSeleccionada():
 
 
 def pagina_no_encontrada(error):
-    return render_template('404.html'), 404
+    #2 opciones, usar la plantilla 404 o redirigir al inicio
+    #return render_template('404.html'), 404
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.register_error_handler(404, pagina_no_encontrada)
