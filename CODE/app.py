@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 ciudadMalaga = {
     'Nombre' : 'Malaga',
-    'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
+    'Opciones' : ['Transporte EMT','Parking','Aforo Teatro','Clima']
     }
 
 ciudadMadrid = {
@@ -22,7 +22,7 @@ def home():
     return render_template('index.html', listaCiudades=listaCiudades)
 
 @app.route("/ciudad", methods=['POST'])
-def seleccionar():
+def seleccionarCiudad():
 
     #pais = str(request.form['Pais']) 
     ciudad = str(request.form['ciudadElegida'])
@@ -48,10 +48,10 @@ def seleccionar():
     return render_template('ciudad.html', ciudadElegida = ciudadElegida)
 
 
-@app.route("/ciudad")
-def ciudadSeleccionada():
-    return render_template('ciudad.html', ciudadElegida=ciudadMalaga)
-
+@app.route("/parkingMalaga", methods=['POST'])
+def seleccionarOpcion():
+    opcion = str(request.form['opcionElegida'])
+    return render_template('parkingMalaga.html',  opcionElegida = opcion)
 
 
 def pagina_no_encontrada(error):

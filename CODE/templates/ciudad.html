@@ -6,12 +6,32 @@
 <h1>{{ciudadElegida.Nombre}}</h1>
 
 <p>HAY LAS SIGUIENTES OPCIONES:</p>
-    
+
 <ul>
     {% for opcion in ciudadElegida.Opciones %}
     <li>{{ opcion }}</li>
     {% endfor %}
 </ul>
+
+<form action="{{url_for('seleccionarOpcion')}}" method="post" accept-charset="UTF-8">
+
+
+    <div class="container">
+        <p>LISTA DE OPCIONES</p>
+        <div class="row">
+            <label>Seleccionar Opcion</label>
+            <select name="opcionElegida" data-live-search="true" class="form-control" title="Seleccionar ciudad">
+                {% for opcion in ciudadElegida.Opciones %}
+                <option value="{{ opcion }}">{{ opcion }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block btn-large">MOSTRAR</button>
+
+</form>
 
 
 {% endblock %}
