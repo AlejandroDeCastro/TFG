@@ -17,6 +17,7 @@ ciudadMadrid = {
 
 listaCiudades = ['Malaga', 'Madrid']
 
+
 @app.route("/")
 def home():
     return render_template('index.html', listaCiudades=listaCiudades)
@@ -26,6 +27,8 @@ def seleccionarCiudad():
 
     #pais = str(request.form['Pais']) 
     ciudad = str(request.form['ciudadElegida'])
+
+    global ciudadElegida
 
     if ciudad == "Malaga":
         ciudadElegida=ciudadMalaga
@@ -48,10 +51,19 @@ def seleccionarCiudad():
     return render_template('ciudad.html', ciudadElegida = ciudadElegida)
 
 
-@app.route("/parkingMalaga", methods=['POST'])
+@app.route("/Muestra", methods=['POST'])
 def seleccionarOpcion():
     opcion = str(request.form['opcionElegida'])
-    return render_template('parkingMalaga.html',  opcionElegida = opcion)
+
+    if ciudadElegida["Nombre"] == "Malaga":
+        if opcion == "Parking":
+            return render_template('parkingMalaga.html',  opcionElegida = opcion)
+        else:
+            return render_template('climaMalaga.html',  opcionElegida = opcion)        
+    else:
+        #MAD
+        return render_template('climaMalaga.html',  opcionElegida = opcion)
+
 
 
 def pagina_no_encontrada(error):
