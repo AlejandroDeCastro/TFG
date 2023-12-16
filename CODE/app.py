@@ -35,34 +35,41 @@ def seleccionarCiudad():
     else:
         ciudadElegida=ciudadMadrid
 
-    #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
-    df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
-    #df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
-
-    diccionarioDatos = df.to_dict(orient="index")
-
-    val_df= df.iloc[[1]].to_dict(orient="records")
-    #print(val_df)
-    tamano=df.size
-    nFilasYColumnas=df.shape
-    nFilas=len(df.index)
-    #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
-
     return render_template('ciudad.html', ciudadElegida = ciudadElegida)
 
 
-@app.route("/Muestra", methods=['POST'])
+@app.route("/Muestra", methods=("POST", "GET"))
 def seleccionarOpcion():
+
+    #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
+    
+    #df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
+
     opcion = str(request.form['opcionElegida'])
 
     if ciudadElegida["Nombre"] == "Malaga":
         if opcion == "Parking":
-            return render_template('parkingMalaga.html',  opcionElegida = opcion)
+            df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
+            #diccionarioDatos = df.to_dict(orient="index")
+            """
+            df = pd.DataFrame({'A': [0, 1, 2, 3, 4],
+                   'B': [5, 6, 7, 8, 9],
+                   'C': ['a', 'b', 'c--', 'd', 'e']})
+            """
+            val_df= df.iloc[[1]].to_dict(orient="records")
+            #print(val_df)
+            tamano=df.size
+            nFilasYColumnas=df.shape
+            nFilas=len(df.index)
+            #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
+            
+            return render_template('parkingMalaga.html',  opcionElegida = opcion, tables =[df.to_html(classes='data')], titles=df.columns.values)
         else:
             return render_template('climaMalaga.html',  opcionElegida = opcion)        
     else:
         #MAD
         return render_template('climaMalaga.html',  opcionElegida = opcion)
+
 
 
 
