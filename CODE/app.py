@@ -43,8 +43,6 @@ def seleccionarOpcion():
 
     #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
     
-    #df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
-
     opcion = str(request.form['opcionElegida'])
 
     if ciudadElegida["Nombre"] == "Malaga":
@@ -64,8 +62,14 @@ def seleccionarOpcion():
             #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
             
             return render_template('parkingMalaga.html',  opcionElegida = opcion, tables =[df.to_html(classes='data')], titles=df.columns.values)
+        
+        elif(opcion == "Transporte EMT"):
+
+            df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
+            return render_template('transportePublicoMalaga.html',  opcionElegida = opcion, tables =[df_lineasYParadasEMT.to_html(classes='data')], titles=df_lineasYParadasEMT.columns.values)
+
         else:
-            return render_template('climaMalaga.html',  opcionElegida = opcion)        
+            return render_template('climaMalaga.html',  opcionElegida = opcion)
     else:
         #MAD
         return render_template('climaMalaga.html',  opcionElegida = opcion)
