@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 ciudadMalaga = {
     'Nombre' : 'Malaga',
-    'Opciones' : ['Transporte EMT','Parking','Aforo Teatro','Clima']
+    'Opciones' : ['Transporte EMT','Parking','Bibliotecas','Clima']
     }
 
 ciudadMadrid = {
@@ -68,6 +68,12 @@ def seleccionarOpcion():
             df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
             return render_template('transportePublicoMalaga.html',  opcionElegida = opcion, tables =[df_lineasYParadasEMT.to_html(classes='data')], titles=df_lineasYParadasEMT.columns.values)
 
+        elif(opcion == "Bibliotecas"):
+
+            df_BibliotecasMalaga = pd.read_csv("https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv",sep=',', engine='python',skiprows=0,index_col=False)
+            return render_template('bibliotecasMalaga.html',  opcionElegida = opcion, tables =[df_BibliotecasMalaga.to_html(classes='data')], titles=df_BibliotecasMalaga.columns.values)
+
+     
         else:
             return render_template('climaMalaga.html',  opcionElegida = opcion)
     else:
