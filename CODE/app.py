@@ -3,10 +3,14 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask.helpers import url_for
 import pandas as pd
 
+
 app = Flask(__name__)
 
+
+
+
 ciudadMalaga = {
-    'Nombre' : 'Malaga',
+    'Nombre' : 'Málaga',
     'Opciones' : ['Transporte EMT','Parking','Bibliotecas','Clima']
     }
 
@@ -15,7 +19,7 @@ ciudadMadrid = {
     'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
     }
 
-listaCiudades = ['Malaga', 'Madrid']
+listaCiudades = ['Málaga', 'Madrid']
 
 
 @app.route("/")
@@ -30,7 +34,7 @@ def seleccionarCiudad():
 
     global ciudadElegida
 
-    if ciudad == "Malaga":
+    if ciudad == "Málaga":
         ciudadElegida=ciudadMalaga
     else:
         ciudadElegida=ciudadMadrid
@@ -45,7 +49,12 @@ def seleccionarOpcion():
     
     opcion = str(request.form['opcionElegida'])
 
-    if ciudadElegida["Nombre"] == "Malaga":
+    """
+    Cuando una opción es elegida, se manda el link del modelo de datos y el link de los datos a una función.
+    Esta función devuelve un diccopnario de datos.
+    """
+
+    if ciudadElegida["Nombre"] == "Málaga":
         if opcion == "Parking":
             df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
             #diccionarioDatos = df.to_dict(orient="index")
@@ -65,12 +74,16 @@ def seleccionarOpcion():
         
         elif(opcion == "Transporte EMT"):
 
+            #linkDatos=
+            #linkModeloDeDatos=
             df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
             return render_template('transportePublicoMalaga.html',  opcionElegida = opcion, tables =[df_lineasYParadasEMT.to_html(classes='data')], titles=df_lineasYParadasEMT.columns.values)
 
         elif(opcion == "Bibliotecas"):
 
-            df_BibliotecasMalaga = pd.read_csv("https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv",sep=',', engine='python',skiprows=0,index_col=False)
+            linkDatos="https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv"
+            #linkModeloDeDatos=
+            df_BibliotecasMalaga = pd.read_csv(linkDatos,sep=',', engine='python',skiprows=0,index_col=False)
             return render_template('bibliotecasMalaga.html',  opcionElegida = opcion, tables =[df_BibliotecasMalaga.to_html(classes='data')], titles=df_BibliotecasMalaga.columns.values)
 
      
