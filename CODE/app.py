@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask.helpers import url_for
 import pandas as pd
+import json
 
 
 app = Flask(__name__)
@@ -82,7 +83,10 @@ def seleccionarOpcion():
         elif(opcion == "Bibliotecas"):
 
             linkDatos="https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv"
-            #linkModeloDeDatos=
+            linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
+            diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkModeloDeDatos)
+            print(diccionarioDeDatos)
+
             df_BibliotecasMalaga = pd.read_csv(linkDatos,sep=',', engine='python',skiprows=0,index_col=False)
             return render_template('bibliotecasMalaga.html',  opcionElegida = opcion, tables =[df_BibliotecasMalaga.to_html(classes='data')], titles=df_BibliotecasMalaga.columns.values)
 
@@ -93,6 +97,11 @@ def seleccionarOpcion():
         #MAD
         return render_template('climaMalaga.html',  opcionElegida = opcion)
 
+
+def convertirADiccionario(linkModeloDeDatos, linkDatos):
+    with open("C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\modeloParking.json", "r") as modeloDeDatos:
+        diccionarioDeDatos=json.load(modeloDeDatos)
+    return diccionarioDeDatos
 
 
 
