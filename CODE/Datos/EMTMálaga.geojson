@@ -1,0 +1,290 @@
+[
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4136033", 
+                "36.720154"
+            ]
+        }, 
+        "lineNumber": "1.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:693"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4267592", 
+                "36.715282"
+            ]
+        }, 
+        "lineNumber": "1.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:740"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.460083", 
+                "36.69594"
+            ]
+        }, 
+        "lineNumber": "1.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:784"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4229803", 
+                "36.74347"
+            ]
+        }, 
+        "lineNumber": "2.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:697"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4377246", 
+                "36.713078"
+            ]
+        }, 
+        "lineNumber": "4.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:758"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4338465", 
+                "36.729717"
+            ]
+        }, 
+        "lineNumber": "7.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:618"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.457817", 
+                "36.683807"
+            ]
+        }, 
+        "lineNumber": "7.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:671"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4718237", 
+                "36.72052"
+            ]
+        }, 
+        "lineNumber": "8.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:749"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4299054", 
+                "36.738213"
+            ]
+        }, 
+        "lineNumber": "17.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:603"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.474929", 
+                "36.69902"
+            ]
+        }, 
+        "lineNumber": "20.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:716"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4314265", 
+                "36.71699"
+            ]
+        }, 
+        "lineNumber": "25.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:777"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4327426", 
+                "36.71008"
+            ]
+        }, 
+        "lineNumber": "75.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:673"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4241557", 
+                "36.717377"
+            ]
+        }, 
+        "lineNumber": "71.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:706"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4202876", 
+                "36.718315"
+            ]
+        }, 
+        "lineNumber": "72.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:529"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4315963", 
+                "36.70986"
+            ]
+        }, 
+        "lineNumber": "41.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:645"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.352206", 
+                "36.718693"
+            ]
+        }, 
+        "lineNumber": "41.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:719"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.457404", 
+                "36.690998"
+            ]
+        }, 
+        "lineNumber": "41.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:780"
+    }, 
+    {
+        "category": [
+            "municipalServices"
+        ], 
+        "vehicleType": "bus", 
+        "location": {
+            "type": "Point", 
+            "coordinates": [
+                "-4.4491034", 
+                "36.71925"
+            ]
+        }, 
+        "lineNumber": "44.0", 
+        "type": "Vehicle", 
+        "id": "vehicle:bus:754"
+    }
+]

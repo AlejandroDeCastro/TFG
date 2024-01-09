@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
-    "\\CODE\\static",
     "\\CODE\\static\\css",
     "\\CODE\\static\\js"
   ],
-  "SelectedNode": "\\CODE\\app.py",
+  "SelectedNode": "\\CODE\\modeloParking.json",
   "PreviewInSolutionExplorer": false
 }

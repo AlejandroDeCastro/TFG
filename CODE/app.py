@@ -70,12 +70,28 @@ def seleccionarOpcion():
             nFilasYColumnas=df.shape
             nFilas=len(df.index)
             #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
+
+            linkDatos=""
+            #linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
+            linkModeloDeDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Modelos\\modeloParking.json"
+
+            diccionarioModeloDeDatos,diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkDatos)
+
+            visualizarDiccionarioDeDatos(diccionarioModeloDeDatos)
             
             return render_template('parkingMalaga.html',  opcionElegida = opcion, tables =[df.to_html(classes='data')], titles=df.columns.values)
         
         elif(opcion == "Transporte EMT"):
 
-            #linkDatos=
+            linkModeloDeDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Modelos\\modeloParking.json"
+            #linkDatos="https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTlineasUbicaciones/lineasyubicacionesfiware.geojson"
+            linkDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Datos\\EMTMálaga.geojson"
+            diccionarioModeloDeDatos,diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkDatos)
+
+            #Bucle que reccore la lista de diccionarios de datos
+            for linea in diccionarioDeDatos:
+                visualizarDiccionarioDeDatos(linea)
+
             #linkModeloDeDatos=
             df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
             return render_template('transportePublicoMalaga.html',  opcionElegida = opcion, tables =[df_lineasYParadasEMT.to_html(classes='data')], titles=df_lineasYParadasEMT.columns.values)
@@ -83,9 +99,9 @@ def seleccionarOpcion():
         elif(opcion == "Bibliotecas"):
 
             linkDatos="https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv"
-            linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
-            diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkModeloDeDatos)
-            print(diccionarioDeDatos)
+            #linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
+
+            
 
             df_BibliotecasMalaga = pd.read_csv(linkDatos,sep=',', engine='python',skiprows=0,index_col=False)
             return render_template('bibliotecasMalaga.html',  opcionElegida = opcion, tables =[df_BibliotecasMalaga.to_html(classes='data')], titles=df_BibliotecasMalaga.columns.values)
@@ -98,12 +114,27 @@ def seleccionarOpcion():
         return render_template('climaMalaga.html',  opcionElegida = opcion)
 
 
+    #Función que transforma los modelos y conjuntos de datos de json a diccionario de python
 def convertirADiccionario(linkModeloDeDatos, linkDatos):
-    with open("C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\modeloParking.json", "r") as modeloDeDatos:
-        diccionarioDeDatos=json.load(modeloDeDatos)
-    return diccionarioDeDatos
+    with open(linkModeloDeDatos, "r") as modeloDeDatos:
+        diccionarioModeloDeDatos=json.load(modeloDeDatos)
 
+    with open(linkDatos, "r") as Datos:
+        diccionarioDeDatos=json.load(Datos)
 
+    return diccionarioModeloDeDatos, diccionarioDeDatos
+
+#Función que visualiza los modelos de datos o diccionarios de datos pasados
+def visualizarDiccionarioDeDatos(diccionario):
+    print("\n MODELO DE DATOS:")
+    for key in diccionario.keys():
+        dato=diccionario[key]
+        if isinstance(dato,dict):
+            print("\nDato: "+key)
+            for key2 in dato:
+                print(" +"+key2+" = "+str(dato[key2]))
+        else:
+            print("\n"+key+" = "+str(dato))
 
 def pagina_no_encontrada(error):
     #2 opciones, usar la plantilla 404 o redirigir al inicio
