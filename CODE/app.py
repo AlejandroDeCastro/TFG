@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, url_for, redirect
 from flask.helpers import url_for
+import urllib.request
 import pandas as pd
 import json
 
@@ -17,7 +18,7 @@ ciudadMalaga = {
 
 ciudadMadrid = {
     'Nombre' : 'Madrid',
-    'Opciones' : ['Transporte EMT','Aforo Teatro','Clima']
+    'Opciones' : ['Transporte', 'Parking','Bibliotecas','Aforo Teatro','Clima']
     }
 
 listaCiudades = ['Málaga', 'Madrid']
@@ -109,18 +110,58 @@ def seleccionarOpcion():
      
         else:
             return render_template('climaMalaga.html',  opcionElegida = opcion)
+    elif ciudadElegida["Nombre"] == "Madrid":
+
+        if opcion=="Parking":
+            #Parkings de Madrid
+            
+            #Datos y modelo
+            linkDatos="https://datos.madrid.es/egob/catalogo/202625-0-aparcamientos-publicos.json"
+            linkModeloDeDatos=""
+
+            diccionarioModeloDeDatos,diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkDatos)
+
+            #Bucle que reccore la lista de diccionarios de datos
+            for linea in diccionarioDeDatos:
+                visualizarDiccionarioDeDatos(linea)
+
+            return render_template('parkingMadrid.html',  opcionElegida = opcion)
+        elif opcion=="Transporte":
+            return render_template('transporteMadrid.html', opcionElegida = opcion)
+        elif opcion=="Bibliotecas":
+            return render_template('bibliotecasMadrid.html', opcionElegida = opcion)
+        else:
+            #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
+            return render_template('404.html', opcionElegida = opcion)
+
+        
+
     else:
-        #MAD
-        return render_template('climaMalaga.html',  opcionElegida = opcion)
+        #Si no encuentra esa ciudad elegida mostrar una vista de NOTFOUND. HACER ESA VISTA
+        return render_template('404.html',  opcionElegida = opcion)
 
 
     #Función que transforma los modelos y conjuntos de datos de json a diccionario de python
 def convertirADiccionario(linkModeloDeDatos, linkDatos):
-    with open(linkModeloDeDatos, "r") as modeloDeDatos:
-        diccionarioModeloDeDatos=json.load(modeloDeDatos)
 
-    with open(linkDatos, "r") as Datos:
-        diccionarioDeDatos=json.load(Datos)
+    #Si hay un enlace para el JSON del modelo de datos, lo lee y transforma en un diccionario
+    if linkModeloDeDatos != "":
+        with open(linkModeloDeDatos, "r") as modeloDeDatos:
+            diccionarioModeloDeDatos=json.load(modeloDeDatos)
+    else:
+        diccionarioModeloDeDatos={} #Si no hay datos devuelve un diccionario vacío
+
+    #Si hay un enlace para el JSON de datos, lo lee y transforma en un diccionario
+    if linkDatos != "":
+        #with open(linkDatos, "r") as Datos:
+            #diccionarioDeDatos=json.load(Datos)
+        with urllib.request.urlopen(linkDatos) as response:
+            DatosJSON = response.read()
+        print(DatosJSON)
+        diccionarioDeDatos = json.loads(DatosJSON)   #Falla porque tiene carácteres que no es capaz de interpretar en JSON
+
+    else:
+        diccionarioDeDatos={} #Si no hay datos devuelve un diccionario vacío
 
     return diccionarioModeloDeDatos, diccionarioDeDatos
 
