@@ -5,10 +5,7 @@ import urllib.request
 import pandas as pd
 import json
 
-
 app = Flask(__name__)
-
-
 
 
 ciudadMalaga = {
@@ -112,8 +109,8 @@ def seleccionarOpcion():
             return render_template('climaMalaga.html',  opcionElegida = opcion)
     elif ciudadElegida["Nombre"] == "Madrid":
 
+        #PARKINGS MADRID
         if opcion=="Parking":
-            #Parkings de Madrid
             
             #Datos y modelo
             linkDatos="https://datos.madrid.es/egob/catalogo/202625-0-aparcamientos-publicos.json"
@@ -126,10 +123,28 @@ def seleccionarOpcion():
                 visualizarDiccionarioDeDatos(linea)
 
             return render_template('parkingMadrid.html',  opcionElegida = opcion)
+
+        #TRANSPORTE MADRID
         elif opcion=="Transporte":
             return render_template('transporteMadrid.html', opcionElegida = opcion)
+
+        #BIBLIOTECAS MADRID
         elif opcion=="Bibliotecas":
-            return render_template('bibliotecasMadrid.html', opcionElegida = opcion)
+
+            #Datos y modelo
+            linkDatos="https://datos.madrid.es/portal/site/egob/menuitem.ac61933d6ee3c31cae77ae7784f1a5a0/?vgnextoid=00149033f2201410VgnVCM100000171f5a0aRCRD&format=json&file=0&filename=201747-0-bibliobuses-bibliotecas&mgmtid=ed35401429b83410VgnVCM1000000b205a0aRCRD&preview=full"
+            linkModeloDeDatos=""
+
+            diccionarioModeloDeDatos,diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkDatos)
+
+            #Bucle que reccore la lista de diccionarios de datos
+            for linea in diccionarioDeDatos["@graph"]:
+                #print (diccionarioDeDatos)
+                visualizarDiccionarioDeDatos(linea)
+            #df=pd.DataFrame([diccionarioDeDatos["@graph"]])
+            df=pd.DataFrame(diccionarioDeDatos["@graph"])
+            
+            return render_template('bibliotecasMadrid.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
         else:
             #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
             return render_template('404.html', opcionElegida = opcion)
@@ -157,8 +172,7 @@ def convertirADiccionario(linkModeloDeDatos, linkDatos):
             #diccionarioDeDatos=json.load(Datos)
         with urllib.request.urlopen(linkDatos) as response:
             DatosJSON = response.read()
-        print(DatosJSON)
-        diccionarioDeDatos = json.loads(DatosJSON)   #Falla porque tiene carácteres que no es capaz de interpretar en JSON
+        diccionarioDeDatos = json.loads(DatosJSON)   #Falla porque lo coge como String
 
     else:
         diccionarioDeDatos={} #Si no hay datos devuelve un diccionario vacío
@@ -168,6 +182,7 @@ def convertirADiccionario(linkModeloDeDatos, linkDatos):
 #Función que visualiza los modelos de datos o diccionarios de datos pasados
 def visualizarDiccionarioDeDatos(diccionario):
     print("\n MODELO DE DATOS:")
+    print("\nkeys"+str(diccionario.keys())+"\n")
     for key in diccionario.keys():
         dato=diccionario[key]
         if isinstance(dato,dict):
@@ -176,6 +191,7 @@ def visualizarDiccionarioDeDatos(diccionario):
                 print(" +"+key2+" = "+str(dato[key2]))
         else:
             print("\n"+key+" = "+str(dato))
+
 
 def pagina_no_encontrada(error):
     #2 opciones, usar la plantilla 404 o redirigir al inicio
