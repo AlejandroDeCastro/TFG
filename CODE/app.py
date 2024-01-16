@@ -84,7 +84,8 @@ def seleccionarOpcion():
             linkModeloDeDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Modelos\\modeloParking.json"
             #linkDatos="https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTlineasUbicaciones/lineasyubicacionesfiware.geojson"
             linkDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Datos\\EMTMálaga.geojson"
-            diccionarioModeloDeDatos,diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkDatos)
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, True)
 
             #Bucle que reccore la lista de diccionarios de datos
             for linea in diccionarioDeDatos:
@@ -99,12 +100,9 @@ def seleccionarOpcion():
             linkDatos="https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv"
             #linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
 
-            
-
             df_BibliotecasMalaga = pd.read_csv(linkDatos,sep=',', engine='python',skiprows=0,index_col=False)
             return render_template('bibliotecasMalaga.html',  opcionElegida = opcion, tables =[df_BibliotecasMalaga.to_html(classes='data')], titles=df_BibliotecasMalaga.columns.values)
 
-     
         else:
             return render_template('climaMalaga.html',  opcionElegida = opcion)
     elif ciudadElegida["Nombre"] == "Madrid":
@@ -116,7 +114,8 @@ def seleccionarOpcion():
             linkDatos="https://datos.madrid.es/egob/catalogo/202625-0-aparcamientos-publicos.json"
             linkModeloDeDatos=""
 
-            diccionarioModeloDeDatos,diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkDatos)
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
 
             #Bucle que reccore la lista de diccionarios de datos
             for linea in diccionarioDeDatos:
@@ -135,13 +134,14 @@ def seleccionarOpcion():
             linkDatos="https://datos.madrid.es/portal/site/egob/menuitem.ac61933d6ee3c31cae77ae7784f1a5a0/?vgnextoid=00149033f2201410VgnVCM100000171f5a0aRCRD&format=json&file=0&filename=201747-0-bibliobuses-bibliotecas&mgmtid=ed35401429b83410VgnVCM1000000b205a0aRCRD&preview=full"
             linkModeloDeDatos=""
 
-            diccionarioModeloDeDatos,diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkDatos)
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
 
-            #Bucle que reccore la lista de diccionarios de datos
+            #Bucle que reccore la lista de diccionarios de datos y los muestra
             for linea in diccionarioDeDatos["@graph"]:
-                #print (diccionarioDeDatos)
                 visualizarDiccionarioDeDatos(linea)
-            #df=pd.DataFrame([diccionarioDeDatos["@graph"]])
+            
+            #DataFrame del grafo de datos
             df=pd.DataFrame(diccionarioDeDatos["@graph"])
             
             return render_template('bibliotecasMadrid.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
@@ -149,35 +149,30 @@ def seleccionarOpcion():
             #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
             return render_template('404.html', opcionElegida = opcion)
 
-        
-
     else:
         #Si no encuentra esa ciudad elegida mostrar una vista de NOTFOUND. HACER ESA VISTA
         return render_template('404.html',  opcionElegida = opcion)
 
 
-    #Función que transforma los modelos y conjuntos de datos de json a diccionario de python
-def convertirADiccionario(linkModeloDeDatos, linkDatos):
-
-    #Si hay un enlace para el JSON del modelo de datos, lo lee y transforma en un diccionario
-    if linkModeloDeDatos != "":
-        with open(linkModeloDeDatos, "r") as modeloDeDatos:
-            diccionarioModeloDeDatos=json.load(modeloDeDatos)
-    else:
-        diccionarioModeloDeDatos={} #Si no hay datos devuelve un diccionario vacío
+    #Función que transforma un conjunto de datos de json a diccionario de python
+def convertirADiccionario(datos, local):
 
     #Si hay un enlace para el JSON de datos, lo lee y transforma en un diccionario
-    if linkDatos != "":
-        #with open(linkDatos, "r") as Datos:
-            #diccionarioDeDatos=json.load(Datos)
-        with urllib.request.urlopen(linkDatos) as response:
-            DatosJSON = response.read()
-        diccionarioDeDatos = json.loads(DatosJSON)   #Falla porque lo coge como String
+    if datos != "":
+
+        #Extraer los datos en local o web
+        if local:
+            with open(datos, "r") as Datos:
+                diccionarioDatos=json.load(Datos)
+        else:
+            with urllib.request.urlopen(datos) as response:
+                DatosJSON = response.read()
+            diccionarioDatos = json.loads(DatosJSON)   #Falla porque lo coge como String
 
     else:
-        diccionarioDeDatos={} #Si no hay datos devuelve un diccionario vacío
+        diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
 
-    return diccionarioModeloDeDatos, diccionarioDeDatos
+    return diccionarioDatos
 
 #Función que visualiza los modelos de datos o diccionarios de datos pasados
 def visualizarDiccionarioDeDatos(diccionario):
