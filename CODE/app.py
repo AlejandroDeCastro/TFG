@@ -41,7 +41,7 @@ def home():
     return render_template('index.html', listaCiudades=listaCiudades)
 
 @app.route("/ciudad", methods=['POST'])
-def seleccionarCiudad():
+def seleccionarCiudad():  
 
     #pais = str(request.form['Pais']) 
     ciudad = str(request.form['ciudadElegida'])
