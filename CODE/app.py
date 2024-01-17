@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 ciudadMalaga = {
     'Nombre' : 'Málaga',
-    'Opciones' : ['Transporte EMT','Parking','Bibliotecas','Clima']
+    'Opciones' : ['Transporte EMT','Parking','Bibliotecas']
     }
 
 ciudadMadrid = {
@@ -18,7 +18,12 @@ ciudadMadrid = {
     'Opciones' : ['Transporte', 'Parking','Bibliotecas','Aforo Teatro','Clima']
     }
 
-listaCiudades = ['Málaga', 'Madrid']
+ciudadValencia = {
+    'Nombre' : 'Valencia',
+    'Opciones' : ['Parking','Puntos de carga','Transporte']
+    }
+
+listaCiudades = ['Málaga', 'Madrid', 'Valencia']
 
 
 @app.route("/")
@@ -35,8 +40,10 @@ def seleccionarCiudad():
 
     if ciudad == "Málaga":
         ciudadElegida=ciudadMalaga
-    else:
+    elif ciudad == "Madrid":
         ciudadElegida=ciudadMadrid
+    elif ciudad == "Valencia":
+        ciudadElegida = ciudadValencia
 
     return render_template('ciudad.html', ciudadElegida = ciudadElegida)
 
@@ -56,12 +63,7 @@ def seleccionarOpcion():
     if ciudadElegida["Nombre"] == "Málaga":
         if opcion == "Parking":
             df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
-            #diccionarioDatos = df.to_dict(orient="index")
-            """
-            df = pd.DataFrame({'A': [0, 1, 2, 3, 4],
-                   'B': [5, 6, 7, 8, 9],
-                   'C': ['a', 'b', 'c--', 'd', 'e']})
-            """
+
             val_df= df.iloc[[1]].to_dict(orient="records")
             #print(val_df)
             tamano=df.size
@@ -73,7 +75,8 @@ def seleccionarOpcion():
             #linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
             linkModeloDeDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Modelos\\modeloParking.json"
 
-            diccionarioModeloDeDatos,diccionarioDeDatos=convertirADiccionario(linkModeloDeDatos, linkDatos)
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
 
             visualizarDiccionarioDeDatos(diccionarioModeloDeDatos)
             
@@ -105,6 +108,9 @@ def seleccionarOpcion():
 
         else:
             return render_template('climaMalaga.html',  opcionElegida = opcion)
+
+
+
     elif ciudadElegida["Nombre"] == "Madrid":
 
         #PARKINGS MADRID
@@ -149,6 +155,71 @@ def seleccionarOpcion():
             #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
             return render_template('404.html', opcionElegida = opcion)
 
+
+    elif ciudadElegida["Nombre"] == "Valencia":
+
+        #PARKINGS VALENCIA
+        if opcion=="Parking":
+            
+            #Datos y modelo
+            linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records"
+            linkModeloDeDatos=""
+
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+       
+            #Bucle que reccore la lista de diccionarios de datos y los muestra
+            for dato in diccionarioDeDatos['results']:
+                visualizarDiccionarioDeDatos(dato)
+            
+            #DataFrame del grafo de datos
+            df=pd.DataFrame(diccionarioDeDatos["results"])
+
+            return render_template('parkingValencia.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+
+
+        #BIBLIOTECAS VALENCIA
+        elif opcion=="Puntos de carga":
+
+            #Datos y modelo
+            linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/carregadors-vehicles-electrics-cargadores-vehiculos-electricos/records"
+            linkModeloDeDatos=""
+
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+
+            #Bucle que reccore la lista de diccionarios de datos y los muestra
+            for dato in diccionarioDeDatos['results']:
+                visualizarDiccionarioDeDatos(dato)
+            
+            #DataFrame del grafo de datos
+            df=pd.DataFrame(diccionarioDeDatos["results"])
+            
+            return render_template('puntosDeCargaValencia.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+        
+        #TRANSPORTE VALENCIA
+        elif opcion=="Transporte":
+      
+            #Datos y modelo
+            linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/emt/records"
+            linkModeloDeDatos=""
+
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+
+            #Bucle que reccore la lista de diccionarios de datos y los muestra
+            for dato in diccionarioDeDatos['results']:
+                visualizarDiccionarioDeDatos(dato)
+            
+            #DataFrame del grafo de datos
+            df=pd.DataFrame(diccionarioDeDatos["results"])
+            
+            return render_template('transportePublicoValencia.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+    
+        else:
+            #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
+            return render_template('404.html', opcionElegida = opcion)    
+
     else:
         #Si no encuentra esa ciudad elegida mostrar una vista de NOTFOUND. HACER ESA VISTA
         return render_template('404.html',  opcionElegida = opcion)
@@ -167,7 +238,7 @@ def convertirADiccionario(datos, local):
         else:
             with urllib.request.urlopen(datos) as response:
                 DatosJSON = response.read()
-            diccionarioDatos = json.loads(DatosJSON)   #Falla porque lo coge como String
+            diccionarioDatos = json.loads(DatosJSON)
 
     else:
         diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
