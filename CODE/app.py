@@ -46,7 +46,7 @@ def seleccionarCiudad():
     #pais = str(request.form['Pais']) 
     ciudad = str(request.form['ciudadElegida'])
 
-    global ciudadElegida
+    global ciudadElegida 
 
     if ciudad == "Málaga":
         ciudadElegida=ciudadMalaga
