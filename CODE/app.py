@@ -23,7 +23,17 @@ ciudadValencia = {
     'Opciones' : ['Parking','Puntos de carga','Transporte']
     }
 
-listaCiudades = ['Málaga', 'Madrid', 'Valencia']
+ciudadBadajoz = {
+    'Nombre' : 'Badajoz',
+    'Opciones' : ['Centros culturales']
+    }
+
+ciudadBarcelona = {
+    'Nombre' : 'Barcelona',
+    'Opciones' : ['Parking']
+    }
+
+listaCiudades = ['Málaga', 'Madrid', 'Valencia', 'Badajoz', 'Barcelona']
 
 
 @app.route("/")
@@ -44,6 +54,10 @@ def seleccionarCiudad():
         ciudadElegida=ciudadMadrid
     elif ciudad == "Valencia":
         ciudadElegida = ciudadValencia
+    elif ciudad == "Badajoz":
+        ciudadElegida = ciudadBadajoz
+    elif ciudad == "Barcelona":
+        ciudadElegida = ciudadBarcelona
 
     return render_template('ciudad.html', ciudadElegida = ciudadElegida)
 
@@ -219,6 +233,58 @@ def seleccionarOpcion():
         else:
             #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
             return render_template('404.html', opcionElegida = opcion)    
+    
+
+    elif ciudadElegida["Nombre"] == "Badajoz":
+
+        #CENTROS CULTURALES BADAJOZ
+        if opcion=="Centros culturales":
+            
+            #Datos y modelo
+            linkDatos="https://datosabiertos.dip-badajoz.es/dataset/e94c8e11-faff-4211-a999-3e16800e09ac/resource/7f697576-34e6-4104-96fb-d00656c76734/download/centrosculturales2023.json"
+            linkModeloDeDatos=""
+
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+       
+            #Bucle que reccore la lista de diccionarios de datos y los muestra
+            for dato in diccionarioDeDatos:
+                visualizarDiccionarioDeDatos(dato)
+            
+            #DataFrame del grafo de datos
+            df=pd.DataFrame(diccionarioDeDatos)
+
+            return render_template('centrosCulturalesBadajoz.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+
+        else:
+            #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
+            return render_template('404.html', opcionElegida = opcion)
+
+    elif ciudadElegida["Nombre"] == "Barcelona":
+
+        #PARKING BARCELONA
+        if opcion=="Parking":
+            
+            #Datos y modelo
+            linkDatos="https://opendata-ajuntament.barcelona.cat/data/dataset/68b29854-7c61-4126-9004-83ed792d675c/resource/7a7c8e90-80f2-47a4-bff1-0915166fd409/download"
+            linkModeloDeDatos=""
+
+            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+       
+            #Bucle que reccore la lista de diccionarios de datos y los muestra
+            for parking in diccionarioDeDatos["ParkingList"]:
+                visualizarDiccionarioDeDatos(parking)
+            
+            #DataFrame del grafo de datos
+            df=pd.DataFrame(diccionarioDeDatos["ParkingList"])
+
+            return render_template('parkingBarcelona.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+     
+        else:
+            #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
+            return render_template('404.html', opcionElegida = opcion)
+     
 
     else:
         #Si no encuentra esa ciudad elegida mostrar una vista de NOTFOUND. HACER ESA VISTA
