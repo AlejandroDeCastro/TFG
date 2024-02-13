@@ -10,7 +10,11 @@ def convertir_json(input_file, output_file, mapeo_campos):
         nuevo_item = {}
         for campo_origen, campo_destino in mapeo_campos.items():
             if campo_origen in item:
-                nuevo_item[campo_destino] = item[campo_origen]
+                
+                if campo_destino == 'id':
+                    nuevo_item[campo_destino] = str(item[campo_origen])
+                else:
+                    nuevo_item[campo_destino] = item[campo_origen]
 
         
         #Nuevos campos NGSI que no están el JSON original

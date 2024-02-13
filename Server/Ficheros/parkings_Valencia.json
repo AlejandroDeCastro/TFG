@@ -11,7 +11,7 @@
     "totalSpotNumber": 527, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 70.0
+    "id": "70.0"
   }, 
   {
     "category": {
@@ -25,7 +25,7 @@
     "totalSpotNumber": 399, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 74.0
+    "id": "74.0"
   }, 
   {
     "category": {
@@ -39,7 +39,7 @@
     "totalSpotNumber": 369, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 76.0
+    "id": "76.0"
   }, 
   {
     "category": {
@@ -53,7 +53,7 @@
     "totalSpotNumber": 263, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 11.0
+    "id": "11.0"
   }, 
   {
     "category": {
@@ -67,7 +67,7 @@
     "totalSpotNumber": 617, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 94.0
+    "id": "94.0"
   }, 
   {
     "category": {
@@ -81,7 +81,7 @@
     "totalSpotNumber": 977, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 80.0
+    "id": "80.0"
   }, 
   {
     "category": {
@@ -95,7 +95,7 @@
     "totalSpotNumber": 464, 
     "type": "ParkingGroup", 
     "availableSpotNumber": 354, 
-    "id": 78.0
+    "id": "78.0"
   }, 
   {
     "category": {
@@ -109,7 +109,7 @@
     "totalSpotNumber": 234, 
     "type": "ParkingGroup", 
     "availableSpotNumber": 163, 
-    "id": 5.0
+    "id": "5.0"
   }, 
   {
     "category": {
@@ -123,7 +123,7 @@
     "totalSpotNumber": 270, 
     "type": "ParkingGroup", 
     "availableSpotNumber": 182, 
-    "id": 75.0
+    "id": "75.0"
   }, 
   {
     "category": {
@@ -137,7 +137,7 @@
     "totalSpotNumber": 603, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 12.0
+    "id": "12.0"
   }, 
   {
     "category": {
@@ -151,7 +151,7 @@
     "totalSpotNumber": 373, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 81.0
+    "id": "81.0"
   }, 
   {
     "category": {
@@ -165,7 +165,7 @@
     "totalSpotNumber": 805, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -2, 
-    "id": 3.0
+    "id": "3.0"
   }, 
   {
     "category": {
@@ -179,7 +179,7 @@
     "totalSpotNumber": 380, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -2, 
-    "id": 9.0
+    "id": "9.0"
   }, 
   {
     "category": {
@@ -193,7 +193,7 @@
     "totalSpotNumber": 431, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -2, 
-    "id": 120.0
+    "id": "120.0"
   }, 
   {
     "category": {
@@ -207,7 +207,7 @@
     "totalSpotNumber": 372, 
     "type": "ParkingGroup", 
     "availableSpotNumber": 297, 
-    "id": 6.0
+    "id": "6.0"
   }, 
   {
     "category": {
@@ -221,7 +221,7 @@
     "totalSpotNumber": 391, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -1, 
-    "id": 73.0
+    "id": "73.0"
   }, 
   {
     "category": {
@@ -235,7 +235,7 @@
     "totalSpotNumber": 565, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -2, 
-    "id": 10.0
+    "id": "10.0"
   }, 
   {
     "category": {
@@ -249,7 +249,7 @@
     "totalSpotNumber": 220, 
     "type": "ParkingGroup", 
     "availableSpotNumber": -2, 
-    "id": 1.0
+    "id": "1.0"
   }, 
   {
     "category": {
@@ -263,7 +263,7 @@
     "totalSpotNumber": 192, 
     "type": "ParkingGroup", 
     "availableSpotNumber": 13, 
-    "id": 8.0
+    "id": "8.0"
   }, 
   {
     "category": {
@@ -277,7 +277,7 @@
     "totalSpotNumber": 201, 
     "type": "ParkingGroup", 
     "availableSpotNumber": 142, 
-    "id": 7.0
+    "id": "7.0"
   }, 
   {
     "category": {
@@ -291,7 +291,7 @@
     "totalSpotNumber": 375, 
     "type": "ParkingGroup", 
     "availableSpotNumber": 39, 
-    "id": 79.0
+    "id": "79.0"
   }, 
   {
     "category": {
@@ -305,6 +305,6 @@
     "totalSpotNumber": 173, 
     "type": "ParkingGroup", 
     "availableSpotNumber": 92, 
-    "id": 77.0
+    "id": "77.0"
   }
 ]
