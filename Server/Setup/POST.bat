@@ -1,2 +1,3 @@
-curl -iX POST http://localhost:1026/v2/entities -H Content-Type: application/json -d '{"id": "urn:ngsi-ld:Store:001","type": "Store","address": {"type": "PostalAddress","value": {"streetAddress": "Bornholmer Straße 65","addressRegion": "Berlin","addressLocality": "Prenzlauer Berg","postalCode": "10439"},"metadata": {"verified": {"value": true,"type": "Boolean"}}},"location": {"type": "geo:json","value": {"type": "Point","coordinates": [13.3986, 52.5547]}},"name": {"type": "Text", "value": "Bösebrücke Einkauf"}}'
+@echo off
+curl -X POST -H "Content-Type: application/json" -d @Ficheros/parkings_Valencia.json "http://localhost:1026/v2/entities"
 cmd /k

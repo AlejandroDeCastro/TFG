@@ -1,14 +1,15 @@
-
+@echo off
 :menu
 cls
 echo Menú:
 echo 1. Iniciar
 echo 2. Parar
 echo 3. Comprobar entidades
-echo 4. Instalar
-echo 5. Desinstalar
-echo 6. Salir
-set /p option=Selecciona una opción (1-6):
+echo 4. Transformar y cargar datos
+echo 5. Instalar
+echo 6. Desinstalar
+echo 7. Salir
+set /p option=Selecciona una opción (1-7):
 
 goto opcion_%option%
 
@@ -26,15 +27,17 @@ pause
 goto menu
 
 :opcion_4
-echo Has seleccionado la opción 4
-call Setup/install.bat
+call Setup/POST.bat
 goto menu
 
 :opcion_5
-echo Has seleccionado la opción 5
-call Setup/uninstall.bat
+call Setup/install.bat
 goto menu
 
 :opcion_6
+call Setup/uninstall.bat
+goto menu
+
+:opcion_7
 echo Saliendo...
 exit /b

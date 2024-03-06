@@ -36,6 +36,7 @@ ciudadBarcelona = {
 listaCiudades = ['Málaga', 'Madrid', 'Valencia', 'Badajoz', 'Barcelona']
 
 
+
 @app.route("/")
 def home():
     return render_template('index.html', listaCiudades=listaCiudades)
