@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
-    "\\CODE\\Datos",
-    "\\CODE\\templates"
+    "\\Server",
+    "\\Server\\Ficheros",
+    "\\Server\\Ficheros sin formatear",
+    "\\Server\\Setup"
   ],
   "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false
