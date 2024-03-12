@@ -1,142 +1,142 @@
 [
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 715, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 607, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 397, 
-        "id": "03888a70-bb76-4959-97ac-958981a953c4"
+        "availableSpotNumber": 278, 
+        "id": "ad5b4a6e-cbbb-4bf5-95d4-ad50a7de5640"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 23, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 639, 
+        "type": "ParkingGroup", 
+        "availableSpotNumber": 374, 
+        "id": "1c64afac-c8d9-4ce7-923a-130b7564a7c0"
+    }, 
+    {
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 903, 
+        "type": "ParkingGroup", 
+        "availableSpotNumber": 817, 
+        "id": "f59f55d4-81b1-4ff8-8630-6ac094fd0d26"
+    }, 
+    {
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 637, 
+        "type": "ParkingGroup", 
+        "availableSpotNumber": 480, 
+        "id": "c5e67287-85a5-477c-9ea6-588635512997"
+    }, 
+    {
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 366, 
+        "type": "ParkingGroup", 
+        "availableSpotNumber": 125, 
+        "id": "4cbb50d5-1427-42d6-8f29-c8618c5144a0"
+    }, 
+    {
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 252, 
         "type": "ParkingGroup", 
         "availableSpotNumber": 18, 
-        "id": "9e2033cb-6149-4120-be29-e08a35f955ed"
+        "id": "5fc2acdd-8820-4d85-b7cb-8b32988f1014"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 255, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 348, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 233, 
-        "id": "05d16da7-fda7-40aa-a1e9-4785fdb2bb1f"
+        "availableSpotNumber": 193, 
+        "id": "86093822-4cc7-4851-a7d8-ee2c84559d6f"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 284, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 571, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 145, 
-        "id": "e6e95a82-f0a5-4fd3-bd25-4896a2caa5ae"
+        "availableSpotNumber": 437, 
+        "id": "e462e104-502a-493f-8bb2-27e8062ca32b"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 584, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 757, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 214, 
-        "id": "0012033f-5b85-415a-ae24-39284e72a56d"
+        "availableSpotNumber": 623, 
+        "id": "d307851c-dc67-40d8-957c-000203e2fd14"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 94, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 247, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 31, 
-        "id": "bd00a2fa-9d38-42b2-89cb-2f15b7c59a10"
+        "availableSpotNumber": 106, 
+        "id": "9cd91eac-39b7-4d37-9b88-f4d5f36dbaeb"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 983, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 947, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 75, 
-        "id": "4d5bf068-5499-4ff8-8f8d-3225f7dd63a7"
+        "availableSpotNumber": 384, 
+        "id": "9342f8e1-d177-4cfc-9af1-dd183134131b"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 948, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 84, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 972, 
-        "id": "76e271cb-446a-4c1c-8b8b-3010b0de2dc8"
+        "availableSpotNumber": 18, 
+        "id": "f9660d01-7cd9-4d5c-b23a-6fc5a2654074"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 260, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 850, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 240, 
-        "id": "2609e651-0532-42bd-93e8-116589975ce6"
+        "availableSpotNumber": 799, 
+        "id": "ad4a1999-3c36-4102-99c7-83ef533521ab"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 472, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 443, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 378, 
-        "id": "2c9f6979-4714-49da-b7d4-ec68836fcca1"
+        "availableSpotNumber": 312, 
+        "id": "31981a36-ba5d-4995-a4d6-0ec6f455aed7"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 215, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 277, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 82, 
-        "id": "db875be8-3b02-4ed6-bf5f-fd503c356196"
+        "availableSpotNumber": 112, 
+        "id": "973e2a8a-877b-4ea9-a436-9a18671eaf24"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 485, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 888, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 506, 
-        "id": "aa22e60c-c0bb-4f36-b65a-676a6fa21383"
+        "availableSpotNumber": 330, 
+        "id": "e5177a26-689a-4535-a643-11c5f48ca38f"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 555, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 693, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 57, 
-        "id": "f7ff1341-d8e4-4029-8219-782e91b2f873"
+        "availableSpotNumber": 139, 
+        "id": "94bfe94e-7d03-40ab-bdc1-971d36ff4ad5"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 100, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 287, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 49, 
-        "id": "6720f054-2728-463d-a922-1b62360d6dc6"
+        "availableSpotNumber": 8, 
+        "id": "6fb06b77-be61-4fae-a77d-19d0d58ff87f"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 94, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 566, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 123, 
-        "id": "58e4e6e0-21f1-4e03-89cf-8495d4aa6778"
+        "availableSpotNumber": 179, 
+        "id": "d3278dba-248a-4f3c-95cb-9af93d431a03"
     }, 
     {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 623, 
+        "date": "2024-03-12T03:08:09.696000", 
+        "totalSpotNumber": 689, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 327, 
-        "id": "7130bc7a-53ee-45b9-9ee3-0dd832a5278f"
-    }, 
-    {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 719, 
-        "type": "ParkingGroup", 
-        "availableSpotNumber": 157, 
-        "id": "829938fb-c61c-4ccb-8349-d2130037ba13"
-    }, 
-    {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 151, 
-        "type": "ParkingGroup", 
-        "availableSpotNumber": 3, 
-        "id": "bb75475e-bf5e-4e3b-9b8a-eec54adada6c"
-    }, 
-    {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 158, 
-        "type": "ParkingGroup", 
-        "availableSpotNumber": 10, 
-        "id": "755c5239-39bc-455d-8464-b59b507cb6c1"
-    }, 
-    {
-        "date": "2024-03-12T02:53:10.473000", 
-        "totalSpotNumber": 486, 
-        "type": "ParkingGroup", 
-        "availableSpotNumber": 293, 
-        "id": "25eac0d0-9f30-4ac9-863a-973f57f1702d"
+        "availableSpotNumber": 360, 
+        "id": "7a3e063a-4fcc-42d8-af4e-ffb4be97e7cc"
     }
 ]

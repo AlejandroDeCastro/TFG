@@ -51,7 +51,8 @@ def update_data_list(data_list):
 
 # Función para actualizar los datos en el Context Broker
 def update_data_in_orion(data_list):
-    url = "http://<ip_orion>:1026/v2/entities"  # Reemplazar <ip_orion> con la dirección IP de tu Orion Context Broker
+
+    url = "http://localhost:1026/v2/entities"
 
     headers = {
         "Content-Type": "application/json",
