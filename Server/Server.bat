@@ -14,11 +14,22 @@ set /p option=Selecciona una opción (1-7):
 goto opcion_%option%
 
 :opcion_1
-call Setup/run.bat
+docker start fiware-orion
+docker start mongo-db
+::Espera a que se haya levantado el server para hacer el GET
+timeout 5
+::Timeout sin mostrarlo en consola
+::timeout /T 5 > nul 
+
+::Comprueba que todo haya salido bien
+curl -X GET http://localhost:1026/version
+pause
 goto menu
 
 :opcion_2
-call Setup/stop.bat
+docker stop fiware-orion
+docker stop mongo-db
+pause
 goto menu
 
 :opcion_3
@@ -31,11 +42,17 @@ call Setup/POST.bat
 goto menu
 
 :opcion_5
-call Setup/install.bat
+docker pull mongo:4.2
+docker pull fiware/orion:3.10.1
+docker network create fiware_TFG
+docker run -d --name=mongo-db --network=fiware_TFG --expose=27017 mongo:4.2 --bind_ip_all
+docker run -d --name fiware-orion -h orion --network=fiware_TFG -p 1026:1026  fiware/orion:3.10.1 -dbhost mongo-db
+pause
 goto menu
 
 :opcion_6
 call Setup/uninstall.bat
+pause
 goto menu
 
 :opcion_7

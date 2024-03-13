@@ -18,16 +18,56 @@ def generadorDeDatosAleatorios():
         date_value = datetime.now().isoformat()  # Obtiene la fecha actual en formato ISO 8601
 
         data = {
-            "totalSpotNumber": total_spot_number,
+            
             "type": type_value,
-            "availableSpotNumber": available_spot_number,
             "id": unique_id,
-            "date": date_value
+            "availableSpotNumber": {
+                "value": available_spot_number,
+                "type": "Int",
+                "metadata": {
+                    "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                    }
+                }
+            },
+            "totalSpotNumber": {
+                "value": total_spot_number,
+                "type": "Int",
+                "metadata": {
+                    "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                    }
+                }
+            }
+            #"availableSpotNumber": available_spot_number,
+            #"totalSpotNumber": total_spot_number,
+            #"date": date_value
         }
+
+        crear_registro(data)
 
         data_list.append(data)
 
     return data_list
+
+def crear_registro(data):
+    url = "http://localhost:1026/v2/entities"
+
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+
+    payload = json.dumps(data)
+    response = requests.post(url, headers=headers, data=payload)
+
+    if response.status_code == 201:
+        print("Datos creados en Orion:", data)
+    else:
+        print("Error al crear datos en Orion:", response.text)
+        print(response.status_code)
 
 def update_data_list(data_list):
     
@@ -44,7 +84,7 @@ def update_data_list(data_list):
         
         #Actualiza el json
         save_json_to_file(data_list, 'parkingsValenciaSimulado.json')
-        update_data_in_orion(data_list)
+        #update_data_in_orion(data_list)
 
         # Espera 5 segundos antes de volver a actualizar los datos
         time.sleep(30)

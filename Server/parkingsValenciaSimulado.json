@@ -1,142 +1,482 @@
 [
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 607, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 967, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 278, 
-        "id": "ad5b4a6e-cbbb-4bf5-95d4-ad50a7de5640"
+        "id": "62ae864c-d300-4fb6-acc5-a213234e24c9", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 421, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 639, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 652, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 374, 
-        "id": "1c64afac-c8d9-4ce7-923a-130b7564a7c0"
+        "id": "ddd99636-91f9-432c-bbb7-04f31ce33bad", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 258, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 903, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 992, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 817, 
-        "id": "f59f55d4-81b1-4ff8-8630-6ac094fd0d26"
+        "id": "78f57dd1-977f-4a82-86c6-308af0a21eeb", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 884, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 637, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 220, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 480, 
-        "id": "c5e67287-85a5-477c-9ea6-588635512997"
+        "id": "2c454b1a-a1e6-490e-aff7-f2eed4e2936b", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 200, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 366, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 930, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 125, 
-        "id": "4cbb50d5-1427-42d6-8f29-c8618c5144a0"
+        "id": "11283c74-cd43-4ec7-b332-36de87044472", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 778, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 252, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 698, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 18, 
-        "id": "5fc2acdd-8820-4d85-b7cb-8b32988f1014"
+        "id": "ecc04741-7553-4fed-8458-7ce937950e10", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 143, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 348, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 298, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 193, 
-        "id": "86093822-4cc7-4851-a7d8-ee2c84559d6f"
+        "id": "442f7d57-bdaf-4d63-aa7c-9f6de1f7140f", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 177, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 571, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 239, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 437, 
-        "id": "e462e104-502a-493f-8bb2-27e8062ca32b"
+        "id": "82574014-fb02-4a52-8ce9-3a05b9704714", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 42, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 757, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 452, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 623, 
-        "id": "d307851c-dc67-40d8-957c-000203e2fd14"
+        "id": "afad2523-841f-4c22-a831-82b0e8b92aab", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 381, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 247, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 362, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 106, 
-        "id": "9cd91eac-39b7-4d37-9b88-f4d5f36dbaeb"
+        "id": "053ffcb4-eb03-4861-b324-3322bfb5e598", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 9, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 947, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 162, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 384, 
-        "id": "9342f8e1-d177-4cfc-9af1-dd183134131b"
+        "id": "0fb6654f-f6ec-42fa-8588-ca6b130e2496", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 77, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 84, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 81, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 18, 
-        "id": "f9660d01-7cd9-4d5c-b23a-6fc5a2654074"
+        "id": "ec257c21-5b93-4fd2-b612-29d3c339a78b", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 27, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 850, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 222, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 799, 
-        "id": "ad4a1999-3c36-4102-99c7-83ef533521ab"
+        "id": "76889994-66eb-4f6b-b864-0c9af94b866f", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 154, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 443, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 612, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 312, 
-        "id": "31981a36-ba5d-4995-a4d6-0ec6f455aed7"
+        "id": "39b94990-4105-458d-af97-ac8183208615", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 210, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 277, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 891, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 112, 
-        "id": "973e2a8a-877b-4ea9-a436-9a18671eaf24"
+        "id": "b586a354-106a-497d-8bc8-0bf16353b1ee", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 784, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 888, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 880, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 330, 
-        "id": "e5177a26-689a-4535-a643-11c5f48ca38f"
+        "id": "14a1710f-bd8f-4df3-8472-68a12ed3e307", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 698, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 693, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 114, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 139, 
-        "id": "94bfe94e-7d03-40ab-bdc1-971d36ff4ad5"
+        "id": "538b580c-1d51-4ab1-8ca3-dd5f6554e160", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 66, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 287, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 455, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 8, 
-        "id": "6fb06b77-be61-4fae-a77d-19d0d58ff87f"
+        "id": "68caac1f-5958-4e32-ac4e-885e3f4075c1", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 284, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 566, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 377, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 179, 
-        "id": "d3278dba-248a-4f3c-95cb-9af93d431a03"
+        "id": "72cac1c5-269e-440e-a299-4c9844afe838", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 290, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }, 
     {
-        "date": "2024-03-12T03:08:09.696000", 
-        "totalSpotNumber": 689, 
+        "totalSpotNumber": {
+            "type": "Int", 
+            "value": 420, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }, 
         "type": "ParkingGroup", 
-        "availableSpotNumber": 360, 
-        "id": "7a3e063a-4fcc-42d8-af4e-ffb4be97e7cc"
+        "id": "1f3979e0-761b-4749-ac14-aeefe4b0f133", 
+        "availableSpotNumber": {
+            "type": "Int", 
+            "value": 126, 
+            "metadata": {
+                "unit": {
+                    "type": "String", 
+                    "value": "Plazas"
+                }
+            }
+        }
     }
 ]
