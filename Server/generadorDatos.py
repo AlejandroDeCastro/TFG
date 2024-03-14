@@ -40,6 +40,10 @@ def generadorDeDatosAleatorios():
                     "type": "String"
                     }
                 }
+            },        
+            "date": {
+                "value": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+                "type": "DateTime"
             }
             #"availableSpotNumber": available_spot_number,
             #"totalSpotNumber": total_spot_number,
@@ -74,17 +78,19 @@ def update_data_list(data_list):
     while True:
         # Actualiza la fecha y plazas disponibles en cada diccionario de la lista
         for data in data_list:
-            data['date'] = datetime.now().isoformat()  # Actualiza la fecha a la actual
+            data['date']['value'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")  # Actualiza la fecha a la actual
+
             # Incrementa o decrementa aleatoriamente las plazas disponibles
-            data['availableSpotNumber'] += random.randint(-10, 10)
+            data['availableSpotNumber']['value'] += random.randint(-10, 10)
 
             # Asegura que las plazas disponibles no sean negativas
-            if data['availableSpotNumber'] < 0:
-                data['availableSpotNumber'] = 0
+            if data['availableSpotNumber']['value'] < 0:
+                data['availableSpotNumber']['value'] = 0
         
         #Actualiza el json
-        save_json_to_file(data_list, 'parkingsValenciaSimulado.json')
-        #update_data_in_orion(data_list)
+        nombreFichero="Ficheros/parkings_Valencia_"+datetime.now().strftime("%Y-%m-%d_%H-%M-%S")+".json"
+        save_json_to_file(data_list, nombreFichero)
+        update_data_in_orion(data_list)
 
         # Espera 5 segundos antes de volver a actualizar los datos
         time.sleep(30)
@@ -92,19 +98,39 @@ def update_data_list(data_list):
 # Función para actualizar los datos en el Context Broker
 def update_data_in_orion(data_list):
 
-    url = "http://localhost:1026/v2/entities"
-
-    headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    }
+    
+    context_broker_url = "http://localhost:1026"
 
     for data in data_list:
-        payload = json.dumps(data)
-        response = requests.post(url, headers=headers, data=payload)
+        id = data['id']
+        url_actualizacion = "{}/v2/entities/{}/attrs".format(context_broker_url, id)
+        headers = {"Content-Type": "application/json"}
+    
+        print(id)
+        print(url_actualizacion)
 
-        if response.status_code == 200:
-            print("Datos actualizados en Orion:", data)
+        datosActualizar = {
+            "availableSpotNumber": {
+                "value": data['availableSpotNumber']['value'],
+                "type": "Int",
+                "metadata": {
+                        "unit": {
+                            "value": "Plazas",
+                            "type": "String"
+                            }
+                    }   
+                },
+                "date": {
+                    "value": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+                    "type": "DateTime"
+                }
+            }
+
+    
+        response = requests.patch(url_actualizacion, json=datosActualizar, headers=headers)
+
+        if response.status_code == 204:
+            print("Datos actualizados en Orion:", datosActualizar)
         else:
             print("Error al actualizar datos en Orion:", response.text)
 
@@ -114,7 +140,8 @@ def save_json_to_file(data_list, fichero):
 
 # Genera datos aleatorios y guarda en un archivo JSON
 listaDeDatosAleatorios = generadorDeDatosAleatorios()
-save_json_to_file(listaDeDatosAleatorios, 'parkingsValenciaSimulado.json')
+nombreFichero="Ficheros/parkings_Valencia_"+datetime.now().strftime("%Y-%m-%d_%H-%M-%S")+".json"
+save_json_to_file(listaDeDatosAleatorios, nombreFichero)
 
 # Inicia un hilo para actualizar periódicamente los datos en segundo plano
 update_thread = threading.Thread(target=update_data_list, args=(listaDeDatosAleatorios,))
