@@ -51,7 +51,9 @@ pause
 goto menu
 
 :opcion_6
-call Setup/uninstall.bat
+docker rm fiware-orion
+docker rm mongo-db
+docker network rm fiware_TFG
 pause
 goto menu
 

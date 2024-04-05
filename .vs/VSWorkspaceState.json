@@ -2,11 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
+    "\\CODE\\static\\img",
     "\\Server",
-    "\\Server\\Ficheros",
-    "\\Server\\Ficheros sin formatear",
-    "\\Server\\Setup"
+    "\\Server\\Ficheros"
   ],
-  "SelectedNode": "\\Server\\generadorDatos.py",
+  "SelectedNode": "\\CODE\\SmartCitiesDash.py",
   "PreviewInSolutionExplorer": false
 }

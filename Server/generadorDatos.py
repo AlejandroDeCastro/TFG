@@ -92,7 +92,7 @@ def update_data_list(data_list):
         save_json_to_file(data_list, nombreFichero)
         update_data_in_orion(data_list)
 
-        # Espera 5 segundos antes de volver a actualizar los datos
+        # Espera 30 segundos antes de volver a actualizar los datos
         time.sleep(30)
 
 # Función para actualizar los datos en el Context Broker
