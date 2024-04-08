@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, url_for, redirect
 from flask.helpers import url_for
-import urllib.request
+from dash.dependencies import Input, Output
+import dash
+import dash_core_components as dcc 
+import dash_html_components as html
 import pandas as pd
+import plotly.express as px
+import urllib.request
 import json
 
-app = Flask(__name__)
+server = Flask(__name__)
+# Inicializar la aplicación Dash
+vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/dash/')
 
 
 ciudadMalaga = {
@@ -37,11 +44,11 @@ listaCiudades = ['Málaga', 'Madrid', 'Valencia', 'Badajoz', 'Barcelona']
 
 
 
-@app.route("/")
+@server.route("/")
 def home():
     return render_template('index.html', listaCiudades=listaCiudades)
 
-@app.route("/ciudad", methods=['POST'])
+@server.route("/ciudad", methods=['POST'])
 def seleccionarCiudad():  
 
     #pais = str(request.form['Pais']) 
@@ -63,7 +70,7 @@ def seleccionarCiudad():
     return render_template('ciudad.html', ciudadElegida = ciudadElegida)
 
 
-@app.route("/Muestra", methods=("POST", "GET"))
+@server.route("/Muestra", methods=("POST", "GET"))
 def seleccionarOpcion():
 
     #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
@@ -176,21 +183,43 @@ def seleccionarOpcion():
         #PARKINGS VALENCIA
         if opcion=="Parking":
             
-            #Datos y modelo
-            linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records"
-            linkModeloDeDatos=""
+            vistaParkingValencia.layout = html.Div([
+    
+                #Cabecero con foto
+                html.Div([
+                    html.H1('Parkings Valencia'),
+                    html.Img(src=r"C:\Users\alexd\Desktop\TFG\PROGRAM\CODE\static\img\ParkingValencia.jpg")
+                    ], className = 'banner'),
 
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
-            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
-       
-            #Bucle que reccore la lista de diccionarios de datos y los muestra
-            for dato in diccionarioDeDatos['results']:
-                visualizarDiccionarioDeDatos(dato)
-            
-            #DataFrame del grafo de datos
-            df=pd.DataFrame(diccionarioDeDatos["results"])
+                #Selector de dato a mostrar
+                html.Div([
+                    html.Div([
+                        html.P('Selecciona el dato', className='fix_label', style={'color':'black', 'margin-top':'2px'}),
+                        dcc.RadioItems(id = 'plazas-radioitems', 
+                                       labelStyle = {'display': 'inline-block'},
+                                       options = [
+                                           {'label':'Plazas libres', 'value': 'plazaslibr'},
+                                           {'label':'Plazas totales', 'value': 'plazastota'}
+                                       ], value = 'plazaslibr', 
+                                       style={'text-aling':'center', 'color':'black'}, className='dcc_compon')
+                    ], className= 'create_container2 five columns', style = {'margin-bottom':'20px'}),
+                ], className= 'row flex-display'),
 
-            return render_template('parkingValencia.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+                #Gráficos
+                html.Div([
+                    html.Div([
+                        dcc.Graph(id = 'var_graph', figure = {})    
+                    ], className= 'create_container2 eight columns'),
+
+                    html.Div([
+                        dcc.Graph(id = 'pie_graph', figure = {})    
+                    ], className= 'create_container2 five columns'),
+                ], className='row flex-display'),
+
+            ], id ='mainContainer', style={'display': 'flex', 'flex-direction':'column'})
+
+            return redirect('/dash/')
+            #return render_template('parkingValencia.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
 
 
         #BIBLIOTECAS VALENCIA
@@ -331,6 +360,64 @@ def pagina_no_encontrada(error):
     #return render_template('404.html'), 404
     return redirect(url_for('home'))
 
+
+
+#Puente entre el gráfico y el componente para generar la interacción
+@vistaParkingValencia.callback(
+    Output('var_graph', component_property= 'figure'),
+    [Input('plazas-radioitems', component_property='value')])
+def updateGraph_var(value):
+
+    #Datos
+    linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records"
+    diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+         
+    #DataFrame del grafo de datos
+    df=pd.DataFrame(diccionarioDeDatos["results"])
+    print(df)
+
+    if value == 'plazaslibr':
+        fig = px.bar(
+            data_frame=df,
+            x = 'nombre',
+            y = 'plazaslibr'
+        )
+    else:
+        fig = px.bar(
+            data_frame=df,
+            x = 'nombre',
+            y = 'plazastota'
+        )
+    return fig
+
+#Puente entre el gráfico y el componente para generar la interacción
+@vistaParkingValencia.callback(
+    Output('pie_graph', component_property= 'figure'),
+    [Input('plazas-radioitems', component_property='value')])
+def updateGraph_pie(value):
+
+    #Datos
+    linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records"
+    diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+         
+    #DataFrame del grafo de datos
+    df=pd.DataFrame(diccionarioDeDatos["results"])
+
+    if value == 'plazaslibr':
+        fig2 = px.pie(
+            data_frame=df,
+            names='nombre',
+            values='plazaslibr'
+        )
+    else:
+        fig2 = px.pie(
+            data_frame=df,
+            names='nombre',
+            values='plazastota'
+        )
+    return fig2
+
+
 if __name__ == "__main__":
-    app.register_error_handler(404, pagina_no_encontrada)
-    app.run()
+    server.register_error_handler(404, pagina_no_encontrada)
+    server.run()
