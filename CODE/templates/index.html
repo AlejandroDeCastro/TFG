@@ -6,6 +6,9 @@
 <h1 align="center">SmartCities</h1>
 
 <div class="login">
+    <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
+    
+    <a class="btn-primary" href="{{ url_for('logout') }}">Cerrar Sesión</a>
     <p>Debe seleccionar la cuidad</p>
     HAY LAS SIGUIENTES CIUDADES:
     <ul>

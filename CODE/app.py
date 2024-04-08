@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, url_for, redirect
-from flask.helpers import url_for
+from flask import Flask, render_template, request, url_for, redirect, url_for, flash
 from dash.dependencies import Input, Output
+from flask_mysqldb import MySQL
+from importlib_metadata import requires
+from models.ModeloUsuario import ModeloUsuario
+from models.entidades.Usuario import Usuario
+from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_wtf.csrf import CSRFProtect
 import dash
 import dash_core_components as dcc 
 import dash_html_components as html
@@ -9,11 +14,32 @@ import pandas as pd
 import plotly.express as px
 import urllib.request
 import json
+import mysql.connector
 
 server = Flask(__name__)
+server.secret_key = '$$'
+
 # Inicializar la aplicación Dash
 vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/dash/')
+vistaParkingValencia.layout = html.Div([html.H1('BB')])
 
+#Protección CSRF 
+#csrf = CSRFProtect()
+
+# Establece la conexión a la base de datos
+db = mysql.connector.connect(
+    host="localhost",
+    user='root',
+    password='',
+    database='tfg'
+)
+
+#Gestor de autentificaciones
+login_manager=LoginManager(server)
+
+@login_manager.user_loader
+def load_user(id):
+    return ModeloUsuario.get_by_id(db,id)
 
 ciudadMalaga = {
     'Nombre' : 'Málaga',
@@ -43,12 +69,47 @@ ciudadBarcelona = {
 listaCiudades = ['Málaga', 'Madrid', 'Valencia', 'Badajoz', 'Barcelona']
 
 
-
 @server.route("/")
+def index():
+    return redirect(url_for('login'))
+
+@server.route("/login", methods=['GET','POST'])
+def login():
+    if request.method=='POST':
+        usuario = Usuario(0, request.form['username'], request.form['password'])
+        usuarioLogueado = ModeloUsuario.login(db,usuario)
+
+        #Comprueba si existe el usuario
+        if usuarioLogueado != None:
+
+            #Comprueba si la contraseña introduciada es correcta
+            if usuarioLogueado.contraseña:
+                login_user(usuarioLogueado)
+                return redirect(url_for('home'))
+            else:
+                flash('Contraseña incorrecta')
+                return render_template('auth/login.html')
+
+        else:
+            flash("Usuario no encontrado")
+            return render_template('auth/login.html')
+
+    else:
+        return render_template('auth/login.html')
+
+
+@server.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+@server.route("/home")
+@login_required
 def home():
     return render_template('index.html', listaCiudades=listaCiudades)
 
 @server.route("/ciudad", methods=['POST'])
+@login_required
 def seleccionarCiudad():  
 
     #pais = str(request.form['Pais']) 
@@ -71,6 +132,7 @@ def seleccionarCiudad():
 
 
 @server.route("/Muestra", methods=("POST", "GET"))
+@login_required
 def seleccionarOpcion():
 
     #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
@@ -184,11 +246,11 @@ def seleccionarOpcion():
         if opcion=="Parking":
             
             vistaParkingValencia.layout = html.Div([
-    
+
                 #Cabecero con foto
                 html.Div([
                     html.H1('Parkings Valencia'),
-                    html.Img(src=r"C:\Users\alexd\Desktop\TFG\PROGRAM\CODE\static\img\ParkingValencia.jpg")
+                    html.Img(src='static/img/Cabecero1.jpg')
                     ], className = 'banner'),
 
                 #Selector de dato a mostrar
@@ -358,8 +420,12 @@ def visualizarDiccionarioDeDatos(diccionario):
 def pagina_no_encontrada(error):
     #2 opciones, usar la plantilla 404 o redirigir al inicio
     #return render_template('404.html'), 404
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
+def registro_requerido(error):
+    #2 opciones, usar la plantilla 401 o redirigir al inicio
+    #return render_template('401.html'), 401
+    return redirect(url_for('login'))
 
 
 #Puente entre el gráfico y el componente para generar la interacción
@@ -419,5 +485,7 @@ def updateGraph_pie(value):
 
 
 if __name__ == "__main__":
+    #csrf.init_app(server)
     server.register_error_handler(404, pagina_no_encontrada)
+    server.register_error_handler(401, registro_requerido)
     server.run()
