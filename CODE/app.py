@@ -5,7 +5,7 @@ from flask_mysqldb import MySQL
 from importlib_metadata import requires
 from models.ModeloUsuario import ModeloUsuario
 from models.entidades.Usuario import Usuario
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf.csrf import CSRFProtect
 import dash
 import dash_core_components as dcc 
@@ -14,7 +14,8 @@ import pandas as pd
 import plotly.express as px
 import urllib.request
 import json
-import mysql.connector
+import database as db
+
 
 server = Flask(__name__)
 server.secret_key = '$$'
@@ -26,20 +27,12 @@ vistaParkingValencia.layout = html.Div([html.H1('BB')])
 #Protección CSRF 
 #csrf = CSRFProtect()
 
-# Establece la conexión a la base de datos
-db = mysql.connector.connect(
-    host="localhost",
-    user='root',
-    password='',
-    database='tfg'
-)
-
 #Gestor de autentificaciones
 login_manager=LoginManager(server)
 
 @login_manager.user_loader
 def load_user(id):
-    return ModeloUsuario.get_by_id(db,id)
+    return ModeloUsuario.get_by_id(db.database,id)
 
 ciudadMalaga = {
     'Nombre' : 'Málaga',
@@ -77,7 +70,7 @@ def index():
 def login():
     if request.method=='POST':
         usuario = Usuario(0, request.form['username'], request.form['password'])
-        usuarioLogueado = ModeloUsuario.login(db,usuario)
+        usuarioLogueado = ModeloUsuario.login(db.database,usuario)
 
         #Comprueba si existe el usuario
         if usuarioLogueado != None:
@@ -99,6 +92,7 @@ def login():
 
 
 @server.route("/logout")
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
@@ -106,7 +100,20 @@ def logout():
 @server.route("/home")
 @login_required
 def home():
-    return render_template('index.html', listaCiudades=listaCiudades)
+    print(current_user.records)
+    if current_user.records == "":
+        lista_ciudades_caracteristicas = []
+    else:
+        lista_ciudades_caracteristicas = [linea.split(' - ') for linea in current_user.records.split('\n')]
+    return render_template('index.html', listaCiudades=listaCiudades, lista_ciudades_caracteristicas = lista_ciudades_caracteristicas)
+
+
+@server.route("/editarRecords")
+@login_required
+def editarRecords():
+    registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
+    return render_template('UserManager/editarRecords.html', registros = registros)
+
 
 @server.route("/ciudad", methods=['POST'])
 @login_required

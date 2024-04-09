@@ -7,7 +7,15 @@
 
 <div class="login">
     <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
-    
+    <h2>Lista de Ciudades y Características</h2>
+    {% if lista_ciudades_caracteristicas %}
+    <ul>
+        {% for ciudad, caracteristica in lista_ciudades_caracteristicas %}
+        <li><strong>{{ ciudad }}</strong>: {{ caracteristica }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <a class="btn-primary" href="{{ url_for('editarRecords') }}">Editar</a>
     <a class="btn-primary" href="{{ url_for('logout') }}">Cerrar Sesión</a>
     <p>Debe seleccionar la cuidad</p>
     HAY LAS SIGUIENTES CIUDADES:

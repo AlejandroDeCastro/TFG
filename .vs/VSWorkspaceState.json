@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
-    "\\Server",
-    "\\Server\\Ficheros"
+    "\\CODE\\models\\entidades",
+    "\\CODE\\static\\css",
+    "\\CODE\\static\\img"
   ],
-  "SelectedNode": "\\CODE\\SmartCitiesDash.py",
+  "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false
 }
