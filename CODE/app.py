@@ -15,6 +15,8 @@ import plotly.express as px
 import urllib.request
 import json
 import database as db
+from multiprocessing import Process
+from gestor import iniciar_demonios
 
 
 server = Flask(__name__)
@@ -504,4 +506,10 @@ if __name__ == "__main__":
     #csrf.init_app(server)
     server.register_error_handler(404, pagina_no_encontrada)
     server.register_error_handler(401, registro_requerido)
+    
+    proceso = Process(target= iniciar_demonios)
+    proceso.daemon=True
+    proceso.start()
+    iniciar_demonios(db)
     server.run()
+    

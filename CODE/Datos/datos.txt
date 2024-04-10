@@ -1,0 +1,3 @@
+Valencia - Parkings - https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records?limit=29
+Málaga - Bibliotecas - https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv
+Valencia - Puntos de carga - https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/carregadors-vehicles-electrics-cargadores-vehiculos-electricos/records
