@@ -17,7 +17,7 @@
     <div class="container">
         <div class="card shadow">
             <div class="card-body">
-                <form action="" method="POST">
+                <form action="/guardarRecord" method="POST">
                     <div class="row mb-3">
                         <div class="col">
                             <label>Ciudad</label>
@@ -38,21 +38,25 @@
 
                 <table class="table table-bordered">
                     <thead>
-                        <th scope="col">Ciudad</th>
-                        <th scope="col">Característica</th>
-                        <th scope="col">Eliminar</th>
+                        <tr>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Característica</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
                     </thead>
-                </table>
-                <tbody>
-                    {% for ciudad, caracteristica in registros.items() %}
-                    <tr>
-                        <td>{{ ciudad }}</td>
-                        <td>{{ caracteristica }}</td>
-                        <td><a href="#" class="btn btn-danger btn-sm">Eliminar</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
 
+                    <tbody>
+                        {% for ciudad in registros.keys() %}
+                        {% for caracteristica in registros[ciudad] %}
+                        <tr>
+                            <td>{{ ciudad }}</td>
+                            <td>{{ caracteristica }}</td>
+                            <td><a href="{{url_for('eliminarRecord', ciudad = ciudad, caracteristica = caracteristica)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
 
             </div>
         </div>

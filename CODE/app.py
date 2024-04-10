@@ -100,12 +100,8 @@ def logout():
 @server.route("/home")
 @login_required
 def home():
-    print(current_user.records)
-    if current_user.records == "":
-        lista_ciudades_caracteristicas = []
-    else:
-        lista_ciudades_caracteristicas = [linea.split(' - ') for linea in current_user.records.split('\n')]
-    return render_template('index.html', listaCiudades=listaCiudades, lista_ciudades_caracteristicas = lista_ciudades_caracteristicas)
+    registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
+    return render_template('index.html', listaCiudades=listaCiudades, registros = registros)
 
 
 @server.route("/editarRecords")
@@ -114,6 +110,19 @@ def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
     return render_template('UserManager/editarRecords.html', registros = registros)
 
+@server.route("/guardarRecord", methods=['POST'])
+@login_required
+def guardarRecord():
+    ciudad = request.form['ciudad']
+    característica = request.form['característica']
+    ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica)
+    return redirect(url_for('editarRecords'))
+
+@server.route("/eliminarRecord/<string:ciudad>/<string:caracteristica>")
+@login_required
+def eliminarRecord(ciudad, caracteristica):
+    ModeloUsuario.delete_registro(db.database, current_user.id, ciudad, caracteristica)
+    return redirect(url_for('editarRecords'))
 
 @server.route("/ciudad", methods=['POST'])
 @login_required
@@ -442,7 +451,7 @@ def registro_requerido(error):
 def updateGraph_var(value):
 
     #Datos
-    linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records"
+    linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records?limit=29"
     diccionarioDeDatos=convertirADiccionario(linkDatos, False)
          
     #DataFrame del grafo de datos
@@ -470,7 +479,7 @@ def updateGraph_var(value):
 def updateGraph_pie(value):
 
     #Datos
-    linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records"
+    linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records?limit=29"
     diccionarioDeDatos=convertirADiccionario(linkDatos, False)
          
     #DataFrame del grafo de datos

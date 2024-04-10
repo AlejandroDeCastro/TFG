@@ -1,3 +1,4 @@
+from flask.helpers import redirect
 from .entidades.Usuario import Usuario
 
 class ModeloUsuario():
@@ -74,7 +75,7 @@ class ModeloUsuario():
             rows=cursor.fetchall()
             registros={}
 
-            #Si hay se encuentra un usuario con ese nombre,  coge los datos y comprueba la contraseña
+            #Si encuentra registros para ese usuario los guarda en un diccionario
             if rows != None:
                 # Itera sobre el array y añade los datos al diccionario
                 for ciudad, caracteristica in rows:
@@ -82,8 +83,6 @@ class ModeloUsuario():
                         registros[ciudad] = []
                     registros[ciudad].append(caracteristica)
 
-                print("VAMOS A VER QUE TAL")
-                print(registros)
                 cursor.close()
                 return registros
             else:
@@ -92,3 +91,38 @@ class ModeloUsuario():
 
         except Exception as ex:
             raise Exception(ex)
+
+    @classmethod
+    def set_registro(self, db, id_usuario, ciudad, característica):
+        try:
+            #Crea el cursor
+            cursor = db.cursor()
+
+            #Insercción que se hace en la base de datos. 
+            insercción="INSERT INTO registros (id_usuario, Ciudad, Característica) VALUES (%s, %s, %s)"
+            data = (id_usuario, ciudad, característica)
+
+            #Ejecución de la insercción
+            cursor.execute(insercción, data)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
+    def delete_registro(self, db, id_usuario, ciudad, característica):
+        try:
+            #Crea el cursor
+            cursor = db.cursor()
+
+            #DELETE que se hace en la base de datos. 
+            delete="DELETE FROM registros WHERE id_usuario=%s AND Ciudad=%s AND Característica=%s"
+            data = (id_usuario, ciudad, característica)
+
+            #Ejecución de la insercción
+            cursor.execute(delete, data)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex)
+

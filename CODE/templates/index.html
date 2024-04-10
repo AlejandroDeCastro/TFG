@@ -8,9 +8,9 @@
 <div class="login">
     <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
     <h2>Lista de Ciudades y Características</h2>
-    {% if lista_ciudades_caracteristicas %}
+    {% if registros %}
     <ul>
-        {% for ciudad, caracteristica in lista_ciudades_caracteristicas %}
+        {% for ciudad, caracteristica in registros.items() %}
         <li><strong>{{ ciudad }}</strong>: {{ caracteristica }}</li>
         {% endfor %}
     </ul>
