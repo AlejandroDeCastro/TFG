@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
-    "\\CODE\\Datos",
     "\\CODE\\models",
     "\\CODE\\models\\entidades"
   ],
-  "SelectedNode": "\\CODE\\app.py",
+  "SelectedNode": "\\CODE\\gestor.py",
   "PreviewInSolutionExplorer": false
 }

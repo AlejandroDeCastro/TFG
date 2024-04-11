@@ -2,50 +2,108 @@
 
 {% block title %}Menu{% endblock %}
 
+{% block head %}
+<style>
+    /* Estilo del cuadro izquierdo */
+    .cuadro-izquierdo {
+        width: 50%;
+        height: 100vh; /* Altura total de la ventana del navegador */
+        background-color: lavender; /* Color de fondo lavanda */
+        float: left; /* Alineación a la izquierda */
+    }
+
+    /* Estilo del cuadro derecho */
+    .cuadro-derecho {
+        width: 50%;
+        height: 100vh; /* Altura total de la ventana del navegador */
+        background-color: lavender; /* Color de fondo lavanda */
+        float: right; /* Alineación a la derecha */
+    }
+
+    /* Estilos adicionales para el contenido dentro de los cuadros */
+    .contenido {
+        color: black; /* Color del texto */
+        text-align: center; /* Alineación centrada del texto */
+        padding-top: 40vh; /* Espaciado superior para centrar verticalmente */
+        font-size: 24px; /* Tamaño de fuente */
+    }
+</style>
+{% endblock %}
+
+{% block navbar %}
+<nav>
+    <label class="logo">SmartCities</label>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+        <i class="fa fa-bars"></i>
+    </label>
+    <ul>
+        <li><a class="active">Home</a></li>
+        <li><a href="{{ url_for('consultarRecords') }}">Consultar Registros</a></li>
+        <li><a href="{{ url_for('editarRecords') }}">Editar Registros</a></li>
+        <li><a>Sobre nosotros</a></li>
+        <li><a href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
 {% block body %}
-<h1 align="center">SmartCities</h1>
 
-<div class="login">
-    <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
-    <h2>Lista de Ciudades y Características</h2>
-    {% if registros %}
-    <ul>
-        {% for ciudad, caracteristica in registros.items() %}
-        <li><strong>{{ ciudad }}</strong>: {{ caracteristica }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <a class="btn-primary" href="{{ url_for('editarRecords') }}">Editar</a>
-    <a class="btn-primary" href="{{ url_for('logout') }}">Cerrar Sesión</a>
-    <p>Debe seleccionar la cuidad</p>
-    HAY LAS SIGUIENTES CIUDADES:
-    <ul>
-        {% for ciudad in listaCiudades %}
-        <li>{{ ciudad }}</li>
-        {% endfor %}
-    </ul>
+<div>
 
-    <form action="{{url_for('seleccionarCiudad')}}" method="post" accept-charset="UTF-8">
+    <!--HISTÓRICO-->
+    <div class="cuadro-izquierdo">
+        <div class="contenido">
+            <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
+            <h2>Lista de Ciudades y Características</h2>
+            {% if registros %}
+            <ul>
+                {% for ciudad, caracteristica in registros.items() %}
+                <li><strong>{{ ciudad }}</strong>: {{ caracteristica }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <a class="btn-primary" href="{{ url_for('consultarRecords') }}">Consultar</a>
+            <a class="btn-primary" href="{{ url_for('editarRecords') }}">Editar</a>
+            <a class="btn-primary" href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </div>
+    </div>
+
+        <!--DATOS EN TIEMPO REAL-->
+    <div class="cuadro-derecho">
+        <div class="contenido">
+            <p>Debe seleccionar la cuidad</p>
+            HAY LAS SIGUIENTES CIUDADES:
+            <ul>
+                {% for ciudad in listaCiudades %}
+                <li>{{ ciudad }}</li>
+                {% endfor %}
+            </ul>
+
+            <form action="{{url_for('seleccionarCiudad')}}" method="post" accept-charset="UTF-8">
 
 
-        <div class="container">
-            <p>LISTA DE CIUDADES</p>
-            <div class="row">
-                <label>Seleccionar Ciudad</label>
-                <select name="ciudadElegida" data-live-search="true" class="form-control" title="Seleccionar ciudad">
-                    {% for ciudad in listaCiudades %}
-                    <option value="{{ ciudad }}">{{ ciudad }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <div class="container">
+                    <p>LISTA DE CIUDADES</p>
+                    <div class="row">
+                        <label>Seleccionar Ciudad</label>
+                        <select name="ciudadElegida" data-live-search="true" class="form-control" title="Seleccionar ciudad">
+                            {% for ciudad in listaCiudades %}
+                            <option value="{{ ciudad }}">{{ ciudad }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
+                </div>
+
+                <!--<input type="text" name="Pais" placeholder="Seleccione País" required="required">-->
+                <!--<input type="text" name="Ciudad" placeholder="Seleccione Ciudad" required="required">-->
+                <button type="submit" class="btn btn-primary btn-block btn-large">CONSULTAR</button>
+
+            </form>
         </div>
 
-        <!--<input type="text" name="Pais" placeholder="Seleccione País" required="required">-->
-        <!--<input type="text" name="Ciudad" placeholder="Seleccione Ciudad" required="required">-->
-        <button type="submit" class="btn btn-primary btn-block btn-large">CONSULTAR</button>
-
-    </form>
+    </div>
 </div>
 
 {% endblock %}

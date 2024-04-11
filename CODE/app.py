@@ -112,6 +112,14 @@ def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
     return render_template('UserManager/editarRecords.html', registros = registros)
 
+
+@server.route("/consultarRecords")
+@login_required
+def consultarRecords():
+    #registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
+    return render_template('UserManager/consultarRecords.html')
+
+
 @server.route("/guardarRecord", methods=['POST'])
 @login_required
 def guardarRecord():

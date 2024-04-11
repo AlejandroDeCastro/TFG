@@ -5,8 +5,13 @@
     <meta content="text/html;" http-equiv="content-type" charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    {% block head %}
+    {% endblock %}
 
 </head>
+{% block navbar %}
+{% endblock %}
 <body>
     <meta charset="utf-8" />
     {% block body %}

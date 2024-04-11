@@ -2,14 +2,30 @@
 
 {% block title %}{{ciudadElegida.Nombre}}{% endblock %}
 
+{% block navbar %}
+<nav>
+    <label class="logo">SmartCities - {{ciudadElegida.Nombre}}</label>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+        <i class="fa fa-bars"></i>
+    </label>
+    <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('consultarRecords') }}">Consultar Registros</a></li>
+        <li><a href="{{ url_for('editarRecords') }}">Editar Registros</a></li>
+        <li><a>Sobre nosotros</a></li>
+        <li><a>Cerrar sesión</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
 {% block body %}
 
-<h1>{{ciudadElegida.Nombre}}</h1>
 <p>HAY LAS SIGUIENTES OPCIONES:</p>
 
 <ul>
     {% for opcion in ciudadElegida.Opciones %}
-    <li>{{ opcion }}</li>
+    <li>->{{ opcion }}</li>
     {% endfor %}
 </ul>
 
