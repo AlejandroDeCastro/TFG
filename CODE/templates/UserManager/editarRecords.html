@@ -20,6 +20,15 @@
                 <form action="/guardarRecord" method="POST">
                     <div class="row mb-3">
                         <div class="col">
+                            <label>Dato</label>
+                            <select class="form-control mb-3" name="datoCiudad">
+                                <option value="" disabled selected>Seleccione una opción</option> <!-- Opción por defecto no seleccionable -->
+                                {% for dato in opciones %}
+                                <option value="{{ dato }}">{{ dato }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
                             <label>Ciudad</label>
                             <input type="text" class="form-control mb-3" name="ciudad" />
                         </div>

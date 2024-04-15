@@ -16,13 +16,28 @@ import urllib.request
 import json
 import database as db
 from multiprocessing import Process
-from gestor import iniciar_demonios
+from gestor import iniciar_demonios, diccionarioURLs
 
+
+#Fichero donde se encuentran todas las ciudades, tipo de datos y direcciones disponibles
+nombreArchivoDatosDisponibles=r"C:\Users\alexd\Desktop\TFG\PROGRAM\CODE\Datos\datos.txt"
+
+#Datos disponibles
+diccionarioDatosDisponibles=diccionarioURLs(nombreArchivoDatosDisponibles)
+listaCiudades=list(diccionarioDatosDisponibles.keys())
+
+listaCiudadesDatos=[]
+for ciudad in diccionarioDatosDisponibles:
+    for tipoDato in diccionarioDatosDisponibles[ciudad]:
+        ciudadDato=ciudad+" - "+tipoDato
+        listaCiudadesDatos.append(ciudadDato)
+        
+print(listaCiudadesDatos)    
 
 server = Flask(__name__)
 server.secret_key = '$$'
 
-# Inicializar la aplicación Dash
+#Inicializa la aplicación Dash
 vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/dash/')
 vistaParkingValencia.layout = html.Div([html.H1('BB')])
 
@@ -61,7 +76,6 @@ ciudadBarcelona = {
     'Opciones' : ['Parking']
     }
 
-listaCiudades = ['Málaga', 'Madrid', 'Valencia', 'Badajoz', 'Barcelona']
 
 
 @server.route("/")
@@ -110,7 +124,7 @@ def home():
 @login_required
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    return render_template('UserManager/editarRecords.html', registros = registros)
+    return render_template('UserManager/editarRecords.html', registros = registros, opciones = listaCiudadesDatos)
 
 
 @server.route("/consultarRecords")
@@ -123,8 +137,9 @@ def consultarRecords():
 @server.route("/guardarRecord", methods=['POST'])
 @login_required
 def guardarRecord():
-    ciudad = request.form['ciudad']
-    característica = request.form['característica']
+    #ciudad = request.form['ciudad']
+    #característica = request.form['característica']
+    ciudad, característica = map(str.strip, request.form['datoCiudad'].split("-"))
     ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica)
     return redirect(url_for('editarRecords'))
 
@@ -138,7 +153,6 @@ def eliminarRecord(ciudad, caracteristica):
 @login_required
 def seleccionarCiudad():  
 
-    #pais = str(request.form['Pais']) 
     ciudad = str(request.form['ciudadElegida'])
 
     global ciudadElegida 
@@ -173,13 +187,6 @@ def seleccionarOpcion():
     if ciudadElegida["Nombre"] == "Málaga":
         if opcion == "Parking":
             df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
-
-            val_df= df.iloc[[1]].to_dict(orient="records")
-            #print(val_df)
-            tamano=df.size
-            nFilasYColumnas=df.shape
-            nFilas=len(df.index)
-            #print("El tammano de la matriz de este fichero es",tamano, nFilasYColumnas, nFilas)
 
             linkDatos=""
             #linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
@@ -220,7 +227,6 @@ def seleccionarOpcion():
             return render_template('climaMalaga.html',  opcionElegida = opcion)
 
 
-
     elif ciudadElegida["Nombre"] == "Madrid":
 
         #PARKINGS MADRID
@@ -228,9 +234,7 @@ def seleccionarOpcion():
             
             #Datos y modelo
             linkDatos="https://datos.madrid.es/egob/catalogo/202625-0-aparcamientos-publicos.json"
-            linkModeloDeDatos=""
 
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
             diccionarioDeDatos=convertirADiccionario(linkDatos, False)
 
             #Bucle que reccore la lista de diccionarios de datos
@@ -315,9 +319,7 @@ def seleccionarOpcion():
 
             #Datos y modelo
             linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/carregadors-vehicles-electrics-cargadores-vehiculos-electricos/records"
-            linkModeloDeDatos=""
 
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
             diccionarioDeDatos=convertirADiccionario(linkDatos, False)
 
             #Bucle que reccore la lista de diccionarios de datos y los muestra
@@ -334,9 +336,7 @@ def seleccionarOpcion():
       
             #Datos y modelo
             linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/emt/records"
-            linkModeloDeDatos=""
 
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
             diccionarioDeDatos=convertirADiccionario(linkDatos, False)
 
             #Bucle que reccore la lista de diccionarios de datos y los muestra
@@ -360,9 +360,7 @@ def seleccionarOpcion():
             
             #Datos y modelo
             linkDatos="https://datosabiertos.dip-badajoz.es/dataset/e94c8e11-faff-4211-a999-3e16800e09ac/resource/7f697576-34e6-4104-96fb-d00656c76734/download/centrosculturales2023.json"
-            linkModeloDeDatos=""
 
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
             diccionarioDeDatos=convertirADiccionario(linkDatos, False)
        
             #Bucle que reccore la lista de diccionarios de datos y los muestra
@@ -385,9 +383,7 @@ def seleccionarOpcion():
             
             #Datos y modelo
             linkDatos="https://opendata-ajuntament.barcelona.cat/data/dataset/68b29854-7c61-4126-9004-83ed792d675c/resource/7a7c8e90-80f2-47a4-bff1-0915166fd409/download"
-            linkModeloDeDatos=""
 
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
             diccionarioDeDatos=convertirADiccionario(linkDatos, False)
        
             #Bucle que reccore la lista de diccionarios de datos y los muestra
@@ -515,9 +511,9 @@ if __name__ == "__main__":
     server.register_error_handler(404, pagina_no_encontrada)
     server.register_error_handler(401, registro_requerido)
     
-    proceso = Process(target= iniciar_demonios)
-    proceso.daemon=True
-    proceso.start()
-    iniciar_demonios(db)
+    #proceso = Process(target= iniciar_demonios)
+    #proceso.daemon=True
+    #proceso.start()
+    iniciar_demonios(db, nombreArchivoDatosDisponibles )
     server.run()
     

@@ -55,12 +55,11 @@ def descargar_archivo(link, carpeta_destino, ciudad, característica, periodicid
 
 
 #Función que inicia todos los demonios para las peticiones
-def iniciar_demonios(db):
+def iniciar_demonios(db, nombre_archivo):
 
     #Ejemplo de uso:
-    nombre_archivo = r"C:\Users\alexd\Desktop\TFG\PROGRAM\CODE\Datos\datos.txt"
+    #nombre_archivo = r"C:\Users\alexd\Desktop\TFG\PROGRAM\CODE\Datos\datos.txt"
     datos = diccionarioURLs(nombre_archivo)
-    print(datos)
 
     #Consulta las peticiones de los usuarios desde la base de datos
     peticiones = consultar_peticiones(db)
