@@ -124,7 +124,8 @@ def home():
 @login_required
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    return render_template('UserManager/editarRecords.html', registros = registros, opciones = listaCiudadesDatos)
+    unidades=['minutos','horas','dias','semanas','meses']
+    return render_template('UserManager/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades)
 
 
 @server.route("/consultarRecords")
@@ -140,7 +141,9 @@ def guardarRecord():
     #ciudad = request.form['ciudad']
     #característica = request.form['característica']
     ciudad, característica = map(str.strip, request.form['datoCiudad'].split("-"))
-    ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica)
+    periodicidad = request.form['periodicidad']
+    unidad = request.form['unidades']
+    ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica, periodicidad, unidad)
     return redirect(url_for('editarRecords'))
 
 @server.route("/eliminarRecord/<string:ciudad>/<string:caracteristica>")

@@ -29,12 +29,17 @@
                             </select>
                         </div>
                         <div class="col">
-                            <label>Ciudad</label>
-                            <input type="text" class="form-control mb-3" name="ciudad" />
+                            <label>Periodicidad</label>
+                            <input type="text" class="form-control mb-3" name="periodicidad" />
                         </div>
                         <div class="col">
-                            <label>Característica</label>
-                            <input type="text" class="form-control mb-3" name="característica" />
+                            <label>Unidades</label>
+                            <select class="form-control mb-3" name="unidades">
+                                <option value="" disabled selected>Seleccione una unidad</option> <!-- Opción por defecto no seleccionable -->
+                                {% for unidad in unidades %}
+                                <option value="{{ unidad }}">{{ unidad }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>

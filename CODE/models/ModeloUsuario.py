@@ -46,7 +46,7 @@ class ModeloUsuario():
             #Obtiene la fila resultante de la consulta
             row=cursor.fetchone()
 
-            #Si hay se encuentra un usuario con ese nombre,  coge los datos y comprueba la contraseña
+            #Si hay se encuentra un usuario con ese nombre,  coge los datos
             if row != None:
                 usuario=Usuario(row[0], row[1], None, row[2], row[3])
                 cursor.close()
@@ -91,16 +91,24 @@ class ModeloUsuario():
 
         except Exception as ex:
             raise Exception(ex)
+    
 
     @classmethod
-    def set_registro(self, db, id_usuario, ciudad, característica):
+    def set_registro(self, db, id_usuario, ciudad, característica, periodicidad, unidad):
+
+        if unidad != "segundos":
+            segundos = str(conversionASegundos(periodicidad, unidad))
+        else:
+            segundos = periodicidad
+
         try:
             #Crea el cursor
             cursor = db.cursor()
 
+            print("VOY A INSERTAR", id_usuario, ciudad, característica, segundos)
             #Insercción que se hace en la base de datos. 
-            insercción="INSERT INTO registros (id_usuario, Ciudad, Característica) VALUES (%s, %s, %s)"
-            data = (id_usuario, ciudad, característica)
+            insercción="INSERT INTO registros (id_usuario, Ciudad, Característica, Periodicidad) VALUES (%s, %s, %s, %s)"
+            data = (id_usuario, ciudad, característica, segundos)
 
             #Ejecución de la insercción
             cursor.execute(insercción, data)
@@ -126,3 +134,23 @@ class ModeloUsuario():
         except Exception as ex:
             raise Exception(ex)
 
+ 
+def conversionASegundos(periodicidad, unidad):
+
+    segundos=0
+    periodicidad=int(periodicidad)
+
+    if unidad == "meses":
+        segundos = periodicidad * 31 * 24 * 3600
+    elif unidad == "semanas":
+        segundos = periodicidad * 7 * 24 * 3600
+    elif unidad == "dias":
+        segundos = periodicidad * 24 * 3600
+    elif unidad == "horas":
+        segundos = periodicidad * 3600
+    elif unidad == "minutos":
+        segundos = periodicidad * 60
+    else:
+        segundos=0 #Se ha pasado una unidad no registrada
+
+    return segundos
