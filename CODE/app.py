@@ -76,8 +76,6 @@ ciudadBarcelona = {
     'Opciones' : ['Parking']
     }
 
-
-
 @server.route("/")
 def index():
     return redirect(url_for('login'))
@@ -125,21 +123,19 @@ def home():
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
     unidades=['minutos','horas','dias','semanas','meses']
-    return render_template('UserManager/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades)
+    return render_template('records/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades)
 
 
 @server.route("/consultarRecords")
 @login_required
 def consultarRecords():
-    #registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    return render_template('UserManager/consultarRecords.html')
+    
+    return render_template('records/consultarRecords.html')
 
 
 @server.route("/guardarRecord", methods=['POST'])
 @login_required
 def guardarRecord():
-    #ciudad = request.form['ciudad']
-    #característica = request.form['característica']
     ciudad, característica = map(str.strip, request.form['datoCiudad'].split("-"))
     periodicidad = request.form['periodicidad']
     unidad = request.form['unidades']

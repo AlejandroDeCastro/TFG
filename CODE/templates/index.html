@@ -3,31 +3,8 @@
 {% block title %}Menu{% endblock %}
 
 {% block head %}
-<style>
-    /* Estilo del cuadro izquierdo */
-    .cuadro-izquierdo {
-        width: 50%;
-        height: 100vh; /* Altura total de la ventana del navegador */
-        background-color: lavender; /* Color de fondo lavanda */
-        float: left; /* Alineación a la izquierda */
-    }
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 
-    /* Estilo del cuadro derecho */
-    .cuadro-derecho {
-        width: 50%;
-        height: 100vh; /* Altura total de la ventana del navegador */
-        background-color: lavender; /* Color de fondo lavanda */
-        float: right; /* Alineación a la derecha */
-    }
-
-    /* Estilos adicionales para el contenido dentro de los cuadros */
-    .contenido {
-        color: black; /* Color del texto */
-        text-align: center; /* Alineación centrada del texto */
-        padding-top: 40vh; /* Espaciado superior para centrar verticalmente */
-        font-size: 24px; /* Tamaño de fuente */
-    }
-</style>
 {% endblock %}
 
 {% block navbar %}
@@ -42,7 +19,7 @@
         <li><a href="{{ url_for('consultarRecords') }}">Consultar Registros</a></li>
         <li><a href="{{ url_for('editarRecords') }}">Editar Registros</a></li>
         <li><a>Sobre nosotros</a></li>
-        <li><a href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+        <li><a class="logout" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
     </ul>
 </nav>
 {% endblock %}
@@ -52,7 +29,11 @@
 <div>
 
     <!--HISTÓRICO-->
+
     <div class="cuadro-izquierdo">
+        <div class="titulo-cuadro-izquierdo">
+            <h1>HISTÓRICO</h1>
+        </div>
         <div class="contenido">
             <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
             <h2>Lista de Ciudades y Características</h2>
@@ -71,6 +52,9 @@
 
         <!--DATOS EN TIEMPO REAL-->
     <div class="cuadro-derecho">
+        <div class="titulo-cuadro-derecho">
+            <h1>DATOS EN TIEMPO REAL</h1>
+        </div>
         <div class="contenido">
             <p>Debe seleccionar la cuidad</p>
             HAY LAS SIGUIENTES CIUDADES:

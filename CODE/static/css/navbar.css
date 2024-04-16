@@ -44,6 +44,10 @@ a.active, a:hover {
     background: #1b9bff;
 }
 
+a.logout {
+    background: #FF4A4E;
+}
+
 .checkbtn {
     font-size: 30px;
     color: white;

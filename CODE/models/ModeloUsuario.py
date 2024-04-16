@@ -38,7 +38,7 @@ class ModeloUsuario():
             cursor = db.cursor()
 
             #Consulta que se hace en la base de datos. 
-            consulta="SELECT id, usuario, nombre_completo, records FROM usuarios WHERE id = {}".format(id)
+            consulta="SELECT id, usuario, nombre_completo FROM usuarios WHERE id = {}".format(id)
 
             #Ejecución de la consulta
             cursor.execute(consulta)
@@ -48,7 +48,7 @@ class ModeloUsuario():
 
             #Si hay se encuentra un usuario con ese nombre,  coge los datos
             if row != None:
-                usuario=Usuario(row[0], row[1], None, row[2], row[3])
+                usuario=Usuario(row[0], row[1], None, row[2])
                 cursor.close()
                 return usuario
             else:
@@ -66,7 +66,7 @@ class ModeloUsuario():
             cursor = db.cursor()
 
             #Consulta que se hace en la base de datos. 
-            consulta="SELECT Ciudad, Característica FROM registros WHERE id_usuario = {}".format(id)
+            consulta="SELECT Ciudad, Característica, Periodicidad FROM registros WHERE id_usuario = {}".format(id)
 
             #Ejecución de la consulta
             cursor.execute(consulta)
@@ -78,10 +78,10 @@ class ModeloUsuario():
             #Si encuentra registros para ese usuario los guarda en un diccionario
             if rows != None:
                 # Itera sobre el array y añade los datos al diccionario
-                for ciudad, caracteristica in rows:
+                for ciudad, caracteristica, periodicidad in rows:
                     if ciudad not in registros:
                         registros[ciudad] = []
-                    registros[ciudad].append(caracteristica)
+                    registros[ciudad].append((caracteristica,periodicidad))
 
                 cursor.close()
                 return registros

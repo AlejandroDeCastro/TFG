@@ -3,12 +3,11 @@ from flask_login import UserMixin
 
 class Usuario(UserMixin):
 
-    def __init__(self, id, usuario, contraseña, nombreCompleto="", records="") -> None:
+    def __init__(self, id, usuario, contraseña, nombreCompleto="") -> None:
         self.id = id
         self.usuario = usuario
         self.contraseña = contraseña
         self.nombreCompleto = nombreCompleto
-        self.records = records
 
     #Método para comprobar si conincide la contraseña, con la coontraseña hasheada
     @classmethod #Con estse decorador puedo usar el método sin instanciar la clase

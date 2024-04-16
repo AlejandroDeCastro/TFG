@@ -1,0 +1,48 @@
+.titulo-cuadro-izquierdo {
+    width: 100%;
+    height: 8vh;
+    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+    color: black; /* Color del texto */
+    text-align: center; /* Alineación centrada del texto */
+    padding-top: 2vh; /* Espaciado superior para centrar verticalmente */
+}
+
+
+/*Estilo del cuadro izquierdo */
+.cuadro-izquierdo {
+    width: 45%;
+    height: 80vh; /*Altura total de la ventana del navegador */
+    margin: 2.5%;
+    background-color: #98DCF8; /*Color de fondo lavanda */
+    float: left; /*Alineación a la izquierda */
+    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+    padding: 20px; /* Espaciado interno de 20px */
+}
+
+.titulo-cuadro-derecho {
+    width: 100%;
+    height: 8vh;
+    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+    color: black; /* Color del texto */
+    text-align: center; /* Alineación centrada del texto */
+    padding-top: 2vh; /* Espaciado superior para centrar verticalmente */
+}
+
+/* Estilo del cuadro derecho */
+.cuadro-derecho {
+    width: 45%;
+    height: 80vh; /* Altura total de la ventana del navegador */
+    margin: 2.5%;
+    background-color: #98DCF8; /* Color de fondo lavanda */
+    float: right; /* Alineación a la derecha */
+    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+    padding: 20px; /* Espaciado interno de 20px */
+}
+
+/* Estilos adicionales para el contenido dentro de los cuadros */
+.contenido {
+    color: black; /* Color del texto */
+    text-align: center; /* Alineación centrada del texto */
+    padding-top: 15vh; /* Espaciado superior para centrar verticalmente */
+    font-size: 24px; /* Tamaño de fuente */
+}
