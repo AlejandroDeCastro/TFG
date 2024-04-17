@@ -1,9 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Apache",
     "\\CODE",
+    "\\CODE\\models",
+    "\\CODE\\models\\entidades",
+    "\\CODE\\static",
     "\\CODE\\static\\css",
-    "\\CODE\\templates\\auth"
+    "\\CODE\\static\\js",
+    "\\CODE\\templates"
   ],
   "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false

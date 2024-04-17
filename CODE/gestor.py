@@ -41,8 +41,22 @@ def descargar_archivo(link, carpeta_destino, ciudad, característica, periodicid
 
     while True:
 
-        nombre_archivo = f"{característica}{int(time.time())}.json"
-        ruta_destino = os.path.join(carpeta_destino, nombre_archivo)
+        carpeta_ciudad = os.path.join(carpeta_destino, ciudad)
+
+        #Verifica si la carpeta de la ciudad existe
+        if not os.path.exists(carpeta_ciudad):
+            os.makedirs(carpeta_ciudad)
+
+        carpeta_caracteristica = os.path.join(carpeta_ciudad, característica)
+
+        #Verifica si la carpeta de la ciudad existe
+        if not os.path.exists(carpeta_caracteristica):
+            os.makedirs(carpeta_caracteristica)
+
+        #Crea el nombre del archivo a partir de la característica
+        nombre_archivo = f"{característica}_{ciudad}_{int(time.time())}.json"
+        ruta_destino = os.path.join(carpeta_caracteristica, nombre_archivo)
+
         response = requests.get(link)
         if response.status_code == 200:
             with open(ruta_destino, 'wb') as f:
@@ -56,15 +70,18 @@ def descargar_archivo(link, carpeta_destino, ciudad, característica, periodicid
 
 #Función que inicia todos los demonios para las peticiones
 def iniciar_demonios(db, nombre_archivo):
-
-    #Ejemplo de uso:
-    #nombre_archivo = r"C:\Users\alexd\Desktop\TFG\PROGRAM\CODE\Datos\datos.txt"
+    
+    #Diccionario de datos con la URL  
     datos = diccionarioURLs(nombre_archivo)
 
     #Consulta las peticiones de los usuarios desde la base de datos
     peticiones = consultar_peticiones(db)
     print(peticiones)
 
+    carpeta_registros = "Registros"
+    if not os.path.exists(carpeta_registros):
+        os.makedirs(carpeta_registros)
+    
     for peticion in peticiones:
         
         ciudad = peticion[0]
@@ -77,14 +94,18 @@ def iniciar_demonios(db, nombre_archivo):
         #TEST PARA VALIDAR QUE ESTÁ LEYENDO LAS PETICIONES CORRECTAMENTE Y LAS ASOCIACIONES
         #print("El usuario "+str(id_usuario)+" quiere conocer la característica "+str(característica)+" de la ciudad de "+str(ciudad)+" cada "+str(periodicidad)+" segundos "+"y el link es "+str(link))
 
-        
-        carpeta_usuario = str(id_usuario)
+        usuario = "Usuario " + str(id_usuario)
+
+        carpeta_usuario = os.path.join(carpeta_registros, usuario)
+
         if not os.path.exists(carpeta_usuario):
             os.makedirs(carpeta_usuario)
 
 
         proceso = Process(target=descargar_archivo, args=(link, carpeta_usuario, ciudad, característica, periodicidad))
         proceso.start()
+
+ 
 
 
     #proceso.join()
