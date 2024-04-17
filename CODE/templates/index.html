@@ -44,8 +44,8 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <button class="boton" href="{{ url_for('consultarRecords') }}">Consultar</button>
-            <button class="boton" href="{{ url_for('editarRecords') }}">Editar</button>
+            <a class="boton" href="{{ url_for('consultarRecords') }}">Consultar</a>
+            <a class="boton" href="{{ url_for('editarRecords') }}">Editar</a>
             <a class="btn-primary" href="{{ url_for('logout') }}">Cerrar Sesión</a>
         </div>
     </div>

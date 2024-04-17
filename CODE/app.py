@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, url_for, redirect, url_for, flash
+from flask import Flask, render_template, request, url_for, redirect, flash, send_file, jsonify
 from dash.dependencies import Input, Output
 from flask_mysqldb import MySQL
 from importlib_metadata import requires
@@ -7,6 +7,7 @@ from models.ModeloUsuario import ModeloUsuario
 from models.entidades.Usuario import Usuario
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf.csrf import CSRFProtect
+import os
 import dash
 import dash_core_components as dcc 
 import dash_html_components as html
@@ -17,6 +18,7 @@ import json
 import database as db
 from multiprocessing import Process
 from gestor import iniciar_demonios, diccionarioURLs
+from zipfile import ZipFile
 
 
 #Fichero donde se encuentran todas las ciudades, tipo de datos y direcciones disponibles
@@ -129,8 +131,18 @@ def editarRecords():
 @server.route("/consultarRecords")
 @login_required
 def consultarRecords():
-    
-    return render_template('records/consultarRecords.html')
+    registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
+    return render_template('records/consultarRecords.html', registros = registros)
+
+
+@server.route('/obtener_opciones', methods=['POST'])
+@login_required
+def obtener_opciones():
+    global opciones_seleccionadas
+    opciones = request.form.get('registros')
+    opciones_seleccionadas = opciones.split(',')
+    print(opciones_seleccionadas)
+    return 'Opciones seleccionadas guardadas correctamente'
 
 
 @server.route("/guardarRecord", methods=['POST'])
