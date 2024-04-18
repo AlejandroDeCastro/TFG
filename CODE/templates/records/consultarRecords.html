@@ -14,7 +14,7 @@
                 opcionesSeleccionadas.push(select.options[i].value);
             }
         }
-        // Convertir la lista a una cadena y enviarla al servidor Flask
+        // Convierte la lista a una cadena y enviarla al servidor Flask
         var data = opcionesSeleccionadas.join(',');
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/obtener_opciones', true);
