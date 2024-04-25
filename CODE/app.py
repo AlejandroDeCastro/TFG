@@ -22,11 +22,8 @@ from gestor import iniciar_demonios, diccionarioURLs
 from zipfile import ZipFile
 
 
-#Fichero donde se encuentran todas las ciudades, tipo de datos y direcciones disponibles
-nombreArchivoDatosDisponibles=r"C:\Users\alexd\Desktop\TFG\PROGRAM\CODE\Datos\datos.txt"
-
 #Datos disponibles
-diccionarioDatosDisponibles=diccionarioURLs(nombreArchivoDatosDisponibles)
+diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
 
 listaCiudadesDatos=[]
@@ -53,31 +50,6 @@ login_manager=LoginManager(server)
 @login_manager.user_loader
 def load_user(id):
     return ModeloUsuario.get_by_id(db.database,id)
-
-ciudadMalaga = {
-    'Nombre' : 'Málaga',
-    'Opciones' : ['Transporte EMT','Parking','Bibliotecas']
-    }
-
-ciudadMadrid = {
-    'Nombre' : 'Madrid',
-    'Opciones' : ['Transporte', 'Parking','Bibliotecas','Aforo Teatro','Clima']
-    }
-
-ciudadValencia = {
-    'Nombre' : 'Valencia',
-    'Opciones' : ['Parking','Puntos de carga','Transporte']
-    }
-
-ciudadBadajoz = {
-    'Nombre' : 'Badajoz',
-    'Opciones' : ['Centros culturales']
-    }
-
-ciudadBarcelona = {
-    'Nombre' : 'Barcelona',
-    'Opciones' : ['Parking']
-    }
 
 @server.route("/")
 def index():
@@ -210,22 +182,14 @@ def eliminarRecord(ciudad, caracteristica):
 @login_required
 def seleccionarCiudad():  
 
+    # Declara la variable global ciudad, donde se guarda la ciudad elegida.
+    global ciudad
     ciudad = str(request.form['ciudadElegida'])
 
-    global ciudadElegida 
+    # Se saca la lista de las carácteristicas de esa ciudad
+    características=list(diccionarioDatosDisponibles[ciudad].keys())
 
-    if ciudad == "Málaga":
-        ciudadElegida=ciudadMalaga
-    elif ciudad == "Madrid":
-        ciudadElegida=ciudadMadrid
-    elif ciudad == "Valencia":
-        ciudadElegida = ciudadValencia
-    elif ciudad == "Badajoz":
-        ciudadElegida = ciudadBadajoz
-    elif ciudad == "Barcelona":
-        ciudadElegida = ciudadBarcelona
-
-    return render_template('ciudad.html', ciudadElegida = ciudadElegida)
+    return render_template('ciudad.html', ciudadElegida = ciudad, características = características)
 
 
 @server.route("/Muestra", methods=("POST", "GET"))
@@ -234,6 +198,7 @@ def seleccionarOpcion():
 
     #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
     
+    global opcion
     opcion = str(request.form['opcionElegida'])
 
     """
@@ -241,8 +206,8 @@ def seleccionarOpcion():
     Esta función devuelve un diccopnario de datos.
     """
 
-    if ciudadElegida["Nombre"] == "Málaga":
-        if opcion == "Parking":
+    if ciudad == "Málaga":
+        if opcion == "Parkings":
             df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
 
             linkDatos=""
@@ -284,10 +249,10 @@ def seleccionarOpcion():
             return render_template('climaMalaga.html',  opcionElegida = opcion)
 
 
-    elif ciudadElegida["Nombre"] == "Madrid":
+    elif ciudad == "Madrid":
 
         #PARKINGS MADRID
-        if opcion=="Parking":
+        if opcion=="Parkings":
             
             #Datos y modelo
             linkDatos="https://datos.madrid.es/egob/catalogo/202625-0-aparcamientos-publicos.json"
@@ -327,10 +292,10 @@ def seleccionarOpcion():
             return render_template('404.html', opcionElegida = opcion)
 
 
-    elif ciudadElegida["Nombre"] == "Valencia":
+    elif ciudad == "Valencia":
 
         #PARKINGS VALENCIA
-        if opcion=="Parking":
+        if opcion=="Parkings":
             
             vistaParkingValencia.layout = html.Div([
 
@@ -410,7 +375,7 @@ def seleccionarOpcion():
             return render_template('404.html', opcionElegida = opcion)    
     
 
-    elif ciudadElegida["Nombre"] == "Badajoz":
+    elif ciudad == "Badajoz":
 
         #CENTROS CULTURALES BADAJOZ
         if opcion=="Centros culturales":
@@ -433,10 +398,10 @@ def seleccionarOpcion():
             #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
             return render_template('404.html', opcionElegida = opcion)
 
-    elif ciudadElegida["Nombre"] == "Barcelona":
+    elif ciudad == "Barcelona":
 
         #PARKING BARCELONA
-        if opcion=="Parking":
+        if opcion=="Parkings":
             
             #Datos y modelo
             linkDatos="https://opendata-ajuntament.barcelona.cat/data/dataset/68b29854-7c61-4126-9004-83ed792d675c/resource/7a7c8e90-80f2-47a4-bff1-0915166fd409/download"
@@ -514,7 +479,7 @@ def registro_requerido(error):
 def updateGraph_var(value):
 
     #Datos
-    linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records?limit=29"
+    linkDatos = diccionarioDatosDisponibles[ciudad][opcion]
     diccionarioDeDatos=convertirADiccionario(linkDatos, False)
          
     #DataFrame del grafo de datos
@@ -542,7 +507,7 @@ def updateGraph_var(value):
 def updateGraph_pie(value):
 
     #Datos
-    linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records?limit=29"
+    linkDatos = diccionarioDatosDisponibles[ciudad][opcion]
     diccionarioDeDatos=convertirADiccionario(linkDatos, False)
          
     #DataFrame del grafo de datos
@@ -571,6 +536,6 @@ if __name__ == "__main__":
     #proceso = Process(target= iniciar_demonios)
     #proceso.daemon=True
     #proceso.start()
-    iniciar_demonios(db, nombreArchivoDatosDisponibles )
+    iniciar_demonios(db)
     server.run()
     

@@ -1,10 +1,10 @@
 {% extends './layout.html' %}
 
-{% block title %}{{ciudadElegida.Nombre}}{% endblock %}
+{% block title %}{{ciudadElegida}}{% endblock %}
 
 {% block navbar %}
 <nav>
-    <label class="logo">SmartCities - {{ciudadElegida.Nombre}}</label>
+    <label class="logo">SmartCities - {{ciudadElegida}}</label>
     <input type="checkbox" id="check">
     <label for="check" class="checkbtn">
         <i class="fa fa-bars"></i>
@@ -24,7 +24,7 @@
 <p>HAY LAS SIGUIENTES OPCIONES:</p>
 
 <ul>
-    {% for opcion in ciudadElegida.Opciones %}
+    {% for opcion in características %}
     <li>->{{ opcion }}</li>
     {% endfor %}
 </ul>
@@ -37,7 +37,7 @@
         <div class="row">
             <label>Seleccionar Opcion</label>
             <select name="opcionElegida" data-live-search="true" class="form-control" title="Seleccionar ciudad">
-                {% for opcion in ciudadElegida.Opciones %}
+                {% for opcion in características %}
                 <option value="{{ opcion }}">{{ opcion }}</option>
                 {% endfor %}
             </select>

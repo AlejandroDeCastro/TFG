@@ -17,21 +17,24 @@ def consultar_peticiones(db):
 
     return peticiones
 
-#Función que consulta el fichero de las direcciones de los datos y devuelve un diccionario con todas las URL
-def diccionarioURLs(nombre_archivo):
+# Función que consulta el fichero de las direcciones de los datos y devuelve un diccionario con todas las URL
+def diccionarioURLs(db):
 
+    cursor = db.database.cursor()
     datos = {}
 
-    with open(nombre_archivo, 'r') as archivo:
+    # Consulta SQL para obtener las ciudades, características y enlaces
+    consulta_sql = "SELECT ciudad, característica, enlace FROM datos"
+    cursor.execute(consulta_sql)
 
-        for linea in archivo:
-            #Divide la línea en partes separadas por el guion -
-            ciudad, caracteristica, url = linea.strip().split(' - ')
-            #Verifica si la ciudad ya está en el diccionario
-            if ciudad not in datos:
-                datos[ciudad] = {}
-            #Añade la característica y URL al diccionario de la ciudad correspondiente
-            datos[ciudad][caracteristica] = url
+    # Procesa los resultados
+    for ciudad, caracteristica, enlace in cursor:
+        if ciudad not in datos:
+            datos[ciudad] = {}
+        datos[ciudad][caracteristica] = enlace
+
+    # Cierra el cursor
+    cursor.close()
 
     return datos
 
@@ -69,10 +72,10 @@ def descargar_archivo(link, carpeta_destino, ciudad, característica, periodicid
 
 
 #Función que inicia todos los demonios para las peticiones
-def iniciar_demonios(db, nombre_archivo):
+def iniciar_demonios(db):
     
     #Diccionario de datos con la URL  
-    datos = diccionarioURLs(nombre_archivo)
+    datos = diccionarioURLs(db)
 
     #Consulta las peticiones de los usuarios desde la base de datos
     peticiones = consultar_peticiones(db)
