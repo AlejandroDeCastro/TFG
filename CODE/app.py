@@ -178,6 +178,11 @@ def eliminarRecord(ciudad, caracteristica):
     ModeloUsuario.delete_registro(db.database, current_user.id, ciudad, caracteristica)
     return redirect(url_for('editarRecords'))
 
+@server.route("/añadirDatos")
+@login_required
+def añadirDatos():
+    return render_template('añadirDatos.html', datosDisponibles = diccionarioDatosDisponibles)
+
 @server.route("/ciudad", methods=['POST'])
 @login_required
 def seleccionarCiudad():  
