@@ -105,7 +105,6 @@ class ModeloUsuario():
             #Crea el cursor
             cursor = db.cursor()
 
-            print("VOY A INSERTAR", id_usuario, ciudad, característica, segundos)
             #Insercción que se hace en la base de datos. 
             insercción="INSERT INTO registros (id_usuario, Ciudad, Característica, Periodicidad) VALUES (%s, %s, %s, %s)"
             data = (id_usuario, ciudad, característica, segundos)
@@ -134,7 +133,25 @@ class ModeloUsuario():
         except Exception as ex:
             raise Exception(ex)
 
- 
+
+    @classmethod
+    def set_dato(self, db, id_usuario, ciudad, característica, enlace):
+
+        try:
+            #Crea el cursor
+            cursor = db.cursor()
+
+            #Insercción que se hace en la base de datos. 
+            insercción="INSERT INTO datos (ciudad, característica, enlace, id_usuario) VALUES (%s, %s, %s, %s)"
+            data = (ciudad, característica, enlace, id_usuario)
+
+            #Ejecución de la insercción
+            cursor.execute(insercción, data)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex) 
+
 def conversionASegundos(periodicidad, unidad):
 
     segundos=0

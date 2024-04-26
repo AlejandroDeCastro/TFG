@@ -89,6 +89,16 @@ def logout():
 @server.route("/home")
 @login_required
 def home():
+    global diccionarioDatosDisponibles
+    diccionarioDatosDisponibles=diccionarioURLs(db)
+    global listaCiudades
+    listaCiudades=list(diccionarioDatosDisponibles.keys())
+    global listaCiudadesDatos
+    listaCiudadesDatos=[]
+    for ciudad in diccionarioDatosDisponibles:
+        for tipoDato in diccionarioDatosDisponibles[ciudad]:
+            ciudadDato=ciudad+" - "+tipoDato
+            listaCiudadesDatos.append(ciudadDato)
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
     return render_template('index.html', listaCiudades=listaCiudades, registros = registros)
 
@@ -181,7 +191,17 @@ def eliminarRecord(ciudad, caracteristica):
 @server.route("/añadirDatos")
 @login_required
 def añadirDatos():
+    diccionarioDatosDisponibles=diccionarioURLs(db)
     return render_template('añadirDatos.html', datosDisponibles = diccionarioDatosDisponibles)
+
+@server.route("/guardarDato", methods=['POST'])
+@login_required
+def guardarDato():
+    ciudad = request.form['ciudad']
+    característica = request.form['atributo']
+    enlace = request.form['enlace']
+    ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, enlace)
+    return redirect(url_for('añadirDatos'))
 
 @server.route("/ciudad", methods=['POST'])
 @login_required
