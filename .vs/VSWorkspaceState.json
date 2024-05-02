@@ -4,8 +4,9 @@
     "\\CODE",
     "\\CODE\\models",
     "\\CODE\\models\\entidades",
-    "\\CODE\\templates"
+    "\\CODE\\templates",
+    "\\CODE\\templates\\records"
   ],
-  "SelectedNode": "\\CODE\\app.py",
+  "SelectedNode": "\\CODE\\models\\entidades\\Usuario.py",
   "PreviewInSolutionExplorer": false
 }

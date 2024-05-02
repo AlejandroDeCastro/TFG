@@ -226,6 +226,10 @@ def seleccionarOpcion():
     global opcion
     opcion = str(request.form['opcionElegida'])
 
+    global enlace
+    enlace = diccionarioDatosDisponibles[ciudad][opcion]
+    print(enlace)
+
     """
     Cuando una opción es elegida, se manda el link del modelo de datos y el link de los datos a una función.
     Esta función devuelve un diccopnario de datos.
@@ -271,7 +275,8 @@ def seleccionarOpcion():
             return render_template('bibliotecasMalaga.html',  opcionElegida = opcion, tables =[df_BibliotecasMalaga.to_html(classes='data')], titles=df_BibliotecasMalaga.columns.values)
 
         else:
-            return render_template('climaMalaga.html',  opcionElegida = opcion)
+            #Si se busca una opción que no está en la lista, mostrar una vista genérica
+            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
 
 
     elif ciudad == "Madrid":
@@ -312,9 +317,10 @@ def seleccionarOpcion():
             df=pd.DataFrame(diccionarioDeDatos["@graph"])
             
             return render_template('bibliotecasMadrid.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+
         else:
-            #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
-            return render_template('404.html', opcionElegida = opcion)
+            #Si se busca una opción que no está en la lista, mostrar una vista genérica
+            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
 
 
     elif ciudad == "Valencia":
@@ -396,8 +402,8 @@ def seleccionarOpcion():
             return render_template('transportePublicoValencia.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
     
         else:
-            #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
-            return render_template('404.html', opcionElegida = opcion)    
+            #Si se busca una opción que no está en la lista, mostrar una vista genérica
+            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)  
     
 
     elif ciudad == "Badajoz":
@@ -420,8 +426,8 @@ def seleccionarOpcion():
             return render_template('centrosCulturalesBadajoz.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
 
         else:
-            #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
-            return render_template('404.html', opcionElegida = opcion)
+            #Si se busca una opción que no está en la lista, mostrar una vista genérica
+            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
 
     elif ciudad == "Barcelona":
 
@@ -429,27 +435,27 @@ def seleccionarOpcion():
         if opcion=="Parkings":
             
             #Datos y modelo
-            linkDatos="https://opendata-ajuntament.barcelona.cat/data/dataset/68b29854-7c61-4126-9004-83ed792d675c/resource/7a7c8e90-80f2-47a4-bff1-0915166fd409/download"
+            linkDatos=enlace
 
             diccionarioDeDatos=convertirADiccionario(linkDatos, False)
        
-            #Bucle que reccore la lista de diccionarios de datos y los muestra
-            for parking in diccionarioDeDatos["ParkingList"]:
-                visualizarDiccionarioDeDatos(parking)
+            #TEST PARA VISUALIZAR LOS DATOS
+            #for parking in diccionarioDeDatos["ParkingList"]["Parking"]:
+                #visualizarDiccionarioDeDatos(parking)
             
             #DataFrame del grafo de datos
-            df=pd.DataFrame(diccionarioDeDatos["ParkingList"])
+            df=pd.DataFrame(diccionarioDeDatos["ParkingList"]["Parking"])
 
             return render_template('parkingBarcelona.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
      
         else:
-            #Si se busca una opción que no está en la lista, mostrar una vista de NOTFOUND. HACER ESA VISTA
-            return render_template('404.html', opcionElegida = opcion)
+            #Si se busca una opción que no está en la lista, mostrar una vista genérica
+            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
      
 
     else:
-        #Si no encuentra esa ciudad elegida mostrar una vista de NOTFOUND. HACER ESA VISTA
-        return render_template('404.html',  opcionElegida = opcion)
+        #Si se busca una ciudad que no está en la lista, mostrar una vista genérica
+        return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
 
 
     #Función que transforma un conjunto de datos de json a diccionario de python
@@ -469,12 +475,13 @@ def convertirADiccionario(datos, local):
 
     else:
         diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
-
+    
+    print(diccionarioDatos)
     return diccionarioDatos
 
 #Función que visualiza los modelos de datos o diccionarios de datos pasados
 def visualizarDiccionarioDeDatos(diccionario):
-    print("\n MODELO DE DATOS:")
+    print(diccionario)
     print("\nkeys"+str(diccionario.keys())+"\n")
     for key in diccionario.keys():
         dato=diccionario[key]
