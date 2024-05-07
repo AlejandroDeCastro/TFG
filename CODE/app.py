@@ -284,7 +284,7 @@ def seleccionarOpcion():
 
         else:
             #Si se busca una opción que no está en la lista, mostrar una vista genérica
-            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
+            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
 
 
     elif ciudad == "Madrid":
@@ -463,7 +463,7 @@ def seleccionarOpcion():
 
     else:
         #Si se busca una ciudad que no está en la lista, mostrar una vista genérica
-        return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
+        return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
 
 
     #Función que transforma un conjunto de datos de json a diccionario de python
