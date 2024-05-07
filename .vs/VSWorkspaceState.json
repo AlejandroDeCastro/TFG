@@ -4,6 +4,8 @@
     "\\CODE",
     "\\CODE\\models",
     "\\CODE\\models\\entidades",
+    "\\CODE\\static",
+    "\\CODE\\static\\css",
     "\\CODE\\templates",
     "\\CODE\\templates\\records"
   ],

@@ -228,7 +228,15 @@ def seleccionarOpcion():
 
     global enlace
     enlace = diccionarioDatosDisponibles[ciudad][opcion]
-    print(enlace)
+
+    data=convertirADiccionario(enlace, False)
+
+    # En caso de que el JSON obtenido tenga el forma de lista [Conjunto1, Conjunto2...]
+    if not isinstance(data, dict):
+        listaCaracteristicas=data[0].keys()
+    else:
+        listaCaracteristicas=data.keys()
+    
 
     """
     Cuando una opción es elegida, se manda el link del modelo de datos y el link de los datos a una función.
@@ -290,8 +298,8 @@ def seleccionarOpcion():
             diccionarioDeDatos=convertirADiccionario(linkDatos, False)
 
             #Bucle que reccore la lista de diccionarios de datos
-            for linea in diccionarioDeDatos:
-                visualizarDiccionarioDeDatos(linea)
+            #for linea in diccionarioDeDatos:
+             #   visualizarDiccionarioDeDatos(linea)
 
             return render_template('parkingMadrid.html',  opcionElegida = opcion)
 
@@ -450,7 +458,7 @@ def seleccionarOpcion():
      
         else:
             #Si se busca una opción que no está en la lista, mostrar una vista genérica
-            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
+            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
      
 
     else:
