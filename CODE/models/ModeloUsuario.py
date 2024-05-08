@@ -66,7 +66,7 @@ class ModeloUsuario():
             cursor = db.cursor()
 
             #Consulta que se hace en la base de datos. 
-            consulta="SELECT Ciudad, Característica, Periodicidad FROM registros WHERE id_usuario = {}".format(id)
+            consulta="SELECT Ciudad, Característica, Formato, Periodicidad FROM registros WHERE id_usuario = {}".format(id)
 
             #Ejecución de la consulta
             cursor.execute(consulta)
@@ -78,10 +78,14 @@ class ModeloUsuario():
             #Si encuentra registros para ese usuario los guarda en un diccionario
             if rows != None:
                 # Itera sobre el array y añade los datos al diccionario
-                for ciudad, caracteristica, periodicidad in rows:
+                for ciudad, caracteristica, formato, periodicidad in rows:
                     if ciudad not in registros:
-                        registros[ciudad] = []
-                    registros[ciudad].append((caracteristica,periodicidad))
+                        registros[ciudad] = {}
+                    if caracteristica not in registros[ciudad]:
+                        registros[ciudad][caracteristica]={}
+                    if formato not in registros[ciudad][caracteristica]:
+                        registros[ciudad][caracteristica][formato] = []
+                    registros[ciudad][caracteristica][formato].append(periodicidad)
 
                 cursor.close()
                 return registros
@@ -94,7 +98,7 @@ class ModeloUsuario():
     
 
     @classmethod
-    def set_registro(self, db, id_usuario, ciudad, característica, periodicidad, unidad):
+    def set_registro(self, db, id_usuario, ciudad, característica, formato, periodicidad, unidad):
 
         if unidad != "segundos":
             segundos = str(conversionASegundos(periodicidad, unidad))
@@ -106,8 +110,8 @@ class ModeloUsuario():
             cursor = db.cursor()
 
             #Insercción que se hace en la base de datos. 
-            insercción="INSERT INTO registros (id_usuario, Ciudad, Característica, Periodicidad) VALUES (%s, %s, %s, %s)"
-            data = (id_usuario, ciudad, característica, segundos)
+            insercción="INSERT INTO registros (id_usuario, Ciudad, Característica, Formato, Periodicidad) VALUES (%s, %s, %s, %s, %s)"
+            data = (id_usuario, ciudad, característica, formato, segundos)
 
             #Ejecución de la insercción
             cursor.execute(insercción, data)
@@ -117,14 +121,14 @@ class ModeloUsuario():
             raise Exception(ex)
 
     @classmethod
-    def delete_registro(self, db, id_usuario, ciudad, característica):
+    def delete_registro(self, db, id_usuario, ciudad, característica, formato, periodicidad):
         try:
             #Crea el cursor
             cursor = db.cursor()
 
             #DELETE que se hace en la base de datos. 
-            delete="DELETE FROM registros WHERE id_usuario=%s AND Ciudad=%s AND Característica=%s"
-            data = (id_usuario, ciudad, característica)
+            delete="DELETE FROM registros WHERE id_usuario=%s AND Ciudad=%s AND Característica=%s AND Formato=%s AND Periodicidad=%s"
+            data = (id_usuario, ciudad, característica, formato, periodicidad)
 
             #Ejecución de la insercción
             cursor.execute(delete, data)

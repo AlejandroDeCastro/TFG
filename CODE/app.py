@@ -29,8 +29,9 @@ listaCiudades=list(diccionarioDatosDisponibles.keys())
 listaCiudadesDatos=[]
 for ciudad in diccionarioDatosDisponibles:
     for tipoDato in diccionarioDatosDisponibles[ciudad]:
-        ciudadDato=ciudad+" - "+tipoDato
-        listaCiudadesDatos.append(ciudadDato)
+        for formato in diccionarioDatosDisponibles[ciudad][tipoDato]:
+            ciudadDato=ciudad+" - "+tipoDato+" - "+formato
+            listaCiudadesDatos.append(ciudadDato)
         
 print(listaCiudadesDatos)    
 
@@ -97,8 +98,9 @@ def home():
     listaCiudadesDatos=[]
     for ciudad in diccionarioDatosDisponibles:
         for tipoDato in diccionarioDatosDisponibles[ciudad]:
-            ciudadDato=ciudad+" - "+tipoDato
-            listaCiudadesDatos.append(ciudadDato)
+            for formato in diccionarioDatosDisponibles[ciudad][tipoDato]:
+                ciudadDato=ciudad+" - "+tipoDato+" - "+formato
+                listaCiudadesDatos.append(ciudadDato)
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
     return render_template('index.html', listaCiudades=listaCiudades, registros = registros)
 
@@ -108,7 +110,8 @@ def home():
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
     unidades=['minutos','horas','dias','semanas','meses']
-    return render_template('records/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades)
+    formatos=['JSON','CSV','XML']
+    return render_template('records/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos)
 
 
 @server.route("/consultarRecords")
@@ -118,6 +121,7 @@ def consultarRecords():
     return render_template('records/consultarRecords.html', registros = registros)
 
 
+#FUNCION DE DESCARGA QUE NO FUNCIONA. EN EL HTML SE LLAMA CON OTRO NOMBRE ARREGLAR
 @server.route('/obtener_opciones',  methods=['GET','POST'])
 @login_required
 def obtener_opciones():
@@ -176,16 +180,16 @@ def obtener_opciones():
 @server.route("/guardarRecord", methods=['POST'])
 @login_required
 def guardarRecord():
-    ciudad, característica = map(str.strip, request.form['datoCiudad'].split("-"))
+    ciudad, característica, formato = map(str.strip, request.form['datoCiudad'].split("-"))
     periodicidad = request.form['periodicidad']
     unidad = request.form['unidades']
-    ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica, periodicidad, unidad)
+    ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica, formato, periodicidad, unidad)
     return redirect(url_for('editarRecords'))
 
-@server.route("/eliminarRecord/<string:ciudad>/<string:caracteristica>")
+@server.route("/eliminarRecord/<string:ciudad>/<string:caracteristica>/<string:formato>/<string:periodicidad>")
 @login_required
-def eliminarRecord(ciudad, caracteristica):
-    ModeloUsuario.delete_registro(db.database, current_user.id, ciudad, caracteristica)
+def eliminarRecord(ciudad, caracteristica, formato, periodicidad):
+    ModeloUsuario.delete_registro(db.database, current_user.id, ciudad, caracteristica, formato, periodicidad)
     return redirect(url_for('editarRecords'))
 
 @server.route("/añadirDatos")

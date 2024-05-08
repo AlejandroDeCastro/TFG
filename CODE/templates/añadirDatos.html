@@ -69,6 +69,7 @@
                         <tr>
                             <th scope="col">Ciudad</th>
                             <th scope="col">Característica</th>
+                            <th scope="col">Formato</th>
                             <th scope="col">Enlace</th>
                         </tr>
                     </thead>
@@ -76,11 +77,14 @@
                     <tbody>
                         {% for ciudad in datosDisponibles.keys() %}
                         {% for caracteristica in datosDisponibles[ciudad] %}
+                        {% for formato in datosDisponibles[ciudad][caracteristica] %}
                         <tr>
                             <td>{{ ciudad }}</td>
                             <td>{{ caracteristica }}</td>
-                            <td>{{ datosDisponibles[ciudad][caracteristica] }}</td>
+                            <td>{{ formato }}</td>
+                            <td>{{ datosDisponibles[ciudad][caracteristica][formato] }}</td>
                         </tr>
+                        {% endfor %}
                         {% endfor %}
                         {% endfor %}
                     </tbody>

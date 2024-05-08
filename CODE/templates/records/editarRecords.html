@@ -53,6 +53,7 @@
                         <tr>
                             <th scope="col">Ciudad</th>
                             <th scope="col">Característica</th>
+                            <th scope="col">Formato</th>
                             <th scope="col">Periodicidad (segundos)</th>
                             <th scope="col">Eliminar</th>
                         </tr>
@@ -60,13 +61,18 @@
 
                     <tbody>
                         {% for ciudad in registros.keys() %}
-                        {% for caracteristica, periodicidad in registros[ciudad] %}
+                        {% for caracteristica in registros[ciudad] %}
+                        {% for formato in registros[ciudad][caracteristica] %}
+                        {% for periodicidad in registros[ciudad][caracteristica][formato] %}
                         <tr>
                             <td>{{ ciudad }}</td>
                             <td>{{ caracteristica }}</td>
+                            <td>{{ formato }}</td>
                             <td>{{ periodicidad }}</td>
-                            <td><a href="{{url_for('eliminarRecord', ciudad = ciudad, caracteristica = caracteristica)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
+                            <td><a href="{{url_for('eliminarRecord', ciudad = ciudad, caracteristica = caracteristica, formato = formato, periodicidad = periodicidad)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
                         </tr>
+                        {% endfor %}
+                        {% endfor %}
                         {% endfor %}
                         {% endfor %}
                     </tbody>

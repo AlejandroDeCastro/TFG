@@ -8,7 +8,7 @@ def consultar_peticiones(db):
 
     cursor = db.database.cursor()
 
-    cursor.execute("SELECT Ciudad, Característica, id_usuario, Periodicidad FROM registros")
+    cursor.execute("SELECT Ciudad, Característica, id_usuario, Formato, Periodicidad FROM registros")
     peticiones = cursor.fetchall()
 
     #Cierra la conexión con la base de datos
@@ -24,14 +24,16 @@ def diccionarioURLs(db):
     datos = {}
 
     # Consulta SQL para obtener las ciudades, características y enlaces
-    consulta_sql = "SELECT ciudad, característica, enlace FROM datos"
+    consulta_sql = "SELECT ciudad, característica, formato, enlace FROM datos"
     cursor.execute(consulta_sql)
 
     # Procesa los resultados
-    for ciudad, caracteristica, enlace in cursor:
+    for ciudad, caracteristica, formato, enlace in cursor:
         if ciudad not in datos:
             datos[ciudad] = {}
-        datos[ciudad][caracteristica] = enlace
+        if caracteristica not in datos[ciudad]:
+            datos[ciudad][caracteristica] = {}
+        datos[ciudad][caracteristica][formato] = enlace
 
     # Cierra el cursor
     cursor.close()
@@ -39,7 +41,7 @@ def diccionarioURLs(db):
     return datos
 
 
-def descargar_archivo(link, carpeta_destino, ciudad, característica, periodicidad):
+def descargar_archivo(link, carpeta_destino, ciudad, característica, formato, periodicidad):
 
 
     while True:
@@ -52,13 +54,19 @@ def descargar_archivo(link, carpeta_destino, ciudad, característica, periodicid
 
         carpeta_caracteristica = os.path.join(carpeta_ciudad, característica)
 
-        #Verifica si la carpeta de la ciudad existe
+        #Verifica si la carpeta de la característica existe
         if not os.path.exists(carpeta_caracteristica):
             os.makedirs(carpeta_caracteristica)
 
+        carpeta_formato = os.path.join(carpeta_caracteristica, formato)
+
+        #Verifica si la carpeta de la formato existe
+        if not os.path.exists(carpeta_formato):
+            os.makedirs(carpeta_formato)
+
         #Crea el nombre del archivo a partir de la característica
-        nombre_archivo = f"{característica}_{ciudad}_{int(time.time())}.json"
-        ruta_destino = os.path.join(carpeta_caracteristica, nombre_archivo)
+        nombre_archivo = f"{característica}_{ciudad}_{int(time.time())}.{formato}"
+        ruta_destino = os.path.join(carpeta_formato, nombre_archivo)
 
         response = requests.get(link)
         if response.status_code == 200:
@@ -90,9 +98,10 @@ def iniciar_demonios(db):
         ciudad = peticion[0]
         característica = peticion[1]
         id_usuario = peticion[2]
-        periodicidad = peticion[3]
+        formato = peticion[3]
+        periodicidad = peticion[4]
 
-        link=datos[ciudad][característica]
+        link=datos[ciudad][característica][formato]
 
         #TEST PARA VALIDAR QUE ESTÁ LEYENDO LAS PETICIONES CORRECTAMENTE Y LAS ASOCIACIONES
         #print("El usuario "+str(id_usuario)+" quiere conocer la característica "+str(característica)+" de la ciudad de "+str(ciudad)+" cada "+str(periodicidad)+" segundos "+"y el link es "+str(link))
@@ -105,7 +114,7 @@ def iniciar_demonios(db):
             os.makedirs(carpeta_usuario)
 
 
-        proceso = Process(target=descargar_archivo, args=(link, carpeta_usuario, ciudad, característica, periodicidad))
+        proceso = Process(target=descargar_archivo, args=(link, carpeta_usuario, ciudad, característica, formato, periodicidad))
         proceso.start()
 
  

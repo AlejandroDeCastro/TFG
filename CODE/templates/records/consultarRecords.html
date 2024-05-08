@@ -50,7 +50,11 @@
     <select id="registros" class="form-control custom-select" multiple>
         {% for ciudad, caracteristicas in registros.items() %}
         {% for caracteristica in caracteristicas %}
-        <option value="{{ ciudad }} - {{ caracteristica[0] }}">{{ ciudad }} - {{ caracteristica[0] }} - {{ caracteristica[1] }}</option>
+        {% for formato in registros[ciudad][caracteristica] %}
+        {% for periodicidad in registros[ciudad][caracteristica][formato] %}
+        <option value="{{ ciudad }} - {{ caracteristica }} - {{ formato }} - {{ periodicidad }}">{{ ciudad }} - {{ caracteristica }} - Formato: {{ formato }} - Periodicidad: {{ periodicidad }} segundos</option>
+        {% endfor %}
+        {% endfor %}
         {% endfor %}
         {% endfor %}
     </select>

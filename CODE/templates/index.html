@@ -45,7 +45,9 @@
             {% if registros %}
             <ul>
                 {% for ciudad, caracteristica in registros.items() %}
-                <li><strong>{{ ciudad }}</strong>: {{ caracteristica }}</li>
+                
+                <li><strong>{{ ciudad }}</strong>: {{ caracteristica }}}</li>
+            
                 {% endfor %}
             </ul>
             {% endif %}
