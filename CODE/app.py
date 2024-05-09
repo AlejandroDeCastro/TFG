@@ -216,25 +216,32 @@ def seleccionarCiudad():
     global ciudad
     ciudad = str(request.form['ciudadElegida'])
 
-    # Se saca la lista de las carácteristicas de esa ciudad
+    # Saca la lista de las carácteristicas de esa ciudad
+    caracteristicasFormato = []
     características=list(diccionarioDatosDisponibles[ciudad].keys())
 
-    return render_template('ciudad.html', ciudadElegida = ciudad, características = características)
+    for caracterisitica, formatos in diccionarioDatosDisponibles[ciudad].items():
+        for formato in formatos:
+            caracteristicasFormato.append(caracterisitica + " ("+ formato+")")
+
+    return render_template('ciudad.html', ciudadElegida = ciudad, características = caracteristicasFormato)
 
 
 @server.route("/Muestra", methods=("POST", "GET"))
 @login_required
 def seleccionarOpcion():
 
-    #df_prueba = pd.read_csv("DATOS_PRUEBA.csv",sep=',', engine='python',skiprows=0,index_col=False)
-    
-    global opcion
-    opcion = str(request.form['opcionElegida'])
+    # Se extrae la iocion elegida y se separa en opcion y formato
+    global opcion, formato
+    particiones = str(request.form['opcionElegida']).split(' (')
+    opcion = particiones[0]
+    formato = particiones[1].strip(')')
 
+    #Se obtiene el enlace
     global enlace
-    enlace = diccionarioDatosDisponibles[ciudad][opcion]
-
-    data=convertirADiccionario(enlace, False)
+    enlace = diccionarioDatosDisponibles[ciudad][opcion][formato]
+  
+    data=convertirADiccionario(enlace, formato)
 
     # En caso de que el JSON obtenido tenga el forma de lista [Conjunto1, Conjunto2...]
     if not isinstance(data, dict):
@@ -403,7 +410,7 @@ def seleccionarOpcion():
             #Datos y modelo
             linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/emt/records"
 
-            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+            diccionarioDeDatos=convertirADiccionario(linkDatos, formato)
 
             #Bucle que reccore la lista de diccionarios de datos y los muestra
             for dato in diccionarioDeDatos['results']:
@@ -471,20 +478,35 @@ def seleccionarOpcion():
         return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
 
 
-    #Función que transforma un conjunto de datos de json a diccionario de python
-def convertirADiccionario(datos, local):
+    # Función que transforma un conjunto de datos de json a diccionario de python
+def convertirADiccionario(enlace, formato):
 
-    #Si hay un enlace para el JSON de datos, lo lee y transforma en un diccionario
-    if datos != "":
+    # Si hay un enlace para los datos, lo lee y transforma en un diccionario
+    if enlace != "":
 
-        #Extraer los datos en local o web
-        if local:
-            with open(datos, "r") as Datos:
-                diccionarioDatos=json.load(Datos)
-        else:
-            with urllib.request.urlopen(datos) as response:
+        #Extraer los datos según el formato
+        if formato == formatos[0]: #JSON
+            with urllib.request.urlopen(enlace) as response:
                 DatosJSON = response.read()
             diccionarioDatos = json.loads(DatosJSON)
+        elif formato == formatos[1]: #CSV
+
+            print("SIN EL DE CSV")
+            diccionarioDatos = {}
+
+        elif formato == formatos[2]: #XML
+
+            try:         
+                response = requests.get(url) # Hace una solicitud GET a la URL
+                response.raise_for_status()  # Lanza una excepción para respuestas no exitosas
+                diccionarioDatos = xmltodict.parse(response.content) # Convierte el contenido XML a un diccionario
+
+            except requests.RequestException as e:
+                print(f"Error en la solicitud HTTP: {e}")
+                diccionarioDatos = {}
+            except Exception as e:
+                print(f"Error al convertir XML a diccionario: {e}")
+                diccionarioDatos = {}
 
     else:
         diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
@@ -524,8 +546,7 @@ def registro_requerido(error):
 def updateGraph_var(value):
 
     #Datos
-    linkDatos = diccionarioDatosDisponibles[ciudad][opcion]
-    diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+    diccionarioDeDatos=convertirADiccionario(enlace, formato)
          
     #DataFrame del grafo de datos
     df=pd.DataFrame(diccionarioDeDatos["results"])
@@ -552,8 +573,7 @@ def updateGraph_var(value):
 def updateGraph_pie(value):
 
     #Datos
-    linkDatos = diccionarioDatosDisponibles[ciudad][opcion]
-    diccionarioDeDatos=convertirADiccionario(linkDatos, False)
+    diccionarioDeDatos=convertirADiccionario(enlace, formato)
          
     #DataFrame del grafo de datos
     df=pd.DataFrame(diccionarioDeDatos["results"])
