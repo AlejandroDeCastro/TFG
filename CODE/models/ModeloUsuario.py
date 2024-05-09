@@ -139,15 +139,15 @@ class ModeloUsuario():
 
 
     @classmethod
-    def set_dato(self, db, id_usuario, ciudad, característica, enlace):
+    def set_dato(self, db, id_usuario, ciudad, característica, formato, enlace):
 
         try:
             #Crea el cursor
             cursor = db.cursor()
 
             #Insercción que se hace en la base de datos. 
-            insercción="INSERT INTO datos (ciudad, característica, enlace, id_usuario) VALUES (%s, %s, %s, %s)"
-            data = (ciudad, característica, enlace, id_usuario)
+            insercción="INSERT INTO datos (ciudad, característica, formato, enlace, id_usuario) VALUES (%s, %s, %s, %s, %s)"
+            data = (ciudad, característica, formato, enlace, id_usuario)
 
             #Ejecución de la insercción
             cursor.execute(insercción, data)

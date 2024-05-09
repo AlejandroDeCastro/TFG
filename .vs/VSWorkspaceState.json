@@ -3,10 +3,9 @@
     "",
     "\\CODE",
     "\\CODE\\models",
-    "\\CODE\\static\\css",
-    "\\CODE\\templates\\records",
+    "\\CODE\\templates",
     "\\CODE\\test"
   ],
-  "SelectedNode": "\\CODE\\app.py",
+  "SelectedNode": "\\CODE\\templates\\index.html",
   "PreviewInSolutionExplorer": false
 }

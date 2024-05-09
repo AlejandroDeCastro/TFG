@@ -52,6 +52,14 @@
                             <input type="text" class="form-control mb-3" name="atributo" />
                         </div>
                         <div class="col">
+                            <label>Formato</label>
+                            <select class="form-select" name="formato">
+                                {% for formato in formatos %}
+                                <option value="{{ formato }}">{{ formato }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
                             <label>Enlace</label>
                             <input type="text" class="form-control mb-3" name="enlace" />
                         </div>

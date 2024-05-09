@@ -25,6 +25,7 @@ from zipfile import ZipFile
 #Datos disponibles
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
+formatos=['JSON','CSV','XML']
 
 listaCiudadesDatos=[]
 for ciudad in diccionarioDatosDisponibles:
@@ -110,7 +111,6 @@ def home():
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
     unidades=['minutos','horas','dias','semanas','meses']
-    formatos=['JSON','CSV','XML']
     return render_template('records/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos)
 
 
@@ -196,15 +196,16 @@ def eliminarRecord(ciudad, caracteristica, formato, periodicidad):
 @login_required
 def añadirDatos():
     diccionarioDatosDisponibles=diccionarioURLs(db)
-    return render_template('añadirDatos.html', datosDisponibles = diccionarioDatosDisponibles)
+    return render_template('añadirDatos.html', datosDisponibles = diccionarioDatosDisponibles, formatos = formatos)
 
 @server.route("/guardarDato", methods=['POST'])
 @login_required
 def guardarDato():
     ciudad = request.form['ciudad']
     característica = request.form['atributo']
+    formato = request.form['formato']
     enlace = request.form['enlace']
-    ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, enlace)
+    ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, formato, enlace)
     return redirect(url_for('añadirDatos'))
 
 @server.route("/ciudad", methods=['POST'])
