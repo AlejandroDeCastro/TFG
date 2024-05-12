@@ -8,6 +8,8 @@ from models.entidades.Usuario import Usuario
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf.csrf import CSRFProtect
 import os
+import requests
+import xmltodict
 import shutil
 import dash
 import dash_core_components as dcc 
@@ -217,29 +219,31 @@ def seleccionarCiudad():
     ciudad = str(request.form['ciudadElegida'])
 
     # Saca la lista de las carácteristicas de esa ciudad
-    caracteristicasFormato = []
+    características = []
     características=list(diccionarioDatosDisponibles[ciudad].keys())
 
+    #LISTA DE CARACTERISTICAS CON FORMATO
+    """
+    caracteristicasFormato = []
     for caracterisitica, formatos in diccionarioDatosDisponibles[ciudad].items():
         for formato in formatos:
             caracteristicasFormato.append(caracterisitica + " ("+ formato+")")
+    """
 
-    return render_template('ciudad.html', ciudadElegida = ciudad, características = caracteristicasFormato)
+    return render_template('ciudad.html', ciudadElegida = ciudad, características = características)
 
 
 @server.route("/Muestra", methods=("POST", "GET"))
 @login_required
 def seleccionarOpcion():
 
-    # Se extrae la iocion elegida y se separa en opcion y formato
-    global opcion, formato
-    particiones = str(request.form['opcionElegida']).split(' (')
-    opcion = particiones[0]
-    formato = particiones[1].strip(')')
+    # Se extrae la opcion elegida 
+    global opcion
+    opcion = str(request.form['opcionElegida'])
 
-    #Se obtiene el enlace
-    global enlace
-    enlace = diccionarioDatosDisponibles[ciudad][opcion][formato]
+    # Se obtiene el formato disponible más adecuado y el enlace de los datos con ese formato
+    global formato, enlace
+    formato, enlace = obetenerFormatoÓptimo(diccionarioDatosDisponibles[ciudad][opcion])
   
     data=convertirADiccionario(enlace, formato)
 
@@ -257,17 +261,10 @@ def seleccionarOpcion():
 
     if ciudad == "Málaga":
         if opcion == "Parkings":
-            df = pd.read_csv("https://datosabiertos.malaga.eu/recursos/aparcamientos/ocupappublicosmun/ocupappublicosmun.csv",sep=',', engine='python',skiprows=0,index_col=False)
 
-            linkDatos=""
-            #linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
-            linkModeloDeDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Modelos\\modeloParking.json"
+            visualizarDiccionarioDeDatos(data)
+            df=pd.DataFrame(data)
 
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
-            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
-
-            visualizarDiccionarioDeDatos(diccionarioModeloDeDatos)
-            
             return render_template('parkingMalaga.html',  opcionElegida = opcion, tables =[df.to_html(classes='data')], titles=df.columns.values)
         
         elif(opcion == "Transporte EMT"):
@@ -431,17 +428,14 @@ def seleccionarOpcion():
         #CENTROS CULTURALES BADAJOZ
         if opcion=="Centros culturales":
             
-            #Datos y modelo
-            linkDatos="https://datosabiertos.dip-badajoz.es/dataset/e94c8e11-faff-4211-a999-3e16800e09ac/resource/7f697576-34e6-4104-96fb-d00656c76734/download/centrosculturales2023.json"
-
-            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
-       
             #Bucle que reccore la lista de diccionarios de datos y los muestra
+            """
             for dato in diccionarioDeDatos:
                 visualizarDiccionarioDeDatos(dato)
-            
+            """
+
             #DataFrame del grafo de datos
-            df=pd.DataFrame(diccionarioDeDatos)
+            df=pd.DataFrame(data)
 
             return render_template('centrosCulturalesBadajoz.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
 
@@ -497,7 +491,7 @@ def convertirADiccionario(enlace, formato):
         elif formato == formatos[2]: #XML
 
             try:         
-                response = requests.get(url) # Hace una solicitud GET a la URL
+                response = requests.get(enlace) # Hace una solicitud GET a la URL
                 response.raise_for_status()  # Lanza una excepción para respuestas no exitosas
                 diccionarioDatos = xmltodict.parse(response.content) # Convierte el contenido XML a un diccionario
 
@@ -507,6 +501,12 @@ def convertirADiccionario(enlace, formato):
             except Exception as e:
                 print(f"Error al convertir XML a diccionario: {e}")
                 diccionarioDatos = {}
+        
+        # En caso de no ser un formato conocido
+        else:
+            print("El formato seleccionado es ",formato," y no corresponde a ninguno de la lista ",formatos)
+            diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
+            # LLamar a una vista que indique que ese formato no existe
 
     else:
         diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
@@ -514,7 +514,7 @@ def convertirADiccionario(enlace, formato):
     print(diccionarioDatos)
     return diccionarioDatos
 
-#Función que visualiza los modelos de datos o diccionarios de datos pasados
+# Método que visualiza los modelos de datos o diccionarios de datos pasados
 def visualizarDiccionarioDeDatos(diccionario):
     print(diccionario)
     print("\nkeys"+str(diccionario.keys())+"\n")
@@ -526,6 +526,14 @@ def visualizarDiccionarioDeDatos(diccionario):
                 print(" +"+key2+" = "+str(dato[key2]))
         else:
             print("\n"+key+" = "+str(dato))
+
+# Función que busca el formato más óptimo y devueleve el formato y el enlace
+def obetenerFormatoÓptimo(diccionarioFormatos):
+    for formato in formatos:
+        if diccionarioFormatos.get(formato):
+            return formato, diccionarioFormatos[formato]
+
+    return None, None
 
 
 def pagina_no_encontrada(error):
