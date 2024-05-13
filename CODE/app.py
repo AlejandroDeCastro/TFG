@@ -300,21 +300,13 @@ def seleccionarOpcion():
 
         #PARKINGS MADRID
         if opcion=="Parkings":
-            
-            #Datos y modelo
-            linkDatos="https://datos.madrid.es/egob/catalogo/202625-0-aparcamientos-publicos.json"
-
-            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
-
-            #Bucle que reccore la lista de diccionarios de datos
-            #for linea in diccionarioDeDatos:
-             #   visualizarDiccionarioDeDatos(linea)
-
-            return render_template('parkingMadrid.html',  opcionElegida = opcion)
+            #return render_template('parkingMadrid.html',  opcionElegida = opcion)
+            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data["@graph"], listaCaracteristicas = listaCaracteristicas)
 
         #TRANSPORTE MADRID
         elif opcion=="Transporte":
             return render_template('transporteMadrid.html', opcionElegida = opcion)
+
 
         #BIBLIOTECAS MADRID
         elif opcion=="Bibliotecas":
@@ -447,19 +439,22 @@ def seleccionarOpcion():
 
         #PARKING BARCELONA
         if opcion=="Parkings":
-            
-            #Datos y modelo
-            linkDatos=enlace
 
-            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
-       
+            
+            modeloTraducciones={'ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica'}
+            conjuntoTraducido = []
+
+            for parking in data["ParkingList"]["Parking"]:
+                parkingTraducido = actualizar_claves(parking, modeloTraducciones)
+                conjuntoTraducido.append(parkingTraducido)
+                
             #TEST PARA VISUALIZAR LOS DATOS
-            #for parking in diccionarioDeDatos["ParkingList"]["Parking"]:
-                #visualizarDiccionarioDeDatos(parking)
+            #for parking in data["ParkingList"]["Parking"]:
+                #data(parking)
             
             #DataFrame del grafo de datos
-            df=pd.DataFrame(diccionarioDeDatos["ParkingList"]["Parking"])
-
+            df=pd.DataFrame(conjuntoTraducido)
+            #return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data["ParkingList"]["Parking"], listaCaracteristicas = listaCaracteristicas)
             return render_template('parkingBarcelona.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
      
         else:
@@ -535,6 +530,21 @@ def obetenerFormatoÓptimo(diccionarioFormatos):
 
     return None, None
 
+def actualizar_claves(diccionario, modeloTraducción):
+
+    diccionarioTraducido={}
+
+    # Recorre las claves del diccionario
+    for clave, valor in diccionario.items():
+
+        # Si la clave se encuentra en el modelo de Ttraducción, sacar su traducción y reemplazarlo
+        if clave in modeloTraducción:
+            claveTraducida = modeloTraducción[clave]
+            diccionarioTraducido[claveTraducida] = valor
+        else:
+            diccionarioTraducido[clave] = valor
+
+    return diccionarioTraducido
 
 def pagina_no_encontrada(error):
     #2 opciones, usar la plantilla 404 o redirigir al inicio
