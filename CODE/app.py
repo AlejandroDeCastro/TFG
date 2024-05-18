@@ -24,10 +24,13 @@ from gestor import iniciar_demonios, diccionarioURLs
 from zipfile import ZipFile
 
 
+
 #Datos disponibles
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
 formatos=['JSON','CSV','XML']
+modeloTraducciones={'ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
+
 
 listaCiudadesDatos=[]
 for ciudad in diccionarioDatosDisponibles:
@@ -336,6 +339,31 @@ def seleccionarOpcion():
 
         #PARKINGS VALENCIA
         if opcion=="Parkings":
+
+            conjuntoTraducido = []
+
+            for parking in data["results"]:
+                parkingTraducido = actualizar_claves(parking, modeloTraducciones)
+                conjuntoTraducido.append(parkingTraducido)
+
+            # Frame para obtener los datos a representar en el mapa
+            dataFrameParkingsValencia=pd.DataFrame(conjuntoTraducido)
+
+            # Se separan los campos lon y lat
+            dataFrameParkingsValencia['lon'] = dataFrameParkingsValencia['geo_point_2d'].apply(lambda loc: loc['lon'])
+            dataFrameParkingsValencia['lat'] = dataFrameParkingsValencia['geo_point_2d'].apply(lambda loc: loc['lat'])
+
+            # mapa
+            mapa = px.scatter_mapbox(dataFrameParkingsValencia, lat="lat", lon="lon", hover_name="nombre", hover_data={"lat" : False, "lon" : False, "plazas libres" : True, "plazas totales" : True},
+                                    color_discrete_sequence=["blue"], zoom=11, height=300)
+
+            # Configura el estilo del mapa y el tamaño de los puntos
+            mapa.update_traces(marker=dict(size=15))  # Ajusta el tamaño de los puntos aquí
+
+            # Layout por defecto y posición
+            mapa.update_layout(mapbox_style="open-street-map")
+            mapa.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+            
             
             vistaParkingValencia.layout = html.Div([
 
@@ -359,7 +387,7 @@ def seleccionarOpcion():
                     ], className= 'create_container2 five columns', style = {'margin-bottom':'20px'}),
                 ], className= 'row flex-display'),
 
-                #Gráficos
+                #Gráficos y mapa
                 html.Div([
                     html.Div([
                         dcc.Graph(id = 'var_graph', figure = {})    
@@ -368,6 +396,11 @@ def seleccionarOpcion():
                     html.Div([
                         dcc.Graph(id = 'pie_graph', figure = {})    
                     ], className= 'create_container2 five columns'),
+
+                    html.Div([
+                        dcc.Graph(id='map', figure=mapa)
+                    ], className= 'create_container2 five columns'),
+
                 ], className='row flex-display'),
 
             ], id ='mainContainer', style={'display': 'flex', 'flex-direction':'column'})
@@ -441,7 +474,6 @@ def seleccionarOpcion():
         if opcion=="Parkings":
 
             
-            modeloTraducciones={'ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica'}
             conjuntoTraducido = []
 
             for parking in data["ParkingList"]["Parking"]:

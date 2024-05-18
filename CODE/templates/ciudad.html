@@ -11,10 +11,11 @@
     </label>
     <ul>
         <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('añadirDatos') }}">Añadir datos</a></li>
         <li><a href="{{ url_for('consultarRecords') }}">Consultar Registros</a></li>
         <li><a href="{{ url_for('editarRecords') }}">Editar Registros</a></li>
-        <li><a>Sobre nosotros</a></li>
-        <li><a>Cerrar sesión</a></li>
+        <li><a class="col-sm-12 col-md-4 col-lg-4">Sobre nosotros</a></li>
+        <li><a class="logout col-sm-12 col-md-4 col-lg-4" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
     </ul>
 </nav>
 {% endblock %}
