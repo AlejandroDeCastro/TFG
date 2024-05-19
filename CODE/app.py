@@ -45,7 +45,7 @@ server = Flask(__name__)
 server.secret_key = '$$'
 
 #Inicializa la aplicación Dash
-vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/dash/')
+vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/ValenciaParkings/')
 vistaParkingValencia.layout = html.Div([html.H1('BB')])
 
 #Protección CSRF 
@@ -68,10 +68,10 @@ def login():
         usuario = Usuario(0, request.form['username'], request.form['password'])
         usuarioLogueado = ModeloUsuario.login(db.database,usuario)
 
-        #Comprueba si existe el usuario
+        # Comprueba si existe el usuario
         if usuarioLogueado != None:
 
-            #Comprueba si la contraseña introduciada es correcta
+            # Comprueba si la contraseña introduciada es correcta
             if usuarioLogueado.contraseña:
                 login_user(usuarioLogueado)
                 return redirect(url_for('home'))
@@ -127,59 +127,63 @@ def consultarRecords():
 
 
 #FUNCION DE DESCARGA QUE NO FUNCIONA. EN EL HTML SE LLAMA CON OTRO NOMBRE ARREGLAR
-@server.route('/obtener_opciones',  methods=['GET','POST'])
+@server.route("/descargar_registros/<string:ciudad>/<string:caracteristica>/<string:formato>/<string:periodicidad>",  methods=['GET','POST'])
 @login_required
-def obtener_opciones():
-    global opciones_seleccionadas
-    opciones = request.form.get('registros')
-    opciones_seleccionadas = opciones.split(',')
-    print(opciones_seleccionadas)
+def descargar_registros(ciudad, caracteristica, formato, periodicidad):
+    print("El usuario quiere descargar de ",ciudad," el conjunto de datos de ",caracteristica," del formato ",formato," que ha sido grabado con una periodicidad de ",periodicidad)
+    if False:
+        global opciones_seleccionadas
+        opciones = request.form.get('registros')
+        opciones_seleccionadas = opciones.split(',')
+        print(opciones_seleccionadas)
 
-    # Lista de ciudades y características
-    #ciudades_caracteristicas = ["Valencia - Parking", "Málaga - Bibliotecas"]
+        # Lista de ciudades y características
+        #ciudades_caracteristicas = ["Valencia - Parking", "Málaga - Bibliotecas"]
 
-    # Directorio base donde se encuentran las carpetas de ciudades
-    directorio_base = "Registros"
-    caperta_usuario= "Usuario " + str(current_user.id)
-    ruta_carpeta_usuario = os.path.join(directorio_base, caperta_usuario)
+        # Directorio base donde se encuentran las carpetas de ciudades
+        directorio_base = "Registros"
+        caperta_usuario= "Usuario " + str(current_user.id)
+        ruta_carpeta_usuario = os.path.join(directorio_base, caperta_usuario)
 
-    # Lista para almacenar las rutas de los archivos descargados
-    rutas_archivos_descargados = []
+        # Lista para almacenar las rutas de los archivos descargados
+        rutas_archivos_descargados = []
 
-    # Itera sobre la lista de ciudades y características
-    for ciudad_caracteristica in opciones_seleccionadas:
-        ciudad, caracteristica = ciudad_caracteristica.split(" - ")
+        # Itera sobre la lista de ciudades y características
+        for ciudad_caracteristica in opciones_seleccionadas:
+            ciudad, caracteristica = ciudad_caracteristica.split(" - ")
 
-        # Verifica si existe la carpeta de la ciudad y la carpeta de la característica
-        ruta_carpeta_ciudad = os.path.join(ruta_carpeta_usuario, ciudad)
-        ruta_carpeta_caracteristica = os.path.join(ruta_carpeta_ciudad, caracteristica)
-        print(ruta_carpeta_caracteristica)
+            # Verifica si existe la carpeta de la ciudad y la carpeta de la característica
+            ruta_carpeta_ciudad = os.path.join(ruta_carpeta_usuario, ciudad)
+            ruta_carpeta_caracteristica = os.path.join(ruta_carpeta_ciudad, caracteristica)
+            print(ruta_carpeta_caracteristica)
     
-        if os.path.exists(ruta_carpeta_caracteristica):
-            # Obtene todos los archivos JSON en la carpeta de la característica
-            archivos_json = [f for f in os.listdir(ruta_carpeta_caracteristica) if f.endswith('.json')]
+            if os.path.exists(ruta_carpeta_caracteristica):
+                # Obtene todos los archivos JSON en la carpeta de la característica
+                archivos_json = [f for f in os.listdir(ruta_carpeta_caracteristica) if f.endswith('.json')]
         
-            # Itera sobre los archivos JSON y copiarlos a un directorio de destino
-            for archivo_json in archivos_json:
-                ruta_origen = os.path.join(ruta_carpeta_caracteristica, archivo_json)
-                rutas_archivos_descargados.append(ruta_origen)
+                # Itera sobre los archivos JSON y copiarlos a un directorio de destino
+                for archivo_json in archivos_json:
+                    ruta_origen = os.path.join(ruta_carpeta_caracteristica, archivo_json)
+                    rutas_archivos_descargados.append(ruta_origen)
 
-    carpeta_descargas="Descargas"
-    if not os.path.exists(carpeta_descargas):
-        os.makedirs(carpeta_descargas)
+        carpeta_descargas="Descargas"
+        if not os.path.exists(carpeta_descargas):
+            os.makedirs(carpeta_descargas)
                 
-    # Crea un archivo ZIP temporal para almacenar todos los archivos
-    zip_filename = 'archivos_descargados.zip'
-    ruta_descarga = os.path.join(carpeta_descargas, zip_filename)
+        # Crea un archivo ZIP temporal para almacenar todos los archivos
+        zip_filename = 'archivos_descargados.zip'
+        ruta_descarga = os.path.join(carpeta_descargas, zip_filename)
     
-    with ZipFile(ruta_descarga, 'w') as zip:
-        for ruta_archivo in rutas_archivos_descargados:
-            zip.write(ruta_archivo, os.path.basename(ruta_archivo))
+        with ZipFile(ruta_descarga, 'w') as zip:
+            for ruta_archivo in rutas_archivos_descargados:
+                zip.write(ruta_archivo, os.path.basename(ruta_archivo))
 
-    # Envia el archivo ZIP como una respuesta de la solicitud HTTP
-    directorio=os.path.join(r"C:\Users\alexd\Desktop\TFG\PROGRAM", carpeta_descargas)
-    #return send_from_directory(directory=directorio, path=zip_filename, as_attachment=True)
-    return send_file(zip_filename, as_attachment=True)
+        # Envia el archivo ZIP como una respuesta de la solicitud HTTP
+        directorio=os.path.join(r"C:\Users\alexd\Desktop\TFG\PROGRAM", carpeta_descargas)
+        #return send_from_directory(directory=directorio, path=zip_filename, as_attachment=True)
+        return send_file(zip_filename, as_attachment=True)
+    
+    return html.Div([html.H1('VAMOS A CENAR')])
 
 
 @server.route("/guardarRecord", methods=['POST'])
@@ -405,7 +409,7 @@ def seleccionarOpcion():
 
             ], id ='mainContainer', style={'display': 'flex', 'flex-direction':'column'})
 
-            return redirect('/dash/')
+            return redirect('/ValenciaParkings/')
             #return render_template('parkingValencia.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
 
 

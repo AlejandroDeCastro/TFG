@@ -55,6 +55,7 @@
                             <th scope="col">Característica</th>
                             <th scope="col">Formato</th>
                             <th scope="col">Periodicidad (segundos)</th>
+                            <th scope="col">Descargar</th>
                             <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
@@ -69,6 +70,8 @@
                             <td>{{ caracteristica }}</td>
                             <td>{{ formato }}</td>
                             <td>{{ periodicidad }}</td>
+                            
+                            <td><a href="{{url_for('descargar_registros', ciudad = ciudad, caracteristica = caracteristica, formato = formato, periodicidad = periodicidad)}}" class="btn btn-success">Descargar</a></td>
                             <td><a href="{{url_for('eliminarRecord', ciudad = ciudad, caracteristica = caracteristica, formato = formato, periodicidad = periodicidad)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
                         </tr>
                         {% endfor %}
