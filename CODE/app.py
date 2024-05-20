@@ -97,7 +97,8 @@ def logout():
 @login_required
 def home():
     global diccionarioDatosDisponibles
-    diccionarioDatosDisponibles=diccionarioURLs(db)
+    diccionarioDatosDisponibles=diccionarioURLs(db) #{}
+    print("AA",diccionarioDatosDisponibles,"AA")
     global listaCiudades
     listaCiudades=list(diccionarioDatosDisponibles.keys())
     global listaCiudadesDatos
@@ -108,8 +109,13 @@ def home():
                 ciudadDato=ciudad+" - "+tipoDato+" - "+formato
                 listaCiudadesDatos.append(ciudadDato)
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    return render_template('index.html', listaCiudades=listaCiudades, registros = registros)
+    return render_template('index.html', listaCiudades=listaCiudades, registros = registros, ciudades=listaCiudades)
 
+@server.route('/get_caracteristicas', methods=['POST'])
+def get_caracteristicas():
+    ciudad = request.form['ciudad']
+    caracteristicas = list(diccionarioDatosDisponibles[ciudad].keys())
+    return jsonify(caracteristicas)
 
 @server.route("/editarRecords")
 @login_required
