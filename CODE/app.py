@@ -97,8 +97,7 @@ def logout():
 @login_required
 def home():
     global diccionarioDatosDisponibles
-    diccionarioDatosDisponibles=diccionarioURLs(db) #{}
-    print("AA",diccionarioDatosDisponibles,"AA")
+    diccionarioDatosDisponibles=diccionarioURLs(db) # {ciudad1: {conjunto1: {formato1:enlace, formato2:enlace}, conjunto2: {formato1:enlace, formato2:enlace}}, ciudad2:{...}}
     global listaCiudades
     listaCiudades=list(diccionarioDatosDisponibles.keys())
     global listaCiudadesDatos
@@ -250,9 +249,13 @@ def seleccionarCiudad():
 @login_required
 def seleccionarOpcion():
 
-    # Se extrae la opcion elegida 
+    # Se guarda la ciudad elegida
+    global ciudad
+    ciudad = str(request.form['ciudad'])
+
+    # Se guarda la opcion elegida 
     global opcion
-    opcion = str(request.form['opcionElegida'])
+    opcion = str(request.form['caracteristica'])
 
     # Se obtiene el formato disponible más adecuado y el enlace de los datos con ese formato
     global formato, enlace

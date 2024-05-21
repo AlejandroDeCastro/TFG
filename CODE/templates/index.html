@@ -81,41 +81,25 @@
                 {% endfor %}
             </ul>
 
-            <form action="{{url_for('seleccionarCiudad')}}" method="post" accept-charset="UTF-8">
 
 
+            <form action="{{url_for('seleccionarOpcion')}}" method="post" accept-charset="UTF-8">
                 <div class="container">
-                    <p>LISTA DE CIUDADES</p>
-                    <div class="row">
-                        <label>Seleccionar Ciudad</label>
-                        <select name="ciudadElegida" data-live-search="true" class="form-control" title="Seleccionar ciudad">
-                            {% for ciudad in listaCiudades %}
-                            <option value="{{ ciudad }}">{{ ciudad }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    <label for="ciudad">Ciudad:</label>
+                    <select id="ciudad" name="ciudad">
+                        <option value="">Selecciona una ciudad</option>
+                        {% for ciudad in ciudades %}
+                        <option value="{{ ciudad }}">{{ ciudad }}</option>
+                        {% endfor %}
+                    </select>
 
+                    <label for="caracteristica">Característica:</label>
+                    <select id="caracteristica" name="caracteristica">
+                        <option value="">Selecciona una característica</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-large">CONSULTA</button>
                 </div>
-
-                <!--<input type="text" name="Pais" placeholder="Seleccione País" required="required">-->
-                <!--<input type="text" name="Ciudad" placeholder="Seleccione Ciudad" required="required">-->
-                <button type="submit" class="btn btn-primary btn-block btn-large">CONSULTAR</button>
-
-            </form>
-
-            <form>
-                <label for="ciudad">Ciudad:</label>
-                <select id="ciudad" name="ciudad">
-                    <option value="">Selecciona una ciudad</option>
-                    {% for ciudad in ciudades %}
-                    <option value="{{ ciudad }}">{{ ciudad }}</option>
-                    {% endfor %}
-                </select>
-
-                <label for="caracteristica">Característica:</label>
-                <select id="caracteristica" name="caracteristica">
-                    <option value="">Selecciona una característica</option>
-                </select>
             </form>
 
             <script>
