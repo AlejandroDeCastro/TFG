@@ -2,12 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
-    "\\CODE\\models",
     "\\CODE\\models\\entidades",
-    "\\CODE\\templates",
-    "\\CODE\\templates\\records",
-    "\\CODE\\test"
+    "\\CODE\\templates"
   ],
-  "SelectedNode": "\\CODE\\app.py",
+  "SelectedNode": "\\CODE\\templates",
   "PreviewInSolutionExplorer": false
 }

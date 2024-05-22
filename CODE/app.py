@@ -206,11 +206,11 @@ def eliminarRecord(ciudad, caracteristica, formato, periodicidad):
     ModeloUsuario.delete_registro(db.database, current_user.id, ciudad, caracteristica, formato, periodicidad)
     return redirect(url_for('editarRecords'))
 
-@server.route("/añadirDatos")
+@server.route("/añadirConjuntos")
 @login_required
-def añadirDatos():
+def añadirConjuntos():
     diccionarioDatosDisponibles=diccionarioURLs(db)
-    return render_template('añadirDatos.html', datosDisponibles = diccionarioDatosDisponibles, formatos = formatos)
+    return render_template('añadirConjuntos.html', datosDisponibles = diccionarioDatosDisponibles, formatos = formatos)
 
 @server.route("/guardarDato", methods=['POST'])
 @login_required
@@ -220,7 +220,7 @@ def guardarDato():
     formato = request.form['formato']
     enlace = request.form['enlace']
     ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, formato, enlace)
-    return redirect(url_for('añadirDatos'))
+    return redirect(url_for('añadirConjuntos'))
 
 @server.route("/ciudad", methods=['POST'])
 @login_required
