@@ -29,7 +29,7 @@ from zipfile import ZipFile
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
 formatos=['JSON','CSV','XML']
-modeloTraducciones={'ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
+modeloTraducciones={'titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 
 
 listaCiudadesDatos=[]
@@ -260,7 +260,8 @@ def seleccionarOpcion():
     # Se obtiene el formato disponible más adecuado y el enlace de los datos con ese formato
     global formato, enlace
     formato, enlace = obetenerFormatoÓptimo(diccionarioDatosDisponibles[ciudad][opcion])
-  
+    
+    global data
     data=convertirADiccionario(enlace, formato)
 
     # En caso de que el JSON obtenido tenga el forma de lista [Conjunto1, Conjunto2...]
@@ -506,10 +507,32 @@ def seleccionarOpcion():
             #Si se busca una opción que no está en la lista, mostrar una vista genérica
             return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
      
+    elif ciudad == "Gijón":
+        # CAJEROS GIJÓN
+        if opcion == "Cajeros":
+            conjuntoTraducido=[]
+            for enitdad in data:
+                entidadTraducida = actualizar_claves(enitdad, modeloTraducciones)
+                conjuntoTraducido.append(entidadTraducida)
+            data=conjuntoTraducido
+            
+            # Trasforma las localizaciones de los cajeros en el estandar localizacion:{lon:XX,lat:XX}
+            processed_data = []
+            for cajero in data:
+                lon_lat = cajero['localizacion'].split(', ')
+                lon = float(lon_lat[0].split(': ')[1])
+                lat = float(lon_lat[1].split(': ')[1])
+                cajero['localizacion']={'lon': lon, 'lat': lat}
+                processed_data.append(cajero)
+            data=processed_data
+            
+            # Cabecero de la tabla actualizado
+            listaCaracteristicas=data[0].keys()
 
+            return render_template('plantillas/Gijón/cajerosGijón.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
     else:
-        #Si se busca una ciudad que no está en la lista, mostrar una vista genérica
-        return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
+        # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
+        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
 
 
     # Función que transforma un conjunto de datos de json a diccionario de python
@@ -551,8 +574,12 @@ def convertirADiccionario(enlace, formato):
     else:
         diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
     
-    print(diccionarioDatos)
     return diccionarioDatos
+
+@server.route('/data')
+def obtenerdatos():
+    return jsonify(data)
+
 
 # Método que visualiza los modelos de datos o diccionarios de datos pasados
 def visualizarDiccionarioDeDatos(diccionario):

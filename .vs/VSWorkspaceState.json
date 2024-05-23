@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
-    "\\CODE\\models\\entidades",
+    "\\CODE\\models",
+    "\\CODE\\static\\js",
     "\\CODE\\templates"
   ],
-  "SelectedNode": "\\CODE\\templates",
+  "SelectedNode": "\\CODE\\templates\\puntosDeCargaValencia.html",
   "PreviewInSolutionExplorer": false
 }
