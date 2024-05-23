@@ -508,23 +508,20 @@ def seleccionarOpcion():
             return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
      
     elif ciudad == "Gijón":
+
         # CAJEROS GIJÓN
         if opcion == "Cajeros":
+
+            # Traduce el conjunto y trasforma las localizaciones de los cajeros en el estandar localizacion:{lon:XX,lat:XX}
             conjuntoTraducido=[]
             for enitdad in data:
                 entidadTraducida = actualizar_claves(enitdad, modeloTraducciones)
-                conjuntoTraducido.append(entidadTraducida)
-            data=conjuntoTraducido
-            
-            # Trasforma las localizaciones de los cajeros en el estandar localizacion:{lon:XX,lat:XX}
-            processed_data = []
-            for cajero in data:
-                lon_lat = cajero['localizacion'].split(', ')
+                lon_lat = entidadTraducida['localizacion'].split(', ')
                 lon = float(lon_lat[0].split(': ')[1])
                 lat = float(lon_lat[1].split(': ')[1])
-                cajero['localizacion']={'lon': lon, 'lat': lat}
-                processed_data.append(cajero)
-            data=processed_data
+                entidadTraducida['localizacion']={'lon': lon, 'lat': lat}
+                conjuntoTraducido.append(entidadTraducida)
+            data=conjuntoTraducido
             
             # Cabecero de la tabla actualizado
             listaCaracteristicas=data[0].keys()
