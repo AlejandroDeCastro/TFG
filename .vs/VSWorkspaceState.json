@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
-    "\\CODE\\models",
+    "\\CODE\\static",
     "\\CODE\\static\\js",
-    "\\CODE\\templates"
+    "\\CODE\\templates",
+    "\\CODE\\templates\\plantillas",
+    "\\CODE\\templates\\plantillas\\Gijón"
   ],
-  "SelectedNode": "\\CODE\\templates\\puntosDeCargaValencia.html",
+  "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false
 }
