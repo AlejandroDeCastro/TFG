@@ -29,7 +29,7 @@ from zipfile import ZipFile
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
 formatos=['JSON','CSV','XML']
-modeloTraducciones={'titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
+modeloTraducciones={'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 
 
 listaCiudadesDatos=[]
@@ -261,8 +261,9 @@ def seleccionarOpcion():
     global formato, enlace
     formato, enlace = obetenerFormatoÓptimo(diccionarioDatosDisponibles[ciudad][opcion])
     
-    global data
+    global data, clavesMapa
     data=convertirADiccionario(enlace, formato)
+    clavesMapa=[]
 
     # En caso de que el JSON obtenido tenga el forma de lista [Conjunto1, Conjunto2...]
     if not isinstance(data, dict):
@@ -423,20 +424,16 @@ def seleccionarOpcion():
             #return render_template('parkingValencia.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
 
 
-        #BIBLIOTECAS VALENCIA
+        #PUNTOS DE CARGA VALENCIA
         elif opcion=="Puntos de carga":
 
-            #Datos y modelo
-            linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/carregadors-vehicles-electrics-cargadores-vehiculos-electricos/records"
-
-            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
-
-            #Bucle que reccore la lista de diccionarios de datos y los muestra
-            for dato in diccionarioDeDatos['results']:
+            # TEST PARA VISUALIZAR LOS DATOS
+            """
+            for dato in data['results']:
                 visualizarDiccionarioDeDatos(dato)
-            
-            #DataFrame del grafo de datos
-            df=pd.DataFrame(diccionarioDeDatos["results"])
+            """
+            # DataFrame del grafo de datos
+            df=pd.DataFrame(data["results"])
             
             return render_template('puntosDeCargaValencia.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
         
@@ -494,7 +491,7 @@ def seleccionarOpcion():
                 parkingTraducido = actualizar_claves(parking, modeloTraducciones)
                 conjuntoTraducido.append(parkingTraducido)
                 
-            #TEST PARA VISUALIZAR LOS DATOS
+            # TEST PARA VISUALIZAR LOS DATOS
             #for parking in data["ParkingList"]["Parking"]:
                 #data(parking)
             
@@ -526,10 +523,13 @@ def seleccionarOpcion():
             # Cabecero de la tabla actualizado
             listaCaracteristicas=data[0].keys()
 
-            return render_template('plantillas/Gijón/cajerosGijón.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
+            clavesMapa=['Nombre','Horario']
+
+            return render_template('plantillas/Gijón/cajerosGijón.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
     else:
         # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
-        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
+        clavesMapa=[]
+        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
 
 
     # Función que transforma un conjunto de datos de json a diccionario de python
@@ -575,7 +575,8 @@ def convertirADiccionario(enlace, formato):
 
 @server.route('/data')
 def obtenerdatos():
-    return jsonify(data)
+    print(data,clavesMapa)
+    return jsonify({'data': data, 'clavesMapa': clavesMapa})
 
 
 # Método que visualiza los modelos de datos o diccionarios de datos pasados

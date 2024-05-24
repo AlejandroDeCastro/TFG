@@ -7,19 +7,30 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Función que va a ir añadiendo los puntos
-function addMarker(lat, lon, nombre) {
+function addMarker(lat, lon, tooltip) {
     L.marker([lat, lon]).addTo(map)
-        .bindPopup(nombre)
+        .bindPopup(tooltip)
         .openPopup();
 }
 
 // Solicita los datos del servidor
 fetch('/data')
     .then(response => response.json())
-    .then(data => {
+    .then(responseData => {
+        const data = responseData.data;
+        const clavesMapa = responseData.clavesMapa;
+
         data.forEach(function (punto) {
+            // Construir el contenido del tooltip
+            var tooltip = '';
+            clavesMapa.forEach(function (key) {
+                if (punto.hasOwnProperty(key)) {
+                    tooltip += `<strong>${key}:</strong> ${punto[key]}<br>`;
+                }
+            });
             // Extrae la latitud, longitud y nombre para añadir el punto en el mapa
-            addMarker(punto.localizacion.lat, punto.localizacion.lon, punto.Nombre);
+            
+            addMarker(punto.localizacion.lat, punto.localizacion.lon, tooltip);
         });
     })
     .catch(error => console.error('Error al cargar los datos:', error));
