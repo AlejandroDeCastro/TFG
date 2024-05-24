@@ -30,7 +30,8 @@ diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
 formatos=['JSON','CSV','XML']
 modeloTraducciones={'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
-
+# Lista de campos que son booleans para traducirlos a Sí o No
+booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
 
 listaCiudadesDatos=[]
 for ciudad in diccionarioDatosDisponibles:
@@ -319,7 +320,7 @@ def seleccionarOpcion():
         #PARKINGS MADRID
         if opcion=="Parkings":
             #return render_template('parkingMadrid.html',  opcionElegida = opcion)
-            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data["@graph"], listaCaracteristicas = listaCaracteristicas)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
 
         #TRANSPORTE MADRID
         elif opcion=="Transporte":
@@ -484,21 +485,54 @@ def seleccionarOpcion():
         #PARKING BARCELONA
         if opcion=="Parkings":
 
-            
             conjuntoTraducido = []
 
+            # Se recorre uno a uno los parkings para ir tratando los datos 
             for parking in data["ParkingList"]["Parking"]:
+
+                # Se traducen los campos del parking
                 parkingTraducido = actualizar_claves(parking, modeloTraducciones)
-                conjuntoTraducido.append(parkingTraducido)
+
+                # Se recorren todos los campos que pueden estar en boolean y se traducen con Sí o No
+                for boolean in booleans:        
+                    if boolean in parkingTraducido:
+                        if parkingTraducido[boolean] == 1:
+                            parkingTraducido[boolean] = "Sí"
+                        elif parkingTraducido[boolean] == 0:
+                            parkingTraducido[boolean] = "No"
+
+                # Añade la longitud y latitud con el modelo estándar
+                listaAccesos=[]
+                if parkingTraducido['Acceso al parking'] != None:
+                    listaAccesos=parkingTraducido['Acceso al parking']['Access']
                 
+                if len(listaAccesos) != 0:
+                    if not isinstance(listaAccesos, dict):
+                        lon=listaAccesos[0]['Longitude']
+                        lat=listaAccesos[0]['Latitude']
+                    else:
+                        lon=listaAccesos['Longitude']
+                        lat=listaAccesos['Latitude']
+                
+                    parkingTraducido['localizacion']={'lon': lon, 'lat': lat}
+
+                # Cambio el horario a estandar
+                parkingTraducido['Horario'] = "De "+str(parkingTraducido['Apertura'])+" a "+str(parkingTraducido['Cierre'])
+                parkingTraducido.pop('Apertura')
+                parkingTraducido.pop('Cierre')
+
+                conjuntoTraducido.append(parkingTraducido)
+            data=conjuntoTraducido
+            
+            listaCaracteristicas=data[0].keys()
+
             # TEST PARA VISUALIZAR LOS DATOS
             #for parking in data["ParkingList"]["Parking"]:
                 #data(parking)
             
-            #DataFrame del grafo de datos
-            df=pd.DataFrame(conjuntoTraducido)
-            #return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data["ParkingList"]["Parking"], listaCaracteristicas = listaCaracteristicas)
-            return render_template('parkingBarcelona.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+            clavesMapa=['Nombre', 'Horario', 'Baños', 'Ascensor']
+
+            return render_template('plantillas/Barcelona/parkingsBarcelona.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
      
         else:
             #Si se busca una opción que no está en la lista, mostrar una vista genérica
@@ -540,9 +574,13 @@ def convertirADiccionario(enlace, formato):
 
         #Extraer los datos según el formato
         if formato == formatos[0]: #JSON
-            with urllib.request.urlopen(enlace) as response:
-                DatosJSON = response.read()
-            diccionarioDatos = json.loads(DatosJSON)
+            try:    
+                with urllib.request.urlopen(enlace) as response:
+                    DatosJSON = response.read()
+                diccionarioDatos = json.loads(DatosJSON)
+            except Exception as e:
+                print(f"Error al convertir JSON a diccionario: {e}")
+                print("El enlace que ha fallado es el siguiente: ", enlace)
         elif formato == formatos[1]: #CSV
 
             print("SIN EL DE CSV")
