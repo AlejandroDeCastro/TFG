@@ -4,9 +4,7 @@
     "\\CODE",
     "\\CODE\\static",
     "\\CODE\\static\\js",
-    "\\CODE\\templates",
-    "\\CODE\\templates\\plantillas",
-    "\\CODE\\templates\\plantillas\\Gijón"
+    "\\CODE\\templates"
   ],
   "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false

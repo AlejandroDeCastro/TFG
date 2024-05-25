@@ -28,7 +28,7 @@ from zipfile import ZipFile
 #Datos disponibles
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
-formatos=['JSON','CSV','XML']
+formatos=['JSON','CSV','XML','GEOJSON']
 modeloTraducciones={'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
@@ -279,9 +279,17 @@ def seleccionarOpcion():
     """
 
     if ciudad == "Málaga":
+
+        conjuntoTraducido=[]
+
         if opcion == "Parkings":
 
-            visualizarDiccionarioDeDatos(data)
+            for parking in data['features']:
+                parkingTraducido = actualizar_claves(parking['properties'], modeloTraducciones)
+                conjuntoTraducido.append(parkingTraducido)
+            data=conjuntoTraducido
+
+            
             df=pd.DataFrame(data)
 
             return render_template('parkingMalaga.html',  opcionElegida = opcion, tables =[df.to_html(classes='data')], titles=df.columns.values)
@@ -530,14 +538,15 @@ def seleccionarOpcion():
             #for parking in data["ParkingList"]["Parking"]:
                 #data(parking)
             
+            # Claves que se muestran el tooltip del mapa
             clavesMapa=['Nombre', 'Horario', 'Baños', 'Ascensor']
 
             return render_template('plantillas/Barcelona/parkingsBarcelona.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
      
         else:
-            #Si se busca una opción que no está en la lista, mostrar una vista genérica
-            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
-     
+            #Si se busca una opción que no está en la lista, muestra una vista genérica
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+
     elif ciudad == "Gijón":
 
         # CAJEROS GIJÓN
@@ -573,7 +582,7 @@ def convertirADiccionario(enlace, formato):
     if enlace != "":
 
         #Extraer los datos según el formato
-        if formato == formatos[0]: #JSON
+        if formato == formatos[0] or formato == formatos[3]: #JSON
             try:    
                 with urllib.request.urlopen(enlace) as response:
                     DatosJSON = response.read()
@@ -583,8 +592,12 @@ def convertirADiccionario(enlace, formato):
                 print("El enlace que ha fallado es el siguiente: ", enlace)
         elif formato == formatos[1]: #CSV
 
-            print("SIN EL DE CSV")
-            diccionarioDatos = {}
+            # Lee el archivo CSV
+            df = pd.read_csv(enlace)
+
+            # Convierte el DataFrame a una lista de diccionarios
+            diccionarioDatos = df.to_dict('records')
+
 
         elif formato == formatos[2]: #XML
 
@@ -609,6 +622,7 @@ def convertirADiccionario(enlace, formato):
     else:
         diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
     
+
     return diccionarioDatos
 
 @server.route('/data')
@@ -645,11 +659,15 @@ def actualizar_claves(diccionario, modeloTraducción):
     # Recorre las claves del diccionario
     for clave, valor in diccionario.items():
 
-        # Si la clave se encuentra en el modelo de Ttraducción, sacar su traducción y reemplazarlo
-        if clave in modeloTraducción:
-            claveTraducida = modeloTraducción[clave]
-            diccionarioTraducido[claveTraducida] = valor
-        else:
+        datoTraducido = False
+
+        for claveTraducción in modeloTraducción:
+            if clave.lower() == claveTraducción.lower():
+                claveTraducida = modeloTraducción[claveTraducción]
+                diccionarioTraducido[claveTraducida] = valor
+                datoTraducido = True
+
+        if not datoTraducido:
             diccionarioTraducido[clave] = valor
 
     return diccionarioTraducido
