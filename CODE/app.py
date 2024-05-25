@@ -284,15 +284,26 @@ def seleccionarOpcion():
 
         if opcion == "Parkings":
 
+            listaEliminar=['begin', 'end', 'fs_id', 'fb_id', 'ta_id', 'ogc_fid', 'timestamp', 'icon','altitudemode']
+
+            # Traducción de los campos del conjunto de datos
             for parking in data['features']:
                 parkingTraducido = actualizar_claves(parking['properties'], modeloTraducciones)
+
+                # Apdaptación de los campos de latitud y longitud para el mapa de la plantilla
+                parkingTraducido['localizacion']={'lon':  parkingTraducido['lon'], 'lat':  parkingTraducido['lat']}
+
+                # Eliminación de campos obsoletos
+                parkingTraducido=elimnarCampos(parkingTraducido,listaEliminar)
+
                 conjuntoTraducido.append(parkingTraducido)
             data=conjuntoTraducido
-
             
-            df=pd.DataFrame(data)
+            # Actualización de la lista de campos y asignación de datos al tooltip del mapa
+            listaCaracteristicas=data[0].keys()
+            clavesMapa=['Nombre']
 
-            return render_template('parkingMalaga.html',  opcionElegida = opcion, tables =[df.to_html(classes='data')], titles=df.columns.values)
+            return render_template('plantillas/Málaga/parkingsMálaga.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
         
         elif(opcion == "Transporte EMT"):
 
@@ -575,6 +586,12 @@ def seleccionarOpcion():
         return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
 
 
+@server.route('/data')
+def obtenerdatos():
+    print(data,clavesMapa)
+    return jsonify({'data': data, 'clavesMapa': clavesMapa})
+
+
     # Función que transforma un conjunto de datos de json a diccionario de python
 def convertirADiccionario(enlace, formato):
 
@@ -625,11 +642,6 @@ def convertirADiccionario(enlace, formato):
 
     return diccionarioDatos
 
-@server.route('/data')
-def obtenerdatos():
-    print(data,clavesMapa)
-    return jsonify({'data': data, 'clavesMapa': clavesMapa})
-
 
 # Método que visualiza los modelos de datos o diccionarios de datos pasados
 def visualizarDiccionarioDeDatos(diccionario):
@@ -671,6 +683,11 @@ def actualizar_claves(diccionario, modeloTraducción):
             diccionarioTraducido[clave] = valor
 
     return diccionarioTraducido
+
+def elimnarCampos(parkingTraducido,listaEliminar):
+    for campo in listaEliminar:
+        parkingTraducido.pop(campo)
+    return parkingTraducido
 
 def pagina_no_encontrada(error):
     #2 opciones, usar la plantilla 404 o redirigir al inicio
