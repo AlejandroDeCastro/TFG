@@ -1,43 +1,35 @@
-.titulo-cuadro-izquierdo {
+.titulo-cuadro {
     width: 100%;
     height: 8vh;
     border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
     color: white; /* Color del texto */
-    text-align: center; /* Alineación centrada del texto */
-    padding-top: 2vh; /* Espaciado superior para centrar verticalmente */
-    background-color: #0082e6;
-}
-
-/*Estilo del cuadro izquierdo */
-.cuadro-izquierdo {
-    width: 45%;
-    height: 80vh; /*Altura total de la ventana del navegador */
-    margin: 2.5%;
-    background-color: #98DCF8; /*Color de fondo lavanda */
-    float: left; /*Alineación a la izquierda */
-    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
-    padding: 20px; /* Espaciado interno de 20px */
-}
-
-.titulo-cuadro-derecho {
-    width: 100%;
-    height: 8vh;
-    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
-    color: white; /* Color del texto */
+    font-size: xx-large; /* Tamaño del texto */
     text-align: center; /* Alineación centrada del texto */
     padding-top: 2vh; /* Espaciado superior para centrar verticalmente */
     background-color: #0082e6;
 }
 
 /* Estilo del cuadro derecho */
-.cuadro-derecho {
-    width: 45%;
+.cuadro {
+    width: 95%;
     height: 80vh; /* Altura total de la ventana del navegador */
     margin: 2.5%;
     background-color: #98DCF8; /* Color de fondo lavanda */
-    float: right; /* Alineación a la derecha */
+    text-align: center; /* Alineación centrada del texto */
+    font-size: x-large; /* Tamaño del texto */
     border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
     padding: 20px; /* Espaciado interno de 20px */
+}
+
+.registros {
+    width: 95%;
+    height: 30vh;
+    margin: 2.5%;
+    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+    font-size: xx-large; /* Tamaño del texto */
+    text-align: center; /* Alineación centrada del texto */
+    padding-top: 2vh; /* Espaciado superior para centrar verticalmente */
+    background-color: #98DCF8;
 }
 
 /* Estilos adicionales para el contenido dentro de los cuadros */

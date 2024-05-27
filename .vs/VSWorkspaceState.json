@@ -2,9 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
+    "\\CODE\\models",
+    "\\CODE\\models\\entidades",
     "\\CODE\\static",
-    "\\CODE\\templates"
+    "\\CODE\\static\\css",
+    "\\CODE\\static\\js",
+    "\\CODE\\templates",
+    "\\CODE\\templates\\auth"
   ],
-  "SelectedNode": "\\CODE\\templates\\transportePublicoValencia.html",
+  "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false
 }

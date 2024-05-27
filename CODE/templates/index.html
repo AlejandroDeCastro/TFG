@@ -34,102 +34,77 @@
 
 <div>
 
-    <!--HISTÓRICO-->
-
-    <div class="cuadro-izquierdo">
-        <div class="titulo-cuadro-izquierdo">
-            <h1>HISTÓRICO</h1>
-        </div>
-        <div class="contenido">
-            <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
-            <h2>Lista de Ciudades y Características</h2>
-            {% if registros %}
-            <ul>
-                {% for ciudad, caracteristica in registros.items() %}
-                
-                <li><strong>{{ ciudad }}</strong>: {{ caracteristica }}}</li>
-            
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" align-items="right" justify-content="right">
-                    <a align-items="right" justify-content="right" text-align="right" class="boton" href="{{ url_for('consultarRecords') }}">Consultar</a>
-
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6" align-items="center" justify-content="center">
-                    <a class="boton" href="{{ url_for('editarRecords') }}">Editar</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
         <!--DATOS EN TIEMPO REAL-->
-    <div class="cuadro-derecho">
-        <div class="titulo-cuadro-derecho">
-            <h1>DATOS EN TIEMPO REAL</h1>
+    <div class="cuadro">
+        <div class="titulo-cuadro">
+            <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
         </div>
-        <div class="contenido">
-            <p>Debe seleccionar la cuidad</p>
-            HAY LAS SIGUIENTES CIUDADES:
-            <ul>
-                {% for ciudad in listaCiudades %}
-                <li>{{ ciudad }}</li>
+        
+        <div class="registros">
+        {% if registros %}
+            <ul class="list-group" style="max-height: 100%; overflow: auto;">
+                {% for ciudad in registros.keys() %}
+                {% for caracteristica in registros[ciudad].keys() %}
+                {% for formato in registros[ciudad][caracteristica].keys() %}
+                {% for periodo in registros[ciudad][caracteristica][formato] %}
+
+                <li class="list-group-item" style="background-color: rgba(0, 0, 0, 0);">De la ciudad de <strong> {{ ciudad }} </strong>se están guardando los  <strong>{{ caracteristica }}</strong> cada  <strong>{{ periodo }} segundos</strong> en formato  <strong>{{ formato }}</strong></li>
+
+                {% endfor %}
+                {% endfor %}
+                {% endfor %}
                 {% endfor %}
             </ul>
-
-
-
-            <form action="{{url_for('seleccionarOpcion')}}" method="post" accept-charset="UTF-8">
-                <div class="container">
-                    <label for="ciudad">Ciudad:</label>
-                    <select id="ciudad" name="ciudad">
-                        <option value="">Selecciona una ciudad</option>
-                        {% for ciudad in ciudades %}
-                        <option value="{{ ciudad }}">{{ ciudad }}</option>
-                        {% endfor %}
-                    </select>
-
-                    <label for="caracteristica">Característica:</label>
-                    <select id="caracteristica" name="caracteristica">
-                        <option value="">Selecciona una característica</option>
-                    </select>
-
-                    <button type="submit" class="btn btn-primary btn-block btn-large">CONSULTA</button>
-                </div>
-            </form>
-
-            <script>
-
-                $(document).ready(function () {
-                    $('#ciudad').change(function () {
-                        var ciudad = $(this).val();
-                        if (ciudad !== "") {
-                            $.ajax({
-                                type: 'POST',
-                                url: '/get_caracteristicas',
-                                data: { ciudad: ciudad },
-                                success: function (data) {
-                                    $('#caracteristica').empty();
-                                    $('#caracteristica').append('<option value="">Selecciona una característica</option>');
-                                    $.each(data, function (index, value) {
-                                        $('#caracteristica').append('<option value="' + value + '">' + value + '</option>');
-                                    });
-                                }
-                            });
-                        } else {
-                            $('#caracteristica').empty();
-                            $('#caracteristica').append('<option value="">Selecciona una característica</option>');
-                        }
-                    });
-                });
-            </script>
-
+        {% endif %}
         </div>
 
+        <form action="{{url_for('seleccionarOpcion')}}" method="post" accept-charset="UTF-8">
+            <div class="container">
+                <label for="ciudad">Ciudad:</label>
+                <select id="ciudad" name="ciudad">
+                    <option value="">Selecciona una ciudad</option>
+                    {% for ciudad in ciudades %}
+                    <option value="{{ ciudad }}">{{ ciudad }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="caracteristica">Característica:</label>
+                <select id="caracteristica" name="caracteristica">
+                    <option value="">Selecciona una característica</option>
+                </select>
+
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-large">CONSULTA</button>
+        </form>
+
+        <script>
+
+            $(document).ready(function () {
+                $('#ciudad').change(function () {
+                    var ciudad = $(this).val();
+                    if (ciudad !== "") {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/get_caracteristicas',
+                            data: { ciudad: ciudad },
+                            success: function (data) {
+                                $('#caracteristica').empty();
+                                $('#caracteristica').append('<option value="">Selecciona una característica</option>');
+                                $.each(data, function (index, value) {
+                                    $('#caracteristica').append('<option value="' + value + '">' + value + '</option>');
+                                });
+                            }
+                        });
+                    } else {
+                        $('#caracteristica').empty();
+                        $('#caracteristica').append('<option value="">Selecciona una característica</option>');
+                    }
+                });
+            });
+        </script>
+
     </div>
+
 </div>
 
 {% endblock %}
