@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block body %}
-<h1 class="text-center mt-5 mb-5 text-primary">Editar Records</h1>
+<h1 class="text-center mt-5 mb-5 text-primary">Consultar Registros</h1>
 
 <div class="container">
     <div class="card shadow">
@@ -38,9 +38,9 @@
             <form action="/guardarRecord" method="POST">
                 <div class="row mb-3">
                     <div class="col">
-                        <label>Dato</label>
+                        <label>Conjunto</label>
                         <select class="form-control mb-3" name="datoCiudad">
-                            <option value="" disabled selected>Seleccione una opción</option> <!-- Opción por defecto no seleccionable -->
+                            <option value="" disabled selected>Seleccione un conjunto</option> <!-- Opción por defecto no seleccionable -->
                             {% for dato in opciones %}
                             <option value="{{ dato }}">{{ dato }}</option>
                             {% endfor %}
@@ -72,7 +72,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Ciudad</th>
-                        <th scope="col">Característica</th>
+                        <th scope="col">Conjunto</th>
                         <th scope="col">Formato</th>
                         <th scope="col">Periodicidad (segundos)</th>
                         <th scope="col">Descargar</th>
@@ -91,7 +91,7 @@
                         <td>{{ formato }}</td>
                         <td>{{ periodicidad }}</td>
 
-                        <td><a href="{{url_for('descargar_registros', ciudad = ciudad, caracteristica = caracteristica, formato = formato, periodicidad = periodicidad)}}" class="btn btn-success">Descargar</a></td>
+                        <td><a href="{{url_for('descargar_registros', ciudad = ciudad, caracteristica = caracteristica, formato = formato, periodicidad = periodicidad)}}" class="btn btn-success btn-sm">Descargar</a></td>
                         <td><a href="{{url_for('eliminarRecord', ciudad = ciudad, caracteristica = caracteristica, formato = formato, periodicidad = periodicidad)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
                     </tr>
                     {% endfor %}

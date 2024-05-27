@@ -51,21 +51,19 @@
 
 {% block body %}
 
-<table class="table table-dark table-striped table-bordered">
+<table id="tablaConOrdenación" class="table table-dark table-striped table-bordered">
     <thead>
-
         <tr class="table-primary">
-            {%for característica in listaCaracteristicas %}
-            <th class="table-primary">{{característica}}</th>
+            {% for característica in listaCaracteristicas %}
+            <th class="table-primary" onclick=sortTable({{loop.index0}})>{{ característica }}</th>
             {% endfor %}
         </tr>
-
     </thead>
     <tbody>
         {% for conjunto in data %}
         <tr class="table-primary">
             {% for característica, dato in conjunto.items() %}
-            <td class="table-primary">{{dato}}</td>
+            <td class="table-primary">{{ dato }}</td>
             {% endfor %}
         </tr>
         {% endfor %}
@@ -78,5 +76,5 @@
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/mapa.js') }}"></script>
-
+<script src="{{ url_for('static', filename='js/ordenación.js') }}"></script>
 {% endblock %}

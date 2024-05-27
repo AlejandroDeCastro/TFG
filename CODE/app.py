@@ -29,7 +29,7 @@ from zipfile import ZipFile
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
 formatos=['JSON','CSV','XML','GEOJSON']
-modeloTraducciones={'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
+modeloTraducciones={'precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
 
@@ -453,9 +453,26 @@ def seleccionarOpcion():
                 visualizarDiccionarioDeDatos(dato)
             """
             # DataFrame del grafo de datos
-            df=pd.DataFrame(data["results"])
+
+            listaEliminar=['geo_shape','objectid','no']
+
+            # Traduce el conjunto
+            conjuntoTraducido=[]
+            for enitdad in data['results']:
+                entidadTraducida = actualizar_claves(enitdad, modeloTraducciones)
+
+                # Eliminación de campos obsoletos
+                entidadTraducida=elimnarCampos(entidadTraducida,listaEliminar)
+
+                conjuntoTraducido.append(entidadTraducida)
+            data=conjuntoTraducido
             
-            return render_template('puntosDeCargaValencia.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
+            # Actualización de la lista de campos y asignación de datos al tooltip del mapa
+            listaCaracteristicas=data[0].keys()
+            clavesMapa=['Dirección','Potencia','Precio','Obsevaciones']
+
+            return render_template('plantillas/Valencia/puntosDeCargaValencia.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+ 
         
         #TRANSPORTE VALENCIA
         elif opcion=="Transporte":

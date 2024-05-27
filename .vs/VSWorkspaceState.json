@@ -3,9 +3,8 @@
     "",
     "\\CODE",
     "\\CODE\\static",
-    "\\CODE\\static\\js",
     "\\CODE\\templates"
   ],
-  "SelectedNode": "\\CODE\\app.py",
+  "SelectedNode": "\\CODE\\templates\\transportePublicoValencia.html",
   "PreviewInSolutionExplorer": false
 }
