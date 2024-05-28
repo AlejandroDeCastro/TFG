@@ -48,7 +48,7 @@
                 {% for formato in registros[ciudad][caracteristica].keys() %}
                 {% for periodo in registros[ciudad][caracteristica][formato] %}
 
-                <li class="list-group-item" style="background-color: rgba(0, 0, 0, 0);">De la ciudad de <strong> {{ ciudad }} </strong>se están guardando los  <strong>{{ caracteristica }}</strong> cada  <strong>{{ periodo }} segundos</strong> en formato  <strong>{{ formato }}</strong></li>
+                <li class="list-group-item" style="background-color: rgba(0, 0, 0, 0);">De la ciudad de <strong> {{ ciudad }} </strong>se están guardando los  <strong>{{ caracteristica }}</strong> cada  <strong>{{ periodo }} </strong> en formato  <strong>{{ formato }}</strong></li>
 
                 {% endfor %}
                 {% endfor %}

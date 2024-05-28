@@ -109,7 +109,11 @@ def home():
                 ciudadDato=ciudad+" - "+tipoDato+" - "+formato
                 listaCiudadesDatos.append(ciudadDato)
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    return render_template('index.html', listaCiudades=listaCiudades, registros = registros, ciudades=listaCiudades)
+
+    registros_adaptados=transformarRegistrosUnidades(registros)
+
+
+    return render_template('index.html', listaCiudades=listaCiudades, registros = registros_adaptados, ciudades=listaCiudades)
 
 @server.route('/get_caracteristicas', methods=['POST'])
 def get_caracteristicas():
@@ -705,6 +709,72 @@ def elimnarCampos(parkingTraducido,listaEliminar):
     for campo in listaEliminar:
         parkingTraducido.pop(campo)
     return parkingTraducido
+
+def segundosAUnidadÓptima(segundos):
+
+    minutos=int(segundos)/60
+    minutos=segundos/60
+
+    minutos = segundos // 60
+    horas = minutos // 60
+    dias = horas // 24
+    semanas = 0
+    meses=0
+
+    if dias >=7 and dias <30:
+        semanas = dias // 7
+        dias = dias % 7
+    elif dias >=30:
+        meses = dias //30
+        dias  = dias % 30
+
+    segundos = segundos % 60
+    minutos = minutos % 60
+    horas = horas % 24
+    
+    tiempo = []
+    if meses > 0:
+        if meses == 1:
+            tiempo.append(f"{meses} mes")
+        else:
+            tiempo.append(f"{meses} meses")
+    if semanas > 0:
+        if meses == 1:
+            tiempo.append(f"{semanas} semana")
+        else:
+            tiempo.append(f"{semanas} semanas")
+    if dias > 0:
+        if dias ==1:
+            tiempo.append(f"{dias} día")
+        else:
+            tiempo.append(f"{dias} días")
+    if horas > 0:
+        if horas == 1:
+            tiempo.append(f"{horas} hora")
+        else:
+            tiempo.append(f"{horas} horas")
+    if minutos > 0:
+        if minutos == 1:
+            tiempo.append(f"{minutos} minuto")
+        else:
+            tiempo.append(f"{minutos} minutos")
+    if segundos > 0:
+        tiempo.append(f"{segundos} segundos")
+    
+    return ', '.join(tiempo)
+
+def transformarRegistrosUnidades(registros):
+    registros_adaptados=registros
+
+    for ciudad in registros:
+        for conjunto in registros[ciudad]:
+            for formato in registros[ciudad][conjunto]:
+                periodosTransformados=[]
+                for periodo in registros[ciudad][conjunto][formato]:
+                    periodosTransformados.append(segundosAUnidadÓptima(periodo))
+                registros_adaptados[ciudad][conjunto][formato]=periodosTransformados
+
+    return registros_adaptados
 
 def pagina_no_encontrada(error):
     #2 opciones, usar la plantilla 404 o redirigir al inicio
