@@ -40,9 +40,11 @@
             <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
         </div>
         
+
         <div class="registros">
-        {% if registros %}
-            <ul class="list-group" style="max-height: 100%; overflow: auto;">
+            <h1 class="titulo-registros">Estos son los registros que tienes guardando actualmente</h1>
+            {% if registros %}
+            <ul class="list-group lista-registros">
                 {% for ciudad in registros.keys() %}
                 {% for caracteristica in registros[ciudad].keys() %}
                 {% for formato in registros[ciudad][caracteristica].keys() %}
@@ -55,28 +57,41 @@
                 {% endfor %}
                 {% endfor %}
             </ul>
-        {% endif %}
+            {% endif %}
         </div>
 
-        <form action="{{url_for('seleccionarOpcion')}}" method="post" accept-charset="UTF-8">
-            <div class="container">
-                <label for="ciudad">Ciudad:</label>
-                <select id="ciudad" name="ciudad">
-                    <option value="">Selecciona una ciudad</option>
-                    {% for ciudad in ciudades %}
-                    <option value="{{ ciudad }}">{{ ciudad }}</option>
-                    {% endfor %}
-                </select>
+        <div class="cuadro-favoritos">
+            <h1 class="titulo-favoritos">FAVORITOS</h1>
+        </div>
 
-                <label for="caracteristica">Característica:</label>
-                <select id="caracteristica" name="caracteristica">
-                    <option value="">Selecciona una característica</option>
-                </select>
+        <div class="cuadro-consulta-conjuntos">
+            <h1 class="titulo-consulta-conjuntos">CONSULTA TIEMPO REAL</h1>
+            
+            <form action="{{url_for('seleccionarOpcion')}}" method="post" accept-charset="UTF-8">
 
-            </div>
-            <button type="submit" class="btn btn-primary btn-block btn-large">CONSULTA</button>
-        </form>
+                <div class="container contenido-consulta-conjuntos">
+                    <label for="ciudad">Ciudad:</label>
+                    <select id="ciudad" name="ciudad">
+                        <option value="">Selecciona una ciudad</option>
+                        {% for ciudad in ciudades %}
+                        <option value="{{ ciudad }}">{{ ciudad }}</option>
+                        {% endfor %}
+                    </select>
 
+
+
+                </div>
+                <div class="container contenido-consulta-conjuntos">
+
+                    <label for="caracteristica">Característica:</label>
+                    <select id="caracteristica" name="caracteristica">
+                        <option value="">Selecciona una característica</option>
+                    </select>
+                </div>
+                <button type="submit" class="boton">CONSULTA</button>
+            </form>
+            
+        </div>
         <script>
 
             $(document).ready(function () {

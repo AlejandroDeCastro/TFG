@@ -21,6 +21,19 @@
     padding: 20px; /* Espaciado interno de 20px */
 }
 
+.titulo-registros {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    font-size: 36px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    padding-top: 1vh; /* Espaciado superior para centrar verticalmente */
+    padding-bottom: 1vh; /* Espaciado superior para centrar verticalmente */
+    width: 100%;
+}
+
 .registros {
     width: 95%;
     height: 30vh;
@@ -28,9 +41,14 @@
     border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
     font-size: xx-large; /* Tamaño del texto */
     text-align: center; /* Alineación centrada del texto */
-    padding-top: 2vh; /* Espaciado superior para centrar verticalmente */
-    background-color: #98DCF8;
+    background-color: rgb(102,205,170);
 }
+
+.lista-registros {
+    max-height: 22vh;
+    overflow: auto;
+}
+
 
 /* Estilos adicionales para el contenido dentro de los cuadros */
 .contenido {
@@ -40,13 +58,64 @@
     font-size: 24px; /* Tamaño de fuente */
 }
 
+.titulo-favoritos {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 1vh; /* Espaciado superior para centrar verticalmente */
+    padding-bottom: 1vh; /* Espaciado superior para centrar verticalmente */
+    width: 100%;
+}
+
+/* Cuadro inferior izquierdo */
+.cuadro-favoritos {
+    width: 45%;
+    height: 25vh; /* Altura total de la ventana del navegador */
+    margin-left: 2.5%;
+    float: left; /*Alineación a la izquierda */
+    background-color: rgb(255,192,203); /* Color de fondo lavanda */
+    color: rgb(255,0,0); /* Color del texto */
+    text-align: center; /* Alineación centrada del texto */
+    font-size: x-large; /* Tamaño del texto */
+    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+}
+
+.titulo-consulta-conjuntos {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #333;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 1vh; /* Espaciado superior para centrar verticalmente */
+    padding-bottom: 1vh; /* Espaciado superior para centrar verticalmente */
+    width: 100%;
+}
+
+/* Cuadro inferior derecho */
+.cuadro-consulta-conjuntos {
+    width: 45%;
+    height: 25vh; /* Altura total de la ventana del navegador */
+    margin-right: 2.5%;
+    float: right; /*Alineación a la izquierda */
+    background-color: rgb(255,255,224); /* Color de fondo lavanda */
+    text-align: center; /* Alineación centrada del texto */
+    font-size: x-large; /* Tamaño del texto */
+    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+}
+
+.contenido-consulta-conjuntos {
+    padding-top: 15px;
+}
+
 /* Estilo del botón */
 .boton {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
-    background-color: #007bff; /* Color de fondo azul */
+    background-color: rgb(255,165,0); /* Color de fondo azul */
     border: none;
     border-radius: 5px;
     cursor: pointer;
