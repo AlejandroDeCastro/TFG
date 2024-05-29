@@ -6,6 +6,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+//L.marker([38.34, -0.50]).addTo(map);
+
 // Función que va a ir añadiendo los puntos
 function addMarker(lat, lon, tooltip) {
     L.marker([lat, lon]).addTo(map)
@@ -19,7 +21,7 @@ fetch('/data')
     .then(responseData => {
         const data = responseData.data;
         const clavesMapa = responseData.clavesMapa;
-
+        
         data.forEach(function (punto) {
             // Construir el contenido del tooltip
             var tooltip = '';

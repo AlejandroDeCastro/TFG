@@ -139,15 +139,23 @@ class ModeloUsuario():
 
 
     @classmethod
-    def set_dato(self, db, id_usuario, ciudad, característica, formato, enlace):
+    def set_dato(self, db, id_usuario, ciudad, característica, formato, enlace, periodo, unidad):
 
+        if periodo != 0 and unidad != None:
+            if unidad != "segundos": # La opción de segundos no está disponible, pero quizá se incorpore en un futuro
+                segundos = str(conversionASegundos(periodo, unidad))
+            else:
+                segundos = str(periodo)
+        else:
+            segundos="0"
+        
         try:
             #Crea el cursor
             cursor = db.cursor()
 
             #Insercción que se hace en la base de datos. 
-            insercción="INSERT INTO datos (ciudad, característica, formato, enlace, id_usuario) VALUES (%s, %s, %s, %s, %s)"
-            data = (ciudad, característica, formato, enlace, id_usuario)
+            insercción="INSERT INTO datos (ciudad, característica, formato, enlace, id_usuario, periodicidad) VALUES (%s, %s, %s, %s, %s, %s)"
+            data = (ciudad, característica, formato, enlace, id_usuario, segundos)
 
             #Ejecución de la insercción
             cursor.execute(insercción, data)

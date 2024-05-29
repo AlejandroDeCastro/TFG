@@ -29,6 +29,9 @@ from zipfile import ZipFile
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
 formatos=['JSON','CSV','XML','GEOJSON']
+unidades=['minutos','horas','dias','semanas','meses']
+posiblesLatitud=['Latitud','Lat']
+posiblesLongitud=['Longitud','Lon']
 modeloTraducciones={'precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
@@ -39,8 +42,7 @@ for ciudad in diccionarioDatosDisponibles:
         for formato in diccionarioDatosDisponibles[ciudad][tipoDato]:
             ciudadDato=ciudad+" - "+tipoDato+" - "+formato
             listaCiudadesDatos.append(ciudadDato)
-        
-print(listaCiudadesDatos)    
+            
 
 server = Flask(__name__)
 server.secret_key = '$$'
@@ -125,7 +127,6 @@ def get_caracteristicas():
 @login_required
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    unidades=['minutos','horas','dias','semanas','meses']
     global min_values
     min_values={}
     for conjunto in listaCiudadesDatos:
@@ -227,7 +228,7 @@ def eliminarRecord(ciudad, caracteristica, formato, periodicidad):
 @login_required
 def añadirConjuntos():
     diccionarioDatosDisponibles=diccionarioURLs(db)
-    return render_template('añadirConjuntos.html', datosDisponibles = diccionarioDatosDisponibles, formatos = formatos)
+    return render_template('añadirConjuntos.html', datosDisponibles = diccionarioDatosDisponibles, formatos = formatos, unidades = unidades)
 
 @server.route("/guardarDato", methods=['POST'])
 @login_required
@@ -236,7 +237,17 @@ def guardarDato():
     característica = request.form['atributo']
     formato = request.form['formato']
     enlace = request.form['enlace']
-    ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, formato, enlace)
+    periodo = request.form['periodicidad']
+    unidad = request.form['unidades']
+
+    if periodo == "" or unidad=="N": # Si el usuario no ha introducido un periodo o es menor o igual que cero o no ha seleccionado unidades, se trata como nulo
+        periodo=0
+        unidad=None
+    elif (int(periodo) <= 0):
+       periodo=0
+       unidad=None
+
+    ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, formato, enlace, periodo, unidad)
     return redirect(url_for('añadirConjuntos'))
 
 
@@ -570,7 +581,24 @@ def seleccionarOpcion():
         else:
             #Si se busca una opción que no está en la lista, muestra una vista genérica
             return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+    
+    elif ciudad == "Bilbao":
+        listaEntidades=[]
+        for entidad in data['features']:
+            nuevaEntidad={}
+            for clave, valor in entidad['properties'].items():
+                nuevaEntidad[clave]=valor
+            print(nuevaEntidad)
+            print(entidad['geometry']['coordinates'])
+            nuevaEntidad['localizacion']={'lon': entidad['geometry']['coordinates'][0], 'lat': entidad['geometry']['coordinates'][1]}
+            listaEntidades.append(nuevaEntidad)
+        
+            data=listaEntidades
 
+        # Cabecero de la tabla actualizado
+        listaCaracteristicas=data[0].keys()
+        clavesMapa=[]
+        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
     elif ciudad == "Gijón":
 
         # CAJEROS GIJÓN
@@ -578,8 +606,8 @@ def seleccionarOpcion():
 
             # Traduce el conjunto y trasforma las localizaciones de los cajeros en el estandar localizacion:{lon:XX,lat:XX}
             conjuntoTraducido=[]
-            for enitdad in data:
-                entidadTraducida = actualizar_claves(enitdad, modeloTraducciones)
+            for entidad in data:
+                entidadTraducida = actualizar_claves(entidad, modeloTraducciones)
                 lon_lat = entidadTraducida['localizacion'].split(', ')
                 lon = float(lon_lat[0].split(': ')[1])
                 lat = float(lon_lat[1].split(': ')[1])
@@ -595,13 +623,41 @@ def seleccionarOpcion():
             return render_template('plantillas/Gijón/cajerosGijón.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
     else:
         # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
+
+        if 'features' in data:
+            data=data['features']
+
+        print(data)
         clavesMapa=[]
+        nombreLat = ""
+        nombreLon = ""
+
+        for clave in listaCaracteristicas:
+            for latitud in posiblesLatitud:
+                if clave.lower() == latitud.lower():
+                    nombreLat = clave
+
+            for longitud in posiblesLongitud:
+                if clave.lower() == longitud.lower():
+                    nombreLon = clave
+        
+        if nombreLat != "" and nombreLon != "":
+            
+            for entidad in data:
+                lon=str(entidad[nombreLon]).replace(',', '.')
+                lat=str(entidad[nombreLat]).replace(',', '.')
+                if lat == "nan" or lon == "nan":
+                    lon="0.00"
+                    lat="0.00"
+                entidad['localizacion']={'lon': lon, 'lat': lat}    
+            clavesMapa.append(nombreLat)
+
         return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
 
 
 @server.route('/data')
 def obtenerdatos():
-    print(data,clavesMapa)
+    #print(data,clavesMapa)
     return jsonify({'data': data, 'clavesMapa': clavesMapa})
 
 
@@ -622,12 +678,25 @@ def convertirADiccionario(enlace, formato):
                 print("El enlace que ha fallado es el siguiente: ", enlace)
         elif formato == formatos[1]: #CSV
 
-            # Lee el archivo CSV
-            df = pd.read_csv(enlace)
+            try:
+                # Lee el archivo CSV
+                df = pd.read_csv(enlace)
 
-            # Convierte el DataFrame a una lista de diccionarios
-            diccionarioDatos = df.to_dict('records')
-
+                # Convierte el DataFrame a una lista de diccionarios
+                diccionarioDatos = df.to_dict('records')
+            except Exception as e:
+                print(f"Error al convertir CSV a diccionario: {e}")
+                print("El enlace que ha fallado es el siguiente: ", enlace)
+                try:
+                    df = pd.read_csv(enlace, encoding='latin-1')
+                    # Convierte el DataFrame a una lista de diccionarios
+                    diccionarioDatos = df.to_dict('records')
+                except Exception as e:
+                    print(f"Error al convertir CSV a diccionario: {e}")
+                    print(f"Ahora se ha intentdo con latin-1")
+                    print("El enlace que ha fallado es el siguiente: ", enlace)
+                    diccionarioDatos={}
+                    
 
         elif formato == formatos[2]: #XML
 
@@ -652,7 +721,7 @@ def convertirADiccionario(enlace, formato):
     else:
         diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
     
-
+    # SI ES {} DEBERIA MOSTRAR UNA VISTA DE ERROR
     return diccionarioDatos
 
 

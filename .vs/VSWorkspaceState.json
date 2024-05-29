@@ -4,6 +4,8 @@
     "\\CODE",
     "\\CODE\\models",
     "\\CODE\\models\\entidades",
+    "\\CODE\\static\\js",
+    "\\CODE\\templates\\records",
     "\\Registros"
   ],
   "SelectedNode": "\\CODE\\app.py",

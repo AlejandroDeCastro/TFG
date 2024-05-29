@@ -63,6 +63,19 @@
                             <input type="text" class="form-control mb-3" name="enlace" />
                         </div>
                         <div class="col">
+                            <label>Periodo (Opcional)</label>
+                            <input type="number" class="form-control mb-3" name="periodicidad" />
+                        </div>
+                        <div class="col">
+                            <label>Unidades</label>
+                            <select class="form-control mb-3" id="unidades" name="unidades">
+                                <option value="N">Seleccione una unidad</option>
+                                {% for unidad in unidades %}
+                                <option value="{{ unidad }}">{{ unidad }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
                             <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>
                         </div>
                     </div>
