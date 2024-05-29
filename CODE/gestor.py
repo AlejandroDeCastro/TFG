@@ -24,16 +24,16 @@ def diccionarioURLs(db):
     datos = {}
 
     # Consulta SQL para obtener las ciudades, características y enlaces
-    consulta_sql = "SELECT ciudad, característica, formato, enlace FROM datos"
+    consulta_sql = "SELECT ciudad, característica, formato, enlace, periodicidad FROM datos"
     cursor.execute(consulta_sql)
 
     # Procesa los resultados
-    for ciudad, caracteristica, formato, enlace in cursor:
+    for ciudad, caracteristica, formato, enlace, periodicidad in cursor:
         if ciudad not in datos:
             datos[ciudad] = {}
         if caracteristica not in datos[ciudad]:
             datos[ciudad][caracteristica] = {}
-        datos[ciudad][caracteristica][formato] = enlace
+        datos[ciudad][caracteristica][formato] = [enlace,periodicidad]
 
     # Cierra el cursor
     cursor.close()
@@ -101,7 +101,7 @@ def iniciar_demonios(db):
         formato = peticion[3]
         periodicidad = peticion[4]
 
-        link=datos[ciudad][característica][formato]
+        link=datos[ciudad][característica][formato][0]
 
         #TEST PARA VALIDAR QUE ESTÁ LEYENDO LAS PETICIONES CORRECTAMENTE Y LAS ASOCIACIONES
         #print("El usuario "+str(id_usuario)+" quiere conocer la característica "+str(característica)+" de la ciudad de "+str(ciudad)+" cada "+str(periodicidad)+" segundos "+"y el link es "+str(link))

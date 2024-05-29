@@ -3,12 +3,84 @@
 {% block title %}Records{% endblock %}
 
 {% block head %}
-
 <meta content="IE=edge" http-equiv="X-UA-Compatible" charset="utf-8">
-<meta name="viewport" content="width=devide-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Records</title>
+<style>
+    .warning {
+        background-color: orange !important;
+        color: red;
+    }
+</style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        let timeoutId;
+
+        function convertirAsegundos(valor, unidad) {
+            switch (unidad) {
+                case 'minutos':
+                    return valor * 60;
+                case 'horas':
+                    return valor * 3600;
+                case 'dias':
+                    return valor * 86400;
+                case 'semanas':
+                    return valor * 604800;
+                case 'meses':
+                    return valor * 2592000;
+                default:
+                    return valor;
+            }
+        }
+
+        function convertirAunidad(valor) {
+            if (valor % 2592000 === 0) {
+                return valor / 2592000 + ' meses';
+            }else if (valor % 86400 === 0) {
+                return valor / 86400 + ' días';
+            } else if (valor % 3600 === 0) {
+                return valor / 3600 + ' horas';
+            } else if (valor % 60 === 0) {
+                return valor / 60 + ' minutos';
+            } else {
+                return valor + ' segundos';
+            }
+        }
+
+        function validarPeriodicidad() {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function () {
+                const selectedOption = $('#datoCiudad').val();
+                const inputValue = parseInt($('#periodicidad').val());
+                const selectedUnit = $('#unidades').val();
+                const inputValueInSeconds = convertirAsegundos(inputValue, selectedUnit);
+
+                if (selectedOption && inputValue && selectedUnit) {
+                    $.ajax({
+                        url: '/get_min_value',
+                        type: 'GET',
+                        data: { option: selectedOption },
+                        success: function (response) {
+                            const minValueInSeconds = response.min_value;
+                            if (inputValueInSeconds < minValueInSeconds) {
+                                const minValueInUnit = convertirAunidad(minValueInSeconds);
+                                alert(`El valor mínimo para ${selectedOption} es ${minValueInUnit}.`);
+                                $('#periodicidad').addClass('warning');
+                            } else {
+                                $('#periodicidad').removeClass('warning');
+                            }
+                        }
+                    });
+                }
+            }, 300); // 300ms delay
+        }
+
+        $('#periodicidad, #unidades').on('input change', validarPeriodicidad);
+    });
+</script>
 
 {% endblock %}
 
@@ -39,7 +111,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label>Conjunto</label>
-                        <select class="form-control mb-3" name="datoCiudad">
+                        <select class="form-control mb-3" id="datoCiudad" name="datoCiudad">
                             <option value="" disabled selected>Seleccione un conjunto</option> <!-- Opción por defecto no seleccionable -->
                             {% for dato in opciones %}
                             <option value="{{ dato }}">{{ dato }}</option>
@@ -48,11 +120,11 @@
                     </div>
                     <div class="col">
                         <label>Periodicidad</label>
-                        <input type="text" class="form-control mb-3" name="periodicidad" />
+                        <input type="number" id="periodicidad" name="periodicidad" class="form-control mb-3" />
                     </div>
                     <div class="col">
                         <label>Unidades</label>
-                        <select class="form-control mb-3" name="unidades">
+                        <select class="form-control mb-3" id="unidades" name="unidades">
                             <option value="" disabled selected>Seleccione una unidad</option> <!-- Opción por defecto no seleccionable -->
                             {% for unidad in unidades %}
                             <option value="{{ unidad }}">{{ unidad }}</option>
@@ -64,7 +136,6 @@
                     </div>
                 </div>
             </form>
-
 
             <!-- TABLA -->
 

@@ -126,8 +126,20 @@ def get_caracteristicas():
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
     unidades=['minutos','horas','dias','semanas','meses']
-    return render_template('records/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos)
+    global min_values
+    min_values={}
+    for conjunto in listaCiudadesDatos:
+        ciudad, característica, formato = conjunto.split(" - ")
+        min_values[conjunto]= diccionarioDatosDisponibles[ciudad][característica][formato][1]
+  
+    return render_template('records/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos, min_values=min_values)
 
+@server.route('/get_min_value', methods=['GET'])
+@login_required
+def get_min_value():
+    option = request.args.get('option')
+    min_value = min_values.get(option, 0)
+    return jsonify({'min_value': min_value})
 
 @server.route("/consultarRecords")
 @login_required
@@ -227,27 +239,7 @@ def guardarDato():
     ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, formato, enlace)
     return redirect(url_for('añadirConjuntos'))
 
-@server.route("/ciudad", methods=['POST'])
-@login_required
-def seleccionarCiudad():  
 
-    # Declara la variable global ciudad, donde se guarda la ciudad elegida.
-    global ciudad
-    ciudad = str(request.form['ciudadElegida'])
-
-    # Saca la lista de las carácteristicas de esa ciudad
-    características = []
-    características=list(diccionarioDatosDisponibles[ciudad].keys())
-
-    #LISTA DE CARACTERISTICAS CON FORMATO
-    """
-    caracteristicasFormato = []
-    for caracterisitica, formatos in diccionarioDatosDisponibles[ciudad].items():
-        for formato in formatos:
-            caracteristicasFormato.append(caracterisitica + " ("+ formato+")")
-    """
-
-    return render_template('ciudad.html', ciudadElegida = ciudad, características = características)
 
 
 @server.route("/Muestra", methods=("POST", "GET"))
@@ -681,7 +673,7 @@ def visualizarDiccionarioDeDatos(diccionario):
 def obetenerFormatoÓptimo(diccionarioFormatos):
     for formato in formatos:
         if diccionarioFormatos.get(formato):
-            return formato, diccionarioFormatos[formato]
+            return formato, diccionarioFormatos[formato][0]
 
     return None, None
 
