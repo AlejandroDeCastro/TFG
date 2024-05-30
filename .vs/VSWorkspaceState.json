@@ -4,7 +4,10 @@
     "\\CODE",
     "\\CODE\\models",
     "\\CODE\\models\\entidades",
-    "\\CODE\\static\\js",
+    "\\CODE\\templates",
+    "\\CODE\\templates\\plantillas",
+    "\\CODE\\templates\\plantillas\\Gijón",
+    "\\CODE\\templates\\plantillas\\Valencia",
     "\\CODE\\templates\\records",
     "\\Registros"
   ],

@@ -625,10 +625,25 @@ def seleccionarOpcion():
         # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
 
         if 'features' in data:
-            data=data['features']
+            
+            listaEntidades=[]
+            for entidad in data['features']:
+                nuevaEntidad={}
+                for clave, valor in entidad['properties'].items():
+                    nuevaEntidad[clave]=valor
+                print(nuevaEntidad)
+                print(entidad['geometry']['coordinates'])
+                nuevaEntidad['localizacion']={'lon': entidad['geometry']['coordinates'][0], 'lat': entidad['geometry']['coordinates'][1]}
+                listaEntidades.append(nuevaEntidad)
+        
+                data=listaEntidades
 
-        print(data)
-        clavesMapa=[]
+        else:
+        
+            clavesMapa=[]
+
+        """
+        data=data['features']
         nombreLat = ""
         nombreLon = ""
 
@@ -651,7 +666,7 @@ def seleccionarOpcion():
                     lat="0.00"
                 entidad['localizacion']={'lon': lon, 'lat': lat}    
             clavesMapa.append(nombreLat)
-
+            """
         return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
 
 
