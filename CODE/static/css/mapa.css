@@ -50,3 +50,14 @@ input[type="checkbox"]:checked + .checkbox-custom {
 h1 {
     text-align: center;
 }
+
+/* Estilos para el icono de favorito */
+.favorito-icon {
+    font-size: 24px;
+    cursor: pointer;
+    margin: 20px;
+}
+
+    .favorito-icon.favorito {
+        color: red; /* Color de relleno del icono */
+    }

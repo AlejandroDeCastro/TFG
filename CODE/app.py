@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, url_for, redirect, flash, sen
 from dash.dependencies import Input, Output
 from flask_mysqldb import MySQL
 from importlib_metadata import requires
+from numpy import True_
 from models.ModeloUsuario import ModeloUsuario
 from models.entidades.Usuario import Usuario
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -284,6 +285,10 @@ def mostrarConjunto(lugar, conjunto):
     data=convertirADiccionario(enlace, formato)
     clavesMapa=[]
 
+    # Se obtiene si tiene ese conjunto guardado en favoritos
+    global favorito
+    favorito=True
+
     # En caso de que el JSON obtenido tenga el forma de lista [Conjunto1, Conjunto2...]
     if not isinstance(data, dict):
         listaCaracteristicas=data[0].keys()
@@ -489,7 +494,7 @@ def mostrarConjunto(lugar, conjunto):
             listaCaracteristicas=data[0].keys()
             clavesMapa=['Dirección','Potencia','Precio','Obsevaciones']
 
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = False)
  
         
         #TRANSPORTE VALENCIA
@@ -587,7 +592,7 @@ def mostrarConjunto(lugar, conjunto):
             # Claves que se muestran el tooltip del mapa
             clavesMapa=['Nombre', 'Horario', 'Baños', 'Ascensor']
 
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = favorito)
      
         else:
             #Si se busca una opción que no está en la lista, muestra una vista genérica
@@ -631,7 +636,7 @@ def mostrarConjunto(lugar, conjunto):
 
             clavesMapa=['Nombre','Horario']
 
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = True)
     else:
         # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
 
@@ -692,6 +697,23 @@ def update_options():
     global clavesMapa
     data = request.get_json()
     clavesMapa = data.get('selected_options', [])
+    return jsonify(success=True)
+
+
+@server.route('/marcar_favorito', methods=['POST'])
+def marcar_favorito():
+    data = request.json
+    ciudad = data.get('ciudad')
+    conjunto = data.get('conjunto')
+    print("MARCADO FAVORITO",ciudad,conjunto)
+    return jsonify(success=True)
+
+@server.route('/desmarcar_favorito', methods=['POST'])
+def desmarcar_favorito():
+    data = request.json
+    ciudad = data.get('ciudad')
+    conjunto = data.get('conjunto')
+    print("DESMARCADO FAVORITO",ciudad,conjunto)
     return jsonify(success=True)
 
     # Función que transforma un conjunto de datos de json a diccionario de python
