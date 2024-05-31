@@ -15,10 +15,15 @@
     background: #f8f8f8;
     z-index: 1; /* Asegura que los encabezados estén sobre las celdas */
     cursor: pointer; /* Indica que el encabezado es interactivo */
+    justify-content: space-between; /* Espacia entre el texto y el icono */
+    align-items: center;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
-.cabeceros.sortable::after {
-    content: " ⬆️⬇️"; /* Emoticonos indicando ordenamiento */
-    font-size: 0.8em; /* Tamaño del emoticono */
-    margin-left: 5px; /* Espacio entre el texto y el emoticono */
-}
+    .cabeceros.sortable::after {
+        content: "\f0dc"; /* Font Awesome sort icon */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: 0.8em; /* Tamaño del icono */
+        margin-left: 5px; /* Espacio entre el texto y el icono */
+    }

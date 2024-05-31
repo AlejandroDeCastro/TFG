@@ -39,7 +39,7 @@
         function convertirAunidad(valor) {
             if (valor % 2592000 === 0) {
                 return valor / 2592000 + ' meses';
-            }else if (valor % 86400 === 0) {
+            } else if (valor % 86400 === 0) {
                 return valor / 86400 + ' días';
             } else if (valor % 3600 === 0) {
                 return valor / 3600 + ' horas';
@@ -93,7 +93,7 @@
     </label>
     <ul>
         <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('añadirConjuntos') }}">Añadir conjunto</a></li>
+        <li><a href="{{ url_for('mostrarConjuntos') }}">Conjuntos</a></li>
         <li><a class="active">Consultar Registros</a></li>
         <li><a class="col-sm-12 col-md-4 col-lg-4">Sobre nosotros</a></li>
         <li><a class="logout" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
@@ -139,15 +139,15 @@
 
             <!-- TABLA -->
 
-            <table class="table table-bordered">
+            <table id="tablaConOrdenación" class="table table-bordered tabla">
                 <thead>
                     <tr>
-                        <th scope="col">Ciudad</th>
-                        <th scope="col">Conjunto</th>
-                        <th scope="col">Formato</th>
-                        <th scope="col">Periodicidad (segundos)</th>
-                        <th scope="col">Descargar</th>
-                        <th scope="col">Eliminar</th>
+                        <th class="cabeceros sortable" onclick=sortTable(0) scope="col">Ciudad</th>
+                        <th class="cabeceros sortable" onclick=sortTable(1) scope="col">Conjunto</th>
+                        <th class="cabeceros sortable" onclick=sortTable(2) scope="col">Formato</th>
+                        <th class="cabeceros" scope="col">Periodicidad (segundos)</th>
+                        <th class="cabeceros" scope="col">Descargar</th>
+                        <th class="cabeceros" scope="col">Eliminar</th>
                     </tr>
                 </thead>
 
@@ -175,5 +175,11 @@
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/ordenación.js') }}"></script>
 
 {% endblock %}

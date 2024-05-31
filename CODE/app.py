@@ -224,11 +224,11 @@ def eliminarRecord(ciudad, caracteristica, formato, periodicidad):
     ModeloUsuario.delete_registro(db.database, current_user.id, ciudad, caracteristica, formato, periodicidad)
     return redirect(url_for('editarRecords'))
 
-@server.route("/añadirConjuntos")
+@server.route("/Conjuntos")
 @login_required
-def añadirConjuntos():
+def mostrarConjuntos():
     diccionarioDatosDisponibles=diccionarioURLs(db)
-    return render_template('añadirConjuntos.html', datosDisponibles = diccionarioDatosDisponibles, formatos = formatos, unidades = unidades)
+    return render_template('Conjuntos.html', datosDisponibles = diccionarioDatosDisponibles, formatos = formatos, unidades = unidades)
 
 @server.route("/guardarDato", methods=['POST'])
 @login_required
@@ -251,19 +251,30 @@ def guardarDato():
     return redirect(url_for('añadirConjuntos'))
 
 
-
-
-@server.route("/Muestra", methods=("POST", "GET"))
+@server.route("/Seleccion", methods=("POST", "GET"))
 @login_required
 def seleccionarOpcion():
 
     # Se guarda la ciudad elegida
-    global ciudad
     ciudad = str(request.form['ciudad'])
 
     # Se guarda la opcion elegida 
-    global opcion
     opcion = str(request.form['caracteristica'])
+
+    return redirect(url_for('mostrarConjunto', lugar = ciudad, conjunto = opcion))
+
+
+@server.route("/<string:lugar>/<string:conjunto>/", methods=("POST", "GET"))
+@login_required
+def mostrarConjunto(lugar, conjunto):
+
+    # Se guarda la ciudad elegida
+    global ciudad
+    ciudad = lugar
+
+    # Se guarda la opcion elegida 
+    global opcion
+    opcion = conjunto
 
     # Se obtiene el formato disponible más adecuado y el enlace de los datos con ese formato
     global formato, enlace
