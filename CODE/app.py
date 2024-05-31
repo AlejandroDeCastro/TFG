@@ -286,7 +286,19 @@ def mostrarConjunto(lugar, conjunto):
     clavesMapa=[]
 
     # Se obtiene si tiene ese conjunto guardado en favoritos
-    global favorito
+    cadena_favoritos = ModeloUsuario.get_favoritos_by_id(db.database,current_user.id)
+    if cadena_favoritos != "":
+        lista_favoritos = cadena_favoritos.split(", ")
+    else:
+        lista_favoritos = []
+
+    if str(ciudad+" - "+opcion) in lista_favoritos:
+        fav = True
+        print("El elemento está en la lista")
+    else:
+        fav = False
+        print("El elemento no está en la lista")
+
     favorito=True
 
     # En caso de que el JSON obtenido tenga el forma de lista [Conjunto1, Conjunto2...]
@@ -326,7 +338,7 @@ def mostrarConjunto(lugar, conjunto):
             listaCaracteristicas=data[0].keys()
             clavesMapa=['Nombre']
 
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
         
         elif(opcion == "Transporte EMT"):
 
@@ -494,7 +506,7 @@ def mostrarConjunto(lugar, conjunto):
             listaCaracteristicas=data[0].keys()
             clavesMapa=['Dirección','Potencia','Precio','Obsevaciones']
 
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = False)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
  
         
         #TRANSPORTE VALENCIA
@@ -592,7 +604,7 @@ def mostrarConjunto(lugar, conjunto):
             # Claves que se muestran el tooltip del mapa
             clavesMapa=['Nombre', 'Horario', 'Baños', 'Ascensor']
 
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = favorito)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
      
         else:
             #Si se busca una opción que no está en la lista, muestra una vista genérica
@@ -636,7 +648,7 @@ def mostrarConjunto(lugar, conjunto):
 
             clavesMapa=['Nombre','Horario']
 
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = False)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = fav)
     else:
         # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
 
@@ -684,7 +696,7 @@ def mostrarConjunto(lugar, conjunto):
             clavesMapa.append(nombreLat)
             """
         clavesMapa.append("name")
-        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa)
+        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = fav)
 
 
 @server.route('/data')
@@ -705,11 +717,25 @@ def marcar_favorito():
     data = request.json
     ciudad = data.get('ciudad')
     conjunto = data.get('conjunto')
-    favoritos = ModeloUsuario.get_favoritos_by_id(db.database,current_user.id)
-    print("DESPUES DE GET",favoritos)
+    cadena_favoritos = ModeloUsuario.get_favoritos_by_id(db.database,current_user.id)
+    if cadena_favoritos != "":
+        print("CADE",cadena_favoritos)
+        lista_favoritos = cadena_favoritos.split(", ")
+    else:
+        lista_favoritos = []
 
-    favoritos.append(str(ciudad+" - "+conjunto))
-    ModeloUsuario.update_favoritos(db.database,current_user.id,str(favoritos))
+    lista_favoritos.append(str(ciudad+" - "+conjunto))
+
+    cadena_favoritos=""
+    if len(lista_favoritos) > 1:
+        print("LEEEN",len(lista_favoritos))
+        cadena_favoritos = ", ".join(lista_favoritos)
+    else:
+        cadena_favoritos = lista_favoritos[0]
+
+    print(cadena_favoritos)
+
+    ModeloUsuario.update_favoritos(db.database,current_user.id,cadena_favoritos)
     print("MARCADO FAVORITO",ciudad,conjunto)   
     return jsonify(success=True)
 
@@ -718,7 +744,27 @@ def desmarcar_favorito():
     data = request.json
     ciudad = data.get('ciudad')
     conjunto = data.get('conjunto')
-    ModeloUsuario.update_favoritos(db.database,current_user.id,"PRUEBA2")
+    cadena_favoritos = ModeloUsuario.get_favoritos_by_id(db.database,current_user.id)
+    if cadena_favoritos != "":
+        lista_favoritos = cadena_favoritos.split(", ")
+    else:
+        lista_favoritos = []
+
+    for dato in lista_favoritos:
+        if dato == str(ciudad+" - "+conjunto):
+            lista_favoritos.remove(dato)
+
+    cadena_favoritos=""
+    if len(lista_favoritos) > 1:
+        print("LEEEN",len(lista_favoritos))
+        cadena_favoritos = ", ".join(lista_favoritos)
+    elif len(lista_favoritos) == 1:
+        cadena_favoritos = lista_favoritos[0]
+    else:
+        cadena_favoritos=""
+
+    print(cadena_favoritos)
+    ModeloUsuario.update_favoritos(db.database,current_user.id,cadena_favoritos)
     print("DESMARCADO FAVORITO",ciudad,conjunto)
     return jsonify(success=True)
 

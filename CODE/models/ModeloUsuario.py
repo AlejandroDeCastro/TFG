@@ -178,21 +178,11 @@ class ModeloUsuario():
             
             if resultado:
                 # La consulta devuelve una tupla, así que extraemos el valor de favoritos
-                texto = resultado[0]
-                print("OBTENGO ESTO", texto)
-                # Elimina los corchetes al principio y al final de la cadena
-                favoritos=json.loads(texto.replace("'", '"'))
-                print("LO DEJO ASI ", favoritos)
-
-
-                if favoritos==['']:
-                    print("locura")
-                    favoritos=[]
+                favoritos = resultado[0]
         
                 return favoritos
             else:
-                print(id, resultado)
-                return []  # El usuario no existe o no tiene favoritos
+                return ""  # El usuario no existe o no tiene favoritos
 
         except Exception as e:
             print(f"Error al obtener los favoritos: {e}")

@@ -2,15 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
+    "\\CODE\\models",
     "\\CODE\\static",
-    "\\CODE\\static\\js",
-    "\\CODE\\templates",
-    "\\CODE\\templates\\plantillas",
-    "\\CODE\\templates\\plantillas\\Barcelona",
-    "\\CODE\\templates\\plantillas\\Málaga",
-    "\\CODE\\templates\\plantillas\\Valencia",
-    "\\CODE\\templates\\records"
+    "\\CODE\\static\\css",
+    "\\CODE\\static\\js"
   ],
-  "SelectedNode": "\\CODE\\app.py",
+  "SelectedNode": "\\CODE\\models\\ModeloUsuario.py",
   "PreviewInSolutionExplorer": false
 }
