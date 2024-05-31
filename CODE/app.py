@@ -636,7 +636,7 @@ def mostrarConjunto(lugar, conjunto):
 
             clavesMapa=['Nombre','Horario']
 
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = True)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = False)
     else:
         # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
 
@@ -705,7 +705,12 @@ def marcar_favorito():
     data = request.json
     ciudad = data.get('ciudad')
     conjunto = data.get('conjunto')
-    print("MARCADO FAVORITO",ciudad,conjunto)
+    favoritos = ModeloUsuario.get_favoritos_by_id(db.database,current_user.id)
+    print("DESPUES DE GET",favoritos)
+
+    favoritos.append(str(ciudad+" - "+conjunto))
+    ModeloUsuario.update_favoritos(db.database,current_user.id,str(favoritos))
+    print("MARCADO FAVORITO",ciudad,conjunto)   
     return jsonify(success=True)
 
 @server.route('/desmarcar_favorito', methods=['POST'])
@@ -713,6 +718,7 @@ def desmarcar_favorito():
     data = request.json
     ciudad = data.get('ciudad')
     conjunto = data.get('conjunto')
+    ModeloUsuario.update_favoritos(db.database,current_user.id,"PRUEBA2")
     print("DESMARCADO FAVORITO",ciudad,conjunto)
     return jsonify(success=True)
 

@@ -1,5 +1,6 @@
 from flask.helpers import redirect
 from .entidades.Usuario import Usuario
+import json
 
 class ModeloUsuario():
 
@@ -163,6 +164,57 @@ class ModeloUsuario():
 
         except Exception as ex:
             raise Exception(ex) 
+
+    @classmethod
+    def get_favoritos_by_id(self, db, id):
+        try:
+            # Crea el cursor
+            cursor = db.cursor()
+
+            # Consulta para obtener los favoritos del usuario
+            consulta = "SELECT favoritos FROM usuarios WHERE id = %s"
+            cursor.execute(consulta, (id,))
+            resultado = cursor.fetchone()
+            
+            if resultado:
+                # La consulta devuelve una tupla, así que extraemos el valor de favoritos
+                texto = resultado[0]
+                print("OBTENGO ESTO", texto)
+                # Elimina los corchetes al principio y al final de la cadena
+                favoritos=json.loads(texto.replace("'", '"'))
+                print("LO DEJO ASI ", favoritos)
+
+
+                if favoritos==['']:
+                    print("locura")
+                    favoritos=[]
+        
+                return favoritos
+            else:
+                print(id, resultado)
+                return []  # El usuario no existe o no tiene favoritos
+
+        except Exception as e:
+            print(f"Error al obtener los favoritos: {e}")
+            return None
+
+    @classmethod
+    def update_favoritos(self, db, id_usuario, favoritos):
+
+        try:
+            # Crea el cursor
+            cursor = db.cursor()
+            
+            # Actualización que se hace en la base de datos. 
+            actualización="UPDATE usuarios SET favoritos = %s WHERE id = %s"
+            data = (favoritos, id_usuario)
+
+            #Ejecución de la insercción
+            cursor.execute(actualización, data)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex)
 
 def conversionASegundos(periodicidad, unidad):
 
