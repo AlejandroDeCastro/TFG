@@ -321,7 +321,7 @@ def mostrarConjunto(lugar, conjunto):
             listaCaracteristicas=data[0].keys()
             clavesMapa=['Nombre']
 
-            return render_template('plantillas/Málaga/parkingsMálaga.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
         
         elif(opcion == "Transporte EMT"):
 
@@ -489,7 +489,7 @@ def mostrarConjunto(lugar, conjunto):
             listaCaracteristicas=data[0].keys()
             clavesMapa=['Dirección','Potencia','Precio','Obsevaciones']
 
-            return render_template('plantillas/Valencia/puntosDeCargaValencia.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
  
         
         #TRANSPORTE VALENCIA
@@ -587,7 +587,7 @@ def mostrarConjunto(lugar, conjunto):
             # Claves que se muestran el tooltip del mapa
             clavesMapa=['Nombre', 'Horario', 'Baños', 'Ascensor']
 
-            return render_template('plantillas/Barcelona/parkingsBarcelona.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
      
         else:
             #Si se busca una opción que no está en la lista, muestra una vista genérica
@@ -631,7 +631,7 @@ def mostrarConjunto(lugar, conjunto):
 
             clavesMapa=['Nombre','Horario']
 
-            return render_template('plantillas/Gijón/cajerosGijón.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa)
     else:
         # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
 
@@ -678,7 +678,8 @@ def mostrarConjunto(lugar, conjunto):
                 entidad['localizacion']={'lon': lon, 'lat': lat}    
             clavesMapa.append(nombreLat)
             """
-        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+        clavesMapa.append("name")
+        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa)
 
 
 @server.route('/data')
@@ -686,6 +687,12 @@ def obtenerdatos():
     #print(data,clavesMapa)
     return jsonify({'data': data, 'clavesMapa': clavesMapa})
 
+@server.route('/update_options', methods=['POST'])
+def update_options():
+    global clavesMapa
+    data = request.get_json()
+    clavesMapa = data.get('selected_options', [])
+    return jsonify(success=True)
 
     # Función que transforma un conjunto de datos de json a diccionario de python
 def convertirADiccionario(enlace, formato):
