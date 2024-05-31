@@ -392,8 +392,8 @@ def seleccionarOpcion():
             dataFrameParkingsValencia=pd.DataFrame(conjuntoTraducido)
 
             # Se separan los campos lon y lat
-            dataFrameParkingsValencia['lon'] = dataFrameParkingsValencia['geo_point_2d'].apply(lambda loc: loc['lon'])
-            dataFrameParkingsValencia['lat'] = dataFrameParkingsValencia['geo_point_2d'].apply(lambda loc: loc['lat'])
+            dataFrameParkingsValencia['lon'] = dataFrameParkingsValencia['localizacion'].apply(lambda loc: loc['lon'])
+            dataFrameParkingsValencia['lat'] = dataFrameParkingsValencia['localizacion'].apply(lambda loc: loc['lat'])
 
             # mapa
             mapa = px.scatter_mapbox(dataFrameParkingsValencia, lat="lat", lon="lon", hover_name="nombre", hover_data={"lat" : False, "lon" : False, "plazas libres" : True, "plazas totales" : True},

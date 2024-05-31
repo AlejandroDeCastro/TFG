@@ -1,0 +1,17 @@
+﻿.contenedor-tabla {
+    width:100%;
+    max-height: 500px; /* Altura máxima de la tabla con scroll */
+    overflow-y: auto; /* Scroll vertical */
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cabeceros {
+    position: sticky;
+    top: 0;
+    background: #f8f8f8;
+    z-index: 1; /* Asegura que los encabezados estén sobre las celdas */
+}
