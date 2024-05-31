@@ -14,4 +14,11 @@
     top: 0;
     background: #f8f8f8;
     z-index: 1; /* Asegura que los encabezados estén sobre las celdas */
+    cursor: pointer; /* Indica que el encabezado es interactivo */
+}
+
+.cabeceros.sortable::after {
+    content: " ⬆️⬇️"; /* Emoticonos indicando ordenamiento */
+    font-size: 0.8em; /* Tamaño del emoticono */
+    margin-left: 5px; /* Espacio entre el texto y el emoticono */
 }

@@ -68,7 +68,7 @@
         <thead>
             <tr class="table-primary">
                 {% for característica in listaCaracteristicas %}
-                <th class="table-primary cabeceros" onclick=sortTable({{loop.index0}})>{{ característica }}</th>
+                <th class="table-primary cabeceros sortable" onclick=sortTable({{loop.index0}})>{{ característica }}</th>
                 {% endfor %}
             </tr>
         </thead>
