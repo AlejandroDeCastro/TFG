@@ -37,10 +37,10 @@
         <!--DATOS EN TIEMPO REAL-->
     <div class="cuadro">
         <div class="titulo-cuadro">
-            <h1>Bienvenido {{ current_user.nombreCompleto}}</h1>
+            <h1>Bienvenido {{ current_user.nombreCompleto }}</h1>
         </div>
-        
 
+        {% if current_user.rol != "administrador" %}
         <div class="registros">
             <h1 class="titulo-registros">Estos son los registros que tienes guardando actualmente</h1>
             {% if registros %}
@@ -59,6 +59,11 @@
             </ul>
             {% endif %}
         </div>
+        {% else %}
+        <div class="cuadro-administrador">
+            <h1>Bienvenido administrador</h1>
+        </div>
+        {% endif %}
 
         <div class="cuadro-favoritos">
             <h1 class="titulo-favoritos">FAVORITOS</h1>
@@ -66,7 +71,7 @@
 
                 {% for lugar, conjuntos in dicConjuntosFav.items() %}
                 {% for conjunto in conjuntos %}
-                <a href="{{ url_for('mostrarConjunto', lugar=lugar, conjunto=conjunto) }}">{{ lugar }} - {{ conjunto }}</a><br />
+                <a class="enlace-favoritos" href="{{ url_for('mostrarConjunto', lugar=lugar, conjunto=conjunto) }}">{{ lugar }} - {{ conjunto }}</a><br />
                 {% endfor %}
                 {% endfor %}
 
@@ -75,7 +80,7 @@
 
         <div class="cuadro-consulta-conjuntos">
             <h1 class="titulo-consulta-conjuntos">CONSULTA TIEMPO REAL</h1>
-            
+
             <form action="{{url_for('seleccionarOpcion')}}" method="post" accept-charset="UTF-8">
 
                 <div class="container contenido-consulta-conjuntos">
@@ -99,7 +104,7 @@
                 </div>
                 <button type="submit" class="boton">CONSULTA</button>
             </form>
-            
+
         </div>
         <script>
 

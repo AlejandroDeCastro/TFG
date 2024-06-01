@@ -9,12 +9,12 @@
     background-color: #0082e6;
 }
 
-/* Estilo del cuadro derecho */
+/* Estilo del cuadro */
 .cuadro {
     width: 95%;
     height: 80vh; /* Altura total de la ventana del navegador */
     margin: 2.5%;
-    background-color: #98DCF8; /* Color de fondo lavanda */
+    background-color: #98DCF8; /* Color de fondo */
     text-align: center; /* Alineación centrada del texto */
     font-size: x-large; /* Tamaño del texto */
     border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
@@ -56,6 +56,16 @@
     text-align: center; /* Alineación centrada del texto */
     padding-top: 15vh; /* Espaciado superior para centrar verticalmente */
     font-size: 24px; /* Tamaño de fuente */
+}
+
+.cuadro-administrador {
+    width: 95%;
+    height: 30vh;
+    margin: 2.5%;
+    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+    font-size: xx-large; /* Tamaño del texto */
+    text-align: center; /* Alineación centrada del texto */
+    background-color: #BBB5B3;
 }
 
 .titulo-favoritos {
@@ -132,22 +142,22 @@
         background-color: #0056b3; /* Cambio de color de fondo al pasar el cursor */
     }
 
-a:link {
+.enlace-favoritos:link {
     color: red; /* Cambia el color para enlaces no visitados */
     text-decoration: none; /* Quita la subrayado */
 }
 
-a:visited {
+.enlace-favoritos:visited {
     color: purple; /* Cambia el color para enlaces visitados */
     text-decoration: none; /* Quita la subrayado */
 }
 
-a:hover {
+.enlace-favoritos:hover {
     color: orange; /* Cambia el color cuando el mouse está sobre el enlace */
     text-decoration: underline; /* Subraya el enlace */
 }
 
-a:active {
+.enlace-favoritos:active {
     color: yellow; /* Cambia el color cuando se hace clic en el enlace */
     text-decoration: underline; /* Subraya el enlace */
 }

@@ -11,7 +11,7 @@ class ModeloUsuario():
             cursor = db.cursor()
 
             #Consulta que se hace en la base de datos. Busca un usuario en concreto en la base de datos
-            consulta="""SELECT id, usuario, contraseña, nombre_completo FROM usuarios 
+            consulta="""SELECT id, usuario, contraseña, rol, nombre_completo FROM usuarios 
             WHERE usuario = '{}'""".format(user.usuario) #CAMBIAR POR UN PROCEDIMIENTO ALMACENADO, QUIZÁ MÁS ADELANTE. ES MEJOR.
 
             #Ejecución de la consulta
@@ -22,7 +22,7 @@ class ModeloUsuario():
 
             #Si hay se encuentra un usuario con ese nombre,  coge los datos y comprueba la contraseña
             if row != None:
-                usuario=Usuario(row[0], row[1], Usuario.check_password(row[2], user.contraseña), row[3])
+                usuario=Usuario(row[0], row[1], Usuario.check_password(row[2], user.contraseña), row[3], row[4])
                 cursor.close()
                 return usuario
             else:
@@ -39,7 +39,7 @@ class ModeloUsuario():
             cursor = db.cursor()
 
             #Consulta que se hace en la base de datos. 
-            consulta="SELECT id, usuario, nombre_completo FROM usuarios WHERE id = {}".format(id)
+            consulta="SELECT id, usuario, rol, nombre_completo FROM usuarios WHERE id = {}".format(id)
 
             #Ejecución de la consulta
             cursor.execute(consulta)
@@ -49,7 +49,7 @@ class ModeloUsuario():
 
             #Si hay se encuentra un usuario con ese nombre,  coge los datos
             if row != None:
-                usuario=Usuario(row[0], row[1], None, row[2])
+                usuario=Usuario(row[0], row[1], None, row[2], row[3])
                 cursor.close()
                 return usuario
             else:

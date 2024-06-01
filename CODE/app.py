@@ -69,7 +69,7 @@ def index():
 @server.route("/login", methods=['GET','POST'])
 def login():
     if request.method=='POST':
-        usuario = Usuario(0, request.form['username'], request.form['password'])
+        usuario = Usuario(0, request.form['username'], request.form['password'],"")
         usuarioLogueado = ModeloUsuario.login(db.database,usuario)
 
         # Comprueba si existe el usuario
