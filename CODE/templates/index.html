@@ -62,6 +62,15 @@
 
         <div class="cuadro-favoritos">
             <h1 class="titulo-favoritos">FAVORITOS</h1>
+            <div class="container contenidofavoritos">
+
+                {% for lugar, conjuntos in dicConjuntosFav.items() %}
+                {% for conjunto in conjuntos %}
+                <a href="{{ url_for('mostrarConjunto', lugar=lugar, conjunto=conjunto) }}">{{ lugar }} - {{ conjunto }}</a><br />
+                {% endfor %}
+                {% endfor %}
+
+            </div>
         </div>
 
         <div class="cuadro-consulta-conjuntos">

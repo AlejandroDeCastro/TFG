@@ -82,6 +82,10 @@
     border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
 }
 
+.contenido-favoritos {
+    padding-top: 15px;
+}
+
 .titulo-consulta-conjuntos {
     border-bottom-width: 2px;
     border-bottom-style: solid;
@@ -127,3 +131,23 @@
     .boton:hover {
         background-color: #0056b3; /* Cambio de color de fondo al pasar el cursor */
     }
+
+a:link {
+    color: red; /* Cambia el color para enlaces no visitados */
+    text-decoration: none; /* Quita la subrayado */
+}
+
+a:visited {
+    color: purple; /* Cambia el color para enlaces visitados */
+    text-decoration: none; /* Quita la subrayado */
+}
+
+a:hover {
+    color: orange; /* Cambia el color cuando el mouse está sobre el enlace */
+    text-decoration: underline; /* Subraya el enlace */
+}
+
+a:active {
+    color: yellow; /* Cambia el color cuando se hace clic en el enlace */
+    text-decoration: underline; /* Subraya el enlace */
+}

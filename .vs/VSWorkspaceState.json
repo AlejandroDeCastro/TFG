@@ -5,8 +5,9 @@
     "\\CODE\\models",
     "\\CODE\\static",
     "\\CODE\\static\\css",
-    "\\CODE\\static\\js"
+    "\\CODE\\static\\js",
+    "\\CODE\\test"
   ],
-  "SelectedNode": "\\CODE\\models\\ModeloUsuario.py",
+  "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false
 }

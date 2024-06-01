@@ -115,8 +115,22 @@ def home():
 
     registros_adaptados=transformarRegistrosUnidades(registros)
 
+    # Obtiene los favoritos para el cajón de favoritos
+    dicConjuntosFav = {}
+    lista_favoritos=obtenerListaFavoritos(db.database,current_user.id)
+    for favorito in lista_favoritos:
+        lugar, conjunto=favorito.split(' - ')
+        if lugar not in dicConjuntosFav:
+            lista=[]
+        else:
+            lista = dicConjuntosFav[lugar]
+  
+        lista.append(conjunto)
+        dicConjuntosFav[lugar]=lista
 
-    return render_template('index.html', listaCiudades=listaCiudades, registros = registros_adaptados, ciudades=listaCiudades)
+        print(dicConjuntosFav)
+
+    return render_template('index.html', listaCiudades=listaCiudades, registros = registros_adaptados, ciudades = listaCiudades, dicConjuntosFav = dicConjuntosFav)
 
 @server.route('/get_caracteristicas', methods=['POST'])
 def get_caracteristicas():
@@ -249,7 +263,7 @@ def guardarDato():
        unidad=None
 
     ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, formato, enlace, periodo, unidad)
-    return redirect(url_for('añadirConjuntos'))
+    return redirect(url_for('mostrarConjuntos'))
 
 
 @server.route("/Seleccion", methods=("POST", "GET"))
@@ -365,8 +379,21 @@ def mostrarConjunto(lugar, conjunto):
             return render_template('bibliotecasMalaga.html',  opcionElegida = opcion, tables =[df_BibliotecasMalaga.to_html(classes='data')], titles=df_BibliotecasMalaga.columns.values)
 
         else:
+
+            listaEntidades=[]
+            for entidad in data['features']:
+                nuevaEntidad={}
+                for clave, valor in entidad['properties'].items():
+                    nuevaEntidad[clave]=valor
+                print(nuevaEntidad)
+                print(entidad['geometry']['coordinates'])
+                nuevaEntidad['localizacion']={'lon': entidad['geometry']['coordinates'][0], 'lat': entidad['geometry']['coordinates'][1]}
+                listaEntidades.append(nuevaEntidad)
+        
+                data=listaEntidades
             #Si se busca una opción que no está en la lista, mostrar una vista genérica
-            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas)
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
+
 
 
     elif ciudad == "Madrid":
@@ -852,6 +879,15 @@ def obetenerFormatoÓptimo(diccionarioFormatos):
             return formato, diccionarioFormatos[formato][0]
 
     return None, None
+
+def obtenerListaFavoritos(db,id):
+    # Se obtiene si tiene ese conjunto guardado en favoritos
+    cadena_favoritos = ModeloUsuario.get_favoritos_by_id(db,id)
+    if cadena_favoritos != "":
+        lista_favoritos = cadena_favoritos.split(", ")
+    else:
+        lista_favoritos = []
+    return lista_favoritos
 
 def actualizar_claves(diccionario, modeloTraducción):
 
