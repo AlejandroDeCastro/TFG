@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
+    "\\CODE\\models",
     "\\CODE\\models\\entidades",
-    "\\CODE\\static\\css",
-    "\\CODE\\static\\js",
+    "\\CODE\\templates",
     "\\CODE\\test"
   ],
   "SelectedNode": "\\CODE\\app.py",

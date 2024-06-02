@@ -130,12 +130,7 @@ class ModeloUsuario():
     
 
     @classmethod
-    def set_registro(self, db, id_usuario, ciudad, característica, formato, periodicidad, unidad):
-
-        if unidad != "segundos":
-            segundos = str(conversionASegundos(periodicidad, unidad))
-        else:
-            segundos = periodicidad
+    def set_registro(self, db, id_usuario, ciudad, característica, formato, segundos):
 
         try:
             #Crea el cursor
@@ -170,15 +165,8 @@ class ModeloUsuario():
 
 
     @classmethod
-    def set_dato(self, db, id_usuario, ciudad, característica, formato, enlace, periodo, unidad):
+    def set_dato(self, db, id_usuario, ciudad, característica, formato, enlace, segundos):
 
-        if periodo != 0 and unidad != None:
-            if unidad != "segundos": # La opción de segundos no está disponible, pero quizá se incorpore en un futuro
-                segundos = str(conversionASegundos(periodo, unidad))
-            else:
-                segundos = str(periodo)
-        else:
-            segundos="0"
         
         try:
             #Crea el cursor
@@ -235,23 +223,3 @@ class ModeloUsuario():
 
         except Exception as ex:
             raise Exception(ex)
-
-def conversionASegundos(periodicidad, unidad):
-
-    segundos=0
-    periodicidad=int(periodicidad)
-
-    if unidad == "meses":
-        segundos = periodicidad * 31 * 24 * 3600
-    elif unidad == "semanas":
-        segundos = periodicidad * 7 * 24 * 3600
-    elif unidad == "dias":
-        segundos = periodicidad * 24 * 3600
-    elif unidad == "horas":
-        segundos = periodicidad * 3600
-    elif unidad == "minutos":
-        segundos = periodicidad * 60
-    else:
-        segundos=0 #Se ha pasado una unidad no registrada
-
-    return segundos

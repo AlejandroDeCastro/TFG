@@ -1,0 +1,964 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "dBizi",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9851154952, 43.3217340784 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Udaletxea",
+				"Nomdbizi" : "Ayuntamiento",
+				"IzenKalea" : "IJENTEA",
+				"Ataria" : "2",
+				"Kopurua" : 24,
+				"Numplazas" : 24,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582288.90840177,
+				"Y_erts89" : 4797043.8755922,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Udaletxea"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9825648811, 43.320524775 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Andia",
+				"Nomdbizi" : "Andia",
+				"IzenKalea" : "ANDIA",
+				"Ataria" : "1",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582497.35509973,
+				"Y_erts89" : 4796912.0924163,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Andia"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9773212084, 43.3178559797 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Frantzia pasealekua",
+				"Nomdbizi" : "Paseo de Francia",
+				"IzenKalea" : "FRANCIA,PS DE",
+				"Ataria" : "22",
+				"Kopurua" : 25,
+				"Numplazas" : 25,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582926.16374066,
+				"Y_erts89" : 4796620.9016873,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Frantzia pasealekua"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9733621599, 43.3241630664 ]
+			},
+			"properties" : {
+				"Izendbizi" : "San Frantzisko-Galtzada Nagusia",
+				"Nomdbizi" : "San Francisco-Gran Vía",
+				"IzenKalea" : "SAN FRANCISCO",
+				"Ataria" : "24",
+				"Kopurua" : 20,
+				"Numplazas" : 20,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583238.58228935,
+				"Y_erts89" : 4797325.2783135,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "San Frantzisko-Galtzada Nagusia"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0088228287, 43.3117154054 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Tolosa Hiribidea-Irakasle eskola",
+				"Nomdbizi" : "Avenida Tolosa-Escuela de Magisterio",
+				"IzenKalea" : "TOLOSA,AV DE",
+				"Ataria" : "14",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 580379.86351373,
+				"Y_erts89" : 4795908.1567645,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Tolosa Hiribidea-Irakasle eskola"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9788430368, 43.3080288414 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Cortazar Arkitektoak",
+				"Nomdbizi" : "Arquitectos Cortazar",
+				"IzenKalea" : "ARQUITECTOS CORTAZAR",
+				"Ataria" : "3",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582816.10645684,
+				"Y_erts89" : 4795528.0341373,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Cortazar Arkitektoak"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9817650766, 43.313288962 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Easo plaza",
+				"Nomdbizi" : "Easo plaza",
+				"IzenKalea" : "EASO",
+				"Kopurua" : 23,
+				"Numplazas" : 23,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582572.00472814,
+				"Y_erts89" : 4796109.3058212,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Easo plaza"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0058503967, 43.3124148629 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Zarautz",
+				"Nomdbizi" : "Zarautz",
+				"IzenKalea" : "ZARAUTZ",
+				"Ataria" : "1",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 580619.99074547,
+				"Y_erts89" : 4795988.7003701,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Zarautz"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9760079805, 43.3044421208 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Isabel II",
+				"Nomdbizi" : "Isabel II",
+				"IzenKalea" : "ISABEL II,AV DE",
+				"Ataria" : "15",
+				"Kopurua" : 20,
+				"Numplazas" : 20,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583050.91511901,
+				"Y_erts89" : 4795132.5246422,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Isabel II"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9713092914, 43.3100607541 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Humboldt",
+				"Nomdbizi" : "Humboldt",
+				"IzenKalea" : "HUMBOLDT",
+				"Ataria" : "4",
+				"Kopurua" : 20,
+				"Numplazas" : 20,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583424.31993212,
+				"Y_erts89" : 4795761.1866798,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Humboldt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.956485303, 43.3132420562 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Sagastieder",
+				"Nomdbizi" : "Sagastieder",
+				"IzenKalea" : "GALICIA,PS DE",
+				"Ataria" : "5",
+				"Kopurua" : 20,
+				"Numplazas" : 20,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 584622.10302872,
+				"Y_erts89" : 4796129.4017307,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Sagastieder"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9815228341, 43.3183441467 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Arrasate",
+				"Nomdbizi" : "Arrasate",
+				"IzenKalea" : "ARRASATE",
+				"Ataria" : "18",
+				"Kopurua" : 16,
+				"Numplazas" : 16,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582584.80227849,
+				"Y_erts89" : 4796670.9514998,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Arrasate"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9710549556, 43.3257667716 ]
+			},
+			"properties" : {
+				"Izendbizi" : "San Frantzisko-Nafarroa",
+				"Nomdbizi" : "San Francisco-Navarra",
+				"IzenKalea" : "SAN FRANCISCO",
+				"Ataria" : "52",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583423.45411847,
+				"Y_erts89" : 4797505.6815929,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "San Frantzisko-Nafarroa"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9800467297, 43.3212835968 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Santa Katalina Plazatxoa",
+				"Nomdbizi" : "Santa Katalina Plazatxoa",
+				"IzenKalea" : "SANTA CATALINA",
+				"Ataria" : "1",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582700.50796565,
+				"Y_erts89" : 4796998.8547561,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Santa Katalina Plazatxoa"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.980685847, 43.3192484804 ]
+			},
+			"properties" : {
+				"Izendbizi" : "San Martzial",
+				"Nomdbizi" : "San Marcial",
+				"IzenKalea" : "SAN MARCIAL",
+				"Ataria" : "11",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582651.44519209,
+				"Y_erts89" : 4796772.2108888,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "San Martzial"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9860015608, 43.3170453357 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Miraflores Markesa",
+				"Nomdbizi" : "Marques de Miraflores",
+				"IzenKalea" : "MARQUES MIRAFLORES",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582223.386923,
+				"Y_erts89" : 4796522.2917591,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Miraflores Markesa"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9826980407, 43.3157621968 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Urdaneta",
+				"Nomdbizi" : "Urdaneta",
+				"IzenKalea" : "URDANETA",
+				"Ataria" : "13",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582493.00129394,
+				"Y_erts89" : 4796383.0501013,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Urdaneta"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9772990368, 43.3227243329 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Peña y Goñi",
+				"Nomdbizi" : "Peña y Goñi",
+				"IzenKalea" : "COLON,PS DE",
+				"Ataria" : "9",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582921.33992175,
+				"Y_erts89" : 4797161.5816335,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Peña y Goñi"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.975424219, 43.3227549066 ]
+			},
+			"properties" : {
+				"Izendbizi" : "San Frantzisko-Iparragirre",
+				"Nomdbizi" : "San Francisco-Iparragirre",
+				"IzenKalea" : "SAN FRANCISCO",
+				"Ataria" : "1",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583073.31083212,
+				"Y_erts89" : 4797166.840563,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "San Frantzisko-Iparragirre"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9714737018, 43.3237757293 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Bermingham",
+				"Nomdbizi" : "Bermingham",
+				"IzenKalea" : "BERMINGHAM",
+				"Ataria" : "27",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583392.22710612,
+				"Y_erts89" : 4797284.1466857,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Bermingham"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9699386278, 43.3239448479 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Segundo Ispizua",
+				"Nomdbizi" : "Segundo Ispizua",
+				"IzenKalea" : "SEGUNDO ISPIZUA",
+				"Ataria" : "31",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583516.45899628,
+				"Y_erts89" : 4797304.4625505,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Segundo Ispizua"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9598257177, 43.3212692847 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Atarizar",
+				"Nomdbizi" : "Atarizar",
+				"IzenKalea" : "ATARIZAR",
+				"Ataria" : "26",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 584340.11164548,
+				"Y_erts89" : 4797017.4909627,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Atarizar"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9755618545, 43.3202894998 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Teresa de Calcuta",
+				"Nomdbizi" : "Teresa de Calcuta",
+				"IzenKalea" : "TERESA DE CALCUTA,PZ",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583065.51026342,
+				"Y_erts89" : 4796892.9063216,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Teresa de Calcuta"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9750530325, 43.3170375887 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Tabakalera",
+				"Nomdbizi" : "Tabakalera",
+				"IzenKalea" : "ANDRE ZIGARROGILEAK",
+				"Ataria" : "1",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583111.20048666,
+				"Y_erts89" : 4796532.2697281,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Tabakalera"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9714513489, 43.3169507885 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Karmengo Andre Maria",
+				"Nomdbizi" : "Virgen del Carmen",
+				"IzenKalea" : "VIRGEN DEL CARMEN",
+				"Ataria" : "15",
+				"Kopurua" : 20,
+				"Numplazas" : 20,
+				"Deskontua" : "BAI",
+				"Descuento" : "SI",
+				"X_erts89" : 583403.37548761,
+				"Y_erts89" : 4796526.2209593,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Karmengo Andre Maria"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9721476657, 43.3120249338 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Barcelona",
+				"Nomdbizi" : "Barcelona",
+				"IzenKalea" : "BARCELONA,AV DE",
+				"Ataria" : "41",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583353.64480066,
+				"Y_erts89" : 4795978.4824499,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Barcelona"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9729627738, 43.3061054307 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Euskal Kortsarioak",
+				"Nomdbizi" : "Corsarios Vascos",
+				"IzenKalea" : "CORSARIOS VASCOS",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583295.62704019,
+				"Y_erts89" : 4795320.2764258,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Euskal Kortsarioak"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9799116633, 43.3027071653 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Podavines",
+				"Nomdbizi" : "Podavines",
+				"IzenKalea" : "PODAVINES",
+				"Ataria" : "6",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582736.65774705,
+				"Y_erts89" : 4794935.9746493,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Podavines"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9534989054, 43.3166299319 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Gabriel Celaya Plaza",
+				"Nomdbizi" : "Plaza Gabriel Celaya",
+				"IzenKalea" : "GABRIEL CELAYA,PZ DE",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 584859.57,
+				"Y_erts89" : 4796508.67,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Gabriel Celaya Plaza"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9830022646, 43.3084893874 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Morlans",
+				"Nomdbizi" : "Morlans",
+				"IzenKalea" : "MORLANS,PS DE",
+				"Ataria" : "1",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582478.16702006,
+				"Y_erts89" : 4795575.0645644,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Morlans"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9804310586, 43.3110958185 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Antso Jakituna",
+				"Nomdbizi" : "Sancho el Sabio",
+				"IzenKalea" : "SANCHO EL SABIO,AV",
+				"Ataria" : "2",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582683.15870926,
+				"Y_erts89" : 4795867.0651286,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Antso Jakituna"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9674503447, 43.310828569 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Urbia",
+				"Nomdbizi" : "Urbia",
+				"IzenKalea" : "URBIA",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 583736.21899262,
+				"Y_erts89" : 4795850.3185373,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Urbia"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9621436167, 43.304429954 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Aintzieta",
+				"Nomdbizi" : "Aintzieta",
+				"IzenKalea" : "AINTZIETA,PS DE",
+				"Ataria" : "17",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "BAI",
+				"Descuento" : "SI",
+				"X_erts89" : 584175.40915151,
+				"Y_erts89" : 4795145.0520922,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Aintzieta"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9541460144, 43.2961268396 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Tranbia",
+				"Nomdbizi" : "Tranvía",
+				"IzenKalea" : "TRANBIA",
+				"Ataria" : "17",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "BAI",
+				"Descuento" : "SI",
+				"X_erts89" : 584835.60442923,
+				"Y_erts89" : 4794231.0381371,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Tranbia"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0043079706, 43.3144464041 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Kristina infanta",
+				"Nomdbizi" : "Infanta Cristina",
+				"IzenKalea" : "INFANTA CRISTINA",
+				"Ataria" : "17",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 580742.38381236,
+				"Y_erts89" : 4796215.8041438,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Kristina infanta"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0085012471, 43.3068723231 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Tolosa Hiribidea-Psikologia",
+				"Nomdbizi" : "Avenida Tolosa-Psicología",
+				"IzenKalea" : "TOLOSA,AV DE",
+				"Ataria" : "70",
+				"Kopurua" : 17,
+				"Numplazas" : 17,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 580412.32740272,
+				"Y_erts89" : 4795370.6161793,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Tolosa Hiribidea-Psikologia"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0076820639, 43.3032480262 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Bernardo Estornes L.",
+				"Nomdbizi" : "Bernardo Estornes L.",
+				"IzenKalea" : "BERNARDO ESTORNES L.",
+				"Kopurua" : 17,
+				"Numplazas" : 17,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 580483.54675991,
+				"Y_erts89" : 4794968.9079459,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Bernardo Estornes L."
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0031676244, 43.3020071792 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Tolosa Hiribidea-Amerika",
+				"Nomdbizi" : "Avenida Tolosa-América",
+				"IzenKalea" : "AMERICA,PZ DE",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 580851.34439889,
+				"Y_erts89" : 4794835.4651078,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Tolosa Hiribidea-Amerika"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0046293584, 43.3014894708 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Xabier Lizardi",
+				"Nomdbizi" : "Xabier Lizardi",
+				"IzenKalea" : "XABIER LIZARDI",
+				"Ataria" : "13",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 580733.47005468,
+				"Y_erts89" : 4794776.5570983,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Xabier Lizardi"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0165431339, 43.3066941817 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Berio",
+				"Nomdbizi" : "Berio",
+				"IzenKalea" : "BERIO,PS DE",
+				"Ataria" : "26",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "BAI",
+				"Descuento" : "SI",
+				"X_erts89" : 579760.34498592,
+				"Y_erts89" : 4795343.1217757,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Berio"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9933626517, 43.3069228384 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Munto",
+				"Nomdbizi" : "Munto",
+				"IzenKalea" : "MUNTO",
+				"Ataria" : "76",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "BAI",
+				"Descuento" : "SI",
+				"X_erts89" : 581640.03466827,
+				"Y_erts89" : 4795390.9120482,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Munto"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.988182127, 43.3006841727 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Errondogaina",
+				"Nomdbizi" : "Alto de Errondo",
+				"IzenKalea" : "ALTO DE ERRONDO",
+				"Ataria" : "113",
+				"Kopurua" : 16,
+				"Numplazas" : 16,
+				"Deskontua" : "BAI",
+				"Descuento" : "SI",
+				"X_erts89" : 582068.57944218,
+				"Y_erts89" : 4794703.1520397,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Errondogaina"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9916941033, 43.2989945021 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Andoain",
+				"Nomdbizi" : "Andoain",
+				"IzenKalea" : "ANDOAIN",
+				"Ataria" : "44",
+				"Kopurua" : 19,
+				"Numplazas" : 19,
+				"Deskontua" : "BAI",
+				"Descuento" : "SI",
+				"X_erts89" : 581785.98611231,
+				"Y_erts89" : 4794512.0609358,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Andoain"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9805843656, 43.305908218 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Javier Barkaiztegi",
+				"Nomdbizi" : "Javier Barkaiztegi",
+				"IzenKalea" : "JAVIER BARKAIZTEGI",
+				"Ataria" : "5",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582677.75768124,
+				"Y_erts89" : 4795290.8024252,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Javier Barkaiztegi"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -1.9824350712, 43.3228672837 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Bretxa",
+				"Nomdbizi" : "Bretxa",
+				"IzenKalea" : "BOULEVARD,AL DEL",
+				"Ataria" : "2",
+				"Kopurua" : 15,
+				"Numplazas" : 15,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 582504.71039284,
+				"Y_erts89" : 4797172.3694377,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Bretxa"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ -2.0106573113, 43.3090722555 ]
+			},
+			"properties" : {
+				"Izendbizi" : "Tolosa Hiribidea-Karlos Santamaria",
+				"Nomdbizi" : "Avenida Tolosa-Carlos Santamaria",
+				"IzenKalea" : "EUROPA,PZ DE",
+				"Ataria" : "3",
+				"Kopurua" : 25,
+				"Numplazas" : 25,
+				"Deskontua" : "EZ",
+				"Descuento" : "NO",
+				"X_erts89" : 580234.57173723,
+				"Y_erts89" : 4795612.8568719,
+				"INFO" : "https://www.dbizi.eus/",
+				"name" : "Tolosa Hiribidea-Karlos Santamaria"
+			}
+		}
+	]
+}

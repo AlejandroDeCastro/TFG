@@ -21,7 +21,7 @@ import urllib.request
 import json
 import database as db
 from multiprocessing import Process
-from gestor import iniciar_demonios, diccionarioURLs, parar_registro
+from gestor import iniciar_demonios, diccionarioURLs, parar_registro, iniciar_registro
 from zipfile import ZipFile
 
 
@@ -223,7 +223,15 @@ def guardarRecord():
     ciudad, característica, formato = map(str.strip, request.form['datoCiudad'].split("-"))
     periodicidad = request.form['periodicidad']
     unidad = request.form['unidades']
-    ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica, formato, periodicidad, unidad)
+    if periodicidad != 0 and unidad != None:
+        if unidad != "segundos": # La opción de segundos no está disponible, pero quizá se incorpore en un futuro
+            segundos = str(conversionASegundos(periodicidad, unidad))
+        else:
+            segundos = str(periodicidad)
+    else:
+        segundos="0"
+    ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica, formato, segundos)
+    iniciar_registro(db, current_user.id, ciudad, característica, formato, segundos)
     return redirect(url_for('editarRecords'))
 
 @server.route("/eliminarRecord/<string:id>/")
@@ -943,6 +951,26 @@ def elimnarCampos(parkingTraducido,listaEliminar):
     for campo in listaEliminar:
         parkingTraducido.pop(campo)
     return parkingTraducido
+
+def conversionASegundos(periodicidad, unidad):
+
+    segundos=0
+    periodicidad=int(periodicidad)
+
+    if unidad == "meses":
+        segundos = periodicidad * 31 * 24 * 3600
+    elif unidad == "semanas":
+        segundos = periodicidad * 7 * 24 * 3600
+    elif unidad == "dias":
+        segundos = periodicidad * 24 * 3600
+    elif unidad == "horas":
+        segundos = periodicidad * 3600
+    elif unidad == "minutos":
+        segundos = periodicidad * 60
+    else:
+        segundos=0 #Se ha pasado una unidad no registrada
+
+    return segundos
 
 def segundosAUnidadÓptima(segundos):
 

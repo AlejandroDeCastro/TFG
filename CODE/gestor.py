@@ -72,7 +72,7 @@ def parar_registro(db,id):
         resultado = cursor.fetchone()
             
         if resultado:
-            # La consulta devuelve una tupla, así que extraemos el valor de favoritos
+            # La consulta devuelve una tupla, así que extraemos el valor del pid favoritos
             pid = resultado[0]
         
             # Detener el proceso
@@ -83,8 +83,58 @@ def parar_registro(db,id):
             print("No se ha encontrado ningún registro con ese id") # No hay ningún registro con ese id
 
     except Exception as e:
-        print(f"Error al obtener los favoritos: {e}")
+        print(f"Error al parar el registro {pid}: {e}")
         return None
+
+# Método que inicia un registro
+def iniciar_registro(db, id_usuario, ciudad, característica, formato, periodicidad):
+
+
+    #Diccionario de datos con la URL  
+    datos = diccionarioURLs(db)
+
+    link=datos[ciudad][característica][formato][0]
+
+    carpeta_registros = "Registros"
+    if not os.path.exists(carpeta_registros):
+        os.makedirs(carpeta_registros)
+
+    usuario = "Usuario " + str(id_usuario)
+
+    carpeta_usuario = os.path.join(carpeta_registros, usuario)
+
+    if not os.path.exists(carpeta_usuario):
+        os.makedirs(carpeta_usuario)
+
+    periodicidad=int(periodicidad)
+    proceso = Process(target=descargar_archivo, args=(link, carpeta_usuario, ciudad, característica, formato, periodicidad))
+    proceso.start()
+
+    pid = proceso.pid
+
+    try:
+        # Crea el cursor
+        cursor = db.database.cursor()
+
+        # Consulta para obtener el pid del registro
+        consulta = "SELECT id FROM registros WHERE id_usuario = %s AND Ciudad = %s AND Característica = %s AND Formato = %s AND Periodicidad = %s"
+        cursor.execute(consulta, (id_usuario, ciudad, característica, formato, periodicidad))
+        resultado = cursor.fetchone()
+            
+        if resultado:
+            # La consulta devuelve una tupla, así que extraemos el valor del id
+            id = resultado[0]
+        
+        else:
+            print("No se ha encontrado ningún registro con ese id") # No hay ningún registro con ese id
+
+    except Exception as e:
+        print(f"Error al iniciar el registro {pid}: {e}")
+        return None
+
+    print(f"El registro {id} Proceso lanzado con PID: {pid}")
+
+    añadir_PID(db,id,pid)
 
 def descargar_archivo(link, carpeta_destino, ciudad, característica, formato, periodicidad):
 
