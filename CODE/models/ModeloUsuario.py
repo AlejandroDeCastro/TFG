@@ -59,6 +59,35 @@ class ModeloUsuario():
         except Exception as ex:
             raise Exception(ex)
 
+    @classmethod
+    def get_users(self, db):
+        try:
+            #Crea el cursor
+            cursor = db.cursor()
+
+            #Consulta que se hace en la base de datos. 
+            consulta="SELECT id, usuario, rol, nombre_completo, favoritos FROM usuarios"
+
+            #Ejecución de la consulta
+            cursor.execute(consulta)
+
+            #Obtiene las filas resultantes de la consulta
+            rows=cursor.fetchall()
+            usuarios={}
+
+            #Si hay se encuentra un usuario con ese nombre,  coge los datos
+            if rows != None:
+                for id, usuario, rol, nombre_completo, favoritos in rows:
+                    usuarios[id]=[usuario, rol, nombre_completo, favoritos]
+
+                cursor.close()
+                return usuarios
+            else:
+                cursor.close()
+                return None
+
+        except Exception as ex:
+            raise Exception(ex)
 
     @classmethod
     def get_registros_by_id(self, db, id):

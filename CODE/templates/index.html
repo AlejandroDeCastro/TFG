@@ -61,7 +61,20 @@
         </div>
         {% else %}
         <div class="cuadro-administrador">
-            <h1>Bienvenido administrador</h1>
+            <div class="icon-container">
+                <a href="{{ url_for('gestiónUsuarios') }}">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Gestión de Usuarios</span>
+                </a>
+                <a href="{{ url_for('mostrarConjuntos') }}">
+                    <i class="fas fa-database"></i>
+                    <span>Gestión de Conjuntos</span>
+                </a>
+                <a href="url-traducciones">
+                    <i class="fas fa-language"></i>
+                    <span>Traducciones</span>
+                </a>
+            </div>
         </div>
         {% endif %}
 

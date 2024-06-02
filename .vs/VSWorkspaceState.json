@@ -2,8 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\CODE",
-    "\\CODE\\models",
-    "\\CODE\\static",
+    "\\CODE\\models\\entidades",
     "\\CODE\\static\\css",
     "\\CODE\\static\\js",
     "\\CODE\\test"

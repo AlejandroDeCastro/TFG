@@ -266,6 +266,42 @@ def guardarDato():
     return redirect(url_for('mostrarConjuntos'))
 
 
+@server.route("/<string:lugar>/<string:conjunto>/<string:formato>/", methods=("POST", "GET"))
+@login_required
+def eliminarConjunto(lugar, conjunto, formato):
+    if current_user.rol=="administrador":
+        print("SE PRETENDE ELIMINAR",conjunto,lugar, formato)
+        return redirect(url_for('mostrarConjuntos'))
+    else:
+        print("NO TIENES PERMISO")
+        #VISTA ERROR NO PERMISO DE ADMINISTRADOR
+        return redirect(url_for('mostrarConjuntos'))
+
+
+@server.route("/Gestión de Usuarios", methods=("POST", "GET"))
+@login_required
+def gestiónUsuarios():
+    if current_user.rol=="administrador":
+        usuarios=ModeloUsuario.get_users(db.database)
+        print(usuarios)
+        return render_template('admin/gestiónUsuarios.html', usuarios = usuarios)
+    else:
+        print("NO TIENES PERMISO")
+        #VISTA ERROR NO PERMISO DE ADMINISTRADOR
+        return redirect(url_for('home'))
+
+@server.route("/Eliminar Usuario/<string:id>/", methods=("POST", "GET"))
+@login_required
+def eliminarUsuario(id):
+    if current_user.rol=="administrador":
+        #ModeloUsuario.delete_user(db.database,id)
+        print("Elimina a Pepe",id)
+        return redirect(url_for('gestiónUsuarios'))
+    else:
+        print("NO TIENES PERMISO")
+        #VISTA ERROR NO PERMISO DE ADMINISTRADOR
+        return redirect(url_for('home'))
+
 @server.route("/Seleccion", methods=("POST", "GET"))
 @login_required
 def seleccionarOpcion():

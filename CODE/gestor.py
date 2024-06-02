@@ -1,6 +1,7 @@
 import os
 import time
 import requests
+import signal
 from multiprocessing import Process
 
 #Función que consulta las peticines de los usuarios en la base de datos y devuelve una lista de tuplas con las peticiones
@@ -8,7 +9,7 @@ def consultar_peticiones(db):
 
     cursor = db.database.cursor()
 
-    cursor.execute("SELECT Ciudad, Característica, id_usuario, Formato, Periodicidad FROM registros")
+    cursor.execute("SELECT id, Ciudad, Característica, id_usuario, Formato, Periodicidad FROM registros")
     peticiones = cursor.fetchall()
 
     #Cierra la conexión con la base de datos
@@ -95,11 +96,12 @@ def iniciar_demonios(db):
     
     for peticion in peticiones:
         
-        ciudad = peticion[0]
-        característica = peticion[1]
-        id_usuario = peticion[2]
-        formato = peticion[3]
-        periodicidad = peticion[4]
+        id = peticion[0]
+        ciudad = peticion[1]
+        característica = peticion[2]
+        id_usuario = peticion[3]
+        formato = peticion[4]
+        periodicidad = peticion[5]
 
         link=datos[ciudad][característica][formato][0]
 
@@ -117,7 +119,9 @@ def iniciar_demonios(db):
         proceso = Process(target=descargar_archivo, args=(link, carpeta_usuario, ciudad, característica, formato, periodicidad))
         proceso.start()
 
- 
+        pid = proceso.pid
+
+        print(f"El registro {id} Proceso lanzado con PID: {pid}")
 
 
     #proceso.join()

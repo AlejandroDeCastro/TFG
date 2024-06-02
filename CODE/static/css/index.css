@@ -66,7 +66,34 @@
     font-size: xx-large; /* Tamaño del texto */
     text-align: center; /* Alineación centrada del texto */
     background-color: #BBB5B3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.icon-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+    .icon-container a {
+        text-decoration: none;
+        color: #333; /* Color del texto e iconos */
+        font-size: 2rem; /* Tamaño de los iconos */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .icon-container i {
+        font-size: 4rem; /* Tamaño de los iconos */
+        margin-bottom: 10px; /* Espacio entre icono y texto */
+    }
+
+    .icon-container span {
+        font-size: 1.5rem; /* Tamaño del texto */
+    }
 
 .titulo-favoritos {
     border-bottom-width: 2px;
