@@ -41,6 +41,50 @@ def diccionarioURLs(db):
 
     return datos
 
+#Función que añade el PID a los registros
+def añadir_PID(db,id,pid):
+
+    try:
+        # Crea el cursor
+        cursor = db.database.cursor()
+            
+        # Actualización que se hace en la base de datos. 
+        actualización="UPDATE registros SET pid = %s WHERE id = %s"
+        data = (pid, id)
+
+        #Ejecución de la insercción
+        cursor.execute(actualización, data)
+        db.database.commit()
+
+    except Exception as ex:
+        raise Exception(ex)
+
+# Método que detiene un registro
+def parar_registro(db,id):
+
+    try:
+        # Crea el cursor
+        cursor = db.cursor()
+
+        # Consulta para obtener el pid del registro
+        consulta = "SELECT pid FROM registros WHERE id = %s"
+        cursor.execute(consulta, (id,))
+        resultado = cursor.fetchone()
+            
+        if resultado:
+            # La consulta devuelve una tupla, así que extraemos el valor de favoritos
+            pid = resultado[0]
+        
+            # Detener el proceso
+            os.kill(pid, signal.SIGTERM)
+            print(f"Proceso con PID {pid} detenido")
+
+        else:
+            print("No se ha encontrado ningún registro con ese id") # No hay ningún registro con ese id
+
+    except Exception as e:
+        print(f"Error al obtener los favoritos: {e}")
+        return None
 
 def descargar_archivo(link, carpeta_destino, ciudad, característica, formato, periodicidad):
 
@@ -122,6 +166,8 @@ def iniciar_demonios(db):
         pid = proceso.pid
 
         print(f"El registro {id} Proceso lanzado con PID: {pid}")
+
+        añadir_PID(db,id,pid)
 
 
     #proceso.join()

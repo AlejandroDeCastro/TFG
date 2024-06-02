@@ -90,13 +90,13 @@ class ModeloUsuario():
             raise Exception(ex)
 
     @classmethod
-    def get_registros_by_id(self, db, id):
+    def get_registros_by_id(self, db, id_usuario):
         try:
             #Crea el cursor
             cursor = db.cursor()
 
             #Consulta que se hace en la base de datos. 
-            consulta="SELECT Ciudad, Característica, Formato, Periodicidad FROM registros WHERE id_usuario = {}".format(id)
+            consulta="SELECT id, Ciudad, Característica, Formato, Periodicidad FROM registros WHERE id_usuario = {}".format(id_usuario)
 
             #Ejecución de la consulta
             cursor.execute(consulta)
@@ -108,7 +108,9 @@ class ModeloUsuario():
             #Si encuentra registros para ese usuario los guarda en un diccionario
             if rows != None:
                 # Itera sobre el array y añade los datos al diccionario
-                for ciudad, caracteristica, formato, periodicidad in rows:
+                for id, ciudad, caracteristica, formato, periodicidad in rows:
+                    registros[id]=[ciudad, caracteristica, formato, periodicidad]
+                    """
                     if ciudad not in registros:
                         registros[ciudad] = {}
                     if caracteristica not in registros[ciudad]:
@@ -116,7 +118,7 @@ class ModeloUsuario():
                     if formato not in registros[ciudad][caracteristica]:
                         registros[ciudad][caracteristica][formato] = []
                     registros[ciudad][caracteristica][formato].append(periodicidad)
-
+                    """
                 cursor.close()
                 return registros
             else:
@@ -151,17 +153,16 @@ class ModeloUsuario():
             raise Exception(ex)
 
     @classmethod
-    def delete_registro(self, db, id_usuario, ciudad, característica, formato, periodicidad):
+    def delete_registro(self, db, id):
         try:
             #Crea el cursor
             cursor = db.cursor()
 
             #DELETE que se hace en la base de datos. 
-            delete="DELETE FROM registros WHERE id_usuario=%s AND Ciudad=%s AND Característica=%s AND Formato=%s AND Periodicidad=%s"
-            data = (id_usuario, ciudad, característica, formato, periodicidad)
+            delete="DELETE FROM registros WHERE id = {}".format(id)
 
             #Ejecución de la insercción
-            cursor.execute(delete, data)
+            cursor.execute(delete)
             db.commit()
 
         except Exception as ex:

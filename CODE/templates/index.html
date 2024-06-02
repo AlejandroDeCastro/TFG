@@ -45,16 +45,10 @@
             <h1 class="titulo-registros">Estos son los registros que tienes guardando actualmente</h1>
             {% if registros %}
             <ul class="list-group lista-registros">
-                {% for ciudad in registros.keys() %}
-                {% for caracteristica in registros[ciudad].keys() %}
-                {% for formato in registros[ciudad][caracteristica].keys() %}
-                {% for periodo in registros[ciudad][caracteristica][formato] %}
+                {% for id, atributos in registros.items() %}
 
-                <li class="list-group-item" style="background-color: rgba(0, 0, 0, 0);">De la ciudad de <strong> {{ ciudad }} </strong>se están guardando los  <strong>{{ caracteristica }}</strong> cada  <strong>{{ periodo }} </strong> en formato  <strong>{{ formato }}</strong></li>
+                <li class="list-group-item" style="background-color: rgba(0, 0, 0, 0);">De la ciudad de <strong> {{ atributos[0] }} </strong>se están guardando los  <strong>{{ atributos[1] }}</strong> cada  <strong>{{ atributos[2] }} </strong> en formato  <strong>{{ atributos[3] }}</strong></li>
 
-                {% endfor %}
-                {% endfor %}
-                {% endfor %}
                 {% endfor %}
             </ul>
             {% endif %}

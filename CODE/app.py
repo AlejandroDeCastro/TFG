@@ -21,7 +21,7 @@ import urllib.request
 import json
 import database as db
 from multiprocessing import Process
-from gestor import iniciar_demonios, diccionarioURLs
+from gestor import iniciar_demonios, diccionarioURLs, parar_registro
 from zipfile import ZipFile
 
 
@@ -157,17 +157,10 @@ def get_min_value():
     min_value = min_values.get(option, 0)
     return jsonify({'min_value': min_value})
 
-@server.route("/consultarRecords")
-@login_required
-def consultarRecords():
-    registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    return render_template('records/consultarRecords.html', registros = registros)
-
-
 #FUNCION DE DESCARGA QUE NO FUNCIONA. EN EL HTML SE LLAMA CON OTRO NOMBRE ARREGLAR
-@server.route("/descargar_registros/<string:ciudad>/<string:caracteristica>/<string:formato>/<string:periodicidad>",  methods=['GET','POST'])
+@server.route("/descargar_registros/<string:id>/",  methods=['GET','POST'])
 @login_required
-def descargar_registros(ciudad, caracteristica, formato, periodicidad):
+def descargar_registros(id):
     print("El usuario quiere descargar de ",ciudad," el conjunto de datos de ",caracteristica," del formato ",formato," que ha sido grabado con una periodicidad de ",periodicidad)
     if False:
         global opciones_seleccionadas
@@ -233,10 +226,11 @@ def guardarRecord():
     ModeloUsuario.set_registro(db.database, current_user.id, ciudad, característica, formato, periodicidad, unidad)
     return redirect(url_for('editarRecords'))
 
-@server.route("/eliminarRecord/<string:ciudad>/<string:caracteristica>/<string:formato>/<string:periodicidad>")
+@server.route("/eliminarRecord/<string:id>/")
 @login_required
-def eliminarRecord(ciudad, caracteristica, formato, periodicidad):
-    ModeloUsuario.delete_registro(db.database, current_user.id, ciudad, caracteristica, formato, periodicidad)
+def eliminarRecord(id):
+    parar_registro(db.database, id)
+    ModeloUsuario.delete_registro(db.database, id)
     return redirect(url_for('editarRecords'))
 
 @server.route("/Conjuntos")
@@ -1006,6 +1000,10 @@ def segundosAUnidadÓptima(segundos):
 def transformarRegistrosUnidades(registros):
     registros_adaptados=registros
 
+    for id, registro in registros.items():
+        periodoTransformado=segundosAUnidadÓptima(registro[3])
+        registros_adaptados[id]=[registro[0],registro[1],registro[2],periodoTransformado]
+    """
     for ciudad in registros:
         for conjunto in registros[ciudad]:
             for formato in registros[ciudad][conjunto]:
@@ -1013,7 +1011,7 @@ def transformarRegistrosUnidades(registros):
                 for periodo in registros[ciudad][conjunto][formato]:
                     periodosTransformados.append(segundosAUnidadÓptima(periodo))
                 registros_adaptados[ciudad][conjunto][formato]=periodosTransformados
-
+    """
     return registros_adaptados
 
 def pagina_no_encontrada(error):

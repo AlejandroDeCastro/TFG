@@ -152,22 +152,18 @@
                 </thead>
 
                 <tbody>
-                    {% for ciudad in registros.keys() %}
-                    {% for caracteristica in registros[ciudad] %}
-                    {% for formato in registros[ciudad][caracteristica] %}
-                    {% for periodicidad in registros[ciudad][caracteristica][formato] %}
-                    <tr>
-                        <td>{{ ciudad }}</td>
-                        <td>{{ caracteristica }}</td>
-                        <td>{{ formato }}</td>
-                        <td>{{ periodicidad }}</td>
+                    {% for id, registro in registros.items() %}
 
-                        <td><a href="{{url_for('descargar_registros', ciudad = ciudad, caracteristica = caracteristica, formato = formato, periodicidad = periodicidad)}}" class="btn btn-success btn-sm">Descargar</a></td>
-                        <td><a href="{{url_for('eliminarRecord', ciudad = ciudad, caracteristica = caracteristica, formato = formato, periodicidad = periodicidad)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
+                    <tr>
+                        <td>{{ registro[0] }}</td>
+                        <td>{{ registro[1] }}</td>
+                        <td>{{ registro[2] }}</td>
+                        <td>{{ registro[3] }}</td>
+
+                        <td><a href="{{url_for('descargar_registros', id = id)}}" class="btn btn-success btn-sm">Descargar</a></td>
+                        <td><a href="{{url_for('eliminarRecord', id = id)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
                     </tr>
-                    {% endfor %}
-                    {% endfor %}
-                    {% endfor %}
+
                     {% endfor %}
                 </tbody>
             </table>
