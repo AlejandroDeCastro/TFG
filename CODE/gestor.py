@@ -2,6 +2,7 @@ import os
 import time
 import requests
 import signal
+from models.ModeloUsuario import ModeloUsuario
 from multiprocessing import Process
 
 #Función que consulta las peticines de los usuarios en la base de datos y devuelve una lista de tuplas con las peticiones
@@ -89,7 +90,6 @@ def parar_registro(db,id):
 # Método que inicia un registro
 def iniciar_registro(db, id_usuario, ciudad, característica, formato, periodicidad):
 
-
     #Diccionario de datos con la URL  
     datos = diccionarioURLs(db)
 
@@ -136,7 +136,63 @@ def iniciar_registro(db, id_usuario, ciudad, característica, formato, periodici
 
     añadir_PID(db,id,pid)
 
+
+    # Eliminar de todos los favoritos de la gente
+    # 
+    # 
+    # Eliminar de registros BD con ese conjunto
+    # 
+    # 
+    # Eliminar conjunto 
+
+def eliminarFavoritos(db,lugar, conjunto):
+
+    conjuntoBorrar=str(lugar+" - "+conjunto)
+
+    try:
+        # Crea el cursor
+        cursor = db.database.cursor()
+
+        # Consulta para obtener el id y favoritos de todos los usuarios
+        consulta = "SELECT id, favoritos FROM usuarios"
+        cursor.execute(consulta)
+
+        #Obtiene las filas resultantes de la consulta
+        rows=cursor.fetchall()
+
+        #Si encuentra registros para ese usuario los guarda en un diccionario
+        if rows != None:
+            # Itera sobre el array y añade los datos al diccionario
+            for id_usuario, favoritos in rows:
+                if favoritos != "":
+                    lista_favoritos = favoritos.split(", ")
+                    if conjuntoBorrar in lista_favoritos:
+                        lista_favoritos.remove(conjuntoBorrar)
+                        cadena_favoritos=""
+                        if len(lista_favoritos) > 1:                         
+                            cadena_favoritos = ", ".join(lista_favoritos)
+                        elif len(lista_favoritos) == 1:
+                            cadena_favoritos = lista_favoritos[0]
+                        else:
+                            cadena_favoritos=""
+                        ModeloUsuario.update_favoritos(db.database, id_usuario, cadena_favoritos)
+                        print("HE QUITADO ", conjuntoBorrar, " del usuario", id_usuario)
+
+            cursor.close()
+            
+        else:
+            cursor.close()
+            
+       
+    except Exception as e:
+        print(f"Error al eliminar de Favoritos: {e}")
+        return None
+
+
+
+
 def descargar_archivo(link, carpeta_destino, ciudad, característica, formato, periodicidad):
+
 
 
     while True:

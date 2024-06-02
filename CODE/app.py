@@ -21,7 +21,7 @@ import urllib.request
 import json
 import database as db
 from multiprocessing import Process
-from gestor import iniciar_demonios, diccionarioURLs, parar_registro, iniciar_registro
+from gestor import iniciar_demonios, diccionarioURLs, parar_registro, iniciar_registro, eliminarFavoritos
 from zipfile import ZipFile
 
 
@@ -161,7 +161,7 @@ def get_min_value():
 @server.route("/descargar_registros/<string:id>/",  methods=['GET','POST'])
 @login_required
 def descargar_registros(id):
-    print("El usuario quiere descargar de ",ciudad," el conjunto de datos de ",caracteristica," del formato ",formato," que ha sido grabado con una periodicidad de ",periodicidad)
+    print("El usuario quiere descargar el registro ",id)
     if False:
         global opciones_seleccionadas
         opciones = request.form.get('registros')
@@ -244,6 +244,7 @@ def eliminarRecord(id):
 @server.route("/Conjuntos")
 @login_required
 def mostrarConjuntos():
+    global diccionarioDatosDisponibles
     diccionarioDatosDisponibles=diccionarioURLs(db)
     return render_template('Conjuntos.html', datosDisponibles = diccionarioDatosDisponibles, formatos = formatos, unidades = unidades)
 
@@ -258,21 +259,26 @@ def guardarDato():
     unidad = request.form['unidades']
 
     if periodo == "" or unidad=="N": # Si el usuario no ha introducido un periodo o es menor o igual que cero o no ha seleccionado unidades, se trata como nulo
-        periodo=0
-        unidad=None
+        segundos="0"
     elif (int(periodo) <= 0):
-       periodo=0
-       unidad=None
+       segundos="0"
+    else:
+        segundos=conversionASegundos(periodo, unidad)
 
-    ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, formato, enlace, periodo, unidad)
+    ModeloUsuario.set_dato(db.database, current_user.id, ciudad, característica, formato, enlace, segundos)
     return redirect(url_for('mostrarConjuntos'))
 
 
-@server.route("/<string:lugar>/<string:conjunto>/<string:formato>/", methods=("POST", "GET"))
+@server.route("/eliminarConjunto/<string:lugar>/<string:conjunto>/<string:formato>/", methods=("POST", "GET"))
 @login_required
 def eliminarConjunto(lugar, conjunto, formato):
     if current_user.rol=="administrador":
+        if len(diccionarioDatosDisponibles[lugar][conjunto]) <= 1:
+            print("YA",len(diccionarioDatosDisponibles[lugar][conjunto]))
+            print("YA",diccionarioDatosDisponibles[lugar][conjunto])
+            eliminarFavoritos(db, lugar, conjunto)
         print("SE PRETENDE ELIMINAR",conjunto,lugar, formato)
+       
         return redirect(url_for('mostrarConjuntos'))
     else:
         print("NO TIENES PERMISO")
