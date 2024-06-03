@@ -66,10 +66,33 @@ def load_user(id):
 def index():
     return redirect(url_for('login'))
 
+@server.route("/register", methods=['GET','POST'])
+def register():
+    if request.method=='POST':      
+        # Comprueba si las contraseñas coinciden
+        if request.form['password'] == request.form['password2']:
+            usuario = Usuario(0, request.form['username'], request.form['password'], "usuario", request.form['nombre_completo'])
+            usuarioRegistrado = ModeloUsuario.register(db.database,usuario)
+
+            # Comprueba si existe el usuario
+            if usuarioRegistrado != None:
+                flash(" USUARIO CREADO CORRECTAMENTE!")
+                return redirect(url_for('auth/login.html'))
+            else:
+                flash("Usuario ya existente. Prueba con otro nombre")
+                return render_template('auth/register.html')
+
+        else:
+            flash('Las contraseña no coincide')
+            return render_template('auth/register.html')
+
+    else:
+        return render_template('auth/register.html')
+
 @server.route("/login", methods=['GET','POST'])
 def login():
     if request.method=='POST':
-        usuario = Usuario(0, request.form['username'], request.form['password'],"")
+        usuario = Usuario(0, request.form['username'], request.form['password'],"usuario","")
         usuarioLogueado = ModeloUsuario.login(db.database,usuario)
 
         # Comprueba si existe el usuario

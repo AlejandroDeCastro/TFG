@@ -3,6 +3,7 @@
     "",
     "\\CODE",
     "\\CODE\\models",
+    "\\CODE\\models\\entidades",
     "\\CODE\\templates",
     "\\CODE\\templates\\records",
     "\\CODE\\test"
