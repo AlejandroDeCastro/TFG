@@ -163,6 +163,38 @@ class ModeloUsuario():
         except Exception as ex:
             raise Exception(ex)
 
+    @classmethod
+    def delete_user(self, db, id):
+        try:
+            #Crea el cursor
+            cursor = db.cursor()
+
+            #DELETE que se hace en la base de datos 
+            delete="DELETE FROM usuarios WHERE id = {}".format(id)
+
+            #Ejecución de la insercción
+            cursor.execute(delete)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex)
+        
+    @classmethod
+    def delete_conjunto(self, db, ciudad, conjunto, formato):
+        try:
+            # Crea el cursor
+            cursor = db.cursor()
+
+            # DELETE que se hace en la base de datos
+            delete="DELETE FROM datos WHERE ciudad = %s AND característica = %s AND formato = %s"
+            data = (ciudad, conjunto, formato)
+
+            # Ejecución de la insercción
+            cursor.execute(delete, data)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex)
 
     @classmethod
     def set_dato(self, db, id_usuario, ciudad, característica, formato, enlace, segundos):

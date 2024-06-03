@@ -97,7 +97,7 @@
                             {% endif %}
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         {% for ciudad in datosDisponibles.keys() %}
                         {% for caracteristica in datosDisponibles[ciudad] %}
@@ -109,7 +109,7 @@
                             <td>{{ datosDisponibles[ciudad][caracteristica][formato][0] }}</td>
                             <td><a href="{{url_for('mostrarConjunto', lugar = ciudad, conjunto = caracteristica)}}" class="btn btn-info btn-sm">Consultar</a></td>
                             {% if current_user.rol == "administrador" %}
-                            <td><a href="{{url_for('eliminarConjunto', lugar = ciudad, conjunto = caracteristica, formato = formato)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
+                            <td><a href="{{url_for('eliminarConjunto', lugar = ciudad, conjunto = caracteristica, fichero = formato)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
                             {% endif %}
                         </tr>
                         {% endfor %}

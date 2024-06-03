@@ -1,10 +1,4 @@
-cadena_texto="Hola, como, estás"
+from werkzeug.security import check_password_hash, generate_password_hash
 
-lista_palabras = cadena_texto.split(", ")
-
-lista_palabras.append('Bien')
-
-texto = ", ".join(lista_palabras)
-
-lista_sin_comillas = [palabra.strip("'") for palabra in lista_palabras]
-print(texto)
+contraseña=generate_password_hash('2')
+print(contraseña)

@@ -137,14 +137,6 @@ def iniciar_registro(db, id_usuario, ciudad, característica, formato, periodici
     añadir_PID(db,id,pid)
 
 
-    # Eliminar de todos los favoritos de la gente
-    # 
-    # 
-    # Eliminar de registros BD con ese conjunto
-    # 
-    # 
-    # Eliminar conjunto 
-
 def eliminarFavoritos(db,lugar, conjunto):
 
     conjuntoBorrar=str(lugar+" - "+conjunto)
@@ -187,9 +179,6 @@ def eliminarFavoritos(db,lugar, conjunto):
     except Exception as e:
         print(f"Error al eliminar de Favoritos: {e}")
         return None
-
-
-
 
 def descargar_archivo(link, carpeta_destino, ciudad, característica, formato, periodicidad):
 

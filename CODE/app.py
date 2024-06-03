@@ -21,7 +21,7 @@ import urllib.request
 import json
 import database as db
 from multiprocessing import Process
-from gestor import iniciar_demonios, diccionarioURLs, parar_registro, iniciar_registro, eliminarFavoritos
+from gestor import iniciar_demonios, diccionarioURLs, parar_registro, iniciar_registro, eliminarFavoritos, consultar_peticiones
 from zipfile import ZipFile
 
 
@@ -142,8 +142,16 @@ def get_caracteristicas():
 @login_required
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    global min_values
+    global min_values, listaCiudadesDatos
     min_values={}
+    listaCiudadesDatos = []
+
+    for ciudad in diccionarioDatosDisponibles:
+        for tipoDato in diccionarioDatosDisponibles[ciudad]:
+            for formato in diccionarioDatosDisponibles[ciudad][tipoDato]:
+                ciudadDato=ciudad+" - "+tipoDato+" - "+formato
+                listaCiudadesDatos.append(ciudadDato)
+
     for conjunto in listaCiudadesDatos:
         ciudad, característica, formato = conjunto.split(" - ")
         min_values[conjunto]= diccionarioDatosDisponibles[ciudad][característica][formato][1]
@@ -269,15 +277,33 @@ def guardarDato():
     return redirect(url_for('mostrarConjuntos'))
 
 
-@server.route("/eliminarConjunto/<string:lugar>/<string:conjunto>/<string:formato>/", methods=("POST", "GET"))
+@server.route("/eliminarConjunto/<string:lugar>/<string:conjunto>/<string:fichero>/", methods=("POST", "GET"))
 @login_required
-def eliminarConjunto(lugar, conjunto, formato):
+def eliminarConjunto(lugar, conjunto, fichero):
     if current_user.rol=="administrador":
         if len(diccionarioDatosDisponibles[lugar][conjunto]) <= 1:
-            print("YA",len(diccionarioDatosDisponibles[lugar][conjunto]))
-            print("YA",diccionarioDatosDisponibles[lugar][conjunto])
             eliminarFavoritos(db, lugar, conjunto)
-        print("SE PRETENDE ELIMINAR",conjunto,lugar, formato)
+        
+        # Eliminar de registros BD con ese conjunto
+        # Se obtienen los id de todos los registros que hay que eliminar
+        registrosEliminar=[]
+        peticiones = consultar_peticiones(db)
+        for peticion in peticiones:        
+            ciudad = peticion[1]
+            característica = peticion[2]
+            formato = peticion[4]
+            if ciudad == lugar and característica == conjunto and formato == fichero:
+                id = peticion[0]
+                registrosEliminar.append(str(id))
+
+        for id_registro in registrosEliminar:
+            # Se para su grabación y se elimina de la base de datos
+            parar_registro(db.database, id_registro)
+            ModeloUsuario.delete_registro(db.database, id_registro)
+        
+       
+        # Se elimina el conjunto de la base de datos
+        ModeloUsuario.delete_conjunto(db.database, lugar, conjunto, fichero) 
        
         return redirect(url_for('mostrarConjuntos'))
     else:
@@ -291,7 +317,6 @@ def eliminarConjunto(lugar, conjunto, formato):
 def gestiónUsuarios():
     if current_user.rol=="administrador":
         usuarios=ModeloUsuario.get_users(db.database)
-        print(usuarios)
         return render_template('admin/gestiónUsuarios.html', usuarios = usuarios)
     else:
         print("NO TIENES PERMISO")
@@ -302,8 +327,12 @@ def gestiónUsuarios():
 @login_required
 def eliminarUsuario(id):
     if current_user.rol=="administrador":
-        #ModeloUsuario.delete_user(db.database,id)
-        print("Elimina a Pepe",id)
+        registros=ModeloUsuario.get_registros_by_id(db.database, id)
+        for id_registro in registros.keys():
+            parar_registro(db.database, id_registro)
+            ModeloUsuario.delete_registro(db.database, id_registro)
+        ModeloUsuario.delete_user(db.database,id)
+        
         return redirect(url_for('gestiónUsuarios'))
     else:
         print("NO TIENES PERMISO")
