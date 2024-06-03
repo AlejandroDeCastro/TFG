@@ -1,6 +1,6 @@
 {% extends './layout.html' %}
 
-{% block title %}Records{% endblock %}
+{% block title %}Registros{% endblock %}
 
 {% block head %}
 <meta content="IE=edge" http-equiv="X-UA-Compatible" charset="utf-8">
@@ -94,7 +94,7 @@
     <ul>
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('mostrarConjuntos') }}">Conjuntos</a></li>
-        <li><a class="active">Consultar Registros</a></li>
+        <li><a class="active">Registros</a></li>
         <li><a class="col-sm-12 col-md-4 col-lg-4">Sobre nosotros</a></li>
         <li><a class="logout" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
     </ul>
@@ -102,7 +102,7 @@
 {% endblock %}
 
 {% block body %}
-<h1 class="text-center mt-5 mb-5 text-primary">Consultar Registros</h1>
+<h1 class="text-center mt-5 mb-5 text-primary">Registros</h1>
 
 <div class="container">
     <div class="card shadow">
