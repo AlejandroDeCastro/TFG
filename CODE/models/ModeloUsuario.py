@@ -55,27 +55,29 @@ class ModeloUsuario():
     @classmethod
     def existeUsuario(self, db, username):
         try:
-            #Crea el cursor
+            # Crea el cursor
             cursor = db.cursor()
 
-            #Consulta que se hace en la base de datos. 
+            # Consulta que se hace en la base de datos. 
             consulta="""SELECT id FROM usuarios WHERE usuario = '{}'""".format(username)
             
-            #Ejecución de la consulta
+            # Ejecución de la consulta
             cursor.execute(consulta)
 
-            #Obtiene la fila resultante de la consulta
-            row=cursor.fetchone()
-            cursor.close()
+            # Obtiene la fila resultante de la consulta
+            rows=cursor.fetchall()
 
-            #Si hay se encuentra un usuario con ese nombre,  coge los datos
-            if row != None:
-                
-                return True
-            
-            else:
+            # Si hay resultados, hay alguien con ese nombre
+            if rows == []:
+                print("NO EXISTE")
+                print(rows)
                 cursor.close()
                 return False
+            else:
+                print("EXISTE")
+                print(rows)
+                cursor.close()
+                return True
 
         except Exception as ex:
             raise Exception(ex)
