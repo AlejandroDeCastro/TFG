@@ -33,6 +33,54 @@ class ModeloUsuario():
             raise Exception(ex)
 
     @classmethod
+    def register(self, db,usuario):
+
+        try:
+            # Crea el cursor
+            cursor = db.cursor()
+
+            # Insercción que se hace en la base de datos. 
+            insercción="INSERT INTO usuarios (usuario, contraseña, nombre_completo, rol) VALUES (%s, %s, %s, %s)"
+            data = (usuario.usuario, usuario.hash_password(), usuario.nombreCompleto, usuario.rol)
+
+            # Ejecución de la insercción
+            cursor.execute(insercción, data)
+            db.commit()
+
+            cursor.close()
+
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
+    def existeUsuario(self, db, username):
+        try:
+            #Crea el cursor
+            cursor = db.cursor()
+
+            #Consulta que se hace en la base de datos. 
+            consulta="""SELECT id FROM usuarios WHERE usuario = '{}'""".format(username)
+            
+            #Ejecución de la consulta
+            cursor.execute(consulta)
+
+            #Obtiene la fila resultante de la consulta
+            row=cursor.fetchone()
+            cursor.close()
+
+            #Si hay se encuentra un usuario con ese nombre,  coge los datos
+            if row != None:
+                
+                return True
+            
+            else:
+                cursor.close()
+                return False
+
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
     def get_by_id(self, db, id):
         try:
             #Crea el cursor
