@@ -82,7 +82,7 @@ def register():
 
 
             else:
-                flash('Las contraseña no coincide')
+                flash('Las contraseñas no coinciden')
                 return render_template('auth/register.html')
         else:
             flash('Usuario ya existente. Prueba con otro nombre')

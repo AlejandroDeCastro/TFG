@@ -1,0 +1,562 @@
+[
+    {
+        "type": "ParkingGroup",
+        "id": "a8e29a7a-eb10-4fea-8abe-e0e578cc625e",
+        "availableSpotNumber": {
+            "value": 83,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 521,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "f1f04682-2ac3-4125-99ff-1d12dbf6f0a1",
+        "availableSpotNumber": {
+            "value": 221,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 348,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "6d946109-0af1-400f-8d64-494673bf3011",
+        "availableSpotNumber": {
+            "value": 3,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 405,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "f5cf2f3f-702e-448d-89fc-38cb169cde2f",
+        "availableSpotNumber": {
+            "value": 261,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 505,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "55111aa6-4164-456a-9cd0-c58caa48da9d",
+        "availableSpotNumber": {
+            "value": 321,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 376,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "2bfb9bc0-6d91-4ce1-9ae4-71461dd8d80d",
+        "availableSpotNumber": {
+            "value": 624,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 801,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "94c918cc-a052-4765-acd4-e549f20308f6",
+        "availableSpotNumber": {
+            "value": 218,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 671,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "eb7afc44-0876-4e92-b8cc-134ea1ea98d6",
+        "availableSpotNumber": {
+            "value": 35,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 63,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "30c3a252-13a2-4a0f-a33a-ccd200047cb4",
+        "availableSpotNumber": {
+            "value": 106,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 526,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "3a2a5e0b-271d-49d4-aaa2-c580cee21f2c",
+        "availableSpotNumber": {
+            "value": 3,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 203,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "7e55b29a-00b2-41d5-81cc-14efaf1961b7",
+        "availableSpotNumber": {
+            "value": 133,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 205,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "5fb86684-a57f-4be0-b87c-eab10e1203a2",
+        "availableSpotNumber": {
+            "value": 167,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 500,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "05a6c49a-01a7-4979-a67d-10f81d905df7",
+        "availableSpotNumber": {
+            "value": 336,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 774,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "7a616f5a-d528-4739-8e5c-2b43a44a37ae",
+        "availableSpotNumber": {
+            "value": 32,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 32,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "4d24a99e-c546-4e2c-a093-df101c28bf2f",
+        "availableSpotNumber": {
+            "value": 0,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 2,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "1082c96f-1345-46af-839e-15e7c52e3f44",
+        "availableSpotNumber": {
+            "value": 67,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 165,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "ecf8cfd9-62ce-4394-9928-baf11ea8eb6b",
+        "availableSpotNumber": {
+            "value": 190,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 367,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "6a30075c-55b7-4d89-942d-5b0606157e87",
+        "availableSpotNumber": {
+            "value": 562,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 974,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "24e0d30d-2d38-44b8-b32c-e2dbdccc5b88",
+        "availableSpotNumber": {
+            "value": 48,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 146,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "ac5b1abc-0436-4704-8913-35cd7eb5c85c",
+        "availableSpotNumber": {
+            "value": 72,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 202,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "String"
+                }
+            }
+        },
+        "date": {
+            "value": "2024-06-05T15:01:47",
+            "type": "DateTime"
+        }
+    }
+]

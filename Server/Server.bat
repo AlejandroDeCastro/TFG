@@ -2,14 +2,15 @@
 :menu
 cls
 echo Menú:
-echo 1. Iniciar
-echo 2. Parar
-echo 3. Comprobar entidades
-echo 4. Transformar y cargar datos
-echo 5. Instalar
-echo 6. Desinstalar
-echo 7. Salir
-set /p option=Selecciona una opción (1-7):
+echo 1. Iniciar servidor
+echo 2. Parar servidor
+echo 3. Mostrar entidades guardadas
+echo 4. Iniciar simulador
+echo 5. Detener simulador
+echo 6. Instalar servidor
+echo 7. Desinstalar servidor
+echo 8. Salir
+set /p option=Selecciona una opción (1-8):
 
 goto opcion_%option%
 
@@ -38,10 +39,24 @@ pause
 goto menu
 
 :opcion_4
-call Setup/POST.bat
+:: Ejecuta el script de Python en una nueva ventana
+start python generadorDatos.py
+pause
 goto menu
 
 :opcion_5
+:: Lee el PID del archivo y mata el proceso
+if exist simulador.txt (
+    set /p pid=<simulador.txt
+    taskkill /PID %pid% /F
+    del simulador.txt
+) else (
+    echo No se encontró el archivo simulador.txt.
+)
+pause
+goto menu
+
+:opcion_6
 docker pull mongo:4.2
 docker pull fiware/orion:3.10.1
 docker network create fiware_TFG
@@ -50,13 +65,13 @@ docker run -d --name fiware-orion -h orion --network=fiware_TFG -p 1026:1026  fi
 pause
 goto menu
 
-:opcion_6
+:opcion_7
 docker rm fiware-orion
 docker rm mongo-db
 docker network rm fiware_TFG
 pause
 goto menu
 
-:opcion_7
+:opcion_8
 echo Saliendo...
 exit /b
