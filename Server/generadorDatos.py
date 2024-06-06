@@ -15,7 +15,7 @@ with open('simulador.txt', 'w') as f:
 print("Simulador ejecutándose con PID:", os.getpid())
 
 datos = {
-    'Museo Ecolución Humana': [42.338476, -3.697442],
+    'Museo Evolución Humana': [42.338476, -3.697442],
     'Plaza Mayor': [42.341148, -3.699824],
     'Plaza Vega': [42.335527, -3.711652]
 }

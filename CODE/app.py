@@ -29,11 +29,11 @@ from zipfile import ZipFile
 #Datos disponibles
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
-formatos=['JSON','CSV','XML','GEOJSON']
+formatos=['NGSI','JSON','CSV','XML','GEOJSON']
 unidades=['minutos','horas','dias','semanas','meses']
 posiblesLatitud=['Latitud','Lat']
 posiblesLongitud=['Longitud','Lon']
-modeloTraducciones={'precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
+modeloTraducciones={'availableSpotNumber' : 'Plazas libres','precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
 
@@ -419,12 +419,26 @@ def mostrarConjunto(lugar, conjunto):
         listaCaracteristicas=data.keys()
     
 
-    """
-    Cuando una opción es elegida, se manda el link del modelo de datos y el link de los datos a una función.
-    Esta función devuelve un diccopnario de datos.
-    """
+    if formato == 'NGSI':
 
-    if ciudad == "Málaga":
+        data=obtenerDatosSimulador()
+
+        # Traduce el conjunto
+        conjuntoTraducido=[]
+        for entidad in data:
+            entidadTraducida = actualizar_claves(entidad, modeloTraducciones)
+            conjuntoTraducido.append(entidadTraducida)
+        data=conjuntoTraducido
+
+        # Cabecero de la tabla actualizado
+        listaCaracteristicas=data[0].keys()
+        clavesMapa=['Nombre']
+
+        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = fav)
+
+ 
+
+    elif ciudad == "Málaga":
 
         conjuntoTraducido=[]
 
@@ -751,6 +765,8 @@ def mostrarConjunto(lugar, conjunto):
         listaCaracteristicas=data[0].keys()
         clavesMapa=[]
         return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+
+
     elif ciudad == "Gijón":
 
         # CAJEROS GIJÓN
@@ -896,7 +912,7 @@ def desmarcar_favorito():
 def convertirADiccionario(enlace, formato):
 
     # Si hay un enlace para los datos, lo lee y transforma en un diccionario
-    if enlace != "":
+    if enlace != "" and enlace!= "Simulador":
 
         #Extraer los datos según el formato
         if formato == formatos[0] or formato == formatos[3]: #JSON
@@ -968,6 +984,69 @@ def visualizarDiccionarioDeDatos(diccionario):
                 print(" +"+key2+" = "+str(dato[key2]))
         else:
             print("\n"+key+" = "+str(dato))
+
+
+# Función que obtiene los datos del simulador
+def obtenerDatosSimulador():
+
+    url = "http://localhost:1026/v2/entities"
+    headers = {
+        "Accept": "application/json"
+    }
+    response = requests.get(url, headers=headers)
+    
+    if response.status_code == 200:
+        entidades = response.json()
+        lista_entidades = []
+        for entidad in entidades:
+            lista_entidades.append(entidad)
+        listaAdaptada = adaptarListaNGSI(lista_entidades)
+        return listaAdaptada
+
+    else:
+        print(f"Error al consultar entidades: {response.status_code} - {response.text}")
+        return []
+
+    return lista_entidades
+
+# Función que transforma las entidades del modelo NGSI
+def adaptarListaNGSI(lista_entidades):
+    lista_adaptadas=[]
+    for entidad in lista_entidades:
+        entidad_adaptada={}
+        for clave, valor in entidad.items():            
+            if isinstance(valor, dict):# Si el campo valor es un diccionario coge solo el valor de value y unidades
+                
+                if isinstance(valor['value'], dict):
+
+                    # Transformación de datos de la localización
+                    if clave == 'location':
+
+                        # De momento solo añadido el tipo Point
+                        if valor['value']['type'] == "Point":
+                            entidad_adaptada['localizacion'] = {'lon': valor['value']['coordinates'][0], 'lat': valor['value']['coordinates'][1]}
+                    else:
+                        #Cualquier otro dato que value sea un diccionario, mostrar diccionario por ahora
+                        entidad_adaptada[clave] = valor['value']
+
+                else:
+                    # Si value no es un diccionario
+                    # Comprueba si hay metadata y unidades
+                    unidades=""
+                    if 'metadata' in valor:
+                        if 'unit' in valor['metadata']:
+                            if 'value' in valor['metadata']['unit']:
+                                unidades=valor['metadata']['unit']['value']
+                    entidad_adaptada[clave] = str(valor['value'])+" "+unidades
+                    
+                    print(clave, valor)
+            else:
+                entidad_adaptada[clave]=valor
+
+        lista_adaptadas.append(entidad_adaptada)
+
+    return lista_adaptadas
+
 
 # Función que busca el formato más óptimo y devueleve el formato y el enlace
 def obetenerFormatoÓptimo(diccionarioFormatos):
