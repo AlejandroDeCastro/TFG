@@ -5,12 +5,13 @@ echo Menú:
 echo 1. Iniciar servidor
 echo 2. Parar servidor
 echo 3. Mostrar entidades guardadas
-echo 4. Iniciar simulador
-echo 5. Detener simulador
-echo 6. Instalar servidor
-echo 7. Desinstalar servidor
-echo 8. Salir
-set /p option=Selecciona una opción (1-8):
+echo 4. Borrar entidades guardadas
+echo 5. Iniciar simulador
+echo 6. Detener simulador
+echo 7. Instalar servidor
+echo 8. Desinstalar servidor
+echo 9. Salir
+set /p option=Selecciona una opción (1-9):
 
 goto opcion_%option%
 
@@ -39,12 +40,18 @@ pause
 goto menu
 
 :opcion_4
+:: Borra las entidades
+start python limpiador.py
+pause
+goto menu
+
+:opcion_5
 :: Ejecuta el script de Python en una nueva ventana
 start python generadorDatos.py
 pause
 goto menu
 
-:opcion_5
+:opcion_6
 :: Lee el PID del archivo y mata el proceso
 if exist simulador.txt (
     set /p pid=<simulador.txt
@@ -56,7 +63,7 @@ if exist simulador.txt (
 pause
 goto menu
 
-:opcion_6
+:opcion_7
 docker pull mongo:4.2
 docker pull fiware/orion:3.10.1
 docker network create fiware_TFG
@@ -65,13 +72,13 @@ docker run -d --name fiware-orion -h orion --network=fiware_TFG -p 1026:1026  fi
 pause
 goto menu
 
-:opcion_7
+:opcion_8
 docker rm fiware-orion
 docker rm mongo-db
 docker network rm fiware_TFG
 pause
 goto menu
 
-:opcion_8
+:opcion_9
 echo Saliendo...
 exit /b

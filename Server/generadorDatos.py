@@ -14,10 +14,22 @@ with open('simulador.txt', 'w') as f:
 
 print("Simulador ejecutándose con PID:", os.getpid())
 
+datos = {
+    'Museo Ecolución Humana': [42.338476, -3.697442],
+    'Plaza Mayor': [42.341148, -3.699824],
+    'Plaza Vega': [42.335527, -3.711652]
+}
+parkingsBurgos = []
+
+for nombre, coordenadas in datos.items():
+    parking = {}
+    parking['nombre'] = nombre
+    parking['coordenadas'] = coordenadas
+    parkingsBurgos.append(parking)
+
 def generadorDeDatosAleatorios():
     data_list = []
-
-    for _ in range(20):  # Genera 20 diccionarios de datos aleatorios
+    for parking in parkingsBurgos:
         total_spot_number = random.randint(0, 1000)  # Genera un número aleatorio para totalSpotNumber entre 0 y 1000
         type_value = "ParkingGroup"  # Valor fijo para el campo "type"
         available_spot_number = random.randint(0, total_spot_number)  # Genera un número aleatorio para availableSpotNumber entre 0 y totalSpotNumber
@@ -27,13 +39,17 @@ def generadorDeDatosAleatorios():
         data = {
             "type": type_value,
             "id": unique_id,
+            "name": {
+                "value": parking['nombre'],
+                "type": "Text"    
+            },
             "availableSpotNumber": {
                 "value": available_spot_number,
                 "type": "Int",
                 "metadata": {
                     "unit": {
                         "value": "Plazas",
-                        "type": "String"
+                        "type": "Text"
                     }
                 }
             },
@@ -43,8 +59,15 @@ def generadorDeDatosAleatorios():
                 "metadata": {
                     "unit": {
                         "value": "Plazas",
-                        "type": "String"
+                        "type": "Text"
                     }
+                }
+            },
+            "location": {
+                "type": "geo:json",
+                "value": {
+                    "type": "Point",
+                    "coordinates": [parking['coordenadas'][1], parking['coordenadas'][0]]         
                 }
             },
             "date": {
@@ -88,7 +111,7 @@ def update_data_list(data_list):
                 data['availableSpotNumber']['value'] = data['totalSpotNumber']['value']
         
         # Actualiza el JSON y las entidades en Orion
-        nombreFichero = "Ficheros/parkings_Valencia_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".json"
+        nombreFichero = "Server/Ficheros/parkings_Burgos_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".json"
         save_json_to_file(data_list, nombreFichero)
         update_data_in_orion(data_list)
 
@@ -108,7 +131,7 @@ def update_data_in_orion(data_list):
                 "metadata": {
                     "unit": {
                         "value": "Plazas",
-                        "type": "String"
+                        "type": "Text"
                     }
                 }
             },
@@ -136,7 +159,7 @@ def save_json_to_file(data_list, fichero):
 
 # Genera datos aleatorios y guarda en un archivo JSON
 listaDeDatosAleatorios = generadorDeDatosAleatorios()
-nombreFichero = "Server/Ficheros/parkings_Valencia_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".json"
+nombreFichero = "Server/Ficheros/parkings_Burgos_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".json"
 save_json_to_file(listaDeDatosAleatorios, nombreFichero)
 
 # Inicia un hilo para actualizar periódicamente los datos en segundo plano

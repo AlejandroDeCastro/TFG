@@ -1,0 +1,128 @@
+[
+    {
+        "type": "ParkingGroup",
+        "id": "d74dd6ab-73be-4ea1-ac1e-112d1bad6065",
+        "name": {
+            "value": "Museo Ecoluci\u00f3n Humana",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 301,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 470,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.697442,
+                    42.338476
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-06T14:04:13",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "72510e8a-e129-4315-bde7-472d9282ea74",
+        "name": {
+            "value": "Plaza Mayor",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 931,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 935,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.699824,
+                    42.341148
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-06T14:04:13",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "ade1bb21-74f0-49dc-a40c-20cd573ec089",
+        "name": {
+            "value": "Plaza Vega",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 41,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 274,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.711652,
+                    42.335527
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-06T14:04:13",
+            "type": "DateTime"
+        }
+    }
+]
