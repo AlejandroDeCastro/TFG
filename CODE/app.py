@@ -915,7 +915,7 @@ def convertirADiccionario(enlace, formato):
     if enlace != "" and enlace!= "Simulador":
 
         #Extraer los datos según el formato
-        if formato == formatos[0] or formato == formatos[3]: #JSON
+        if formato == formatos[1] or formato == formatos[4]: #JSON
             try:    
                 with urllib.request.urlopen(enlace) as response:
                     DatosJSON = response.read()
@@ -923,7 +923,7 @@ def convertirADiccionario(enlace, formato):
             except Exception as e:
                 print(f"Error al convertir JSON a diccionario: {e}")
                 print("El enlace que ha fallado es el siguiente: ", enlace)
-        elif formato == formatos[1]: #CSV
+        elif formato == formatos[2]: #CSV
 
             try:
                 # Lee el archivo CSV
@@ -945,7 +945,7 @@ def convertirADiccionario(enlace, formato):
                     diccionarioDatos={}
                     
 
-        elif formato == formatos[2]: #XML
+        elif formato == formatos[3]: #XML
 
             try:         
                 response = requests.get(enlace) # Hace una solicitud GET a la URL

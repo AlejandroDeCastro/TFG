@@ -1,6 +1,0 @@
-Valencia - Parkings - https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records?limit=29
-Málaga - Bibliotecas - https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv
-Valencia - Puntos de carga - https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/carregadors-vehicles-electrics-cargadores-vehiculos-electricos/records
-Madrid - Parkings - https://datos.madrid.es/egob/catalogo/202625-0-aparcamientos-publicos.json
-Badajoz - Centros culturales - https://datosabiertos.dip-badajoz.es/dataset/e94c8e11-faff-4211-a999-3e16800e09ac/resource/7f697576-34e6-4104-96fb-d00656c76734/download/centrosculturales2023.json
-Barcelona - Parkings - https://opendata-ajuntament.barcelona.cat/data/dataset/68b29854-7c61-4126-9004-83ed792d675c/resource/7a7c8e90-80f2-47a4-bff1-0915166fd409/download
