@@ -15,16 +15,22 @@ with open('simulador.txt', 'w') as f:
 print("Simulador ejecutándose con PID:", os.getpid())
 
 datos = {
-    'Museo Evolución Humana': [42.338476, -3.697442],
-    'Plaza Mayor': [42.341148, -3.699824],
-    'Plaza Vega': [42.335527, -3.711652]
+    'Museo Evolución Humana': {'coordenadas': [42.338476, -3.697442], 'tipo' : 'Público', 'Interior/Exterior': 'Interior', 'Precio': '--€'},
+    'Plaza Mayor': {'coordenadas':  [42.341148, -3.699824], 'tipo' : 'Privado', 'Interior/Exterior': 'Interior', 'Precio': '--€'},
+    'Plaza Vega': {'coordenadas':  [42.335527, -3.711652], 'tipo' : 'Público' , 'Interior/Exterior': 'Interior', 'Precio': '--€'},
+    'Plaza España': {'coordenadas':  [42.344406705937985, -3.6975360341261787], 'tipo' : 'Público' , 'Interior/Exterior': 'Interior', 'Precio': '--€'},
+    'Virgen del Manzano': {'coordenadas':  [42.34632384614841, -3.6931517564298453], 'tipo' : 'Público', 'Interior/Exterior': 'Interior', 'Precio': '--€'},
+    'Castillo de Burgos': {'coordenadas':  [42.34632384614841, -3.6931517564298453], 'tipo' : 'Público', 'Interior/Exterior': 'Exterior', 'Precio': 'GRATIS'}
 }
 parkingsBurgos = []
 
-for nombre, coordenadas in datos.items():
+for nombre, caracteríticas in datos.items():
     parking = {}
     parking['nombre'] = nombre
-    parking['coordenadas'] = coordenadas
+    parking['coordenadas'] = caracteríticas['coordenadas']
+    parking['tipo'] = caracteríticas['tipo']
+    parking['Interior/Exterior'] = caracteríticas['Interior/Exterior']
+    parking['Precio'] = caracteríticas['Precio']
     parkingsBurgos.append(parking)
 
 def generadorDeDatosAleatorios():
@@ -41,6 +47,14 @@ def generadorDeDatosAleatorios():
             "id": unique_id,
             "name": {
                 "value": parking['nombre'],
+                "type": "Text"    
+            },
+            "precio": {
+                "value": parking['Precio'],
+                "type": "Text"    
+            },
+            "Ubicacion": {
+                "value": parking['Interior/Exterior'],
                 "type": "Text"    
             },
             "availableSpotNumber": {
@@ -62,6 +76,10 @@ def generadorDeDatosAleatorios():
                         "type": "Text"
                     }
                 }
+            },
+            "tipo": {
+                "value": parking['tipo'],
+                "type": "Text"    
             },
             "location": {
                 "type": "geo:json",

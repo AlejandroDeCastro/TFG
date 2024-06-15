@@ -160,7 +160,7 @@
                         <td>{{ registro[2] }}</td>
                         <td>{{ registro[3] }}</td>
 
-                        <td><a href="{{url_for('descargar_registros', id = id)}}" class="btn btn-success btn-sm">Descargar</a></td>
+                        <td><a href="{{url_for('descargar_registros', lugar = registro[0], conjunto = registro[1], formato = registro[2], periodo = registro[3])}}" class="btn btn-success btn-sm">Descargar</a></td>
                         <td><a href="{{url_for('eliminarRecord', id = id)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
                     </tr>
 

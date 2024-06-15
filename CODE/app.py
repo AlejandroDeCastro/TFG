@@ -19,6 +19,8 @@ import pandas as pd
 import plotly.express as px
 import urllib.request
 import json
+import zipfile
+from io import BytesIO
 import database as db
 from multiprocessing import Process
 from gestor import iniciar_demonios, diccionarioURLs, parar_registro, iniciar_registro, eliminarFavoritos, consultar_peticiones
@@ -33,7 +35,7 @@ formatos=['NGSI','JSON','CSV','XML','GEOJSON']
 unidades=['minutos','horas','dias','semanas','meses']
 posiblesLatitud=['Latitud','Lat']
 posiblesLongitud=['Longitud','Lon']
-modeloTraducciones={'availableSpotNumber' : 'Plazas libres','precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
+modeloTraducciones={'totalSpotNumber' : 'Plazas totales','availableSpotNumber' : 'Plazas libres','precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
 
@@ -189,65 +191,30 @@ def get_min_value():
     min_value = min_values.get(option, 0)
     return jsonify({'min_value': min_value})
 
-#FUNCION DE DESCARGA QUE NO FUNCIONA. EN EL HTML SE LLAMA CON OTRO NOMBRE ARREGLAR
-@server.route("/descargar_registros/<string:id>/",  methods=['GET','POST'])
+# Método que descarga el registro seleccionado por el usuairo
+@server.route("/descargar_registros/<string:lugar>/<string:conjunto>/<string:formato>/<string:periodo>/",  methods=['GET','POST'])
 @login_required
-def descargar_registros(id):
-    print("El usuario quiere descargar el registro ",id)
-    if False:
-        global opciones_seleccionadas
-        opciones = request.form.get('registros')
-        opciones_seleccionadas = opciones.split(',')
-        print(opciones_seleccionadas)
+def descargar_registros(lugar, conjunto, formato, periodo):
+    print("El usuario quiere descargar el registro ", conjunto, lugar, formato, periodo)
 
-        # Lista de ciudades y características
-        #ciudades_caracteristicas = ["Valencia - Parking", "Málaga - Bibliotecas"]
+    carpeta_usuario = f"Usuario {current_user.id}"
+    ruta = os.path.join("Registros", carpeta_usuario, lugar, conjunto, formato)
 
-        # Directorio base donde se encuentran las carpetas de ciudades
-        directorio_base = "Registros"
-        caperta_usuario= "Usuario " + str(current_user.id)
-        ruta_carpeta_usuario = os.path.join(directorio_base, caperta_usuario)
+    if not os.path.exists(ruta):
+        return "Ruta no encontrada", 404
 
-        # Lista para almacenar las rutas de los archivos descargados
-        rutas_archivos_descargados = []
+    # Crea un archivo ZIP en memoria
+    memory_file = BytesIO()
+    with zipfile.ZipFile(memory_file, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(ruta):
+            for file in files:
+                # Añade cada archivo al archivo ZIP
+                zipf.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), ruta))
+    memory_file.seek(0)
 
-        # Itera sobre la lista de ciudades y características
-        for ciudad_caracteristica in opciones_seleccionadas:
-            ciudad, caracteristica = ciudad_caracteristica.split(" - ")
-
-            # Verifica si existe la carpeta de la ciudad y la carpeta de la característica
-            ruta_carpeta_ciudad = os.path.join(ruta_carpeta_usuario, ciudad)
-            ruta_carpeta_caracteristica = os.path.join(ruta_carpeta_ciudad, caracteristica)
-            print(ruta_carpeta_caracteristica)
-    
-            if os.path.exists(ruta_carpeta_caracteristica):
-                # Obtene todos los archivos JSON en la carpeta de la característica
-                archivos_json = [f for f in os.listdir(ruta_carpeta_caracteristica) if f.endswith('.json')]
-        
-                # Itera sobre los archivos JSON y copiarlos a un directorio de destino
-                for archivo_json in archivos_json:
-                    ruta_origen = os.path.join(ruta_carpeta_caracteristica, archivo_json)
-                    rutas_archivos_descargados.append(ruta_origen)
-
-        carpeta_descargas="Descargas"
-        if not os.path.exists(carpeta_descargas):
-            os.makedirs(carpeta_descargas)
-                
-        # Crea un archivo ZIP temporal para almacenar todos los archivos
-        zip_filename = 'archivos_descargados.zip'
-        ruta_descarga = os.path.join(carpeta_descargas, zip_filename)
-    
-        with ZipFile(ruta_descarga, 'w') as zip:
-            for ruta_archivo in rutas_archivos_descargados:
-                zip.write(ruta_archivo, os.path.basename(ruta_archivo))
-
-        # Envia el archivo ZIP como una respuesta de la solicitud HTTP
-        directorio=os.path.join(r"C:\Users\alexd\Desktop\TFG\PROGRAM", carpeta_descargas)
-        #return send_from_directory(directory=directorio, path=zip_filename, as_attachment=True)
-        return send_file(zip_filename, as_attachment=True)
-    
-    return html.Div([html.H1('VAMOS A CENAR')])
-
+    # Envia el archivo ZIP al usuario
+    return send_file(memory_file, download_name=lugar+"_"+conjunto+"_"+formato+".zip", as_attachment=True)
+   
 
 @server.route("/guardarRecord", methods=['POST'])
 @login_required
