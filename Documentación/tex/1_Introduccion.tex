@@ -1,27 +1,64 @@
 \capitulo{1}{Introducción}
 
-El acceso a datos en tiempo real, se ha convertido en una prioridad 
+En la última década, la demanda de acceso instantáneo a datos en tiempo real ha crecido exponencialmente. Esta necesidad se debe en parte a la proliferación de dispositivos conectados y al avance de la tecnología de la información y la comunicación (TIC). Los seres humanos, tanto a nivel individual como colectivo, requieren información rápida y precisa para tomar decisiones informadas, mejorar la eficiencia operativa y optimizar la gestión de recursos \cite{khajeh2020, patel2016, gubbi2013}.
+
+Para acceder a la información en tiempo real, es fundamental el uso de dispositivos equipados con sensores y conexión a Internet. Estos dispositivos, que pueden variar desde teléfonos inteligentes y relojes inteligentes hasta sensores ambientales y cámaras de seguridad, son capaces de recopilar, procesar y transmitir datos de manera continua. Este flujo constante de datos permite a los sistemas y aplicaciones reaccionar instantáneamente a las condiciones cambiantes y proporcionar información actualizada a los usuarios.
+
+El concepto de Internet de las Cosas (IoT, por sus siglas en inglés) se refiere a la interconexión de dispositivos y objetos cotidianos a través de Internet, permitiéndoles enviar y recibir datos. Según Gubbi et al. (2013), IoT es ''una visión en la que 'cosas' (objetos físicos) están integradas con electrónica, software, sensores y conectividad de red para recopilar e intercambiar datos'' \cite{gubbi2013}. Esto crea un ecosistema en el que los datos pueden ser utilizados para mejorar la eficiencia, productividad y calidad de vida.
+
+En el contexto de las Smart Cities, el IoT juega un papel crucial. Los sensores y dispositivos IoT distribuidos por toda la ciudad pueden monitorizar el estado de diferentes infraestructuras, precios, disponibilidad, y otros parámetros esenciales en tiempo real.
+
+Este trabajo propone una aplicación que facilita al usuario el acceso a todos estos datos, permitiendo así, a cualquier persona acceder a los datos de la ciudad que desee en tiempo real, de manera rápida y precisa. 
+
+Existen otras aplicaciones que permiten el acceso a dichos datos, pero muchas de ellas suelen estar enfocadas en un conjunto de datos concreto, como pueden ser los parkings, en una ciudad específica, o simplemente son APIs de datos que ofrecen los datos en crudo mediante ficheros JSON, CSV.
+En esta aplicación, el usuario puede acceder al conjunto de datos que desee, de la ciudad que desee, y tener una visión gráfica y personalizada de los distintos conjuntos de datos. Además, esta aplicación tiene la ventaja de estar desarrollada de manera web, esto permite el acceso rápido a cualquier usuario y en cualquier dispositivo que tenga acceso a un navegador web, sin necesidad de descargarse ninguna aplicación.
+
+\section{Estructura de la memoria}\label{estructura-de-la-memoria}
+
+La memoria sigue la siguiente estructura:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Introducción:} breve introducción al problema a resolver y la
+  solución propuesta en este trabajo. Estructura de la memoria y listado de materiales
+  entregados.
+\item
+  \textbf{Objetivos del proyecto:} objetivos que
+  persigue el desarrollo del proyecto.
+\item
+  \textbf{Conceptos teóricos:} explicación de los conceptos
+  teóricos más importantes para la comprensión del proyecto.
+\item
+  \textbf{Técnicas y herramientas:} 
+\item
+  \textbf{Aspectos relevantes del desarrollo:} 
+\item
+  \textbf{Trabajos relacionados:} 
+\item
+  \textbf{Conclusiones y líneas de trabajo futuras:} 
+\end{itemize}
+
+La memoria contiene los siguientes anexos:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Plan del proyecto software:} 
+\item
+  \textbf{Especificación de requisitos del software:} s
+\item
+  \textbf{Especificación de diseño:} 
+\item
+  \textbf{Manual del programador:} 
+\item
+  \textbf{Manual de usuario:} 
+\end{itemize}
+
 
 Descripción del contenido del trabajo y del estructura de la memoria y del resto de materiales entregados.
 
-\section{Descripción del proyecto}
-El objetivo final del proyecto se estableció en el desarrollo de una aplicación de “Smart Cities” utilizando la plataforma FIWARE \cite{fiware2024}. 
 
-\section{FIWARE}
-FIWARE es una plataforma impulsada por la Unión Europea para el desarrollo y despliegue 
-global de aplicaciones de Internet del Futuro. Proporciona APIs abiertas y componentes para 
-gestionar información de contexto en soluciones inteligentes, gemelos digitales y espacios de 
-datos \cite{fiware2024}. En resumen, FIWARE es una base tecnológica que permite crear soluciones 
-innovadoras en áreas como Smart Cities, Agricultura Inteligente, Energía Inteligente, Industria 
-Inteligente y Gestión del Agua. 
 
-\section{NGSI-LD}
-NGSI-LD es un modelo de información y API para editar, consultar y suscribirse a información 
-de contexto. Está destinado a facilitar el intercambio abierto y la compartición de información 
-estructurada entre diferentes partes interesadas. Se utiliza en diversos ámbitos de aplicación, 
-como Ciudades Inteligentes, Industria Inteligente, Agricultura Inteligente, y más generalmente 
-para el Internet de las Cosas, Sistemas Ciberfísicos y Gemelos Digitales \cite{etsi2024}.
 
-\section{Orion Context Broker}
-El principal y único componente obligatorio de cualquier plataforma o solución desarrollada con FIWARE es el Orion Context Broker (OCB), el cual aporta una función fundamental en cualquier solución inteligente: administrar la información de contexto, consultarla y actualizarla \cite{orion2024}. El OCB permite la publicación de información de contexto por entidades (llamados productores de contexto) por ejemplo los sensores, de manera que la información de contexto publicada se encuentre disponible para otras entidades (consumidores de contexto) los cuales están interesados en procesar la información, por ejemplo una aplicación para smartphones que usa la información de los sensores.
 
