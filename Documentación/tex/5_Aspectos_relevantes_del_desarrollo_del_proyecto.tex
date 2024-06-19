@@ -1,5 +1,54 @@
 \capitulo{5}{Aspectos relevantes del desarrollo del proyecto}
 
+\section{Etapas del proyecto}\label{etapas-del-proyecto}
+
+Durante la primera etapa del proyecto, se investigó acerca de FIWARE y sus distintas aplicaciones, y se decidió enfocar la aplicación a usar el modelo información NGSI-LD, aunque había pocos conjuntos de datos dentro del ámbito de las \textit{Smart Cities} que usaran este modelo de información. 
+
+Tras un proceso de investigación, se comenzó con la instalación del Orion Context Broker en un Docker y un textit{script} que permitiese al usuario gestionarlo de manera más rápida, ya que, el Orion Context Broker se gestiona mediante comandos, y para una mayor usabilidad y mejor mantenimiento. 
+Con las primeras cargas de datos se pudo observar que el modelo información NGSI-LD todavía no está siendo muy usado por las diferentes APIs de datos, por lo que se decidió crear un generador de datos que usara este modelo. Este es usado a modo de simulador, el cual genera de un conjunto de datos de \textit{parkings} de la ciudad de Burgos simulando recibir datos de sensores instalados en dicho parkings y lo adapta al modelo NGSI-LD. 
+
+Con esto se pudo probar que el \textit{OCB}\footnotemark{} estaba funcionando correctamente y pudiendo así leer y escribir datos de manera correcta. También se introdujeron algunas entidades diferentes, no solo parkings, para probar que los distintos conjuntos de datos podían convivir sin problema en el mismo \textit{OCB}\footnotemark[\value{footnote}]. 
+
+Como el objetivo del proyecto es realizar una aplicación funcional y, el número de conjuntos de datos disponibles con el modelo de información NGSI-LD aún es mínimo, se dejó el \textit{OCB}\footnotemark[\value{footnote}] preparado para que cuando el número de conjuntos sea mayor, se pueda utilizar y de momento usar la aplicación con los formatos tradicionales que se están usando a día de hoy (JSON, CSV, XML...). Eso sí, pensando siempre en dejar la aplicación preparada para que la migración al modelo NGSI-LD sea lo más fácil posible.
+
+Y la última etapa del proyecto, fue el desarrollo de la aplicación final.... EXPLICAR PYTHON, FLASK....
+
+\footnotetext{Orion Context Broker}
+
+\section{Despliegue del Orion Context Broker}
+Se despliga con el docker, se hace un script para montarlo desmontarlo... se prueba con el POstMan....
+
+\section{Simulador}
+Se elabora el simulador que ...
+
+
+\section{Desarrollo de la aplicación}
+Explicar las distintas funcionalidades y el porqué de las mismas
+
+Revisión de código...
+
+
+\section{Metodología}
+Se ha usado una metodología Scrum para el desarrollo del proyecto, con \textit{Sprints} de 2 semanas.
+
+\section{Proceso de aprendizaje}
+
+Como ya he comentado en la sección de \ref{etapas-del-proyecto}, el primer paso fue la investigación acerca de FIWARE y el modelo de información NGSI-LD, todo ello en las guías oficiales \cite{fiware,fiware_ngsi_ld,etsi}. 
+
+Posteriormente se investigó acerca de los dispositivos IOTs y como se gestiona la información mediante un Context Broker, en este caso, el Context Broker de Orion, el cual se instaló y se hicieron diversas pruebas con él con POstMan o como el simulador.
+
+Al comienzo de este proyecto, mi conocimiento sobre desarrollo web era muy primitivo, apenas tenía unas nociones muy básicas de HTML. Poco a poco fui adquiriendo conocimientos sobre el desarrollo de aplicaciones web con Flask, gracias manuales, vídeos, o aplicaciones de código abierto en GitHub.
+Conocimientos adquiridos:
+-HTML
+-CSS
+-Bootstrap
+-JS
+-Leaflet
+-JQuery
+
+
+
+\begin{comment}
 Etapas del proyecto
 
 
@@ -12,3 +61,4 @@ Debe incluir desde la exposición del ciclo de vida utilizado, hasta los detalle
 Se busca que no sea una mera operación de copiar y pegar diagramas y extractos del código fuente, sino que realmente se justifiquen los caminos de solución que se han tomado, especialmente aquellos que no sean triviales.
 Puede ser el lugar más adecuado para documentar los aspectos más interesantes del diseño y de la implementación, con un mayor hincapié en aspectos tales como el tipo de arquitectura elegido, los índices de las tablas de la base de datos, normalización y desnormalización, distribución en ficheros3, reglas de negocio dentro de las bases de datos (EDVHV GH GDWRV DFWLYDV), aspectos de desarrollo relacionados con el WWW...
 Este apartado, debe convertirse en el resumen de la experiencia práctica del proyecto, y por sí mismo justifica que la memoria se convierta en un documento útil, fuente de referencia para los autores, los tutores y futuros alumnos.
+\end{comment}

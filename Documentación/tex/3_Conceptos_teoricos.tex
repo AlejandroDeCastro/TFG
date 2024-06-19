@@ -1,31 +1,69 @@
 \capitulo{3}{Conceptos teóricos}
 
+Para entender correctamente el proyecto, procedo a explicar los conceptos fundamentales que servirán de cimientos para el desarrollo del proyecto.
+
+En primer lugar se explica la plataforma FIWARE. Posteriormente el modelo de información NGSI-LD que servirá de estándar y el Orion Context Broker, el encargado de almacenar y gestionar toda la información.
+
 \section{FIWARE}
 FIWARE es una plataforma impulsada por la Unión Europea para el desarrollo y despliegue 
 global de aplicaciones de Internet del Futuro. Proporciona APIs abiertas y componentes para 
 gestionar información de contexto en soluciones inteligentes, gemelos digitales y espacios de 
-datos \cite{fiware2024}. En resumen, FIWARE es una base tecnológica que permite crear soluciones 
-innovadoras en áreas como Smart Cities, Agricultura Inteligente, Energía Inteligente, Industria 
-Inteligente y Gestión del Agua. 
+datos \cite{fiware}. En resumen, FIWARE es una base tecnológica que permite crear soluciones 
+innovadoras en áreas como \textit{Smart Cities}, Agricultura Inteligente, Energía Inteligente, Industria Inteligente y Gestión del Agua. 
 
-\section{NGSI-LD}
-NGSI-LD es un modelo de información y API para editar, consultar y suscribirse a información 
-de contexto. Está destinado a facilitar el intercambio abierto y la compartición de información 
-estructurada entre diferentes partes interesadas. Se utiliza en diversos ámbitos de aplicación, 
-como Ciudades Inteligentes, Industria Inteligente, Agricultura Inteligente, y más generalmente 
-para el Internet de las Cosas, Sistemas Ciberfísicos y Gemelos Digitales \cite{etsi2024}.
+\section{NGSI-LD y su Aplicación en Ciudades Inteligentes}
+
+NGSI-LD es un modelo de información y API para editar, consultar y suscribirse a información de contexto. Está destinado a facilitar el intercambio abierto y la compartición de información estructurada entre diferentes partes interesadas \cite{etsi_ngsi_ld}. Se utiliza en diversos ámbitos de aplicación, como Ciudades Inteligentes, Industria Inteligente, Agricultura Inteligente, y más generalmente para el Internet de las Cosas, Sistemas Ciberfísicos y Gemelos Digitales \cite{etsi_iot}.
+
+Imagina que estamos desarrollando una aplicación para monitorizar el tráfico en una ciudad inteligente. Queremos obtener información sobre el estado actual de los semáforos en una intersección específica.
+
+\begin{enumerate}
+    \item \textbf{Entidad (Entity)}: Representa un semáforo en una intersección. Cada semáforo tiene un ID único y se encuentra en una ubicación específica.
+    \item \textbf{Atributos (Attributes)}: Los atributos de un semáforo podrían incluir:
+        \begin{itemize}
+            \item \textbf{Estado (State)}: Puede ser “rojo”, “verde” o “amarillo”.
+            \item \textbf{Tiempo restante (Remaining Time)}: El tiempo restante en segundos para cambiar de estado.
+            \item \textbf{Ubicación (Location)}: Las coordenadas geográficas del semáforo.
+        \end{itemize}
+    \item \textbf{Contexto (Context)}: En nuestro modelo, el contexto sería la información sobre los semáforos en la ciudad. Por ejemplo:
+        \begin{itemize}
+            \item \textbf{Semáforo 1}:
+                \begin{itemize}
+                    \item \textbf{ID}: “sem1”
+                    \item \textbf{Estado}: “rojo”
+                    \item \textbf{Tiempo restante}: 30 segundos
+                    \item \textbf{Ubicación}: (latitud, longitud)
+                \end{itemize}
+            \item \textbf{Semáforo 2}:
+                \begin{itemize}
+                    \item \textbf{ID}: “sem2”
+                    \item \textbf{Estado}: “verde”
+                    \item \textbf{Tiempo restante}: 15 segundos
+                    \item \textbf{Ubicación}: (latitud, longitud)
+                \end{itemize}
+        \end{itemize}
+    \item \textbf{Consulta (Query)}: Podemos consultar el estado actual de un semáforo específico utilizando su ID. Por ejemplo:
+        \begin{itemize}
+            \item “¿Cuál es el estado actual del semáforo con ID ‘sem1’?”
+        \end{itemize}
+    \item \textbf{Respuesta (Response)}: La aplicación recibiría la información del semáforo solicitado y podría mostrarla al usuario.
+\end{enumerate}
+
+En resumen, NGSI-LD nos permite modelar y acceder a información de contexto de manera estructurada, lo que es fundamental para construir aplicaciones inteligentes y conectadas \cite{fiware_ngsi_ld}. Las entidades y atributos definidos en NGSI-LD se utilizan para representar datos en aplicaciones FIWARE.
+
 
 \section{Orion Context Broker}
-El principal y único componente obligatorio de cualquier plataforma o solución desarrollada con FIWARE es el Orion Context Broker (OCB), el cual aporta una función fundamental en cualquier solución inteligente: administrar la información de contexto, consultarla y actualizarla \cite{orion2024}. El OCB permite la publicación de información de contexto por entidades (llamados productores de contexto) por ejemplo los sensores, de manera que la información de contexto publicada se encuentre disponible para otras entidades (consumidores de contexto) los cuales están interesados en procesar la información, por ejemplo una aplicación para smartphones que usa la información de los sensores.
+El principal y único componente obligatorio de cualquier plataforma o solución desarrollada con FIWARE es el Orion Context Broker (OCB), el cual aporta una función fundamental en cualquier solución inteligente: administrar la información de contexto, consultarla y actualizarla \cite{orion}. El OCB permite la publicación de información de contexto por entidades (llamados productores de contexto) por ejemplo los sensores, de manera que la información de contexto publicada se encuentre disponible para otras entidades (consumidores de contexto) los cuales están interesados en procesar la información, por ejemplo una aplicación para \textit{smartphones} que usa la información de los sensores.
+
+\imagen{OCBserver}{Diagrama de OCB}{.6}
 
 
-
-
+\begin{comment}
 En aquellos proyectos que necesiten para su comprensión y desarrollo de unos conceptos teóricos de una determinada materia o de un determinado dominio de conocimiento, debe existir un apartado que sintetice dichos conceptos.
 
 Algunos conceptos teóricos de \LaTeX{} \footnote{Créditos a los proyectos de Álvaro López Cantero: Configurador de Presupuestos y Roberto Izquierdo Amo: PLQuiz}.
 
-\section{Secciones}
+%\section{Secciones}
 
 Las secciones se incluyen con el comando section.
 
@@ -102,3 +140,4 @@ Astah & & & & X\\
 Balsamiq Mockups & X & & &\\
 VersionOne & X & X & X & X\\
 } 
+\end{comment}
