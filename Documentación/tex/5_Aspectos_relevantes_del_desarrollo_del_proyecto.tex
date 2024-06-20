@@ -2,40 +2,53 @@
 
 \section{Etapas del proyecto}\label{etapas-del-proyecto}
 
-
 \subsection{Investigación}
 Durante la primera etapa del proyecto, se investigó acerca de FIWARE y sus distintas aplicaciones, y se decidió enfocar la aplicación a usar el modelo información NGSI-LD, aunque había pocos conjuntos de datos dentro del ámbito de las \textit{Smart Cities} que usaran este modelo de información. 
 
 \subsection{Despliegue del Orion Context Broker y mongo DB}
-Se despliga con el docker, se hace un script para montarlo desmontarlo... se prueba con el POstMan....
 
 Tras un proceso de investigación, se comenzó con la instalación del Orion Context Broker para la gestión de la información en tiempo real y, MongoDB, que actúa como la base de datos subyacente para almacenar esta información de contexto. Todo ello se desplegó en un Docker.
-\imagen{OSB-Running}{Orion Context Broker y la base de datos mongo db en funcionamiento}{.7}
+\imagen{OCB-Running}{Orion Context Broker y la base de datos mongo db en funcionamiento}{.7}
 
+Posteriormente se elaboró un \textit{script} que permitiese al usuario gestionarlo de manera más rápida, ya que, el Orion Context Broker se gestiona mediante comandos, y para una mayor usabilidad y mejor mantenimiento.
+Con este mini programa se permite al usuario:
+\begin{itemize}
+    \item Iniciar y para el servidor, es decir encender el \textit{docker} de del Orion Context Broker y el de la MongoDB.
+    \item Mostrar y borrar las entidades almacenadas.
+    \item Iniciar y para el simulador. Explicaré su funcionamiento más adelante en \ref{simulador}.
+    \item Instalar y desinstalar los \textit{dockers}.
+\end{itemize}
 
-Posteriormente se elaboró un textit{script} que permitiese al usuario gestionarlo de manera más rápida, ya que, el Orion Context Broker se gestiona mediante comandos, y para una mayor usabilidad y mejor mantenimiento. 
-
-
+\imagen{GestorOCB}{Programa gestor del OCB}{.8}
 
 En esta etapa mediante la herramienta Postman\footnote{Herramienta para probar y gestionar APIs}, se hicieron pruebas con el Orion Context Broker, creando, consultando, actualizando y borrando entidades el servidor. Así se podía verificar que el servidor funcionaba correctamente y estaba preparado para almacenar las distintas entidades.
-Las cuales posteriormente serían consultadas, actualizadas o eliminadas desde la aplicación con peticiones GET, PATCH o DELETE de HTTPy poder consultadas con peticiones GET de HTTP en el puerto 1026, que es el usado por el servidor.
+Las cuales posteriormente serían consultadas, actualizadas o eliminadas desde la aplicación con peticiones \textit{GET}\footnote{Se utiliza para solicitar datos de un recurso específico.}, \textit{PATCH}\footnote{Se utiliza para hacer actualizaciones parciales a un recurso existente.} o \textit{DELETE}\footnote{Se utiliza para eliminar un recurso específico.} de \textit{HTTP} y poder consultadas con peticiones \textit{GET} de \textit{HTTP} en el puerto 1026, que es el usado por el servidor.
+\imagen{POST - Postman}{Ejemplo de uso de POST en Postman}{.9}
+
+\subsection{Simulador}\label{simulador}
+
+Con las primeras cargas de datos se pudo observar que el modelo información NGSI-LD todavía no está siendo muy usado por las diferentes APIs de datos, por lo que se decidió crear un generador de datos que usara este modelo. Este es usado a modo de simulador, el cual genera de un conjunto de datos de \textit{parkings} de la ciudad de Burgos simulando recibir datos de sensores instalados en dichos \textit{parkings} y lo adapta al modelo NGSI-LD. 
+
+\imagen{GET - Postman}{Ejemplo de uso de GET en Postman}{.9}
 
 
-\subsection{Simulador}
-Se elabora el simulador que ...
-Con las primeras cargas de datos se pudo observar que el modelo información NGSI-LD todavía no está siendo muy usado por las diferentes APIs de datos, por lo que se decidió crear un generador de datos que usara este modelo. Este es usado a modo de simulador, el cual genera de un conjunto de datos de \textit{parkings} de la ciudad de Burgos simulando recibir datos de sensores instalados en dicho parkings y lo adapta al modelo NGSI-LD. 
-
-Con esto se pudo probar que el \textit{OCB}\footnotemark{} estaba funcionando correctamente y pudiendo así leer y escribir datos de manera correcta. También se introdujeron algunas entidades diferentes, no solo parkings, para probar que los distintos conjuntos de datos podían convivir sin problema en el mismo \textit{OCB}\footnotemark[\value{footnote}]. 
-
+Con esto se pudo probar que el \textit{OCB}\footnotemark{} estaba funcionando correctamente y pudiendo así leer y escribir datos de manera correcta. También se introdujeron algunas entidades diferentes, no solo \textit{parkings}, para probar que los distintos conjuntos de datos podían convivir sin problema en el mismo \textit{OCB}\footnotemark[\value{footnote}]. 
 
 \footnotetext{Orion Context Broker}
 
-\subsection{Desarrollo de la aplicación}
-Como el objetivo del proyecto es realizar una aplicación funcional y, el número de conjuntos de datos disponibles con el modelo de información NGSI-LD aún es mínimo, se dejó el \textit{OCB}\footnotemark[\value{footnote}] preparado para que cuando el número de conjuntos sea mayor, se pueda utilizar y de momento usar la aplicación con los formatos tradicionales que se están usando a día de hoy (JSON, CSV, XML...). Eso sí, pensando siempre en dejar la aplicación preparada para que la migración al modelo NGSI-LD sea lo más fácil posible.
-Y la última etapa del proyecto, fue el desarrollo de la aplicación final.... EXPLICAR PYTHON, FLASK....
-Explicar las distintas funcionalidades y el porqué de las mismas
 
-Revisión de código...
+\subsection{Desarrollo de la aplicación}
+
+Como el objetivo del proyecto es realizar una aplicación funcional y, el número de conjuntos de datos disponibles con el modelo de información NGSI-LD aún es mínimo, se dejó el \textit{OCB}\footnotemark[\value{footnote}] preparado para que cuando el número de conjuntos sea mayor, se pueda utilizar y de momento usar la aplicación con los formatos tradicionales que se están usando a día de hoy (JSON, CSV, XML...). Eso sí, pensando siempre en dejar la aplicación preparada para que la migración al modelo NGSI-LD sea lo más fácil posible.
+
+La aplicación se ha desarrollado en Python usando el framework de Flask, las vistas HTML con CSS y Javascript para diversas funcionalidades 
+
+
+\subsection{Revisión de código}
+
+
+\subsection{Despliegue en un servidor real}
+
 
 
 \section{Metodología}
