@@ -9,7 +9,7 @@ echo 4. Borrar entidades guardadas
 echo 5. Iniciar simulador
 echo 6. Detener simulador
 echo 7. Instalar servidor
-echo  8. Desinstalar servidor
+echo 8. Desinstalar servidor
 echo 9. Salir
 set /p option=Selecciona una opción (1-9):
 
