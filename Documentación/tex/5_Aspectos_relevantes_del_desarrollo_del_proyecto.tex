@@ -23,13 +23,13 @@ Con este mini programa se permite al usuario:
 
 En esta etapa mediante la herramienta Postman\footnote{Herramienta para probar y gestionar APIs}, se hicieron pruebas con el Orion Context Broker, creando, consultando, actualizando y borrando entidades el servidor. Así se podía verificar que el servidor funcionaba correctamente y estaba preparado para almacenar las distintas entidades.
 Las cuales posteriormente serían consultadas, actualizadas o eliminadas desde la aplicación con peticiones \textit{GET}\footnote{Se utiliza para solicitar datos de un recurso específico.}, \textit{PATCH}\footnote{Se utiliza para hacer actualizaciones parciales a un recurso existente.} o \textit{DELETE}\footnote{Se utiliza para eliminar un recurso específico.} de \textit{HTTP} y poder consultadas con peticiones \textit{GET} de \textit{HTTP} en el puerto 1026, que es el usado por el servidor.
-\imagen{POST - Postman}{Ejemplo de uso de POST en Postman}{.9}
+\imagen{POST - Postman}{Ejemplo de uso de POST en Postman}{.9}\label{fig:post-postman}
 
 \subsection{Simulador}\label{simulador}
 
 Con las primeras cargas de datos se pudo observar que el modelo información NGSI-LD todavía no está siendo muy usado por las diferentes APIs de datos, por lo que se decidió crear un generador de datos que usara este modelo. Este es usado a modo de simulador, el cual genera de un conjunto de datos de \textit{parkings} de la ciudad de Burgos simulando recibir datos de sensores instalados en dichos \textit{parkings} y lo adapta al modelo NGSI-LD. 
 
-\imagen{GET - Postman}{Ejemplo de uso de GET en Postman}{.9}
+\imagen{GET - Postman}{Ejemplo de uso de GET en Postman}{.9}\label{fig:get-postman}
 
 
 Con esto se pudo probar que el \textit{OCB}\footnotemark{} estaba funcionando correctamente y pudiendo así leer y escribir datos de manera correcta. También se introdujeron algunas entidades diferentes, no solo \textit{parkings}, para probar que los distintos conjuntos de datos podían convivir sin problema en el mismo \textit{OCB}\footnotemark[\value{footnote}]. 
@@ -41,7 +41,16 @@ Con esto se pudo probar que el \textit{OCB}\footnotemark{} estaba funcionando co
 
 Como el objetivo del proyecto es realizar una aplicación funcional y, el número de conjuntos de datos disponibles con el modelo de información NGSI-LD aún es mínimo, se dejó el \textit{OCB}\footnotemark[\value{footnote}] preparado para que cuando el número de conjuntos sea mayor, se pueda utilizar y de momento usar la aplicación con los formatos tradicionales que se están usando a día de hoy (JSON, CSV, XML...). Eso sí, pensando siempre en dejar la aplicación preparada para que la migración al modelo NGSI-LD sea lo más fácil posible.
 
-La aplicación se ha desarrollado en Python usando el framework de Flask, las vistas HTML con CSS y Javascript para diversas funcionalidades 
+Para el desarrollo de la aplicación se hizo un análisis de los posibles perfiles de usuarios que tendría y sus necesidades. Se clasificaron en dos grupos:
+
+\begin{itemize}
+    \item \textbf{Usuario estándar:} usaría la aplicación para acceder a un conjunto de datos en concreto en un momento puntual. Su principal objetivo sería obtener información acerca de un conjunto de manera rápida y precisa. Por ejemplo, un usuario quiere decidir a qué biblioteca de su ciudad acudir, por ello, consulta en conjunto y analiza las posibles opciones en función de los parámetros que más le interesen (aforo, horario, proximidad...).
+    \item \textbf{Usuario avanzado:} este usuario sería un perfil más próximo a un analista de datos, que desearía consultar uno o varios conjuntos, durante un periodo de tiempo determinado con una frecuencia establecida.
+\end{itemize}
+
+Una vez establecidos los perfiles y las necesidades a cubrir, se empezó con el análisis y diseño de la aplicación. Y posteriormente su desarrollo, el cuál, ha sido complejo ya que requería de cubrir las necesidades de los usuarios actuales y de usuarios futuros con un modelo de información diferente, el modelo NGSI-LD, mencionado en el apartado \ref{modelo-ngsi-ld}.
+
+Para su desarrollo se ha tenido en cuenta que entre los objetivos generales, se encuentren objetivos tales como permitir al usuario tener una experiencia sencilla, cómoda y rápida. Es por ello que un usuario puede marcar que parámetros desea visualizar de un conjunto, o marcar varios conjuntos como favoritos y poder acceder desde el menú de inicio de manera rápida.
 
 
 \subsection{Revisión de código}
@@ -61,23 +70,19 @@ Como ya he comentado en la sección de \ref{etapas-del-proyecto}, el primer paso
 Posteriormente se investigó acerca de los dispositivos IOTs y como se gestiona la información mediante un Context Broker, en este caso, el Context Broker de Orion, el cual se instaló y se hicieron diversas pruebas con él con POstMan o como el simulador.
 
 Al comienzo de este proyecto, mi conocimiento sobre desarrollo web era muy primitivo, apenas tenía unas nociones muy básicas de HTML. Poco a poco fui adquiriendo conocimientos sobre el desarrollo de aplicaciones web con Flask, gracias manuales, vídeos, o aplicaciones de código abierto en GitHub.
-Conocimientos adquiridos:
--HTML
--CSS
--Bootstrap
--JS
--Leaflet
--JQuery
 
+Los conocimientos adquiridos son muy amplios y diversos, la mayoría enfocados al desarrollo de aplicaciones web como:
+\begin{itemize}
+    \item \textbf{HTML}
+    \item \textbf{CSS}
+    \item \textbf{Bootstrap}
+    \item \textbf{JavaScript}
+    \item \textbf{Leaflet}
+    \item \textbf{JQuery}
+\end{itemize}
 
 
 \begin{comment}
-Etapas del proyecto
-
-
-Conocimientos de la carrera
-
-
 
 Este apartado pretende recoger los aspectos más interesantes del desarrollo del proyecto, comentados por los autores del mismo.
 Debe incluir desde la exposición del ciclo de vida utilizado, hasta los detalles de mayor relevancia de las fases de análisis, diseño e implementación.
