@@ -3,8 +3,10 @@
     "",
     "\\CODE",
     "\\CODE\\templates",
-    "\\CODE\\templates\\records"
+    "\\Documentación",
+    "\\Server",
+    "\\Server\\Server"
   ],
-  "SelectedNode": "\\CODE\\app.py",
+  "SelectedNode": "\\Server\\Server.bat",
   "PreviewInSolutionExplorer": false
 }

@@ -467,8 +467,9 @@ def mostrarConjunto(lugar, conjunto):
                 print(entidad['geometry']['coordinates'])
                 nuevaEntidad['localizacion']={'lon': entidad['geometry']['coordinates'][0], 'lat': entidad['geometry']['coordinates'][1]}
                 listaEntidades.append(nuevaEntidad)
-        
-                data=listaEntidades
+            
+            data=listaEntidades
+            listaCaracteristicas=data[0].keys()
             #Si se busca una opción que no está en la lista, mostrar una vista genérica
             return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
 
@@ -632,9 +633,32 @@ def mostrarConjunto(lugar, conjunto):
             return render_template('transportePublicoValencia.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
     
         else:
-            #Si se busca una opción que no está en la lista, mostrar una vista genérica
-            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)  
-    
+             # TEST PARA VISUALIZAR LOS DATOS
+            """
+            for dato in data['results']:
+                visualizarDiccionarioDeDatos(dato)
+            """
+            # DataFrame del grafo de datos
+
+            listaEliminar=['geo_shape','objectid']
+
+            # Traduce el conjunto
+            conjuntoTraducido=[]
+            for enitdad in data:
+                entidadTraducida = actualizar_claves(enitdad, modeloTraducciones)
+
+                # Eliminación de campos obsoletos
+                #entidadTraducida=elimnarCampos(entidadTraducida,listaEliminar)
+
+                conjuntoTraducido.append(entidadTraducida)
+            data=conjuntoTraducido
+            
+            # Actualización de la lista de campos y asignación de datos al tooltip del mapa
+            listaCaracteristicas=data[0].keys()
+            clavesMapa=['Dirección','Potencia','Precio','Obsevaciones']
+
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
+ 
 
     elif ciudad == "Badajoz":
 

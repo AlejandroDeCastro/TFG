@@ -1,0 +1,326 @@
+[
+    {
+        "type": "ParkingGroup",
+        "id": "8348b804-ab28-4489-bc5b-f0ee61ad9ac6",
+        "name": {
+            "value": "Museo Evoluci\u00f3n Humana",
+            "type": "Text"
+        },
+        "precio": {
+            "value": "--\u20ac",
+            "type": "Text"
+        },
+        "Ubicacion": {
+            "value": "Interior",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 31,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 96,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "tipo": {
+            "value": "P\u00fablico",
+            "type": "Text"
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.697442,
+                    42.338476
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-24T00:23:04",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "012385f0-ec90-4c86-88b5-c2db5c20102d",
+        "name": {
+            "value": "Plaza Mayor",
+            "type": "Text"
+        },
+        "precio": {
+            "value": "--\u20ac",
+            "type": "Text"
+        },
+        "Ubicacion": {
+            "value": "Interior",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 369,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 619,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "tipo": {
+            "value": "Privado",
+            "type": "Text"
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.699824,
+                    42.341148
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-24T00:23:04",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "88d925b1-2d0c-422a-b36c-fcff9459c709",
+        "name": {
+            "value": "Plaza Vega",
+            "type": "Text"
+        },
+        "precio": {
+            "value": "--\u20ac",
+            "type": "Text"
+        },
+        "Ubicacion": {
+            "value": "Interior",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 49,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 999,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "tipo": {
+            "value": "P\u00fablico",
+            "type": "Text"
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.711652,
+                    42.335527
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-24T00:23:04",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "5201c54d-f600-463b-9878-0e9fb509ce3d",
+        "name": {
+            "value": "Plaza Espa\u00f1a",
+            "type": "Text"
+        },
+        "precio": {
+            "value": "--\u20ac",
+            "type": "Text"
+        },
+        "Ubicacion": {
+            "value": "Interior",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 449,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 713,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "tipo": {
+            "value": "P\u00fablico",
+            "type": "Text"
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.6975360341261787,
+                    42.344406705937985
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-24T00:23:04",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "fdc75a07-8fdd-401c-8eda-f5ced032ce0c",
+        "name": {
+            "value": "Virgen del Manzano",
+            "type": "Text"
+        },
+        "precio": {
+            "value": "--\u20ac",
+            "type": "Text"
+        },
+        "Ubicacion": {
+            "value": "Interior",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 24,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 86,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "tipo": {
+            "value": "P\u00fablico",
+            "type": "Text"
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.6931517564298453,
+                    42.34632384614841
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-24T00:23:04",
+            "type": "DateTime"
+        }
+    },
+    {
+        "type": "ParkingGroup",
+        "id": "9aaefdf6-2095-4a3b-95f3-a04fff5ccaf1",
+        "name": {
+            "value": "Castillo de Burgos",
+            "type": "Text"
+        },
+        "precio": {
+            "value": "GRATIS",
+            "type": "Text"
+        },
+        "Ubicacion": {
+            "value": "Exterior",
+            "type": "Text"
+        },
+        "availableSpotNumber": {
+            "value": 414,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "totalSpotNumber": {
+            "value": 529,
+            "type": "Int",
+            "metadata": {
+                "unit": {
+                    "value": "Plazas",
+                    "type": "Text"
+                }
+            }
+        },
+        "tipo": {
+            "value": "P\u00fablico",
+            "type": "Text"
+        },
+        "location": {
+            "type": "geo:json",
+            "value": {
+                "type": "Point",
+                "coordinates": [
+                    -3.6931517564298453,
+                    42.34632384614841
+                ]
+            }
+        },
+        "date": {
+            "value": "2024-06-24T00:23:04",
+            "type": "DateTime"
+        }
+    }
+]
