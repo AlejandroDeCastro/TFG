@@ -15,6 +15,7 @@ innovadoras en áreas como \textit{Smart Cities}, Agricultura Inteligente, Energ
 
 NGSI-LD es un modelo de información y API para editar, consultar y suscribirse a información de contexto. Está destinado a facilitar el intercambio abierto y la compartición de información estructurada entre diferentes partes interesadas \cite{etsi_ngsi_ld}. Se utiliza en diversos ámbitos de aplicación, como Ciudades Inteligentes, Industria Inteligente, Agricultura Inteligente, y más generalmente para el Internet de las Cosas, Sistemas Ciberfísicos y Gemelos Digitales \cite{etsi_iot}.
 
+\subsection{Ejemplo modelo NGSI-LD}\label{ejemplo-uso-ngsi}
 Imagina que estamos desarrollando una aplicación para monitorizar el tráfico en una ciudad inteligente. Queremos obtener información sobre el estado actual de los semáforos en una intersección específica.
 
 \begin{enumerate}
@@ -53,8 +54,15 @@ En resumen, NGSI-LD nos permite modelar y acceder a información de contexto de 
 
 
 \section{Orion Context Broker}
-El principal y único componente obligatorio de cualquier plataforma o solución desarrollada con FIWARE es el Orion Context Broker (OCB), el cual aporta una función fundamental en cualquier solución inteligente: administrar la información de contexto, consultarla y actualizarla \cite{orion}. El OCB permite la publicación de información de contexto por entidades (llamados productores de contexto) por ejemplo los sensores, de manera que la información de contexto publicada se encuentre disponible para otras entidades (consumidores de contexto) los cuales están interesados en procesar la información, por ejemplo una aplicación para \textit{smartphones} que usa la información de los sensores.
+El principal y único componente obligatorio de cualquier plataforma o solución desarrollada con FIWARE es el Orion Context Broker (OCB), el cual aporta una función fundamental en cualquier solución inteligente: administrar la información de contexto, consultarla y actualizarla.
 
+El OCB permite la publicación de información de contexto por entidades, denominadas proveedores de contexto, por ejemplo los sensores, de manera que la información de contexto publicada se encuentre disponible para otras entidades, denominadas consumidores de contexto, las cuales están interesadas en procesar la información, por ejemplo, volviendo al ejemplo anterior de los semáforos (\ref{ejemplo-uso-ngsi}), una aplicación desde la que se quiere consultar el estado de los semáforos y poder así calcular la ruta más corta en un determinado momento. Los proveedores de contexto y los consumidores de contexto pueden ser cualquier aplicación o incluso otros componentes dentro de la plataforma FIWARE.
+
+El OCB es un servidor que implementa una API que se basa en el modelo de información NGSI, por medio de la cual se pueden realizar varias operaciones: - Registrar aplicaciones de proveedores de contexto, por ejemplo: un sensor de temperatura dentro de una habitación. - Actualizar información de contexto, por ejemplo: enviar actualizaciones de la temperatura. - Ser notificado cuando surjan los cambios en la información de contexto (por ejemplo cuando la temperatura ha cambiado), o con una frecuencia determinada (por ejemplo, obtener la temperatura cada minuto). - Consultar información de contexto. Orion almacena la información de contexto actualizada desde las aplicaciones, por lo tanto, las consultas se resuelven basados en esta información.
+
+El servidor OCB siempre está escuchando en un puerto que generalmente es el 1026. el OCB utiliza la base de datos es MongoDB para almacenar el estatus actual de las entidades, no se almacena información histórica de sus cambios. Para este propósito se debe utilizar una base de datos externa al OCB, como es el caso de Cygnus\footnote{Cygnus es un componente de la plataforma FIWARE que actúa como un conector de datos y tiene la función principal de persistir la información de contexto gestionada por el Orion Context Broker en diferentes sistemas de almacenamiento a largo plazo. Cygnus recibe notificaciones de Orion cuando hay actualizaciones en la información de contexto y las almacena en bases de datos u otros sistemas de almacenamiento seleccionados por el usuario \cite{fiware_cygnus}.} , componente el cual se estudió su implementación en este proyecto  \cite{orion}.
+
+En esta imagen se puede apreciar el esquema de funcionamiento del OCB:
 \imagen{OCBserver}{Diagrama de OCB}{.6}
 
 
