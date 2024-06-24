@@ -10,7 +10,7 @@
 <!--Bootstrap-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 {% endblock %}
 
@@ -69,17 +69,30 @@
                     </thead>
 
                     <tbody>
-                        {% for id, atributos in usuarios.items()%}
+                        {% for id, atributos in usuarios.items() %}
                         <tr>
                             <td>{{ id }}</td>
                             <td>{{ atributos[0] }}</td>
                             <td>{{ atributos[2] }}</td>
-                            <td>{{ atributos[1] }}</td>
+                            <td>
+                                <form>
+                                    <input type="hidden" name="user_id" value="{{ id }}">
+                                    <select name="role" class="form-select" data-user-id="{{ id }}">
+                                        {% for role in roles %}
+                                        <option value="{{ role }}" {% if atributos[1]==role %}selected{% endif %}>{{ role }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                            </td>
                             <td>{{ atributos[3] }}</td>
-                            <td><a href="{{url_for('eliminarUsuario', id = id)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
-
+                            <td>
+                                {% if id == current_user.id %}
+                                <button class="btn btn-danger btn-sm disabled-btn" disabled>No puedes eliminar tu cuenta</button>
+                                {% else %}
+                                <a href="{{ url_for('eliminarUsuario', id=id) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                                {% endif %}
+                            </td>
                         </tr>
-
                         {% endfor %}
                     </tbody>
                 </table>
@@ -94,5 +107,32 @@
 {% block scripts %}
 
 <script src="{{ url_for('static', filename='js/ordenación.js') }}"></script>
+<script>
+        $(document).ready(function() {
+            $('select[name="role"]').change(function() {
+                var userId = $(this).data('user-id');
+                var newRole = $(this).val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url_for("actualizar_rol") }}',
+                    data: {
+                        user_id: userId,
+                        role: newRole
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Rol actualizado correctamente');
+                        } else {
+                            alert('Error al actualizar el rol');
+                        }
+                    },
+                    error: function() {
+                        alert('Error al actualizar el rol');
+                    }
+                });
+            });
+        });
+</script>
 
 {% endblock %}

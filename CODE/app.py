@@ -38,6 +38,8 @@ posiblesLongitud=['Longitud','Lon']
 modeloTraducciones={'totalSpotNumber' : 'Plazas totales','availableSpotNumber' : 'Plazas libres','precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
+# Lista de roles disponibles
+roles = ["administrador", "usuario"]
 
 listaCiudadesDatos=[]
 for ciudad in diccionarioDatosDisponibles:
@@ -308,7 +310,7 @@ def eliminarConjunto(lugar, conjunto, fichero):
 def gestiónUsuarios():
     if current_user.rol=="administrador":
         usuarios=ModeloUsuario.get_users(db.database)
-        return render_template('admin/gestiónUsuarios.html', usuarios = usuarios)
+        return render_template('admin/gestiónUsuarios.html', usuarios = usuarios, roles = roles)
     else:
         print("NO TIENES PERMISO")
         #VISTA ERROR NO PERMISO DE ADMINISTRADOR
@@ -898,6 +900,18 @@ def desmarcar_favorito():
     ModeloUsuario.update_favoritos(db.database,current_user.id,cadena_favoritos)
     print("DESMARCADO FAVORITO",ciudad,conjunto)
     return jsonify(success=True)
+
+@server.route('/actualizar_rol', methods=['POST'])
+def actualizar_rol():
+    user_id = int(request.form['user_id'])
+    nuevo_rol = request.form['role']
+    ModeloUsuario.update_rol(db.database, user_id, nuevo_rol)
+
+    usuarios=ModeloUsuario.get_users(db.database)
+
+    if user_id in usuarios and usuarios[user_id][1]==nuevo_rol:
+        return jsonify({"success": True})
+    return jsonify({"success": False}), 400
 
     # Función que transforma un conjunto de datos de json a diccionario de python
 def convertirADiccionario(enlace, formato):

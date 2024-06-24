@@ -289,6 +289,25 @@ class ModeloUsuario():
             return None
 
     @classmethod
+    def update_rol(self, db, id_usuario, rol):
+
+        try:
+            # Crea el cursor
+            cursor = db.cursor()
+            
+            # Actualización que se hace en la base de datos. 
+            actualización="UPDATE usuarios SET rol = %s WHERE id = %s"
+            data = (rol, id_usuario)
+
+            #Ejecución de la insercción
+            cursor.execute(actualización, data)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex)
+
+
+    @classmethod
     def update_favoritos(self, db, id_usuario, favoritos):
 
         try:
