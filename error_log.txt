@@ -1,0 +1,1 @@
+2024-06-24 11:05:00.554661 - Unhandled Exception: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)>

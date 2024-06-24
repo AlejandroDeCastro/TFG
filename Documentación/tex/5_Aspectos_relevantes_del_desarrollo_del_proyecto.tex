@@ -52,6 +52,24 @@ Una vez establecidos los perfiles y las necesidades a cubrir, se empezó con el 
 
 Para su desarrollo se ha tenido en cuenta que entre los objetivos generales, se encuentren objetivos tales como permitir al usuario tener una experiencia sencilla, cómoda y rápida. Es por ello que un usuario puede marcar que parámetros desea visualizar de un conjunto, o marcar varios conjuntos como favoritos y poder acceder desde el menú de inicio de manera rápida.
 
+Las funcionalidades principales de dicha aplicación, basándose en los perfiles de los usuarios potenciales y en los objetivos y necesidades a cubrir son:
+
+\begin{itemize}
+    \item \textbf{Consulta de conjuntos de datos en tiempo real:} esta sería la principal funcionalidad de la aplicación, permite al usuario consultar cualquier conjunto de datos de los que se encuentren incorporados en la aplicación. \imagen{puntos_de_carga_Valencia}{Ejemplo de consulta de datos en tiempo real}{.9} 
+    \item \textbf{Añadir conjuntos de datos:} esta funcionalidad permite a los usuarios añadir nuevos conjuntos de datos, los cuales estarán visibles al resto de usuarios.
+    \item \textbf{Añadir registros:} cualquier usuario puede comenzar a registrar un conjunto de datos con una frecuencia determinada, si la frecuencia es mayor con la que se actualizan en la \textit{API} de datos de donde se extraen, se notifica al usuario para que corrija su elección de periodicidad.
+    \item \textbf{Gestionar registros:} un usuario que tenga uno más o registros guardándose para él, puede descargar o eliminar lo registros que desee.
+    \item \textbf{Favoritos:} a la hora de consultar un conjunto de datos, un usuario puede marcar o desmarcar de favoritos un conjunto, esto modificará su ventana de \textit{home}, donde se muestran los conjuntos favoritos del usuario para poder acceder a ellos de una manera más rápida.
+    \item \textbf{Personalizar vista de conjuntos de datos:} en los mapas, el usuario puede modificar los \textit{tooltips}, para poder mostrar los parámetros que él desee. También puede ordenar la tabla por orden alfabético según el campo que desee.
+    \imagen{PCval2}{Ejemplo de consulta de datos en tiempo real 2}{.9}
+\end{itemize}
+
+Otras funcionalidades principales que solo tienen los administradores son:
+\begin{itemize}
+    \item \textbf{Gestionar conjuntos:} un administrador puede eliminar conjuntos. Esto permite que en caso de que un administrador detecte o se le comunique que alguno de los enlaces está roto o los datos están corruptos, podrá quitar ese conjunto de la base de datos.
+    \item \textbf{Gestionar usuarios:} un administrador puede consultar todos los usuarios que se encuentran en la aplicación, cambiar el rol de algún usuario o eliminarlo.
+    \item \textbf{Gestionar traducciones:} .
+\end{itemize}
 
 \subsection{Revisión de código}
 

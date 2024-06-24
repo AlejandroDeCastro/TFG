@@ -365,7 +365,7 @@
 \maketitle
 
 
-\newpage\null\thispagestyle{empty}\newpage
+\newpage\null\thispagestyle{empty}%\newpage
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -392,14 +392,14 @@ En Burgos, {\large \today}
 \begin{minipage}{0.45\textwidth}
 \begin{flushleft} %\large
 Vº. Bº. del Tutor:\\[2cm]
-D. nombre tutor
+D. Bruno Baruque Zanon
 \end{flushleft}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}
 \begin{flushleft} %\large
 Vº. Bº. del co-tutor:\\[2cm]
-D. nombre co-tutor
+D. Héctor Cogollos Adrián
 \end{flushleft}
 \end{minipage}
 \hfill
@@ -412,7 +412,7 @@ D. nombre co-tutor
 %D. nombre tutor
 
 
-\newpage\null\thispagestyle{empty}\newpage
+\newpage\null\thispagestyle{empty}%\newpage
 
 
 
@@ -422,14 +422,21 @@ D. nombre co-tutor
 % Abstract en castellano
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
+\begin{comment}
 En este primer apartado se hace una \textbf{breve} presentación del tema que se aborda en el proyecto.
-El proyecto consiste en desarrollar una aplicación que permita al usuario una experiencia más cómoda en una ciudad, mediante el tratamiento de datos abiertos.
-Se ofrece al usuario diversas funcionalidades con los datos obtenidos de su ciudad (aforos, localizaciones, teléfonos, horarios...)
+\end{comment}
+Durante los últimos años, el acceso a datos en tiempo real gracias a sensores ha incrementado exponencialmente, dejando así, una versión nueva del Internet de las cosas (\textit{IOT}).
+Esto permite que estén disponibles datos como aforos, horarios, precios y disponibilidad entre otros muchos datos de diferentes edificios y servicios en las ciudades. La gran cantidad de organismos que ofrecen datos abiertos provoca que haya multitud de formatos y estructuras de datos diferentes, lo que dificulta unificarlas en aplicaciones funcionales. Es por ello que hace unos años se lanzó \textit{FIWARE}, una plataforma europea que cuenta con el apoyo con de las principales empresas tecnológicas y que propone un estándar para dichos datos.
+El proyecto consiste en el desarrollo de una aplicación que permita al usuario una experiencia más cómoda en una ciudad, mediante el tratamiento de datos abiertos incorporando \textit{FIWARE}.
+Se ofrece al usuario diversas funcionalidades con los datos obtenidos de su ciudad (aforos, localizaciones, teléfonos, horarios...), como la consulta, registro de datos periódicamente, entre otras funcionalidades. Se ha desarrollado de manera interactiva, dejando así al usuario la capacidad de añadir nuevos conjuntos de datos.
 \end{abstract}
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
+\begin{comment}
 Palabras separadas por comas que identifiquen el contenido del proyecto Ej: servidor web, buscador de vuelos, android \ldots
+\end{comment}
+fiware, iot, open data, ngsi, datos en tiempo real, conjunto de datos, datos abiertos
 \end{abstract}
 
 \clearpage
@@ -437,7 +444,7 @@ Palabras separadas por comas que identifiquen el contenido del proyecto Ej: serv
 % Abstract en inglés
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
-A \textbf{brief} presentation of the topic addressed in the project.
+A \textbf{brief} presentation of the topic addressed in the project. COMPLETAR CUANDO ESTÉ CORREGIDO EN ESPAÑOL
 \end{abstract}
 
 \renewcommand*\abstractname{Keywords}

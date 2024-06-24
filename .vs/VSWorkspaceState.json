@@ -1,12 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CODE",
-    "\\CODE\\templates",
-    "\\Documentación",
-    "\\Server",
-    "\\Server\\Server"
+    "\\Registros",
+    "\\Registros\\Usuario 1",
+    "\\Registros\\Usuario 1\\Valencia",
+    "\\Registros\\Usuario 1\\Valencia\\Puntos de carga",
+    "\\Registros\\Usuario 1\\Valencia\\Puntos de carga\\JSON",
+    "\\Registros\\Usuario 3",
+    "\\Registros\\Usuario 3\\Valencia",
+    "\\Registros\\Usuario 3\\Valencia\\Parkings",
+    "\\Registros\\Usuario 3\\Valencia\\Parkings\\JSON"
   ],
-  "SelectedNode": "\\Server\\Server.bat",
+  "SelectedNode": "\\Registros\\Usuario 3\\Valencia\\Parkings\\JSON\\Parkings_Valencia_1718453890.JSON",
   "PreviewInSolutionExplorer": false
 }
