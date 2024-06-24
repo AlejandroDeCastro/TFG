@@ -8,11 +8,9 @@ from models.ModeloUsuario import ModeloUsuario
 from models.entidades.Usuario import Usuario
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf.csrf import CSRFProtect
-from datetime import datetime
 import os
 import requests
 import xmltodict
-import logging
 import shutil
 import dash
 import dash_core_components as dcc 
@@ -40,7 +38,6 @@ posiblesLongitud=['Longitud','Lon']
 modeloTraducciones={'totalSpotNumber' : 'Plazas totales','availableSpotNumber' : 'Plazas libres','precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
-LOG_FILE = 'error_log.txt'
 
 listaCiudadesDatos=[]
 for ciudad in diccionarioDatosDisponibles:
@@ -902,33 +899,12 @@ def desmarcar_favorito():
     print("DESMARCADO FAVORITO",ciudad,conjunto)
     return jsonify(success=True)
 
-@server.errorhandler(Exception)
-def handle_exception(e):
-    print("ESTOY")
-    return redirect(url_for('error', message=str(e)))
-
-def log_error(message, error):
-    with open(LOG_FILE, 'a') as file:
-        file.write(f"{datetime.now()} - {message}: {error}\n")
-
-@server.route('/error')
-def error():
-    error_message = request.args.get('message', 'Ha ocurrido un error.')
-    return render_template('error.html', error_message=error_message)
-
-@server.route('/report_error', methods=['POST'])
-def report_error():
-    error_message = request.form.get('error_message')
-    log_error('Reported Error', error_message)
-    flash('Error reportado correctamente.')
-    return redirect(url_for('index'))
-
     # Función que transforma un conjunto de datos de json a diccionario de python
 def convertirADiccionario(enlace, formato):
 
     # Si hay un enlace para los datos, lo lee y transforma en un diccionario
     if enlace != "" and enlace!= "Simulador":
-        error=None
+
 
         #Extraer los datos según el formato
         if formato == formatos[1] or formato == formatos[4]: #JSON
@@ -939,7 +915,7 @@ def convertirADiccionario(enlace, formato):
             except Exception as e:
                 print(f"Error al convertir JSON a diccionario: {e}")
                 print("El enlace que ha fallado es el siguiente: ", enlace)
-                error=e
+
                 diccionarioDatos={}
         elif formato == formatos[2]: #CSV
 
@@ -986,10 +962,8 @@ def convertirADiccionario(enlace, formato):
     else:
         diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
     
-    if diccionarioDatos == {}:    
-        handle_exception()
-    else:
-        return diccionarioDatos
+
+    return diccionarioDatos
 
 
 # Método que visualiza los modelos de datos o diccionarios de datos pasados
