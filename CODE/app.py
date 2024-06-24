@@ -8,6 +8,7 @@ from models.ModeloUsuario import ModeloUsuario
 from models.entidades.Usuario import Usuario
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf.csrf import CSRFProtect
+from datetime import datetime
 import os
 import requests
 import xmltodict
@@ -40,6 +41,7 @@ modeloTraducciones={'totalSpotNumber' : 'Plazas totales','availableSpotNumber' :
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
 # Lista de roles disponibles
 roles = ["administrador", "usuario"]
+LOG_FILE = 'error_log.txt'
 
 listaCiudadesDatos=[]
 for ciudad in diccionarioDatosDisponibles:
@@ -363,6 +365,8 @@ def mostrarConjunto(lugar, conjunto):
     
     global data, clavesMapa
     data=convertirADiccionario(enlace, formato)
+    if data == {}:
+        return redirect(url_for('error', mensaje="El conjunto de datos "+opcion+" de "+ciudad+" no está accesible"))
     clavesMapa=[]
 
     # Se obtiene si tiene ese conjunto guardado en favoritos
@@ -378,8 +382,6 @@ def mostrarConjunto(lugar, conjunto):
     else:
         fav = False
         print("El elemento no está en la lista")
-
-    favorito=True
 
     # En caso de que el JSON obtenido tenga el forma de lista [Conjunto1, Conjunto2...]
     if not isinstance(data, dict):
@@ -913,6 +915,22 @@ def actualizar_rol():
         return jsonify({"success": True})
     return jsonify({"success": False}), 400
 
+@server.route('/error')
+def error():
+    mensaje_error = request.args.get('mensaje', 'Ha ocurrido un error.')
+    return render_template('error.html', mensaje_error=mensaje_error)
+
+@server.route('/report_error', methods=['POST'])
+def report_error():
+    mensaje_error = request.form.get('error')
+    log_error('Reported Error', mensaje_error)
+    flash('Error reportado correctamente.')
+    return redirect(url_for('home'))
+
+def log_error(mensaje, error):
+    with open(LOG_FILE, 'a') as file:
+        file.write(f"{datetime.now()} - {mensaje}: {error}\n")
+
     # Función que transforma un conjunto de datos de json a diccionario de python
 def convertirADiccionario(enlace, formato):
 
@@ -929,8 +947,8 @@ def convertirADiccionario(enlace, formato):
             except Exception as e:
                 print(f"Error al convertir JSON a diccionario: {e}")
                 print("El enlace que ha fallado es el siguiente: ", enlace)
-
                 diccionarioDatos={}
+
         elif formato == formatos[2]: #CSV
 
             try:

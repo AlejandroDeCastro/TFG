@@ -1,1 +1,14 @@
 2024-06-24 11:05:00.554661 - Unhandled Exception: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)>
+2024-06-24 15:15:18.484787 - Reported Error: None
+2024-06-24 15:16:33.083933 - Reported Error: None
+2024-06-24 15:18:22.936846 - Reported Error: None
+2024-06-24 15:20:15.605678 - Reported Error: None
+2024-06-24 15:22:09.560713 - Reported Error: None
+2024-06-24 15:24:03.416991 - Reported Error: None
+2024-06-24 15:25:09.495603 - Reported Error: None
+2024-06-24 15:32:56.458772 - Reported Error: None
+2024-06-24 15:34:26.628565 - Reported Error: None
+2024-06-24 15:35:05.546075 - Reported Error: None
+2024-06-24 15:37:43.524076 - Reported Error: None
+2024-06-24 15:39:27.479518 - Reported Error: El conjunto de datos no está accesible
+2024-06-24 15:41:46.475225 - Reported Error: El conjunto de datos Parkings de Lorca no está accesible

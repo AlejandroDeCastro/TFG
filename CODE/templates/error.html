@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Ha ocurrido un error</h1>
+        <p>{{ mensaje_error }}</p>
+        <form action="{{ url_for('report_error') }}" method="post">
+            <input type="hidden" name="error" value="{{ mensaje_error }}">
+            <button type="submit">Reportar error</button>
+        </form>
+        <a href="{{ url_for('index') }}">Volver al inicio</a>
+    </div>
+
+    <div id="flash-messages" data-messages="{% with messages = get_flashed_messages() %}{% if messages %}{{ messages[0] }}{% endif %}{% endwith %}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/error.js') }}"></script>
+</body>
+</html>
