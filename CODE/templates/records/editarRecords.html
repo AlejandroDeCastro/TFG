@@ -69,8 +69,10 @@
                                 const minValueInUnit = convertirAunidad(minValueInSeconds);
                                 alert(`El valor mínimo para ${selectedOption} es ${minValueInUnit}.`);
                                 $('#periodicidad').addClass('warning');
+                                $('#guardarBtn').prop('disabled', true); // Deshabilitar el botón
                             } else {
                                 $('#periodicidad').removeClass('warning');
+                                $('#guardarBtn').prop('disabled', false); // Habilitar el botón
                             }
                         }
                     });
@@ -132,7 +134,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>
+                        <button class="btn btn-primary mb-3 mt-4" id="guardarBtn" type="submit">Guardar</button>
                     </div>
                 </div>
             </form>
