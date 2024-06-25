@@ -1,47 +1,33 @@
-.titulo-cuadro {
-    width: 100%;
-    height: 8vh;
-    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
-    color: white; /* Color del texto */
-    font-size: xx-large; /* Tamaño del texto */
-    text-align: center; /* Alineación centrada del texto */
-    padding-top: 2vh; /* Espaciado superior para centrar verticalmente */
-    background-color: #0082e6;
+body {
+    background-color: #e0f7fa; /* Azul muy clarito */
 }
 
-/* Estilo del cuadro */
-.cuadro {
-    width: 95%;
-    height: 80vh; /* Altura total de la ventana del navegador */
-    margin: 2.5%;
-    background-color: #98DCF8; /* Color de fondo */
-    text-align: center; /* Alineación centrada del texto */
-    font-size: x-large; /* Tamaño del texto */
-    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
-    padding: 20px; /* Espaciado interno de 20px */
+/* Estilos personalizados */
+.titulo-cuadro {
+    font-size: xx-large;
+    text-align: center;
+    padding-top: 2vh;
+    background-color: #0082e6;
+    color: white;
+}
+
+.cuadro-bienvenida {
+    background-color: #b3e5fc; /* Color de fondo más claro */
+    border: 2px solid #333;
+}
+
+/* Estilo del cuadro de registros */
+.cuadro-registros {
+    background-color: #ccffcc; /* Color de fondo más claro */
+    border: 2px solid #333;
 }
 
 .titulo-registros {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-bottom-color: #333;
     font-size: 36px;
     text-align: center;
     color: black;
     font-weight: bold;
-    padding-top: 1vh; /* Espaciado superior para centrar verticalmente */
-    padding-bottom: 1vh; /* Espaciado superior para centrar verticalmente */
-    width: 100%;
-}
-
-.registros {
-    width: 95%;
-    height: 30vh;
-    margin: 2.5%;
-    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
-    font-size: xx-large; /* Tamaño del texto */
-    text-align: center; /* Alineación centrada del texto */
-    background-color: rgb(102,205,170);
+    padding: 1vh 0;
 }
 
 .lista-registros {
@@ -49,142 +35,86 @@
     overflow: auto;
 }
 
-
-/* Estilos adicionales para el contenido dentro de los cuadros */
-.contenido {
-    color: black; /* Color del texto */
-    text-align: center; /* Alineación centrada del texto */
-    padding-top: 15vh; /* Espaciado superior para centrar verticalmente */
-    font-size: 24px; /* Tamaño de fuente */
-}
-
 .cuadro-administrador {
-    width: 95%;
-    height: 30vh;
-    margin: 2.5%;
-    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
-    font-size: xx-large; /* Tamaño del texto */
-    text-align: center; /* Alineación centrada del texto */
-    background-color: #BBB5B3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: #f0f0f0; /* Color de fondo gris */
 }
 
 .icon-container {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-between; /* Distribuye los elementos a lo largo del contenedor */
+    gap: 20px; /* Espacio entre los elementos */
+    background-color: #f0f0f0; /* Color de fondo gris claro */
+    padding: 20px; /* Espacio interno alrededor de los elementos */
+    border-radius: 10px; /* Bordes redondeados opcionales */
 }
 
     .icon-container a {
-        text-decoration: none;
-        color: #333; /* Color del texto e iconos */
-        font-size: 2rem; /* Tamaño de los iconos */
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-decoration: none;
+        color: inherit;
+        transition: background-color 0.3s; /* Transición suave para el efecto hover */
+    }
+    .icon-container a:hover {
+        background-color: #d3d3d3; /* Color de fondo gris oscuro al pasar el cursor */
+        border-radius: 5px; /* Bordes redondeados opcionales para el efecto hover */
+        padding: 10px; /* Espacio interno adicional para el efecto hover */
     }
 
-    .icon-container i {
-        font-size: 4rem; /* Tamaño de los iconos */
-        margin-bottom: 10px; /* Espacio entre icono y texto */
-    }
+.icon-container i {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
 
-    .icon-container span {
-        font-size: 1.5rem; /* Tamaño del texto */
-    }
+.icon-container span {
+    font-size: 1.5rem;
+}
 
-.titulo-favoritos {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-bottom-color: #333;
+.titulo-favoritos, .titulo-consulta-conjuntos {
     font-size: 25px;
     text-align: center;
-    padding-top: 1vh; /* Espaciado superior para centrar verticalmente */
-    padding-bottom: 1vh; /* Espaciado superior para centrar verticalmente */
-    width: 100%;
+    padding: 1vh 0;
 }
 
 /* Cuadro inferior izquierdo */
 .cuadro-favoritos {
-    width: 45%;
-    height: 25vh; /* Altura total de la ventana del navegador */
-    margin-left: 2.5%;
-    float: left; /*Alineación a la izquierda */
-    background-color: rgb(255,192,203); /* Color de fondo lavanda */
-    color: rgb(255,0,0); /* Color del texto */
-    text-align: center; /* Alineación centrada del texto */
-    font-size: x-large; /* Tamaño del texto */
-    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
-}
-
-.contenido-favoritos {
-    padding-top: 15px;
-}
-
-.titulo-consulta-conjuntos {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    border-bottom-color: #333;
-    font-size: 25px;
+    background-color: #ffc1e3; /* Color más claro */
+    color: #ff4081; /* Color del texto */
     text-align: center;
-    padding-top: 1vh; /* Espaciado superior para centrar verticalmente */
-    padding-bottom: 1vh; /* Espaciado superior para centrar verticalmente */
-    width: 100%;
+    font-size: x-large;
+    border: 2px solid #333;
 }
 
-/* Cuadro inferior derecho */
 .cuadro-consulta-conjuntos {
-    width: 45%;
-    height: 25vh; /* Altura total de la ventana del navegador */
-    margin-right: 2.5%;
-    float: right; /*Alineación a la izquierda */
-    background-color: rgb(255,255,224); /* Color de fondo lavanda */
-    text-align: center; /* Alineación centrada del texto */
-    font-size: x-large; /* Tamaño del texto */
-    border: 2px solid #333; /* Borde de 2px sólido de color gris oscuro */
+    background-color: #fff9c4; /* Color más claro */
+    text-align: center;
+    font-size: x-large;
+    border: 2px solid #333;
 }
 
-.contenido-consulta-conjuntos {
-    padding-top: 15px;
-}
-
-/* Estilo del botón */
 .boton {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
-    background-color: rgb(255,165,0); /* Color de fondo azul */
+    background-color: #ffa726; /* Naranja */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    text-decoration: none; /*  Quita la subrayado de los enlaces */
     margin-top: 20px;
 }
 
-    /* Estilo del botón cuando se pasa el cursor */
     .boton:hover {
-        background-color: #0056b3; /* Cambio de color de fondo al pasar el cursor */
+        background-color: #fb8c00; /* Naranja más oscuro */
     }
 
-.enlace-favoritos:link {
-    color: red; /* Cambia el color para enlaces no visitados */
-    text-decoration: none; /* Quita la subrayado */
+.enlace-favoritos {
+    color: red;
+    text-decoration: none;
 }
 
-.enlace-favoritos:visited {
-    color: purple; /* Cambia el color para enlaces visitados */
-    text-decoration: none; /* Quita la subrayado */
-}
-
-.enlace-favoritos:hover {
-    color: orange; /* Cambia el color cuando el mouse está sobre el enlace */
-    text-decoration: underline; /* Subraya el enlace */
-}
-
-.enlace-favoritos:active {
-    color: yellow; /* Cambia el color cuando se hace clic en el enlace */
-    text-decoration: underline; /* Subraya el enlace */
-}
+    .enlace-favoritos:hover {
+        color: orange;
+        text-decoration: underline;
+    }

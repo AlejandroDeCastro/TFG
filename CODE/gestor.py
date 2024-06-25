@@ -57,6 +57,9 @@ def añadir_PID(db,id,pid):
         cursor.execute(actualización, data)
         db.database.commit()
 
+        # Cierra el cursor
+        cursor.close()
+
     except Exception as ex:
         raise Exception(ex)
 
@@ -82,6 +85,9 @@ def parar_registro(db,id):
 
         else:
             print("No se ha encontrado ningún registro con ese id") # No hay ningún registro con ese id
+
+        # Cierra el cursor
+        cursor.close()
 
     except Exception as e:
         print(f"Error al parar el registro {pid}: {e}")
