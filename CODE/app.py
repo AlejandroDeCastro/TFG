@@ -36,7 +36,7 @@ formatos=['NGSI','JSON','CSV','XML','GEOJSON']
 unidades=['minutos','horas','dias','semanas','meses']
 posiblesLatitud=['Latitud','Lat']
 posiblesLongitud=['Longitud','Lon']
-modeloTraducciones={'totalSpotNumber' : 'Plazas totales','availableSpotNumber' : 'Plazas libres','precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
+#modeloTraducciones={'totalSpotNumber' : 'Plazas totales','availableSpotNumber' : 'Plazas libres','precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
 booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
 # Lista de roles disponibles
@@ -302,10 +302,36 @@ def eliminarConjunto(lugar, conjunto, fichero):
        
         return redirect(url_for('mostrarConjuntos'))
     else:
-        print("NO TIENES PERMISO")
-        #VISTA ERROR NO PERMISO DE ADMINISTRADOR
-        return redirect(url_for('mostrarConjuntos'))
+        return redirect(url_for('error', mensaje="Para eliminar conjuntos debes solicitar permisos de administrador"))
 
+
+@server.route("/Gestión de Traducciones", methods=("POST", "GET"))
+@login_required
+def gestiónTraducciones():
+    if current_user.rol=="administrador":
+        traducciones=ModeloUsuario.get_traducciones(db.database)
+        print(traducciones)
+        return render_template('admin/gestiónTraducciones.html', traducciones = traducciones)
+    else:
+        return redirect(url_for('error', mensaje="Para gestionar traducciones debes solicitar permisos de administrador"))
+
+
+@server.route("/guardarTraducción", methods=['POST'])
+@login_required
+def guardarTraducción():
+    original = request.form['original']
+    traducción = request.form['traducción']
+    ModeloUsuario.set_traducción(db.database, original, traducción)
+    return redirect(url_for('gestiónTraducciones'))
+
+@server.route("/Eliminar Traduccion/<string:id_traduccion>/", methods=("POST", "GET"))
+@login_required
+def eliminarTraducción(id_traduccion):
+    if current_user.rol=="administrador":
+        ModeloUsuario.delete_traducción(db.database,id_traduccion)      
+        return redirect(url_for('gestiónTraducciones'))
+    else:
+        return redirect(url_for('error', mensaje="Para eliminar traducciones debes solicitar permisos de administrador"))
 
 @server.route("/Gestión de Usuarios", methods=("POST", "GET"))
 @login_required
@@ -314,9 +340,7 @@ def gestiónUsuarios():
         usuarios=ModeloUsuario.get_users(db.database)
         return render_template('admin/gestiónUsuarios.html', usuarios = usuarios, roles = roles)
     else:
-        print("NO TIENES PERMISO")
-        #VISTA ERROR NO PERMISO DE ADMINISTRADOR
-        return redirect(url_for('home'))
+        return redirect(url_for('error', mensaje="Para gestionar usuarios debes solicitar permisos de administrador"))
 
 @server.route("/Eliminar Usuario/<string:id>/", methods=("POST", "GET"))
 @login_required
@@ -330,9 +354,7 @@ def eliminarUsuario(id):
         
         return redirect(url_for('gestiónUsuarios'))
     else:
-        print("NO TIENES PERMISO")
-        #VISTA ERROR NO PERMISO DE ADMINISTRADOR
-        return redirect(url_for('home'))
+        return redirect(url_for('error', mensaje="Para eliminar usuarios debes solicitar permisos de administrador"))
 
 @server.route("/Seleccion", methods=("POST", "GET"))
 @login_required
@@ -368,6 +390,12 @@ def mostrarConjunto(lugar, conjunto):
     if data == {}:
         return redirect(url_for('error', mensaje="El conjunto de datos "+opcion+" de "+ciudad+" no está accesible"))
     clavesMapa=[]
+
+    traducciones=ModeloUsuario.get_traducciones(db.database)
+    modeloTraducciones={}
+    for id, diccionario in traducciones.items():
+        for original, traducción in diccionario.items():
+            modeloTraducciones[original] = traducción
 
     # Se obtiene si tiene ese conjunto guardado en favoritos
     cadena_favoritos = ModeloUsuario.get_favoritos_by_id(db.database,current_user.id)

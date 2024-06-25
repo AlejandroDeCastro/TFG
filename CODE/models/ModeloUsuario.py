@@ -112,20 +112,20 @@ class ModeloUsuario():
     @classmethod
     def get_users(self, db):
         try:
-            #Crea el cursor
+            # Crea el cursor
             cursor = db.cursor()
 
-            #Consulta que se hace en la base de datos. 
+            # Consulta que se hace en la base de datos. 
             consulta="SELECT id, usuario, rol, nombre_completo, favoritos FROM usuarios"
 
-            #Ejecución de la consulta
+            # Ejecución de la consulta
             cursor.execute(consulta)
 
-            #Obtiene las filas resultantes de la consulta
+            # Obtiene las filas resultantes de la consulta
             rows=cursor.fetchall()
             usuarios={}
 
-            #Si hay se encuentra un usuario con ese nombre,  coge los datos
+            # Si se encuentra un usuario con ese nombre,  coge los datos
             if rows != None:
                 for id, usuario, rol, nombre_completo, favoritos in rows:
                     usuarios[id]=[usuario, rol, nombre_completo, favoritos]
@@ -142,20 +142,20 @@ class ModeloUsuario():
     @classmethod
     def get_registros_by_id(self, db, id_usuario):
         try:
-            #Crea el cursor
+            # Crea el cursor
             cursor = db.cursor()
 
-            #Consulta que se hace en la base de datos. 
+            # Consulta que se hace en la base de datos. 
             consulta="SELECT id, Ciudad, Característica, Formato, Periodicidad FROM registros WHERE id_usuario = {}".format(id_usuario)
 
-            #Ejecución de la consulta
+            # Ejecución de la consulta
             cursor.execute(consulta)
 
-            #Obtiene las filas resultantes de la consulta
+            # Obtiene las filas resultantes de la consulta
             rows=cursor.fetchall()
             registros={}
 
-            #Si encuentra registros para ese usuario los guarda en un diccionario
+            # Si encuentra registros para ese usuario los guarda en un diccionario
             if rows != None:
                 # Itera sobre el array y añade los datos al diccionario
                 for id, ciudad, caracteristica, formato, periodicidad in rows:
@@ -183,14 +183,14 @@ class ModeloUsuario():
     def set_registro(self, db, id_usuario, ciudad, característica, formato, segundos):
 
         try:
-            #Crea el cursor
+            # Crea el cursor
             cursor = db.cursor()
 
-            #Insercción que se hace en la base de datos. 
+            # Insercción que se hace en la base de datos. 
             insercción="INSERT INTO registros (id_usuario, Ciudad, Característica, Formato, Periodicidad) VALUES (%s, %s, %s, %s, %s)"
             data = (id_usuario, ciudad, característica, formato, segundos)
 
-            #Ejecución de la insercción
+            # Ejecución de la insercción
             cursor.execute(insercción, data)
             db.commit()
 
@@ -200,13 +200,13 @@ class ModeloUsuario():
     @classmethod
     def delete_registro(self, db, id):
         try:
-            #Crea el cursor
+            # Crea el cursor
             cursor = db.cursor()
 
-            #DELETE que se hace en la base de datos. 
+            # DELETE que se hace en la base de datos. 
             delete="DELETE FROM registros WHERE id = {}".format(id)
 
-            #Ejecución de la insercción
+            # Ejecución de la insercción
             cursor.execute(delete)
             db.commit()
 
@@ -216,19 +216,39 @@ class ModeloUsuario():
     @classmethod
     def delete_user(self, db, id):
         try:
-            #Crea el cursor
+            # Crea el cursor
             cursor = db.cursor()
 
-            #DELETE que se hace en la base de datos 
+            # DELETE que se hace en la base de datos 
             delete="DELETE FROM usuarios WHERE id = {}".format(id)
 
-            #Ejecución de la insercción
+            # Ejecución de la insercción
             cursor.execute(delete)
             db.commit()
 
         except Exception as ex:
             raise Exception(ex)
         
+    @classmethod
+    def set_dato(self, db, id_usuario, ciudad, característica, formato, enlace, segundos):
+
+        
+        try:
+            # Crea el cursor
+            cursor = db.cursor()
+
+            # Insercción que se hace en la base de datos. 
+            insercción="INSERT INTO datos (ciudad, característica, formato, enlace, id_usuario, periodicidad) VALUES (%s, %s, %s, %s, %s, %s)"
+            data = (ciudad, característica, formato, enlace, id_usuario, segundos)
+
+            # Ejecución de la insercción
+            cursor.execute(insercción, data)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex)
+        
+
     @classmethod
     def delete_conjunto(self, db, ciudad, conjunto, formato):
         try:
@@ -246,24 +266,71 @@ class ModeloUsuario():
         except Exception as ex:
             raise Exception(ex)
 
+
     @classmethod
-    def set_dato(self, db, id_usuario, ciudad, característica, formato, enlace, segundos):
+    def set_traducción(self, db, original, traducción):
 
         
         try:
-            #Crea el cursor
+            # Crea el cursor
             cursor = db.cursor()
 
-            #Insercción que se hace en la base de datos. 
-            insercción="INSERT INTO datos (ciudad, característica, formato, enlace, id_usuario, periodicidad) VALUES (%s, %s, %s, %s, %s, %s)"
-            data = (ciudad, característica, formato, enlace, id_usuario, segundos)
+            # Insercción que se hace en la base de datos. 
+            insercción="INSERT INTO traducciones (original, traducción) VALUES (%s, %s)"
+            data = (original, traducción)
 
-            #Ejecución de la insercción
+            # Ejecución de la insercción
             cursor.execute(insercción, data)
             db.commit()
 
         except Exception as ex:
-            raise Exception(ex) 
+            raise Exception(ex)
+        
+    @classmethod
+    def delete_traducción(self, db, id):
+        try:
+            # Crea el cursor
+            cursor = db.cursor()
+
+            # DELETE que se hace en la base de datos 
+            delete="DELETE FROM traducciones WHERE id = {}".format(id)
+
+            # Ejecución de la insercción
+            cursor.execute(delete)
+            db.commit()
+
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
+    def get_traducciones(self, db):
+        try:
+            # Crea el cursor
+            cursor = db.cursor()
+
+            # Consulta que se hace en la base de datos. 
+            consulta="SELECT id, original, traducción FROM traducciones"
+
+            # Ejecución de la consulta
+            cursor.execute(consulta)
+
+            # Obtiene las filas resultantes de la consulta
+            rows=cursor.fetchall()
+            traducciones={}
+
+            #Si hay traducciones se extraen en un diccionario
+            if rows != None:
+                for id, original, traducción in rows:
+                    traducciones[id]={original : traducción}
+
+                cursor.close()
+                return traducciones
+            else:
+                cursor.close()
+                return None
+
+        except Exception as ex:
+            raise Exception(ex)
 
     @classmethod
     def get_favoritos_by_id(self, db, id):
