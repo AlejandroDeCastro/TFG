@@ -8,7 +8,7 @@ No se pretende que este apartado se convierta en un capítulo de un libro dedica
 
 \section{Técnica metodológica}
 
-\subsection{Scrum}
+\subsection{Scrum}\label{scrum}
 
 Scrum es un marco de trabajo ágil para la gestión y desarrollo de proyectos complejos, especialmente en el ámbito del software. Se basa en iteraciones cortas y regulares llamadas "sprints," que típicamente duran entre una y cuatro semanas. El objetivo de Scrum es proporcionar un producto potencialmente entregable al final de cada sprint, lo que permite realizar ajustes y mejoras continuas basadas en la retroalimentación entre el equipo. \cite{schwaber2020}
 
@@ -22,7 +22,7 @@ Las herramientas usadas para el proyecto son muy diversas y por ello se han clas
 \subsection{Gestión de tareas}\label{gestión-de-tareas}
 
 \begin{itemize}
-    \item Microsoft Planner\footnote{\url{https://tasks.office.com}}: permite gestionar las tareas del proyecto entre los diferentes \textit{sprints}, fue utilizada desde el inicio del proyecto hasta finales de abril. Se escogió porque es una herramienta muy útil para la gestión de tareas y era la que usaba en ese momento en el trabajo, por lo que tenía ya conocimientos previos sobre ella. Un punto calve para su elección fue el acceso gratuito con la cuenta educativa de la universidad. Después dejó de usarse, ya que GitHub ofrecía una alternativa similar con \textit{issues}, y permitía enlazar las diferentes tareas con los cambios realizados en el código.
+    \item Microsoft Planner\label{planner}\footnote{\url{https://tasks.office.com}}: permite gestionar las tareas del proyecto entre los diferentes \textit{sprints}, fue utilizada desde el inicio del proyecto hasta finales de abril. Se escogió porque es una herramienta muy útil para la gestión de tareas y era la que usaba en ese momento en el trabajo, por lo que tenía ya conocimientos previos sobre ella. Un punto calve para su elección fue el acceso gratuito con la cuenta educativa de la universidad. Después dejó de usarse, ya que GitHub ofrecía una alternativa similar con \textit{issues}, y permitía enlazar las diferentes tareas con los cambios realizados en el código.
     \item GitHub\footnote{\url{https://github.com}}: es una plataforma de desarrollo colaborativo, la cual incluye control de versiones y gestión de proyectos gracias a los \textit{issues}, que eran utilizados para marcar las tareas y su estado durante los distintos \textit{sprints}.
     \item ZenHub\footnote{\url{https://www.zenhub.com/}}: es una herramienta de gestión de tareas muy útil ya que combina características de las dos anteriores y tiene sincronización con GitHub, por lo que el control de versiones del código puede ser muy completo. No fue usada finalmente por ser de pago.
 \end{itemize}
@@ -94,7 +94,7 @@ Se modeló un diseño de ventanas previo al diseño estético o \textit{front-en
 
 Otras opción que se planteó fue Java, y aunque ambas opciones poseen bibliotecas para el desarrollo web y siendo Java un lenguaje del cual poseía más conocimientos, se consideró que Python podría ser mejor opción debido a su simpleza y velocidad a la hora de desarrollar aplicaciones.
 
-\subsubsection{\textit{Flask}}
+\subsubsection{\textit{Flask}}\label{flask}
 \textit{Flask} es un microframework para \textit{Python} que se utiliza para desarrollar aplicaciones web. Proporciona las herramientas y funcionalidades básicas necesarias para crear sitios web y aplicaciones web dinámicas, como manejo de rutas (URL routing), renderizado de plantillas HTML, manejo de formularios, y conexión a bases de datos, entre otras cosas \cite{FlaskSite}. 
 Se decidió usar \textit{Flask} por cumplir con varios de los objetivos principales del proyecto especificados en la sección de objetivos generales \ref{objetivos-generales}, permitiendo al usuario un acceso rápido a cualquier conjunto, solo introduciendo la \textit{url} del conjunto al que desea acceder. También se garantiza un acceso cómodo, ya que al ser mediante una dirección web, no es necesario descargar ningún tipo de aplicación para su uso.
 
@@ -108,6 +108,8 @@ HTML5
 CSS3 
 BOOTSTRAP 
 JavaScript 
+
+\subsection{\textit{Docker}}\label{docker}
 
 
 \subsection{Revisión de código}

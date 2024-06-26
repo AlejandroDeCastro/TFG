@@ -53,7 +53,7 @@ Imagina que estamos desarrollando una aplicación para monitorizar el tráfico e
 En resumen, NGSI-LD nos permite modelar y acceder a información de contexto de manera estructurada, lo que es fundamental para construir aplicaciones inteligentes y conectadas \cite{fiware_ngsi_ld}. Las entidades y atributos definidos en NGSI-LD se utilizan para representar datos en aplicaciones FIWARE.
 
 
-\section{Orion Context Broker}
+\section{Orion Context Broker}\label{orion-context-broker}
 El principal y único componente obligatorio de cualquier plataforma o solución desarrollada con FIWARE es el Orion Context Broker (OCB), el cual aporta una función fundamental en cualquier solución inteligente: administrar la información de contexto, consultarla y actualizarla.
 
 El OCB permite la publicación de información de contexto por entidades, denominadas proveedores de contexto, por ejemplo los sensores, de manera que la información de contexto publicada se encuentre disponible para otras entidades, denominadas consumidores de contexto, las cuales están interesadas en procesar la información, por ejemplo, volviendo al ejemplo anterior de los semáforos (\ref{ejemplo-uso-ngsi}), una aplicación desde la que se quiere consultar el estado de los semáforos y poder así calcular la ruta más corta en un determinado momento. Los proveedores de contexto y los consumidores de contexto pueden ser cualquier aplicación o incluso otros componentes dentro de la plataforma FIWARE.
