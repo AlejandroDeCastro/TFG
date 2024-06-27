@@ -16,49 +16,65 @@ Se establecieron las primeras tareas, como investigar acerca de \textit{FIWARE},
 Durante el Sprint, se terminaron por decidir dichas herramientas, se creó el repositorio y se incorporaron en el planificador de tareas las primeras tareas para empezar con la investigación y profundización en el ámbito del proyecto.
 También se comenzó con la investigación de \textit{Flask}, el \textit{framework} usado para el desarrollo de la aplicación en \textit{Python}. Como finalmente se aplazó la reunión programada para esas dos semanas, se comenzó con una pequeña demo de tratamiento de datos con \textit{Flask}.
 
-\imagen{Sprint 1}{Sprint 1 - Tareas}{.1}
+\imagen{Sprint 1}{Sprint 1 - Tareas}
 
 \subsection{Sprint 2: Investigación \textit{FIWARE} y desarrollo de la aplicación (20/12/2023 - 17/01/2024)}
 
 Durante este Sprint se continuó con la investigación acerca de \textit{FIWARE}, y se trabajó en un menú para el usuario y el tratamiento de datos.
 También se comenzó con una demo paralela con interfaces gráficas, para decidir si finalmente se usaba \textit{Flask} o se desarrollaba la aplicación con interfaces gráficas.
 
-\imagen{Sprint 2}{Sprint 2 - Tareas}{.1}
+\imagen{Sprint 2}{Sprint 2 - Tareas}
 
 \subsection{Sprint 3: Despliegue del servidor OCB (17/01/2024 - 31/01/2024)}
 
 En esta etapa se investigó acerca del funcionamiento de \textit{Docker} y se comenzó con el despliegue del \textit{Orion Context Broker}.
-También se creó un catalogo de datos anexado en la propia tarea del \textit{Planner}, el cual contiene los diferentes enlaces y los formatos que contenían. Aquí se empezó a replantear el uso de del modelo de información \textit{NGSI-LD} \ref{modelo-ngsi-ld}, debido a la falta de conjuntos con ese modelo.
+También se creó un catalogo de datos anexado en la propia tarea del \textit{Planner}, el cual contiene los diferentes enlaces y los formatos que contenían. Aquí se empezó a replantear el uso de del modelo de información \textit{NGSI-LD}, debido a la falta de conjuntos con ese modelo.
 También se desarrollo un \textit{Script} que transformaba ficheros en formato \textit{JSON} al modelo \textit{NGSI-LD}, dicho \textit{script} sería descartado posteriormente por su escasa eficacia y funcionalidad.
 
-\imagen{Sprint 3}{Sprint 3 - Tareas}{.1}
+\imagen{Sprint 3}{Sprint 3 - Tareas}
 
-\subsection{Sprint 4 (31/01/2024 - 14/02/2024)}
+\subsection{Sprint 4: Despliegue total y testeo del \textit{OCB} (31/01/2024 - 14/02/2024)}
+
+Durante esta etapa se siguió con el desarrollo del servidor del \textit{Orion Context Broker} con el apoyo de la herramienta \textit{Postman}, con la cuál se podía ir comprobando que la base de datos está guardando bien las entidades y es capaz de devolverlas.
+
+\imagen{Sprint 4}{Sprint 4 - Tareas}
+
+\subsection{Sprint 5: Simulador (14/02/2024 - 14/03/2024)}
+
+En esta etapa del proyecto afrontamos el problema de la falta de datos con el modelo \textit{NGSI-LD}, desarrollando un \textit{script} que simula un conjunto de datos con este modelo.
+Este simulador representaba un conjunto de \textit{parkings}, cuyos sensores publican cada 30 segundos el estado actual de las entidades (\textit{parkings}) en la base de datos, para ser consultadas desde la aplicación.
+
+Al no tener una caché el \textit{OCB}, no se podía guardar el estado anterior de las entidades, por lo que no se tenía un histórico de las mismas, esta funcionalidad aportaría grandes funcionalidades como análisis de patrones o predecir el estado de las entidades. Por lo tanto, durante esta etapa se investigó acerca de alguna opción que permitiese guardar históricos de las entidades.
+
+Existe una herramienta que forma parte de la plataforma \textit{FIWARE}, llamada \textit{Cygnus}, la cual permite guardar las actualizaciones de las entidades. Esta herramienta se intentó implementar para este caso y por complejidad y poca funcionalidad (ya que es solo un simulador y se puede ir guardando un histórico antes de publicar los datos en el servidor, agilizando así la aplicación), no se terminó de implantar. Pero puede ser útil para futuras versiones.
+
+También durante Sprint se desarrolló una demo de una plantilla de \textit{PowerBi} para dichos datos, para intentar integrarla en aplicación. El inconveniente que se encontró es que \textit{PowerBi} es un software de pago, por lo tanto, no se pudo finalmente integrar en la aplicación.
 
 
-\imagen{Sprint 4}{Sprint 4 - Tareas}{.1}
+\imagen{Sprint 5}{Sprint 5 - Tareas}
 
-\subsection{Sprint 5 14/02/2024 - 14/03/2024}
+\subsection{Sprint 6: Nuevas funcionalidades en la aplicación (14/03/2024 - 24/04/2024)}
 
+Durante esta etapa la aplicación ya estaba cogiendo forma, por lo que se comenzó con los cambios estéticos, para ofrecer al usuario una mayor simpleza y pueda tener una experiencia más amigable con la aplicación.
+También se añadieron algunas funcionalidades como la de los registros en la aplicación, o alguna plantilla más visual con la librería \textit{Dash}.
 
-\imagen{Sprint 5}{Sprint 5 - Tareas}{.1}
+También se investigó e incorporó la manera de autentificar a los usuarios con un \textit{login}.
 
-\subsection{Sprint 6 14/03/2024 - 24/04/2024}
+\imagen{Sprint 6}{Sprint 6 - Tareas}
 
+\subsection{Sprint 7: (24/04/2024 - 15/05/2024)}
 
-\imagen{Sprint 6}{Sprint 6 - Tareas}{.1}
+A partir de aquí se llevó a cabo un cambio de herramienta para la gestión de tareas. Hasta entonces se había estado usando \textit{Microsoft Planner}, pero surgió una alternativa, la cual es mucho más práctica porque permitía enlazar las tareas con los \textit{commits} y tener un mejor control de las versiones y de las tareas. Esta alternativa es ofrecida por \textit{GitHub}, nuestro repositorio y herramienta de control de versiones. Mediantes los \textit{issues} incorporados en dicha herramienta se podía lograr una mejor integración de las herramientas y una simplificación del trabajo muy destacable.
 
-\subsection{Sprint 7 24/04/2024 - 15/05/2024}
+En esta etapa
 
-Cambio de Herramienta
+\subsection{Sprint 8 15/05/2024 - 31/05/2024}
 
-\subsection{Sprint 8 15/05/2024 - 31/01/2024}
+\subsection{Sprint 9: Organización de la aplicación 31/05/2024 - 14/06/2024}
 
-\subsection{Sprint 9 31/05/2024 - 14/06/2024}
+\subsection{Sprint 10: Recta final 14/06/2024 - 25/05/2024}
 
-\subsection{Sprint 10 14/06/2024 - 25/05/2024}
-
-\subsection{Sprint 11 25/05/2024 - 03/05/2024}
+\subsection{Sprint 11: Últimos detalles y anexos (25/05/2024 - 03/05/2024)}
 
 
 
