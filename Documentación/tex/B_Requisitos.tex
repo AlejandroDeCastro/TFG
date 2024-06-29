@@ -2,38 +2,31 @@
 
 \section{Introducción}
 
-Una muestra de cómo podría ser una tabla de casos de uso:
+En este apartado se van a explicar los distintos requisitos de la aplicación, marcados principalmente por los objetivos establecidos \ref{objetivos-generales}.
+Estos requisitos son la base de la aplicación, ya que actúan como guía después de la etapa de análisis para el correcto desarrollo de la aplicación con un enfoque claro y unos objetivos concretos.
 
-% Caso de Uso 1 -> Consultar Experimentos.
-\begin{table}[p]
-	\centering
-	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
-		\toprule
-		\textbf{CU-1}    & \textbf{Ejemplo de caso de uso}\\
-		\toprule
-		\textbf{Versión}              & 1.0    \\
-		\textbf{Autor}                & {Alejandro de Castro} \\
-		\textbf{Requisitos asociados} & RF-xx, RF-xx \\
-		\textbf{Descripción}          & La descripción del CU \\
-		\textbf{Precondición}         & Precondiciones (podría haber más de una) \\
-		\textbf{Acciones}             &
-		\begin{enumerate}
-			\def\labelenumi{\arabic{enumi}.}
-			\tightlist
-			\item Pasos del CU
-			\item Pasos del CU (añadir tantos como sean necesarios)
-		\end{enumerate}\\
-		\textbf{Postcondición}        & Postcondiciones (podría haber más de una) \\
-		\textbf{Excepciones}          & Excepciones \\
-		\textbf{Importancia}          & Alta o Media o Baja... \\
-		\bottomrule
-	\end{tabularx}
-	\caption{CU-1 Nombre del caso de uso.}
-\end{table}
+El anexo está estructurado de la siguiente forma:
+\begin{itemize}
+    \item Objetivos generales: contiene los objetivos generales del proyecto.
+    \item Catálogo de requisitos: se detallan los requisitos funcionales y no funcionales de la aplicación 
+    \item Especificación de requisitos: se muestra una visión general de los casos de uso del sistema y posteriormente se detallan uno a uno.
+\end{itemize}
 
-\section{Objetivos generales}
+\section{Objetivos generales}\label{objetivos-generales}
 
-\section{Catálogo de requisitos}
+Los objetivos generales del proyecto son los siguientes:
+
+\begin{itemize}
+    \item Desarrollar una aplicación que permita a cualquier usuario el acceso a los distintos conjuntos de datos, que los servicios de \textit{IT} hayan publicado en abierto, de manera visual, personalizada y precisa.
+    \item Ofrecer al usuario una experiencia intuitiva y cómoda con la aplicación.
+    \item Permitir al usuario la posibilidad de guardar un histórico de los conjuntos que desee para un posterior análisis de los mismos.
+    \item Contribuir con el crecimiento de la plataforma \textit{FIWARE}.
+
+\end{itemize}
+
+\section{Catálogo de requisitos}\label{catalogo-de-requisitos}
+
+A continuación se detallan los requisitos funcionales y no funcionales de la aplicación.
 
 \subsection{\textbf{Requisitos funcionales}}
 
@@ -79,10 +72,73 @@ Una muestra de cómo podría ser una tabla de casos de uso:
     \begin{itemize}
         \item \textbf{RF-7.1 Gestionar traducciones:} los administradores deben poder añadir o eliminar traducciones de la aplicación, las cuales se aplican a todos los conjuntos.
     \end{itemize}
+
+    \item \textbf{RF-8 Visualizar conjuntos de datos en tiempo real:} el usuario debe poder visualizar un conjunto de datos de una forma funcional y cómoda.
+    \begin{itemize}
+        \item \textbf{RF-8.1 Ordenación de entidades:} los usuarios deben poder ordenar alfabéticamente ascendente y descendente las distintas entidades mostradas en función de los parámetros de las mismas.
+    \end{itemize}
+
+    \item \textbf{RF-9 Reporte de errores:} el usuario debe poder reportar los errores que le impidan tener un uso adecuado de la aplicación.
     
 \end{itemize}
 
+\subsection{\textbf{Requisitos no funcionales}}
+
+\begin{itemize}
+\tightlist
+\item
+    \textbf{RNF-1 Usabilidad:} la aplicación debe ofrecer una experiencia cómoda para el usuario, siendo lo más intuitiva y fácil de entender posible para el usuario.
+\item
+    \textbf{RNF-2 Compatibilidad:} la aplicación debe ser compatible con cualquier navegador en cualquier dispositivo.
+\item
+    \textbf{RNF-3 Disponibilidad:} la aplicación debe estar operativa en todo momento para los usar.
+\item
+    \textbf{RNF-4 Mantenibilidad y Escalabilidad}: la aplicación debe poder sen mantenible y fácilmente modificada por un desarrollador para aplicar futuras mejoras.
+\item
+    \textbf{RNF-5 Rendimiento}: la navegación por la aplicación debe ser ágil y los tiempos de carga de los conjuntos de datos deben ser muy reducidos.
+\item
+    \textbf{RNF-6 Persistencia}: los datos manejados relacionados a los usuarios deben de ser almacenados correctamente y de forma segura.
+\item
+    \textbf{RNF-7 Robustez:} la aplicación debe ser robusta y tener una respuesta y control a todos los errores para garantizar el correcto funcionamiento de la misma de forma continuada
+\end{itemize}
 
 \section{Especificación de requisitos}
 
+Una vez detallados los requisitos funcionales de la aplicación, se detallan a continuación los casos de uso que proporcionan un contexto detallado a los requisitos del apartado anterior. \ref{catalogo-de-requisitos}
 
+Los actores definidos en este sistema son:
+\begin{itemize}
+\tightlist
+\item
+    \textbf{Usuario:} cualquier usuario que se registre en la aplicación.
+\item
+    \textbf{Administrador:} usuario registrado en la aplicación con permisos de administrador, este rol solo puede ser asignado o denegado por otro administrador.
+\end{itemize}
+
+
+% Caso de Uso 1 -> Consultar Experimentos.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-1}    & \textbf{Ejemplo de caso de uso}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & {Alejandro de Castro} \\
+		\textbf{Requisitos asociados} & RF-xx, RF-xx \\
+		\textbf{Descripción}          & La descripción del CU \\
+		\textbf{Precondición}         & Precondiciones (podría haber más de una) \\
+		\textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item Pasos del CU
+			\item Pasos del CU (añadir tantos como sean necesarios)
+		\end{enumerate}\\
+		\textbf{Postcondición}        & Postcondiciones (podría haber más de una) \\
+		\textbf{Excepciones}          & Excepciones \\
+		\textbf{Importancia}          & Alta o Media o Baja... \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-1 Nombre del caso de uso.}
+\end{table}
