@@ -532,3 +532,190 @@ Los actores definidos en este sistema son:
 	\end{tabularx}
 	\caption{CU-8 Visualizar ayuda.}
 \end{table}
+
+% Caso de Uso 9 -> Gestionar usuarios.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-9}    & \textbf{Gestionar usuarios}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & {Alejandro de Castro} \\
+		\textbf{Requisitos asociados} & RF-6 \\
+		\textbf{Descripción}          & Permite al administrador visualizar una lista de los usuarios registrados en el Sistema. \\
+		\textbf{Precondición}         & El administrador debe haber iniciado sesión. \\
+        \textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item Pulsar en el botón gestión de usuarios en la pantalla principal del administrador.
+		\end{enumerate}\\ 
+		\textbf{Postcondición}        & Se mostrará una lista con los usuarios registrados en el Sistema. \\
+		\textbf{Excepciones}          & En caso de que el rol del administrador haya cambiado durante el proceso se le dirigirá a la pantalla de error notificándole que no tiene permisos para modificar usuarios. \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-9 Gestionar usuarios.}
+\end{table}
+
+% Caso de Uso 9.1 -> Modificar usuario.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-9.1}    & \textbf{Modificar usuario}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & {Alejandro de Castro} \\
+		\textbf{Requisitos asociados} & RF-6, RF-6.1 \\
+		\textbf{Descripción}          & Permite al administrador modificar el rol de los usuarios. \\
+		\textbf{Precondición}         & El administrador debe haber iniciado sesión y estar en la pantalla de gestión de usuarios. \\
+        \textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+            \item Seleccionar el usuario de la lista de usuarios.
+			\item Seleccionar el rol al que se desea cambiar.
+		\end{enumerate}\\ 
+		\textbf{Postcondición}        & Se mostrará un mensaje con la confirmación del cambio de rol. \\
+		\textbf{Excepciones}          & En caso de no haber podido realizar la modificación se notificará al administrador. \\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-9.1 Modificar usuario.}
+\end{table}
+
+% Caso de Uso 9.2 -> Eliminar usuario.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-9.2}    & \textbf{Eliminar usuario}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & {Alejandro de Castro} \\
+		\textbf{Requisitos asociados} & RF-6, RF-6.2 \\
+		\textbf{Descripción}          & Permite al administrador eliminar usuarios. \\
+		\textbf{Precondición}         & El administrador debe haber iniciado sesión y estar en la pantalla de gestión de usuarios. \\
+        \textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+            \item Seleccionar el usuario de la lista de usuarios.
+			\item Pulsar el botón eliminar.
+		\end{enumerate}\\ 
+		\textbf{Postcondición}        & El usuario desaparecerá de la lista de usuarios. \\
+		\textbf{Excepciones}          & En caso de no haber podido realizar la eliminación se direccionará al administrador a la pantalla de errores y se le informará del error. \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-9.2 Eliminar usuario.}
+\end{table}
+
+% Caso de Uso 10 -> Eliminar conjunto.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-10}    & \textbf{Eliminar conjunto}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & {Alejandro de Castro} \\
+		\textbf{Requisitos asociados} & RF-6, RF-6.2 \\
+		\textbf{Descripción}          & Permite al administrador eliminar un conjunto. \\
+		\textbf{Precondición}         & El administrador debe haber iniciado sesión y estar en la pantalla de conjuntos. \\
+        \textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+            \item Seleccionar un conjunto de la lista de conjuntos.
+			\item Pulsar el botón eliminar.
+		\end{enumerate}\\ 
+		\textbf{Postcondición}        & El conjunto desaparecerá de la lista de conjuntos. \\
+		\textbf{Excepciones}          & En caso de no haber podido realizar la eliminación del conjunto se direccionará al administrador a la pantalla de errores y se le informará del error. \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-10 Eliminar conjunto.}
+\end{table}
+
+% Caso de Uso 11 -> Gestionar traducciones.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-11}    & \textbf{Gestionar traducciones}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & {Alejandro de Castro} \\
+		\textbf{Requisitos asociados} & RF-7, RF-7.1 \\
+		\textbf{Descripción}          & Permite al administrador visualizar una lista de las traducciones guardadas en el Sistema. \\
+		\textbf{Precondición}         & El administrador debe haber iniciado sesión. \\
+        \textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+			\item Pulsar el botón gestionar traducciones en la pantalla principal del administrador.
+		\end{enumerate}\\ 
+		\textbf{Postcondición}        & Se mostrará al administrador una lista de las traducciones guardadas en el Sistema. \\
+		\textbf{Excepciones}          & En caso de no haber ninguna traducción se mostrará al administrador una lista vacía. \\
+		\textbf{Importancia}          & Alta \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-11 Gestionar traducciones.}
+\end{table}
+
+% Caso de Uso 11.1 -> Añadir traducción.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-11.1}    & \textbf{Añadir traducción}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & {Alejandro de Castro} \\
+		\textbf{Requisitos asociados} & RF-7, RF-7.1 \\
+		\textbf{Descripción}          & Permite al administrador añadir una traducción. \\
+		\textbf{Precondición}         & El administrador debe haber iniciado sesión y estar en la pantalla de gestionar traducciones. \\
+        \textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+            \item Rellenar los campos de palabra original y palabra traducida.
+			\item Pulsar el botón añadir.
+		\end{enumerate}\\ 
+		\textbf{Postcondición}        & Se añadirá la traducción al Sistema y aparecerá en la lista de traducciones. \\
+		\textbf{Excepciones}          & En caso de no haber podido guardar la traducción se direccionará al administrador a la pantalla de errores y se le informará del error. \\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-11.1 Añadir traducción.}
+\end{table}
+
+% Caso de Uso 11.2 -> Eliminar traducción.
+\begin{table}[p]
+	\centering
+	\begin{tabularx}{\linewidth}{ p{0.21\columnwidth} p{0.71\columnwidth} }
+		\toprule
+		\textbf{CU-11.2}    & \textbf{Eliminar traducción}\\
+		\toprule
+		\textbf{Versión}              & 1.0    \\
+		\textbf{Autor}                & {Alejandro de Castro} \\
+		\textbf{Requisitos asociados} & RF-7, RF-7.1 \\
+		\textbf{Descripción}          & Permite al administrador eliminar una traducción. \\
+		\textbf{Precondición}         & El administrador debe haber iniciado sesión y estar en la pantalla de gestionar traducciones. \\
+        \textbf{Acciones}             &
+		\begin{enumerate}
+			\def\labelenumi{\arabic{enumi}.}
+			\tightlist
+            \item Seleccionar una traducción de la lista de traducciones.
+			\item Pulsar el botón eliminar.
+		\end{enumerate}\\ 
+		\textbf{Postcondición}        & La traducción desaparecerá de la lista de traducciones. \\
+		\textbf{Excepciones}          & En caso de no haber podido realizar la eliminación de la traducción se direccionará al administrador a la pantalla de errores y se le informará del error. \\
+		\textbf{Importancia}          & Media \\
+		\bottomrule
+	\end{tabularx}
+	\caption{CU-11.2 Eliminar traducción.}
+\end{table}
