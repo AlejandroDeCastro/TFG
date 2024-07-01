@@ -5,9 +5,10 @@ En este anexo se define la resolución de los objetivos y especificaciones de lo
 
 Su estructura es la siguiente:
 \begin{itemize}
-    \item \textbf{Diseño de datos:} En este aparatado se detalla el modelado de datos de la aplicación mediante el diagrama Entidad-Relación\ref{e-r}, el modelo relacional\ref{modelo-relacional} y el diccionario de datos\ref{diccionario-de-datos} de la aplicación.
-    \item \textbf{Diseño procedimental:}
-    \item \textbf{Diseño arquitectónico:}
+    \item \textbf{Diseño de datos:} se detalla el modelado de datos de la aplicación mediante el diagrama Entidad-Relación \ref{e-r}, el modelo relacional \ref{modelo-relacional} y el diccionario de datos \ref{diccionario-de-datos} de la aplicación.
+    \item \textbf{Diseño procedimental:} se detalla mediante diagramas de secuencia las distintas funcionalidades de la aplicación.
+    \item \textbf{Diseño arquitectónico:} se muestra un diagrama de la arquitectura de la aplicación.
+    \item \textbf{Diseño gráfico:} se muestra el diagrama de interfaces desarrollado como guía para el producto final.
 \end{itemize}
 
 \section{Diseño de datos}
@@ -15,19 +16,126 @@ Su estructura es la siguiente:
 
 Un diagrama entidad-relación (ERD) describe los datos o información de un sistema mediante modelado de sus entidades, atributos y las relaciones entre esas entidades. \cite{Chen1976}
 
+Como se puede ver en el diagrama \ref{fig:E_R}, existen 4 entidades:
+\begin{itemize}
+    \item \textbf{Usuarios:} poseen identificador, usuario, contraseña, nombre completo, favoritos y rol.
+    \item \textbf{Datos:} poseen identificador, ciudad, característica, enlace, formato y periodicidad.
+    \item \textbf{Registros:} poseen identificador, ciudad, característica, formato, periodicidad y \textit{pid}.
+    \item \textbf{Traducciones:} poseen identificador, usuario, contraseña, nombre completo, favoritos y rol.
+\end{itemize}
+
+Usuarios se relaciona con Datos con \textit{id usuario}, guardado en Datos. Un usuario puede añadir ninguno o N conjuntos de datos, por lo tanto, cada conjunto de datos almacenado debe tener como mínimo y máximo un \textit{id usuario} para identificar quién guardó ese conjunto.
+
+Usuarios se relaciona con Registros con \textit{id usuario}, guardado en Registros. Un usuario puede tener ninguno o N registros para él, por lo tanto, cada registro almacenado debe tener como mínimo y máximo un \textit{id usuario} para identificar para quién es dicho registro.
+
+Traducciones no tiene relación con ninguna tabla, ya que solo pueden escribir administradores en esa tabla, por lo tanto, no es interesante guardar el \textit{id usuario} que añadió la traducción en cuestión, ya que los administradores son un número muy reducido de usuarios y de confianza. Y el número de traducciones es muy elevado por lo que se guardaría información repetida e irrelevante de manera muy recurrente.
+
+\imagen{E_R}{Diagrama Entidad-Relación}
+
+
 \subsection{Modelo Relacional}\label{modelo-relacional}
 
 Un modelo relacional es una forma de estructurar y consultar datos en una base de datos. En este modelo, los datos se organizan en tablas (o relaciones), donde cada tabla está compuesta por filas (tuplas) y columnas (atributos). \cite{Codd1970}
+
+El modelo relacional de esta aplicación lo podemos observar en la imagen \ref{fig:ModeloRelacional}
+
+\imagen{ModeloRelacional}{Modelo Relacional}
+
 
 \subsection{Diccionario de datos}\label{diccionario-de-datos}
 
 Un diccionario de datos es una herramienta crucial en la gestión de bases de datos que almacena definiciones y descripciones de los elementos de datos utilizados en el sistema. Proporciona una visión centralizada y coherente de los datos, incluyendo detalles sobre los nombres, tipos, formatos, y relaciones entre los elementos de datos. \cite{Kent1983}
 
+La tabla~\ref{tabla-dic-usuarios} contiene la información de la tabla de Usuarios.
 
+\begin{table}
+	\scalebox{0.80}{
+		\begin{tabular}{@{}p{10em} p{6em} p{6em} p{20em}@{}}
+			\toprule
+			\textbf{Nombre} & \textbf{Tipo} & \textbf{Columna} & \textbf{Descripción}\\
+			\midrule
+			\texttt{\textbf{\underline{id}}} & \texttt{SMALLINT(3)} & \texttt{\textbf{\underline{PK}}} & Identificador. Generado automáticamente. \\
+			\texttt{usuario} &  \texttt{VARCHAR(20)} & \texttt{NOT NULL} & Nombre de usuario proporcionado en el registro.\\
+			\texttt{contraseña} &  \texttt{CHAR(255)} & \texttt{NOT NULL} & Contraseña del usuario cifrada.\\
+			\texttt{nombre\_completo} & \texttt{VARCHAR(50)} & \texttt{NOT NULL} & Nombre completo del usuario.\\
+			\texttt{favoritos} & \texttt{text} & \texttt{NOT NULL} & Lista de conjuntos favoritos del usuario separada por comas. \\
+			\texttt{rol} & \texttt{VARCHAR(15)} & \texttt{NOT NULL} & Rol del usuario. \\
+			\bottomrule
+		\end{tabular}
+	}
+	\caption{Diccionario de Datos - Tabla Usuarios.}
+    \label{tabla-dic-usuarios}
+\end{table}
 
+La tabla~\ref{tabla-dic-datos} contiene la información de la tabla de Datos.
+\begin{table}
+	\scalebox{0.80}{
+		\begin{tabular}{@{}p{10em} p{6em} p{6em} p{20em}@{}}
+			\toprule
+			\textbf{Nombre} & \textbf{Tipo} & \textbf{Columna} & \textbf{Descripción}\\
+			\midrule
+			\texttt{\textbf{\underline{id}}} & \texttt{SMALLINT(6)} & \texttt{\textbf{\underline{PK}}} & Identificador. Generado automáticamente. \\
+			\texttt{ciudad} &  \texttt{VARCHAR(25)} & \texttt{NOT NULL} & Ciudad en la que se encuentra el conjunto de datos.\\
+			\texttt{característica} &  \texttt{VARCHAR(100)} & \texttt{NOT NULL} & Nombre del conjunto de datos.\\
+			\texttt{enlace} &  \texttt{VARCHAR(10000)} & \texttt{NOT NULL} & Enlace al conjunto de datos.\\
+			\texttt{id\_usuario} & \texttt{SMALLINT(3)} & \texttt{NOT NULL} & Identificador del usuario que ha añadido el conjunto.\\
+			\texttt{formato} & \texttt{VARCHAR(8)} & \texttt{NOT NULL} & Formato del conjunto de datos. \\
+			\texttt{periodicidad} & \texttt{INTEGER(250)} & \texttt{NOT NULL} & Periodicidad de actualización del conjunto de datos en segundos. \\
+			\bottomrule
+		\end{tabular}
+	}
+	\caption{Diccionario de Datos - Tabla Datos.}
+    \label{tabla-dic-datos}
+\end{table}
+
+La tabla~\ref{tabla-dic-registros} contiene la información de la tabla de Registros.
+\begin{table}
+	\scalebox{0.80}{
+		\begin{tabular}{@{}p{10em} p{6em} p{6em} p{20em}@{}}
+			\toprule
+			\textbf{Nombre} & \textbf{Tipo} & \textbf{Columna} & \textbf{Descripción}\\
+			\midrule
+			\texttt{\textbf{\underline{id}}} & \texttt{SMALLINT(3)} & \texttt{\textbf{\underline{PK}}} & Identificador. Generado automáticamente. \\
+			\texttt{ciudad} &  \texttt{VARCHAR(25)} & \texttt{NOT NULL} & Ciudad en la que se encuentra el conjunto de datos.\\
+			\texttt{característica} &  \texttt{VARCHAR(100)} & \texttt{NOT NULL} & Nombre del conjunto de datos.\\
+			\texttt{id\_usuario} & \texttt{SMALLINT(3)} & \texttt{NOT NULL} & Identificador del usuario al que pertenece el registro.\\
+			\texttt{formato} & \texttt{VARCHAR(8)} & \texttt{NOT NULL} & Formato del conjunto de datos. \\
+			\texttt{periodicidad} & \texttt{INTEGER(250)} & \texttt{NOT NULL} & Periodicidad de captura de datos. \\
+            \texttt{pid} &  \texttt{INTEGER(6)} & \texttt{NOT NULL} & Identificación del proceso que realiza captura de datos.\\
+			\bottomrule
+		\end{tabular}
+	}
+	\caption{Diccionario de Datos - Tabla Registros.}
+    \label{tabla-dic-registros}
+\end{table}
+
+La tabla~\ref{tabla-dic-traducciones} contiene la información de la tabla de Traducciones.
+\begin{table}
+	\scalebox{0.80}{
+		\begin{tabular}{@{}p{10em} p{6em} p{6em} p{20em}@{}}
+			\toprule
+			\textbf{Nombre} & \textbf{Tipo} & \textbf{Columna} & \textbf{Descripción}\\
+			\midrule
+			\texttt{\textbf{\underline{id}}} & \texttt{SMALLINT(3)} & \texttt{\textbf{\underline{PK}}} & Identificador. Generado automáticamente. \\
+			\texttt{original} &  \texttt{VARCHAR(100)} & \texttt{NOT NULL} & Palabra o frase a traducir.\\
+            \texttt{traducción} &  \texttt{VARCHAR(100)} & \texttt{NOT NULL} & Palabra o frase traducida.\\
+			\bottomrule
+		\end{tabular}
+	}
+	\caption{Diccionario de Datos - Tabla Traducciones.}
+    \label{tabla-dic-traducciones}
+\end{table}
 
 \section{Diseño procedimental}
 
+Diagrama de secuencias
+
+
 \section{Diseño arquitectónico}
 
+Diseño arquitectura aplicación
 
+\section{Diseño gráfico}
+\subsection{Diagrama de interfaces}
+
+Diagrama de 
