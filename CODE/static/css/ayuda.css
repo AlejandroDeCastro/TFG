@@ -1,0 +1,66 @@
+body {
+    background-color: #e0f7fa; /* Azul muy clarito */
+}
+
+/* Estilos personalizados */
+.titulo-cuadro {
+    font-size: xx-large;
+    text-align: center;
+    padding-top: 2vh;
+    background-color: #0082e6;
+    color: white;
+}
+
+.cuadro-faq, .cuadro-enlaces {
+    background-color: #b3e5fc; /* Color de fondo más claro */
+    border: 2px solid #333;
+}
+
+    /* Estilo del cuadro de FAQ */
+    .cuadro-faq .accordion-button {
+        background-color: #ccffcc; /* Color de fondo más claro */
+        color: #333;
+    }
+
+        .cuadro-faq .accordion-button:focus {
+            border-color: #80bdff;
+            box-shadow: none;
+        }
+
+        .cuadro-faq .accordion-button:not(.collapsed) {
+            color: #333;
+            background-color: #ccffcc; /* Color de fondo más claro */
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+        }
+
+/* Enlaces de interés */
+.icon-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.icono-enlace {
+    text-decoration: none;
+    color: #333;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+    .icono-enlace i {
+        font-size: 4rem;
+        margin-bottom: 10px;
+    }
+
+    .icono-enlace span {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .icono-enlace:hover {
+        color: #007bff;
+    }

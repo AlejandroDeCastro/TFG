@@ -943,6 +943,10 @@ def actualizar_rol():
         return jsonify({"success": True})
     return jsonify({"success": False}), 400
 
+@server.route('/ayuda')
+def mostrarAyuda():
+    return render_template('ayuda.html')
+
 @server.route('/error')
 def error():
     mensaje_error = request.args.get('mensaje', 'Ha ocurrido un error.')

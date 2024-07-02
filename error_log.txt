@@ -15,3 +15,5 @@
 2024-06-25 12:47:40.487012 - Reported Error: El conjunto de datos Parkings de Lorca no está accesible
 2024-06-25 14:07:41.964463 - Reported Error: El conjunto de datos Parkings de Barcelona no está accesible
 2024-06-25 14:12:04.277522 - Reported Error: El conjunto de datos Parkings de Barcelona no está accesible
+2024-06-25 16:55:02.638915 - Reported Error: Para gestionar usuarios debes solicitar permisos de administrador
+2024-06-25 16:55:46.408322 - Reported Error: El conjunto de datos Parkings de Lorca no está accesible
