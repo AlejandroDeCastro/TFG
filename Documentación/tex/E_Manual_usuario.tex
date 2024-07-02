@@ -17,72 +17,80 @@ El usuario no tiene que descargar
 
 
 \subsection{Iniciar sesión}\label{inicio-sesión}
-Cuando el usuario entra en el enlace de la aplicación, lo primero que se le muestra es la pantalla de inicio de sesión donde debe introducir su usuario y contraseña.
-IMAGEN DE LOGIN
+Cuando el usuario entra en el enlace de la aplicación, lo primero que se le muestra es la pantalla de inicio \ref{fig:Pantalla - Login} de sesión donde debe introducir su usuario y contraseña.
+\imagen{Pantalla - Login}{Pantalla de inicio de sesión}
 
-En caso de introducir mal la contraseña se le notificará al usuario con un mensaje de error.
-IMAGEN CONTRASEÑA MAL
+En caso de introducir mal la contraseña se le notificará al usuario con un mensaje de error como se muestra en la imagen \ref{fig:Pantalla - Login - Contraseña incorrecta}.
+\imagen{Pantalla - Login - Contraseña incorrecta}{Mensaje de contraseña incorrecta}
 
-Y en caso de no existir un usuario con ese nombre en la base de datos se le notificará también con un error.
-IMAGEN USUARIO NO EXISTE
+Y en caso de no existir un usuario con ese nombre en la base de datos se le notificará también con un error como el que se muestra en la imagen \ref{fig:Pantalla - Login - Usuario no encontrado}.
+\imagen{Pantalla - Login - Usuario no encontrado}{Mensaje de usuario no encontrado}
 
 
 \subsection{Crear una cuenta}\label{crear-cuenta}
 
-Si el usuario no tiene una cuenta en la aplicación puede crear una pulsando en el enlace que dice "CREAR CUENTA", será redirigido a una pantalla IMAGEN REGISTRO donde puede crear una cuenta introduciendo un nombre de usuario, nombre completo y la contraseña dos veces.
+Si el usuario no tiene una cuenta en la aplicación puede crear una pulsando en el enlace que dice "¿No tiene cuenta aún? Créala aquí", será redirigido a la pantalla  \ref{fig:Pantalla - Crear cuenta}, donde puede crear una cuenta introduciendo un nombre de usuario, nombre completo y la contraseña dos veces.
+\imagen{Pantalla - Crear cuenta}{Pantalla de registro}
 
-IMAGEN REGISTRO
-
-En caso de existir un usuario con ese nombre de usuario se le notificará.
-
-IMAGEN USUARIO REPETIDO
+En caso de existir un usuario con ese nombre de usuario se le notificará con un mensaje como el de la imagen \ref{fig:Pantalla - Crear cuenta - Usuario existe}.
+\imagen{Pantalla - Crear cuenta - Usuario existe}{Mensaje usuario ya registrado}
 
 Y en el caso de no coincidir las dos contraseñas también se le notificará al usuario.
+\imagen{Pantalla - Crear cuenta - Contraseñas no coinciden}{Mensaje contraseñas no coinciden}
 
-IMAGEN CONTRASEÑA NO COINCIDEN
+Una vez introducido los datos correctamente, el usuario solo tiene que pulsar el botón "Registrar" y la cuenta será creada. Posteriormente será redirigido la pantalla de login \ref{fig:Pantalla - Login} donde deberá introducir sus datos para continuar.
 
 
 \subsection{Pantalla principal}\label{home}
-
-Una vez introducido los datos correctamente, el usuario solo tiene que pulsar el botón "CREAR CUENTA" y la cuenta será creada. Posteriormente será redirigido la pantalla de login IMAGEN LOGIN donde deberá introducir sus datos para continuar.
-
-Una vez iniciada sesión en la aplicación el usuario será redirigido a la pantalla principal, la cual varía según el rol del usuario. Si se acaba de crear la cuenta por defecto será un usuario estándar y la pantalla que verá será la siguiente:
-IMAGEN HOME
+Una vez iniciada sesión en la aplicación el usuario será redirigido a la pantalla principal, la cual varía según el rol del usuario. Si se acaba de crear la cuenta por defecto será un usuario estándar y la pantalla que verá será la representada en la imagen \ref{fig:Pantalla - Home}:
+\imagen{Pantalla - Home}{Pantalla principal para un usuario estándar}
 
 Por el contrario, si es un usuario con permiso de administrador, esta será la pantalla principal para ese usuario:
-IMAGEN HOME ADMIN
+\imagen{Pantalla - Home - Administrador}{Pantalla principal para un usuario administrador}
 
 En esta pantalla principal ambos usuarios pueden ver en la parte inferior izquierda los conjuntos que tienen marcados en favoritos y acceder a ellos pulsando sobre ellos o seleccionando la ciudad y el conjunto en el cuadrado inferior de la parte derecha de la pantalla. Ambas opciones redirigirán al usuario a la pantalla de visualizar conjunto \ref{visualizar-conjunto}.
 
-Los usuarios estándar podrán consultar dentro del recuadro verde los registros que tienen en ese momento guardando.
-IMAGEN AMPLIADA REGISTROS.
+Los usuarios estándar podrán consultar dentro del recuadro verde que como se muestra en la imagen \ref{fig:Pantalla - Home - Registros} los registros que tienen en ese momento guardando.
+\imagen{Pantalla - Home - Registros}{Cuadro de registros de la pantalla principal}
 
-Y los usuarios con rol de administrador tendrán en su defecto un menú con tres opciones que redirigirán al usuario a la interfaz de gestión de usuarios \ref{gestión-usuarios}, la lista de conjuntos disponibles \ref{consultar-conjuntos} o la pantalla de gestión de traducciones \ref{gestión-traducciones}.
+Los usuarios con rol de administrador tendrán en su defecto un menú con tres opciones que redirigirán al usuario a la interfaz de gestión de usuarios \ref{gestión-usuarios}, la lista de conjuntos disponibles \ref{consultar-conjuntos} o la pantalla de gestión de traducciones \ref{gestión-traducciones}, como se muestra en la imagen \ref{fig:Pantalla - Home - Administrador - Opciones}.
+\imagen{Pantalla - Home - Administrador - Opciones}{Opciones del administrador en la pantalla principal}
 
-
-Ambos tipos de usuarios, en la barra de navegación, podrán consultar conjuntos disponibles \ref{consultar-conjuntos} pulsando en el botón "CONJUNTOS", consultar los registros que tienen actualmente guardando, pulsando en el botón "REGISTROS" \ref{consultar-registros}, consultar la pantalla de ayuda \ref{consulta-ayuda} o cerrar la sesión pulsando el botón en rojo "CERRAR SESIÓN". Si el usuario selecciona esta opción será redirigido a la pantalla de inicio de sesión \ref{inicio-sesión}
+Ambos tipos de usuarios, en la barra de navegación, podrán consultar conjuntos disponibles \ref{consultar-conjuntos} pulsando en el botón "Conjuntos", consultar los registros que tienen actualmente guardando, pulsando en el botón "Registros" \ref{consultar-registros}, consultar la pantalla de ayuda \ref{consulta-ayuda} con el botón "Ayuda" o cerrar la sesión pulsando el botón en rojo "Cerrar sesión". Si el usuario selecciona esta opción será redirigido a la pantalla de inicio de sesión \ref{inicio-sesión}
 
 \subsection{Consultar los conjuntos de datos disponibles}\label{consultar-conjuntos}
+Desde la pantalla \ref{fig:Pantalla - Conjuntos} el usuario puede consultar una lista con los conjuntos disponibles en la aplicación y acceder a ellos pulsando en el botón "consultar" azul de cada conjunto. Será direccionado al la visualización del conjunto seleccionado \ref{visualizar-conjunto}.
+\imagen{Pantalla - Conjuntos}{Pantalla que mmuestra al usuario todos los conjuntos disponibles}
 
-IMAGEN CONJUNTOS
+También el usuario puede ordenar de manera ascendente o descendente los conjuntos en función de la ciudad, el tipo de conjunto o el formato, pulsando en el nombre del campo en el cabecero de la tabla.
 
-Desde esta pantalla el usuario puede consultar una lista con los conjuntos disponibles en la aplicación y acceder a ellos pulsando en el botón consultar azul de cada conjunto. Será direccionado al la visualización del conjunto seleccionado \ref{visualizar-conjunto}.
+Si desea añadir un conjunto el usuario solo tiene que rellenar los campos de la parte superior de  la pantalla y posteriormente pulsar el botón "Añadir", y automáticamente se añadirá el conjunto a la lista.
 
-También el usuario puede ordenar de manera ascendente o descendente los conjuntos en función de la ciudad, el tipo de conjunto...MAS, pulsando en el nombre del campo en el cabecero de la tabla.
-
-Si desea añadir un conjunto el usuario solo tiene que rellenar los campos de la parte superior de  la pantalla y posteriormente pulsar el botón "AÑADIR", y automáticamente se añadirá el conjunto a la lista.
-
-Los administradores tendrán un botón rojo "Eliminar" en cada conjunto. Esto permite a los adminitradores elminar el conjunto que seleccionen.
-IMAGEN CONJUNTOS ADMIN
+Los administradores tienen un botón rojo "Eliminar" en cada conjunto. Esto permite a los administradores eliminar el conjunto que seleccionen, podemos observar la pantalla de los administradores en \ref{fig:Pantalla - Conjuntos - Administrador}.
+\imagen{Pantalla - Conjuntos - Administrador}{Pantalla de conjuntos de un administrador}
 
 \subsection{Consultar registros}\label{consultar-registros}
+Desde la pantalla de visualizar registros \ref{fig:Pantalla - Registros}, se pueden ver todos los registros que ese usuario tiene en ese momento.
+También, se pueden añadir nuevos registros seleccionando el conjunto, añadiendo una periodicidad y pulsando en el botón "Guardar". Automáticamente se comenzará con la captura de datos.
+Por último también se pueden eliminar los registros que el usuario quiera dejar de capturar pulsando el botón "Eliminar"
 
 \subsection{Visualizar conjunto en tiempo real}\label{visualizar-conjunto}
 
+
+
 \subsection{Gestionar traducciones}\label{gestión-traducciones}
+Un administrador desde la pantalla \ref{fig:Pantalla - Traducciones} puede consultar todas las traducciones que existen en la aplicación. Estas traducciones son aplicadas a los campos de los conjuntos de datos.
+El administrador puede añadir nuevas traducciones rellenando los campos "Campo original" y "Traducción" y pulsando el botón "Añadir".
+\imagen{Pantalla - Traducciones}{Pantalla de gestión de traducciones}
 
 \subsection{Gestionar usuarios}\label{gestión-usuarios}
+Desde la pantalla de gestión de usuarios \ref{fig:Pantalla - Traducciones} un administrador puede consultar los usuarios registrados en la aplicación, modificar su rol mediante el desplegable del campo "Rol" o eliminarlo desde el botón de "Eliminar".
+\imagen{Pantalla - Usuarios}{Pantalla de gestión de usuarios}
 
 \subsection{Ayuda}\label{consulta-ayuda}
+Gracias a la pantalla de ayuda \ref{fig:Pantalla - Ayuda}, se pueden consultar las preguntas más frecuentes realizadas por otros usuarios y sus respuestas. También se puede acceder en el apartado de enlaces de interés a una guía elaborada con la herramienta \textit{GitBook}\footnote{\url{https://www.gitbook.com}}, al repositorio del código de la aplicación en \textit{GitBook}\footnote{\url{https://www.github.com}} o abrir un correo nuevo con un administrador como destinatario para contactar con él.
+\imagen{Pantalla - Ayuda}{Pantalla de ayuda}
 
 \subsection{Errores}\label{errores}
+Si en algún punto de la aplicación algo no saliese como debería, se mostraría la pantalla de error \ref{fig:Pantalla - Error}, en la cuál se puede observar cual ha sido el error y reportarlo si se desea, también el usuario puede volver directamente la pantalla principal \ref{fig:Pantalla - Home}
+\imagen{Pantalla - Error}{Pantalla de error}
