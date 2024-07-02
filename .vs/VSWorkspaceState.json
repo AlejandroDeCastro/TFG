@@ -3,10 +3,11 @@
     "",
     "\\CODE",
     "\\CODE\\static",
-    "\\CODE\\static\\css",
     "\\CODE\\static\\js",
     "\\CODE\\templates",
     "\\CODE\\templates\\admin",
+    "\\Documentación",
+    "\\Documentación\\tex",
     "\\Registros"
   ],
   "SelectedNode": "\\CODE\\app.py",
