@@ -1,11 +1,88 @@
 \apendice{Documentación de usuario}
 
 \section{Introducción}
+En este anexo
+
 
 \section{Requisitos de usuarios}
 
+Navegador
+
 \section{Instalación}
+
+La aplicación al ser desplegada carece de 
+El usuario no tiene que descargar
 
 \section{Manual del usuario}
 
 
+\subsection{Iniciar sesión}\label{inicio-sesión}
+Cuando el usuario entra en el enlace de la aplicación, lo primero que se le muestra es la pantalla de inicio de sesión donde debe introducir su usuario y contraseña.
+IMAGEN DE LOGIN
+
+En caso de introducir mal la contraseña se le notificará al usuario con un mensaje de error.
+IMAGEN CONTRASEÑA MAL
+
+Y en caso de no existir un usuario con ese nombre en la base de datos se le notificará también con un error.
+IMAGEN USUARIO NO EXISTE
+
+
+\subsection{Crear una cuenta}\label{crear-cuenta}
+
+Si el usuario no tiene una cuenta en la aplicación puede crear una pulsando en el enlace que dice "CREAR CUENTA", será redirigido a una pantalla IMAGEN REGISTRO donde puede crear una cuenta introduciendo un nombre de usuario, nombre completo y la contraseña dos veces.
+
+IMAGEN REGISTRO
+
+En caso de existir un usuario con ese nombre de usuario se le notificará.
+
+IMAGEN USUARIO REPETIDO
+
+Y en el caso de no coincidir las dos contraseñas también se le notificará al usuario.
+
+IMAGEN CONTRASEÑA NO COINCIDEN
+
+
+\subsection{Pantalla principal}\label{home}
+
+Una vez introducido los datos correctamente, el usuario solo tiene que pulsar el botón "CREAR CUENTA" y la cuenta será creada. Posteriormente será redirigido la pantalla de login IMAGEN LOGIN donde deberá introducir sus datos para continuar.
+
+Una vez iniciada sesión en la aplicación el usuario será redirigido a la pantalla principal, la cual varía según el rol del usuario. Si se acaba de crear la cuenta por defecto será un usuario estándar y la pantalla que verá será la siguiente:
+IMAGEN HOME
+
+Por el contrario, si es un usuario con permiso de administrador, esta será la pantalla principal para ese usuario:
+IMAGEN HOME ADMIN
+
+En esta pantalla principal ambos usuarios pueden ver en la parte inferior izquierda los conjuntos que tienen marcados en favoritos y acceder a ellos pulsando sobre ellos o seleccionando la ciudad y el conjunto en el cuadrado inferior de la parte derecha de la pantalla. Ambas opciones redirigirán al usuario a la pantalla de visualizar conjunto \ref{visualizar-conjunto}.
+
+Los usuarios estándar podrán consultar dentro del recuadro verde los registros que tienen en ese momento guardando.
+IMAGEN AMPLIADA REGISTROS.
+
+Y los usuarios con rol de administrador tendrán en su defecto un menú con tres opciones que redirigirán al usuario a la interfaz de gestión de usuarios \ref{gestión-usuarios}, la lista de conjuntos disponibles \ref{consultar-conjuntos} o la pantalla de gestión de traducciones \ref{gestión-traducciones}.
+
+
+Ambos tipos de usuarios, en la barra de navegación, podrán consultar conjuntos disponibles \ref{consultar-conjuntos} pulsando en el botón "CONJUNTOS", consultar los registros que tienen actualmente guardando, pulsando en el botón "REGISTROS" \ref{consultar-registros}, consultar la pantalla de ayuda \ref{consulta-ayuda} o cerrar la sesión pulsando el botón en rojo "CERRAR SESIÓN". Si el usuario selecciona esta opción será redirigido a la pantalla de inicio de sesión \ref{inicio-sesión}
+
+\subsection{Consultar los conjuntos de datos disponibles}\label{consultar-conjuntos}
+
+IMAGEN CONJUNTOS
+
+Desde esta pantalla el usuario puede consultar una lista con los conjuntos disponibles en la aplicación y acceder a ellos pulsando en el botón consultar azul de cada conjunto. Será direccionado al la visualización del conjunto seleccionado \ref{visualizar-conjunto}.
+
+También el usuario puede ordenar de manera ascendente o descendente los conjuntos en función de la ciudad, el tipo de conjunto...MAS, pulsando en el nombre del campo en el cabecero de la tabla.
+
+Si desea añadir un conjunto el usuario solo tiene que rellenar los campos de la parte superior de  la pantalla y posteriormente pulsar el botón "AÑADIR", y automáticamente se añadirá el conjunto a la lista.
+
+Los administradores tendrán un botón rojo "Eliminar" en cada conjunto. Esto permite a los adminitradores elminar el conjunto que seleccionen.
+IMAGEN CONJUNTOS ADMIN
+
+\subsection{Consultar registros}\label{consultar-registros}
+
+\subsection{Visualizar conjunto en tiempo real}\label{visualizar-conjunto}
+
+\subsection{Gestionar traducciones}\label{gestión-traducciones}
+
+\subsection{Gestionar usuarios}\label{gestión-usuarios}
+
+\subsection{Ayuda}\label{consulta-ayuda}
+
+\subsection{Errores}\label{errores}
