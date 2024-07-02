@@ -1,20 +1,22 @@
 \apendice{Documentación de usuario}
 
 \section{Introducción}
-En este anexo
-
+En este anexo se detalla la información más relevante para el usuario.
+\begin{itemize}
+    \item \textbf{Requisitos de usuario:} se detalla los requisitos tanto de \textit{software} como de \textit{hardware} que el usuario debe considerar para la utilización de la aplicación.
+    \item \textbf{Instalación:} se detalla el proceso de instalación que debe seguir el usuario para poder utilizar la aplicación.
+    \item \textbf{Manual de usuario:} se ofrece una guía ilustrada de utilización de la aplicación con las diferentes funcionalidades y su utilización.
+\end{itemize}
 
 \section{Requisitos de usuarios}
-
-Navegador
+Como se ha mencionado en la sección de objetivos generales \ref{objetivos-generales}, uno de los objetivos principales del proyecto es el acceso rápido y sencillo a los datos, por lo tanto, se ha buscado la forma de que el usuario pueda acceder a la aplicación usando el menor número de recursos posibles y de tiempo. Por ello, el acceso a la aplicación es mediante \textit{url}.
+Esto permite que el usuario solo necesite el acceso a una conexión a internet y un navegador, el que él desee.
 
 \section{Instalación}
+Continuando en la línea de cumplir los objetivos de acceso rápido y sencillo a los conjuntos de datos, la aplicación no precisa de instalación. Una vez desplegada en un servidor, el acceso se realiza mediante una \textit{url}, facilitando así al usuario el acceso a la aplicación sin necesidad de descargar e instalar ningún tipo de software.
 
-La aplicación al ser desplegada carece de 
-El usuario no tiene que descargar
 
 \section{Manual del usuario}
-
 
 \subsection{Iniciar sesión}\label{inicio-sesión}
 Cuando el usuario entra en el enlace de la aplicación, lo primero que se le muestra es la pantalla de inicio \ref{fig:Pantalla - Login} de sesión donde debe introducir su usuario y contraseña.
@@ -72,11 +74,17 @@ Los administradores tienen un botón rojo "Eliminar" en cada conjunto. Esto perm
 \subsection{Consultar registros}\label{consultar-registros}
 Desde la pantalla de visualizar registros \ref{fig:Pantalla - Registros}, se pueden ver todos los registros que ese usuario tiene en ese momento.
 También, se pueden añadir nuevos registros seleccionando el conjunto, añadiendo una periodicidad y pulsando en el botón "Guardar". Automáticamente se comenzará con la captura de datos.
-Por último también se pueden eliminar los registros que el usuario quiera dejar de capturar pulsando el botón "Eliminar"
+El usuario también puede descargar el registro que desee desde el botón "Descargar".
+Por último también se pueden eliminar los registros que el usuario quiera dejar de capturar pulsando el botón "Eliminar".
+\imagen{Pantalla - Registros}{Pantalla de visualización de los registros del usuario}
 
 \subsection{Visualizar conjunto en tiempo real}\label{visualizar-conjunto}
+En la pantalla de visualizar un conjunto de datos \ref{fig:Pantalla - Conjunto 1} se puede apreciar un mapa con los distintas entidades del conjunto, y en la parte derecha un selector de campos, los cuales se pueden ir añadiendo o quitando del \textit{tooltip} del mapa.
+\imagen{Pantalla - Conjunto 1}{Pantalla de visualización de un conjunto de datos en un mapa}
 
-
+Debajo del mapa como podemos ver en la imagen \ref{fig:Pantalla - Conjunto 2}, se pueden ver todas las entidades en formato tabla y ordenarlas en orden alfabético según el campo deseado. 
+Por último en la parte inferior se tiene la posibilidad de añadir o quitar el conjunto de favoritos pulsando en el corazón rojo.
+\imagen{Pantalla - Conjunto 2}{Pantalla de visualización de un conjunto de datos en una tabla}
 
 \subsection{Gestionar traducciones}\label{gestión-traducciones}
 Un administrador desde la pantalla \ref{fig:Pantalla - Traducciones} puede consultar todas las traducciones que existen en la aplicación. Estas traducciones son aplicadas a los campos de los conjuntos de datos.
