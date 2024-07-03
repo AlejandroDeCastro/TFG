@@ -54,12 +54,13 @@ for ciudad in diccionarioDatosDisponibles:
 server = Flask(__name__)
 server.secret_key = '$$'
 
+
 #Inicializa la aplicación Dash
 vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/ValenciaParkings/')
 vistaParkingValencia.layout = html.Div([html.H1('BB')])
 
 #Protección CSRF 
-#csrf = CSRFProtect()
+csrf = CSRFProtect(server)
 
 #Gestor de autentificaciones
 login_manager=LoginManager(server)
@@ -1225,5 +1226,6 @@ if __name__ == "__main__":
     
     iniciar_demonios(db)
     #csrf.init_app(server)
+    
     server.run()
     

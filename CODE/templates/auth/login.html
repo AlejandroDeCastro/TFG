@@ -8,6 +8,8 @@
 
 {% block body %}
 <form class="form-signin" action="/login" method="POST">
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <img class="mb-4" src="{{ url_for('static', filename='img/logo.jpg') }}" alt="" width="300" height="300">
 
     {% with messages = get_flashed_messages() %}
