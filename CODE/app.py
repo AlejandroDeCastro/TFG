@@ -59,7 +59,7 @@ vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/Va
 vistaParkingValencia.layout = html.Div([html.H1('BB')])
 
 #Protección CSRF 
-#csrf = CSRFProtect()
+csrf = CSRFProtect()
 
 #Gestor de autentificaciones
 login_manager=LoginManager(server)
@@ -1348,7 +1348,6 @@ def updateGraph_pie(value):
 
 
 if __name__ == "__main__":
-    #csrf.init_app(server)
     server.register_error_handler(404, pagina_no_encontrada)
     server.register_error_handler(401, registro_requerido)
     
@@ -1356,5 +1355,6 @@ if __name__ == "__main__":
     #proceso.daemon=True
     #proceso.start()
     iniciar_demonios(db)
+    csrf.init_app(server)
     server.run()
     
