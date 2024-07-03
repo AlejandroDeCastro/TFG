@@ -1,0 +1,110 @@
+{% extends './layout.html' %}
+
+{% block title %}Evolución{% endblock %}
+
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+{% block navbar %}
+<nav>
+    <label class="logo">SmartCities</label>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+        <i class="fa fa-bars"></i>
+    </label>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('mostrarConjuntos') }}">Conjuntos</a></li>
+        <li><a href="{{ url_for('editarRecords') }}">Registros</a></li>
+        <li><a class="col-sm-12 col-md-4 col-lg-4" href="{{ url_for('mostrarAyuda') }}">Ayuda</a></li>
+        <li><a class="logout col-sm-12 col-md-4 col-lg-4" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Evolución de plazas libres en los útimos 10 minutos</h1>
+    <canvas id="myChart"></canvas>
+</div>
+<div style="text-align: center;">
+    <a href="javascript:history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+</div>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/obtenerDatosGrafico',
+            method: 'GET',
+            success: function (chartData) {
+                console.log("Data fetched successfully:", chartData);
+                var ctx = document.getElementById('myChart').getContext('2d');
+
+                // Paleta de colores más amplia
+                var colors = [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(201, 203, 207, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(199, 199, 199, 1)',
+                    'rgba(83, 102, 255, 1)'
+                ];
+
+                var backgroundColors = [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(201, 203, 207, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(199, 199, 199, 0.2)',
+                    'rgba(83, 102, 255, 0.2)'
+                ];
+
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: chartData.datasets.map((dataset, index) => ({
+                            ...dataset,
+                            borderColor: colors[index % colors.length],
+                            backgroundColor: backgroundColors[index % backgroundColors.length]
+                        }))
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'minute'
+                                }
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (error) {
+                console.error("Error fetching data: ", error);
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+

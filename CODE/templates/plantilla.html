@@ -94,6 +94,11 @@
 <!-- Icono de favorito -->
 <div style="text-align: center;">
     <i id="favoritoIcon" class="favorito-icon fas {% if favorito %}fa-heart favorito{% else %}fa-heart{% endif %}"></i>
+    {% if ciudad == "Burgos" and opcionElegida == "Parkings" %}
+    <a href="{{ url_for('mostrarGrafico') }}">
+        <i class="fas fa-chart-bar"></i>
+    </a>
+    {% endif %}
 </div>
 
 {% endblock %}

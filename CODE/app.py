@@ -8,7 +8,7 @@ from models.ModeloUsuario import ModeloUsuario
 from models.entidades.Usuario import Usuario
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf.csrf import CSRFProtect
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import requests
 import xmltodict
@@ -388,6 +388,7 @@ def mostrarConjunto(lugar, conjunto):
     global data, clavesMapa
     data=convertirADiccionario(enlace, formato)
     if data == {}:
+        print("FALLÉ",formato)
         return redirect(url_for('error', mensaje="El conjunto de datos "+opcion+" de "+ciudad+" no está accesible"))
     clavesMapa=[]
 
@@ -417,11 +418,11 @@ def mostrarConjunto(lugar, conjunto):
     else:
         listaCaracteristicas=data.keys()
     
-
+    print("AAAA",formato)
     if formato == 'NGSI':
 
         data=obtenerDatosSimulador()
-
+        print("ESTOY ", data)
         # Traduce el conjunto
         conjuntoTraducido=[]
         for entidad in data:
@@ -947,6 +948,39 @@ def actualizar_rol():
 def mostrarAyuda():
     return render_template('ayuda.html')
 
+
+@server.route('/mostrarGrafico')
+def mostrarGrafico():
+    return render_template('grafico.html')
+
+@server.route('/obtenerDatosGrafico')
+def obtenerDatosGrafico():
+    directory = r"C:\Users\alexd\Desktop\TFG\PROGRAM\Server\Server\Ficheros"
+    data = read_json_files(directory)
+    
+    chart_data = {
+        'labels': [],
+        'datasets': []
+    }
+    
+    for entity_id, entity_data in data.items():
+        sorted_data = sorted(zip(entity_data['timestamps'], entity_data['spots']))
+        entity_data['timestamps'], entity_data['spots'] = zip(*sorted_data)
+        
+        if not chart_data['labels']:
+            chart_data['labels'] = [ts.strftime('%Y-%m-%d %H:%M:%S') for ts in entity_data['timestamps']]
+        
+        chart_data['datasets'].append({
+            'label': entity_data['name'],
+            'data': entity_data['spots'],
+            'fill': False,
+            'borderColor': 'rgba(54, 162, 235, 1)',
+            'backgroundColor': 'rgba(54, 162, 235, 0.2)',
+            'borderWidth': 1
+        })
+    
+    return jsonify(chart_data)
+
 @server.route('/error')
 def error():
     mensaje_error = request.args.get('mensaje', 'Ha ocurrido un error.')
@@ -1024,7 +1058,10 @@ def convertirADiccionario(enlace, formato):
             # LLamar a una vista que indique que ese formato no existe
 
     else:
-        diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
+        if enlace == "Simulador":
+            diccionarioDatos=obtenerDatosSimulador()
+        else:
+            diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
     
 
     return diccionarioDatos
@@ -1237,6 +1274,23 @@ def transformarRegistrosUnidades(registros):
                 registros_adaptados[ciudad][conjunto][formato]=periodosTransformados
     """
     return registros_adaptados
+
+def read_json_files(directory):
+    data = {}
+    for filename in sorted(os.listdir(directory)):
+        if filename.endswith(".json"):
+            with open(os.path.join(directory, filename), 'r') as f:
+                file_data = json.load(f)
+                for entry in file_data:
+                    if 'date' in entry and 'availableSpotNumber' in entry:
+                        entity_id = entry['id']
+                        timestamp = datetime.fromisoformat(entry['date']['value'])
+                        if datetime.now() - timestamp <= timedelta(minutes=10):
+                            if entity_id not in data:
+                                data[entity_id] = {'name': entry['name']['value'], 'timestamps': [], 'spots': []}
+                            data[entity_id]['timestamps'].append(timestamp)
+                            data[entity_id]['spots'].append(entry['availableSpotNumber']['value'])
+    return data
 
 def pagina_no_encontrada(error):
     #2 opciones, usar la plantilla 404 o redirigir al inicio
