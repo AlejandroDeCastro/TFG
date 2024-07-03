@@ -32,7 +32,7 @@ from zipfile import ZipFile
 #Datos disponibles
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
-formatos=['NGSI','JSON','CSV','XML','GEOJSON']
+formatos=['JSON','CSV','XML','GEOJSON']
 unidades=['minutos','horas','dias','semanas','meses']
 posiblesLatitud=['Latitud','Lat']
 posiblesLongitud=['Longitud','Lon']
@@ -52,7 +52,7 @@ for ciudad in diccionarioDatosDisponibles:
             
 
 server = Flask(__name__)
-server.secret_key = '$$'
+server.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
 
 #Inicializa la aplicación Dash
 vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/ValenciaParkings/')
@@ -1005,7 +1005,7 @@ def convertirADiccionario(enlace, formato):
 
 
         #Extraer los datos según el formato
-        if formato == formatos[1] or formato == formatos[4]: #JSON
+        if formato == formatos[0] or formato == formatos[3]: #JSON
             try:    
                 with urllib.request.urlopen(enlace) as response:
                     DatosJSON = response.read()
@@ -1015,7 +1015,7 @@ def convertirADiccionario(enlace, formato):
                 print("El enlace que ha fallado es el siguiente: ", enlace)
                 diccionarioDatos={}
 
-        elif formato == formatos[2]: #CSV
+        elif formato == formatos[1]: #CSV
 
             try:
                 # Lee el archivo CSV
@@ -1037,7 +1037,7 @@ def convertirADiccionario(enlace, formato):
                     diccionarioDatos={}
                     
 
-        elif formato == formatos[3]: #XML
+        elif formato == formatos[2]: #XML
 
             try:         
                 response = requests.get(enlace) # Hace una solicitud GET a la URL
