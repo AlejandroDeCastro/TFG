@@ -3,17 +3,21 @@
 \section{Etapas del proyecto}\label{etapas-del-proyecto}
 
 \subsection{Investigación}
-Durante la primera etapa del proyecto, se investigó acerca de FIWARE y sus distintas aplicaciones, y se decidió enfocar la aplicación a usar el modelo información NGSI-LD, aunque había pocos conjuntos de datos dentro del ámbito de las \textit{Smart Cities} que usaran este modelo de información. 
+Durante la primera etapa del proyecto, se investigó acerca de \textit{FIWARE} y sus distintas aplicaciones, y se decidió enfocar la aplicación a usar el modelo información \textit{NGSI-LD} \ref{modelo-ngsi-ld}. 
+Esta decisión fue impulsada por el reciente crecimiento de la plataforma \textit{FIWARE} y el modelo \textit{NGSI-LD}, gracias a la colaboración de las empresas más significativas en el desarrollo \textit{IOT}, como Telefónica \footnote{Proyecto de Telefónica de \textit{fiware-orion}, el cual lleva 6 años en marcha y a día de hoy se sigue ampliando. \url{https://github.com/telefonicaid/fiware-orion/tree/master}}.
 
-\subsection{Despliegue del Orion Context Broker y mongo DB}
 
-Tras un proceso de investigación, se comenzó con la instalación del Orion Context Broker para la gestión de la información en tiempo real y, MongoDB, que actúa como la base de datos subyacente para almacenar esta información de contexto. Todo ello se desplegó en un Docker.
-\imagen{OCB-Running}{Orion Context Broker y la base de datos mongo db en funcionamiento}{.7}
+\subsection{Despliegue del \textit{Orion Context Broker} y \textit{MongoDB}}
 
-Posteriormente se elaboró un \textit{script} que permitiese al usuario gestionarlo de manera más rápida, ya que, el Orion Context Broker se gestiona mediante comandos, y para una mayor usabilidad y mejor mantenimiento.
+Tras un proceso de búsqueda e investigación de \textit{OpenData} reales que usaran el modelo \textit{NGSI-LD}, por ser este un estándar de uso libre, se descubrió que el número de conjuntos de datos que siguiesen este modelo de información era muy excaso aún. Por lo que se decidió crear un \textit{mock server} que usara NGSI-LD, en lugar de los distintos formatos que están en uso a día de hoy (\textit{JSON}, \textit{GEOJSON}, \textit{CSV}, \textit{XML}...), estandarizando así el uso de un mismo formato para todos los conjuntos de datos. Esto favorecería el desarrollo y mantenimiento de todas las aplicaciones que consuman este tipo de datos, no solo para las \textit{Smart Cities} sino en muchos otro ámbitos como \textit{Industria 4.0}.
+
+Se comenzó con la instalación del \textit{Orion Context Broker} para la gestión de la información en tiempo real y, \textit{MongoDB}, que actúa como la base de datos subyacente para almacenar esta información de contexto. Todo ello se desplegó en un \textit{Docker}.
+\imagen{OCB-Running}{\textit{Orion Context Broker} y la base de datos \textit{MongoDB} en funcionamiento}{.7}
+
+Posteriormente se elaboró un \textit{script} que permitiese al usuario gestionarlo de manera más rápida, ya que, el \textit{Orion Context Broker} se gestiona mediante comandos, y para una mayor reusabilidad y mejor mantenimiento.
 Con este mini programa se permite al usuario:
 \begin{itemize}
-    \item Iniciar y para el servidor, es decir encender el \textit{docker} de del Orion Context Broker y el de la MongoDB.
+    \item Iniciar y para el servidor, es decir encender el \textit{docker} de del \textit{Orion Context Broker} y el de la \textit{MongoDB}.
     \item Mostrar y borrar las entidades almacenadas.
     \item Iniciar y para el simulador. Explicaré su funcionamiento más adelante en \ref{simulador}.
     \item Instalar y desinstalar los \textit{dockers}.
@@ -25,23 +29,24 @@ En esta etapa mediante la herramienta Postman\footnote{Herramienta para probar y
 Las cuales posteriormente serían consultadas, actualizadas o eliminadas desde la aplicación con peticiones \textit{GET}\footnote{Se utiliza para solicitar datos de un recurso específico.}, \textit{PATCH}\footnote{Se utiliza para hacer actualizaciones parciales a un recurso existente.} o \textit{DELETE}\footnote{Se utiliza para eliminar un recurso específico.} de \textit{HTTP} y poder consultadas con peticiones \textit{GET} de \textit{HTTP} en el puerto 1026, que es el usado por el servidor.
 \imagen{POST - Postman}{Ejemplo de uso de POST en Postman}{.9}\label{fig:post-postman}
 
-\subsection{Simulador}\label{simulador}
+\subsection{Simulador de conjunto de datos usando el modelo \textit{NGSI-LD}}\label{simulador}
 
-Con las primeras cargas de datos se pudo observar que el modelo información NGSI-LD todavía no está siendo muy usado por las diferentes APIs de datos, por lo que se decidió crear un generador de datos que usara este modelo. Este es usado a modo de simulador, el cual genera de un conjunto de datos de \textit{parkings} de la ciudad de Burgos simulando recibir datos de sensores instalados en dichos \textit{parkings} y lo adapta al modelo NGSI-LD. 
+Con las primeras cargas de datos se pudo observar que el modelo información \textit{NGSI-LD} todavía no está siendo muy usado por las diferentes \textit{APIs} de datos, por lo que se decidió crear un generador de datos que usara este modelo. Este es usado a modo de simulador, el cual genera de un conjunto de datos de \textit{parkings} de la ciudad de Burgos simulando recibir datos de sensores instalados en dichos \textit{parkings} y lo adapta al modelo \textit{NGSI-LD}. 
 
 \imagen{GET - Postman}{Ejemplo de uso de GET en Postman}{.9}\label{fig:get-postman}
 
 
-Con esto se pudo probar que el \textit{OCB}\footnotemark{} estaba funcionando correctamente y pudiendo así leer y escribir datos de manera correcta. También se introdujeron algunas entidades diferentes, no solo \textit{parkings}, para probar que los distintos conjuntos de datos podían convivir sin problema en el mismo \textit{OCB}\footnotemark[\value{footnote}]. 
+Con esto se pudo probar que el \textit{OCB}\footnotemark{} estaba funcionando correctamente y pudiendo así leer y escribir datos de manera correcta. También se introdujeron algunas entidades diferentes, no solo \textit{parkings}, para probar que los distintos conjuntos de datos podían convivir sin problema en el mismo\textit{OCB}\footnotemark[\value{footnote}]. 
 
 \footnotetext{Orion Context Broker}
 
-CYGNUS
+Para un mejor entendimiento de la estructura del proyecto, se adjunta una imagen con un esquema de la estructura \ref{fig:Estructura}.
 
+\imagen{Estructura}{Estructura del proyecto}{.9}
 
 \subsection{Desarrollo de la aplicación}
 
-Como el objetivo del proyecto es realizar una aplicación funcional y, el número de conjuntos de datos disponibles con el modelo de información NGSI-LD aún es mínimo, se dejó el \textit{OCB}\footnotemark[\value{footnote}] preparado para que cuando el número de conjuntos sea mayor, se pueda utilizar y de momento usar la aplicación con los formatos tradicionales que se están usando a día de hoy (JSON, CSV, XML...). Eso sí, pensando siempre en dejar la aplicación preparada para que la migración al modelo NGSI-LD sea lo más fácil posible.
+Como el objetivo del proyecto es realizar una aplicación funcional y, el número de conjuntos de datos disponibles con el modelo de información\textit{NGSI-LD} aún es mínimo, se comenzó con el desarrollo de la aplicación con los formatos tradicionales que se están usando a día de hoy (\textit{JSON}, \textit{GEOJSON}, \textit{CSV}, \textit{XML}...) y se dejó el \textit{OCB}\footnotemark[\value{footnote}] preparado para que cuando el número de conjuntos que utilicen el modelo de información\textit{NGSI-LD} sea mayor, se pueda utilizar.
 
 Para el desarrollo de la aplicación se hizo un análisis de los posibles perfiles de usuarios que tendría y sus necesidades. Se clasificaron en dos grupos:
 
@@ -70,36 +75,11 @@ Otras funcionalidades principales que solo tienen los administradores son:
 \begin{itemize}
     \item \textbf{Gestionar conjuntos:} un administrador puede eliminar conjuntos. Esto permite que en caso de que un administrador detecte o se le comunique que alguno de los enlaces está roto o los datos están corruptos, podrá quitar ese conjunto de la base de datos.
     \item \textbf{Gestionar usuarios:} un administrador puede consultar todos los usuarios que se encuentran en la aplicación, cambiar el rol de algún usuario o eliminarlo.
-    \item \textbf{Gestionar traducciones:} .
+    \item \textbf{Gestionar traducciones:} un puede añadir traducciones que se emplean para hacer que la lectura de datos por parte del usuario sea más cómoda y legible. Por ejemplo, un atributo que sea "PlLibr" en un conjunto de datos, se vea traducido como "Plazas libres"
 \end{itemize}
 
 \subsection{Revisión de código}
-
-
-\subsection{Despliegue en un servidor real}
-
-
-
-\section{Metodología}
-Se ha usado una metodología Scrum para el desarrollo del proyecto, con \textit{Sprints} de 2 semanas.
-
-\section{Proceso de aprendizaje}
-
-Como ya he comentado en la sección de \ref{etapas-del-proyecto}, el primer paso fue la investigación acerca de FIWARE y el modelo de información NGSI-LD, todo ello en las guías oficiales \cite{fiware,fiware_ngsi_ld,etsi}. 
-
-Posteriormente se investigó acerca de los dispositivos IOTs y como se gestiona la información mediante un Context Broker, en este caso, el Context Broker de Orion, el cual se instaló y se hicieron diversas pruebas con él con Postman o como el simulador.
-
-Al comienzo de este proyecto, mi conocimiento sobre desarrollo web era muy primitivo, apenas tenía unas nociones muy básicas de HTML. Poco a poco fui adquiriendo conocimientos sobre el desarrollo de aplicaciones web con Flask, gracias manuales, vídeos, o aplicaciones de código abierto en GitHub.
-
-Los conocimientos adquiridos son muy amplios y diversos, la mayoría enfocados al desarrollo de aplicaciones web como:
-\begin{itemize}
-    \item \textbf{HTML}
-    \item \textbf{CSS}
-    \item \textbf{Bootstrap}
-    \item \textbf{JavaScript}
-    \item \textbf{Leaflet}
-    \item \textbf{JQuery}
-\end{itemize}
+CUANDO SE TERMINE EL USO DE SONARQUBE
 
 \begin{comment}
 

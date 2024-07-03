@@ -6,21 +6,32 @@ No se pretende que este apartado se convierta en un capítulo de un libro dedica
 \end{comment}
 
 
-\section{Técnica metodológica}
+\section{Técnicas metodológicas}
 
 \subsection{Scrum}\label{scrum}
 
-Scrum es un marco de trabajo ágil para la gestión y desarrollo de proyectos complejos, especialmente en el ámbito del software. Se basa en iteraciones cortas y regulares llamadas "sprints," que típicamente duran entre una y cuatro semanas. El objetivo de Scrum es proporcionar un producto potencialmente entregable al final de cada sprint, lo que permite realizar ajustes y mejoras continuas basadas en la retroalimentación entre el equipo. \cite{schwaber2020}
+\textit{Scrum} es un marco de trabajo ágil para la gestión y desarrollo de proyectos complejos, especialmente en el ámbito del software. Se basa en iteraciones cortas y regulares llamadas \textit{sprints}, que típicamente duran entre una y cuatro semanas. El objetivo de \textit{Scrum} es proporcionar un producto potencialmente entregable al final de cada sprint, lo que permite realizar ajustes y mejoras continuas basadas en la retroalimentación entre el equipo. \cite{schwaber2020}
 
-Se decidió usar la metodología ágil Scrum con \textit{sprints} de 2 semanas, durante este periodo apuntaba posibles mejoras o ideas, y realizaba los cambios o añadidos establecidos para este periodo. Transcurrido el plazo, se realizaba una reunión donde se trataban dichos puntos y se establecían los siguientes. Para ello nos ayudabamos de las herramientas de Gestión de tareas \ref{gestión-de-tareas}.
+Se decidió usar la metodología ágil \textit{Scrum} con \textit{sprints} de 2 semanas, durante este periodo apuntaba posibles mejoras o ideas, y realizaba los cambios o añadidos establecidos para este periodo. Transcurrido el plazo, se realizaba una reunión donde se trataban dichos puntos y se establecían los siguientes. Para ello nos ayudabamos de las herramientas de Gestión de tareas \ref{gestión-de-tareas}.
 
+
+\subsection{Mock Server}\label{mock-server}
+Un \textit{mock server} es un servidor que imita el comportamiento de un servidor real, proporcionando respuestas predefinidas a solicitudes específicas. Se utiliza principalmente durante el desarrollo y las pruebas de aplicaciones para simular interacciones con \textit{APIs} externas o componentes del sistema que aún no están disponibles o completamente desarrollados.
+
+Estas son las razones por las que se decidió usar esta técnica en el proyecto:
+\begin{itemize}
+    \item \textbf{Desarrollo Aislado:} Permite trabajar en partes de la aplicación que dependen de servicios externos sin necesidad de esperar a que esos servicios estén disponibles.
+    \item \textbf{Pruebas predecibles:} Proporciona respuestas consistentes y controladas, lo que facilita la realización de pruebas unitarias y de integración.
+    \item \textbf{Evitar Límites y Costos:} Ayuda a evitar límites de tasa o costos asociados con el uso de servicios en tiempo real durante el desarrollo y las pruebas.
+\end{itemize}
+
+Un \textit{mock server} funciona de la siguiente manera, recibe solicitudes \textit{HTTP} (\textit{GET}, \textit{POST}, \textit{PUT}, \textit{DELETE}, etc.) y devuelve respuestas predefinidas, que pueden incluir códigos de estado \textit{HTTP}, encabezados y cuerpos de respuesta. En este caso se ha usado la herramienta \textit{Postman} (ver \ref{postman}) para el desarrollo de esta técnica.
 
 \section{Herramientas}
 
 Las herramientas usadas para el proyecto son muy diversas y por ello se han clasificado según su funcionalidad. Quedan destalladas a continuación
 
 \subsection{Gestión de tareas}\label{gestión-de-tareas}
-
 \begin{itemize}
     \item Microsoft Planner\label{planner}\footnote{\url{https://tasks.office.com}}: permite gestionar las tareas del proyecto entre los diferentes \textit{sprints}, fue utilizada desde el inicio del proyecto hasta finales de abril. Se escogió porque es una herramienta muy útil para la gestión de tareas y era la que usaba en ese momento en el trabajo, por lo que tenía ya conocimientos previos sobre ella. Un punto calve para su elección fue el acceso gratuito con la cuenta educativa de la universidad. Después dejó de usarse, ya que GitHub ofrecía una alternativa similar con \textit{issues}, y permitía enlazar las diferentes tareas con los cambios realizados en el código.
     \item GitHub\footnote{\url{https://github.com}}: es una plataforma de desarrollo colaborativo, la cual incluye control de versiones y gestión de proyectos gracias a los \textit{issues}, que eran utilizados para marcar las tareas y su estado durante los distintos \textit{sprints}.
@@ -28,20 +39,16 @@ Las herramientas usadas para el proyecto son muy diversas y por ello se han clas
 \end{itemize}
 
 
-\subsection{Editores de Texto}
+\subsection{Editor de texto}
+\LaTeX{}: es un sistema de composición de documentos basado en el procesador de textos TeX, utilizado para el desarrollo de la memoria y los anexos. Su elección se basa principalmente en el objetivo de aplicar y ampliar los conocimiento adquiridos en la carrera.
 
-\begin{itemize}
-    \item Microsoft Word: es una herramienta muy útil con interfaz muy intuitiva, con la que personalmente estoy muy familiarizado debido a su uso para los distintos trabajos de la carrera. Fue utilizada para redactar pequeñas partes de la memoria y anexos y poder ser enviadas a los tutores para obtener \textit{feedback\footnote{feedback: Proceso de proporcionar información sobre el proyecto y obtener una retroalimentación del mismo}}
-    \item \LaTeX{}: es un sistema de composición de documentos basado en el procesador de textos TeX, utilizado para el desarrollo de la memoria y los anexos. Su elección se basa principalmente en el objetivo de aplicar y ampliar los conocimiento adquiridos en la carrera.
-    \item Bloc de notas de Windows: es un editor de texto plano, ha sido utilizado en diversos puntos del proyecto, sobretodo para guardar estados y datos del programa, ya que, es una herramienta muy fácil de integrar con \textit{Python}\footnote{\textit{Python} es el lenguaje de programación mayoritariamente usado en el desarrollo del proyecto}.
-\end{itemize}
+
 
 \subsection{Gestión bibliográfica}
-Para la realización de una bibliografía completa se ha usado la herramienta JabRef\footnote{\url{https://www.jabref.org}}. Es un gestor de referencias bibliográficas de código abierto que facilita la organización y gestión de citas y bibliografías para documentos académicos. 
+Para la realización de una bibliografía completa se ha usado la herramienta \textit{JabRef}\footnote{\url{https://www.jabref.org}}. Es un gestor de referencias bibliográficas de código abierto que facilita la organización y gestión de citas y bibliografías para documentos académicos. 
 
 \subsection{Repositorio}
-
-Como repositorio se escogió GitHub, debido a que es una herramienta muy popular con una gran integración con la mayoría de editores de código como Visual Studio Code, el usado en este proyecto. Además de tener control de versiones, muy útil para proyectos complejos como este.
+Como repositorio se escogió \textit{GitHub}, debido a que es una herramienta muy popular con una gran integración con la mayoría de editores de código como Visual Studio Code, el usado en este proyecto. Además de tener control de versiones, muy útil para proyectos complejos como este.
 
 
 \subsection{Editores de código}
@@ -50,7 +57,7 @@ Para este proyecto se ha usado únicamente Visual Studio Code 2022, debido a ser
 
 \subsection{Base de datos y APIs}
 
-En este proyecto, la gestión de los datos es muy importante, ya que, se trabajan con muchos datos. Para ello, sehan usado una serie de herramientas.
+En este proyecto, la gestión de los datos es muy importante, ya que, se trabajan con muchos datos. Para ello, se han usado una serie de herramientas.
 
 \subsubsection{XAMPP}
 XAMPP es una distribución gratuita y de código abierto que facilita la instalación y el uso de un entorno de desarrollo web en un sistema local. Su nombre es un acrónimo que representa los componentes principales que incluye: 
@@ -78,7 +85,7 @@ MySQL es un sistema de gestión de bases de datos relacional (RDBMS) que utiliza
 
 MySQL es utilizado por muchas aplicaciones y sitios web de alto tráfico, como Facebook, Twitter, y YouTube, debido a su eficiencia y robustez. Es una elección común para desarrolladores que buscan una solución de base de datos relacional confiable y de alto rendimiento \cite{mysqlcookbook}, ambas cualidades claves en os objetivos marcados en este proyecto.
 
-\subsubsection{POSTMAN}
+\subsubsection{POSTMAN}\label{postman}
 
 Postman es una herramienta de desarrollo de \textit{API}\footnote{Interfaz de Programación de Aplicaciones)} que facilita la creación, prueba, documentación y monitorización de APIs. En este caso, para hacer consultas y escrituras en el servidor de Orion Context Broker. Ofrece una interfaz amigable que permite realizar peticiones HTTP y ver las repuestas del servidor, como podemos en las imágenes \ref{fig:get-postman} y \ref{fig:post-postman}.
 
@@ -87,7 +94,7 @@ Postman es una herramienta de desarrollo de \textit{API}\footnote{Interfaz de Pr
 Se modeló un diseño de ventanas previo al diseño estético o \textit{front-end} de la aplicación para poder analizar el diseño \textbf{\textit{UX}}\footnote{User Experience} y \textbf{\textit{UI}}\footnote{User Interface} de la aplicación, objetivos clave en este proyecto como se ha remarcado en la sección de objetivos\ref{objetivos-generales}. Para ello se utilizó \textbf{Pencil}\footnote{\url{https://pencil.evolus.vn}}, una aplicación de código abierto utilizada para la creación de prototipos y el diseño de interfaces de usuario (\textbf{\textit{UI}}).
 
 
-\subsection{Lenguajes de programación}
+\subsection{Lenguajes de programación y librerías}
 
 \subsubsection{\textit{Python}}
 \textit{Python} es uno de los lenguajes de programación más usados en todo el mundo en la programación orientada a objetos (POO). Posee estructuras de datos de alto nivel, sintaxis legible y tipado dinámico, lo cual lo convierten en un lenguaje ideal para el desarrollo de aplicaciones. Es por ello que se escogió este lenguaje.\cite{python}
