@@ -59,7 +59,7 @@ vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/Va
 vistaParkingValencia.layout = html.Div([html.H1('BB')])
 
 #Protección CSRF 
-csrf = CSRFProtect()
+#csrf = CSRFProtect()
 
 #Gestor de autentificaciones
 login_manager=LoginManager(server)
@@ -465,30 +465,6 @@ def mostrarConjunto(lugar, conjunto):
 
             return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
         
-        elif(opcion == "Transporte EMT"):
-
-            linkModeloDeDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Modelos\\modeloParking.json"
-            #linkDatos="https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTlineasUbicaciones/lineasyubicacionesfiware.geojson"
-            linkDatos="C:\\Users\\alexd\\Desktop\\TFG\\PROGRAM\\CODE\\Datos\\EMTMálaga.geojson"
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
-            diccionarioDeDatos=convertirADiccionario(linkDatos, True)
-
-            #Bucle que reccore la lista de diccionarios de datos
-            for linea in diccionarioDeDatos:
-                visualizarDiccionarioDeDatos(linea)
-
-            #linkModeloDeDatos=
-            df_lineasYParadasEMT = pd.read_csv("https://datosabiertos.malaga.eu/recursos/transporte/EMT/EMTLineasYParadas/lineasyparadas.csv",sep=',', engine='python',skiprows=0,index_col=False)
-            return render_template('transportePublicoMalaga.html',  opcionElegida = opcion, tables =[df_lineasYParadasEMT.to_html(classes='data')], titles=df_lineasYParadasEMT.columns.values)
-
-        elif(opcion == "Bibliotecas"):
-
-            linkDatos="https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_cultura_ocio_bibliotecas-25830.csv"
-            #linkModeloDeDatos="https://github.com/smart-data-models/dataModel.Parking/blob/3c04d7f721134b4ecfbf3a8af52bd13f65bf146b/ParkingGroup/examples/example-normalized.json"
-
-            df_BibliotecasMalaga = pd.read_csv(linkDatos,sep=',', engine='python',skiprows=0,index_col=False)
-            return render_template('bibliotecasMalaga.html',  opcionElegida = opcion, tables =[df_BibliotecasMalaga.to_html(classes='data')], titles=df_BibliotecasMalaga.columns.values)
-
         else:
 
             listaEntidades=[]
@@ -506,42 +482,11 @@ def mostrarConjunto(lugar, conjunto):
             #Si se busca una opción que no está en la lista, mostrar una vista genérica
             return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
 
-
-
     elif ciudad == "Madrid":
 
         #PARKINGS MADRID
         if opcion=="Parkings":
-            #return render_template('parkingMadrid.html',  opcionElegida = opcion)
             return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
-
-        #TRANSPORTE MADRID
-        elif opcion=="Transporte":
-            return render_template('transporteMadrid.html', opcionElegida = opcion)
-
-
-        #BIBLIOTECAS MADRID
-        elif opcion=="Bibliotecas":
-
-            #Datos y modelo
-            linkDatos="https://datos.madrid.es/portal/site/egob/menuitem.ac61933d6ee3c31cae77ae7784f1a5a0/?vgnextoid=00149033f2201410VgnVCM100000171f5a0aRCRD&format=json&file=0&filename=201747-0-bibliobuses-bibliotecas&mgmtid=ed35401429b83410VgnVCM1000000b205a0aRCRD&preview=full"
-            linkModeloDeDatos=""
-
-            diccionarioModeloDeDatos=convertirADiccionario(linkModeloDeDatos, True)
-            diccionarioDeDatos=convertirADiccionario(linkDatos, False)
-
-            #Bucle que reccore la lista de diccionarios de datos y los muestra
-            for linea in diccionarioDeDatos["@graph"]:
-                visualizarDiccionarioDeDatos(linea)
-            
-            #DataFrame del grafo de datos
-            df=pd.DataFrame(diccionarioDeDatos["@graph"])
-            
-            return render_template('bibliotecasMadrid.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
-
-        else:
-            #Si se busca una opción que no está en la lista, mostrar una vista genérica
-            return render_template('plantillaDatosGeneral.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace)
 
 
     elif ciudad == "Valencia":
@@ -563,7 +508,7 @@ def mostrarConjunto(lugar, conjunto):
             dataFrameParkingsValencia['lat'] = dataFrameParkingsValencia['localizacion'].apply(lambda loc: loc['lat'])
 
             # mapa
-            mapa = px.scatter_mapbox(dataFrameParkingsValencia, lat="lat", lon="lon", hover_name="nombre", hover_data={"lat" : False, "lon" : False, "plazas libres" : True, "plazas totales" : True},
+            mapa = px.scatter_mapbox(dataFrameParkingsValencia, lat="lat", lon="lon", hover_name="nombre", hover_data={"lat" : False, "lon" : False, "Plazas libres" : True, "Plazas totales" : True},
                                     color_discrete_sequence=["blue"], zoom=11, height=300)
 
             # Configura el estilo del mapa y el tamaño de los puntos
@@ -621,13 +566,6 @@ def mostrarConjunto(lugar, conjunto):
         #PUNTOS DE CARGA VALENCIA
         elif opcion=="Puntos de carga":
 
-            # TEST PARA VISUALIZAR LOS DATOS
-            """
-            for dato in data['results']:
-                visualizarDiccionarioDeDatos(dato)
-            """
-            # DataFrame del grafo de datos
-
             listaEliminar=['geo_shape','objectid','no']
 
             # Traduce el conjunto
@@ -647,31 +585,7 @@ def mostrarConjunto(lugar, conjunto):
 
             return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
  
-        
-        #TRANSPORTE VALENCIA
-        elif opcion=="Transporte":
-      
-            #Datos y modelo
-            linkDatos="https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/emt/records"
-
-            diccionarioDeDatos=convertirADiccionario(linkDatos, formato)
-
-            #Bucle que reccore la lista de diccionarios de datos y los muestra
-            for dato in diccionarioDeDatos['results']:
-                visualizarDiccionarioDeDatos(dato)
-            
-            #DataFrame del grafo de datos
-            df=pd.DataFrame(diccionarioDeDatos["results"])
-            
-            return render_template('transportePublicoValencia.html', opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
-    
         else:
-             # TEST PARA VISUALIZAR LOS DATOS
-            """
-            for dato in data['results']:
-                visualizarDiccionarioDeDatos(dato)
-            """
-            # DataFrame del grafo de datos
 
             listaEliminar=['geo_shape','objectid']
 
@@ -679,10 +593,6 @@ def mostrarConjunto(lugar, conjunto):
             conjuntoTraducido=[]
             for enitdad in data:
                 entidadTraducida = actualizar_claves(enitdad, modeloTraducciones)
-
-                # Eliminación de campos obsoletos
-                #entidadTraducida=elimnarCampos(entidadTraducida,listaEliminar)
-
                 conjuntoTraducido.append(entidadTraducida)
             data=conjuntoTraducido
             
@@ -697,16 +607,7 @@ def mostrarConjunto(lugar, conjunto):
 
         #CENTROS CULTURALES BADAJOZ
         if opcion=="Centros culturales":
-            
-            #Bucle que reccore la lista de diccionarios de datos y los muestra
-            """
-            for dato in diccionarioDeDatos:
-                visualizarDiccionarioDeDatos(dato)
-            """
-
-            #DataFrame del grafo de datos
             df=pd.DataFrame(data)
-
             return render_template('centrosCulturalesBadajoz.html',  opcionElegida = opcion,  tables =[df.to_html(classes='data')], titles=df.columns.values)
 
         else:
@@ -758,10 +659,6 @@ def mostrarConjunto(lugar, conjunto):
             data=conjuntoTraducido
             
             listaCaracteristicas=data[0].keys()
-
-            # TEST PARA VISUALIZAR LOS DATOS
-            #for parking in data["ParkingList"]["Parking"]:
-                #data(parking)
             
             # Claves que se muestran el tooltip del mapa
             clavesMapa=['Nombre', 'Horario', 'Baños', 'Ascensor']
@@ -834,31 +731,6 @@ def mostrarConjunto(lugar, conjunto):
         
             clavesMapa=[]
 
-        """
-        data=data['features']
-        nombreLat = ""
-        nombreLon = ""
-
-        for clave in listaCaracteristicas:
-            for latitud in posiblesLatitud:
-                if clave.lower() == latitud.lower():
-                    nombreLat = clave
-
-            for longitud in posiblesLongitud:
-                if clave.lower() == longitud.lower():
-                    nombreLon = clave
-        
-        if nombreLat != "" and nombreLon != "":
-            
-            for entidad in data:
-                lon=str(entidad[nombreLon]).replace(',', '.')
-                lat=str(entidad[nombreLat]).replace(',', '.')
-                if lat == "nan" or lon == "nan":
-                    lon="0.00"
-                    lat="0.00"
-                entidad['localizacion']={'lon': lon, 'lat': lat}    
-            clavesMapa.append(nombreLat)
-            """
         clavesMapa.append("name")
         return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = fav)
 
@@ -1351,10 +1223,7 @@ if __name__ == "__main__":
     server.register_error_handler(404, pagina_no_encontrada)
     server.register_error_handler(401, registro_requerido)
     
-    #proceso = Process(target= iniciar_demonios)
-    #proceso.daemon=True
-    #proceso.start()
     iniciar_demonios(db)
-    csrf.init_app(server)
+    #csrf.init_app(server)
     server.run()
     
