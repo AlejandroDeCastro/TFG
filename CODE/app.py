@@ -1225,7 +1225,6 @@ if __name__ == "__main__":
     server.register_error_handler(401, registro_requerido)
     
     iniciar_demonios(db)
-    #csrf.init_app(server)
-    
+    csrf.init_app(server)
     server.run()
     
