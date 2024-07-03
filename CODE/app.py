@@ -52,7 +52,7 @@ for ciudad in diccionarioDatosDisponibles:
             
 
 server = Flask(__name__)
-server.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
+server.secret_key = '$$'
 
 #Inicializa la aplicación Dash
 vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/ValenciaParkings/')
@@ -1102,8 +1102,6 @@ def obtenerDatosSimulador():
         print(f"Error al consultar entidades: {response.status_code} - {response.text}")
         return []
 
-    return lista_entidades
-
 # Función que transforma las entidades del modelo NGSI
 def adaptarListaNGSI(lista_entidades):
     lista_adaptadas=[]
@@ -1264,15 +1262,7 @@ def transformarRegistrosUnidades(registros):
     for id, registro in registros.items():
         periodoTransformado=segundosAUnidadÓptima(registro[3])
         registros_adaptados[id]=[registro[0],registro[1],registro[2],periodoTransformado]
-    """
-    for ciudad in registros:
-        for conjunto in registros[ciudad]:
-            for formato in registros[ciudad][conjunto]:
-                periodosTransformados=[]
-                for periodo in registros[ciudad][conjunto][formato]:
-                    periodosTransformados.append(segundosAUnidadÓptima(periodo))
-                registros_adaptados[ciudad][conjunto][formato]=periodosTransformados
-    """
+
     return registros_adaptados
 
 def read_json_files(directory):
