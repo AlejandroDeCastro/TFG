@@ -45,10 +45,10 @@ LOG_FILE = 'error_log.txt'
 
 listaCiudadesDatos=[]
 for ciudad in diccionarioDatosDisponibles:
-    for tipoDato in diccionarioDatosDisponibles[ciudad]:
-        for formato in diccionarioDatosDisponibles[ciudad][tipoDato]:
-            ciudadDato=ciudad+" - "+tipoDato+" - "+formato
-            listaCiudadesDatos.append(ciudadDato)
+    for tipo_dato in diccionarioDatosDisponibles[ciudad]:
+        for formato in diccionarioDatosDisponibles[ciudad][tipo_dato]:
+            ciudad_dato=ciudad+" - "+tipo_dato+" - "+formato
+            listaCiudadesDatos.append(ciudad_dato)
             
 
 server = Flask(__name__)
@@ -137,10 +137,10 @@ def home():
     global listaCiudadesDatos
     listaCiudadesDatos=[]
     for ciudad in diccionarioDatosDisponibles:
-        for tipoDato in diccionarioDatosDisponibles[ciudad]:
-            for formato in diccionarioDatosDisponibles[ciudad][tipoDato]:
-                ciudadDato=ciudad+" - "+tipoDato+" - "+formato
-                listaCiudadesDatos.append(ciudadDato)
+        for tipo_dato in diccionarioDatosDisponibles[ciudad]:
+            for formato in diccionarioDatosDisponibles[ciudad][tipo_dato]:
+                ciudad_dato=ciudad+" - "+tipo_dato+" - "+formato
+                listaCiudadesDatos.append(ciudad_dato)
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
 
     registros_adaptados=transformarRegistrosUnidades(registros)
@@ -177,10 +177,10 @@ def editarRecords():
     listaCiudadesDatos = []
 
     for ciudad in diccionarioDatosDisponibles:
-        for tipoDato in diccionarioDatosDisponibles[ciudad]:
-            for formato in diccionarioDatosDisponibles[ciudad][tipoDato]:
-                ciudadDato=ciudad+" - "+tipoDato+" - "+formato
-                listaCiudadesDatos.append(ciudadDato)
+        for tipo_dato in diccionarioDatosDisponibles[ciudad]:
+            for formato in diccionarioDatosDisponibles[ciudad][tipo_dato]:
+                ciudad_dato=ciudad+" - "+tipo_dato+" - "+formato
+                listaCiudadesDatos.append(ciudad_dato)
 
     for conjunto in listaCiudadesDatos:
         ciudad, característica, formato = conjunto.split(" - ")
