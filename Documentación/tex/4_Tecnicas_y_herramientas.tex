@@ -53,7 +53,12 @@ Como repositorio se escogió \textit{GitHub}, debido a que es una herramienta mu
 
 \subsection{Editores de código}
 
-Para este proyecto se ha usado únicamente Visual Studio Code 2022, debido a ser un editor gratuito que posee extensiones que facilitan la programación en distintos lenguajes, y con una buena integración GitHub.
+Para este proyecto se ha usado únicamente \textit{Visual Studio Code 2022}, debido a ser un editor gratuito que posee extensiones que facilitan la programación en distintos lenguajes, y con una buena integración \textbf{GitHub}.
+
+\subsection{\textit{Docker}}\label{docker}
+\textit{Docker} es una plataforma de software que permite crear, probar y desplegar aplicaciones rápidamente. Utiliza contenedores, que son entornos aislados que incluyen todo lo necesario para ejecutar una aplicación, como el código, las bibliotecas y las dependencias. Esto garantiza que las aplicaciones funcionen de manera consistente en diferentes entornos, desde el desarrollo hasta la producción \cite{Merkel2015, Docker2023}.
+
+En este proyecto se ha utilizado \textit{Docker} para la implementación del \textit{Orion Context Broker}, el \textit{mock server} que se ha utilizado para el tratamiento de datos \textit{NGSI-LD}.
 
 \subsection{Base de datos y APIs}
 
@@ -85,7 +90,7 @@ MySQL es un sistema de gestión de bases de datos relacional (RDBMS) que utiliza
 
 MySQL es utilizado por muchas aplicaciones y sitios web de alto tráfico, como Facebook, Twitter, y YouTube, debido a su eficiencia y robustez. Es una elección común para desarrolladores que buscan una solución de base de datos relacional confiable y de alto rendimiento \cite{mysqlcookbook}, ambas cualidades claves en os objetivos marcados en este proyecto.
 
-\subsubsection{POSTMAN}\label{postman}
+\subsubsection{Postman}\label{postman}
 
 Postman es una herramienta de desarrollo de \textit{API}\footnote{Interfaz de Programación de Aplicaciones)} que facilita la creación, prueba, documentación y monitorización de APIs. En este caso, para hacer consultas y escrituras en el servidor de Orion Context Broker. Ofrece una interfaz amigable que permite realizar peticiones HTTP y ver las repuestas del servidor, como podemos en las imágenes \ref{fig:get-postman} y \ref{fig:post-postman}.
 
@@ -102,11 +107,26 @@ Se modeló un diseño de ventanas previo al diseño estético o \textit{front-en
 Otras opción que se planteó fue Java, y aunque ambas opciones poseen bibliotecas para el desarrollo web y siendo Java un lenguaje del cual poseía más conocimientos, se consideró que Python podría ser mejor opción debido a su simpleza y velocidad a la hora de desarrollar aplicaciones.
 
 \subsubsection{\textit{Flask}}\label{flask}
-\textit{Flask} es un microframework para \textit{Python} que se utiliza para desarrollar aplicaciones web. Proporciona las herramientas y funcionalidades básicas necesarias para crear sitios web y aplicaciones web dinámicas, como manejo de rutas (URL routing), renderizado de plantillas HTML, manejo de formularios, y conexión a bases de datos, entre otras cosas \cite{FlaskSite}. 
+\textit{Flask} es un \textit{microframework} para \textit{Python} que se utiliza para desarrollar aplicaciones web. Proporciona las herramientas y funcionalidades básicas necesarias para crear sitios web y aplicaciones web dinámicas, como manejo de rutas (URL routing), renderizado de plantillas HTML, manejo de formularios, y conexión a bases de datos, entre otras cosas \cite{FlaskSite}. 
 Se decidió usar \textit{Flask} por cumplir con varios de los objetivos principales del proyecto especificados en la sección de objetivos generales \ref{objetivos-generales}, permitiendo al usuario un acceso rápido a cualquier conjunto, solo introduciendo la \textit{url} del conjunto al que desea acceder. También se garantiza un acceso cómodo, ya que al ser mediante una dirección web, no es necesario descargar ningún tipo de aplicación para su uso.
 
 \subsubsection{Librerías}
-Explicar librerías
+La tabla~\ref{tabla-librerías} contiene la información de las librerías usadas en el desarrollo del proyecto, así como la versión y una breve descripción.
+\begin{table}
+	\scalebox{0.80}{
+		\begin{tabular}{@{}p{10em} p{6em} p{20em}@{}}
+			\toprule
+			\textbf{Librería} & \textbf{Versión} & \textbf{Descripción}\\
+			\midrule
+			\texttt{\textbf{\underline{id}}} & \texttt{\textbf{\underline{PK}}} & Identificador. Generado automáticamente. \\
+			\texttt{ciudad} &  \texttt{VARCHAR(25)} & Ciudad en la que se encuentra el conjunto de datos.\\
+
+			\bottomrule
+		\end{tabular}
+	}
+	\caption{Diccionario de Datos - Tabla Registros.}
+    \label{tabla-librerías}
+\end{table}
 
 
 \subsubsection{\textit{Otros lenguajes}}
@@ -116,10 +136,9 @@ CSS3
 BOOTSTRAP 
 JavaScript 
 
-\subsection{\textit{Docker}}\label{docker}
 
 
-PowerBI
+
 Tratamiento de JSON online
 Dash
 Gitbook
