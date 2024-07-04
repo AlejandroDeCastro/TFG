@@ -385,7 +385,7 @@ class ModeloUsuario():
             actualización="UPDATE usuarios SET favoritos = %s WHERE id = %s"
             data = (favoritos, id_usuario)
 
-            #Ejecución de la insercción
+            # Ejecución de la insercción
             cursor.execute(actualización, data)
             db.commit()
 
