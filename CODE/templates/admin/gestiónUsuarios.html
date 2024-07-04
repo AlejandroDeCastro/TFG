@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 {% endblock %}
 
 {% block navbar %}
@@ -64,9 +64,10 @@
                             <td>
                                 <form>
                                     <input type="hidden" name="user_id" value="{{ id }}">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                                     <select name="role" class="form-select" data-user-id="{{ id }}">
                                         {% for role in roles %}
-                                        <option value="{{ role }}" {% if atributos[1]==role %}selected{% endif %}>{{ role }}</option>
+                                        <option value="{{ role }}" {% if atributos[1]= =role %}selected{% endif %}>{{ role }}</option>
                                         {% endfor %}
                                     </select>
                                 </form>
@@ -95,31 +96,34 @@
 
 <script src="{{ url_for('static', filename='js/ordenación.js') }}"></script>
 <script>
-        $(document).ready(function() {
-            $('select[name="role"]').change(function() {
-                var userId = $(this).data('user-id');
-                var newRole = $(this).val();
+    $(document).ready(function() {
+        $('select[name="role"]').change(function() {
+            var userId = $(this).data('user-id');
+            var newRole = $(this).val();
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ url_for("actualizar_rol") }}',
-                    data: {
-                        user_id: userId,
-                        role: newRole
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            alert('Rol actualizado correctamente');
-                        } else {
-                            alert('Error al actualizar el rol');
-                        }
-                    },
-                    error: function() {
+            $.ajax({
+                type: 'POST',
+                url: '{{ url_for("actualizar_rol") }}',
+                data: {
+                    user_id: userId,
+                    role: newRole,
+                    csrf_token: csrfToken  // Token CSRF
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Rol actualizado correctamente');
+                    } else {
                         alert('Error al actualizar el rol');
                     }
-                });
+                },
+                error: function() {
+                    alert('Error al actualizar el rol');
+                }
             });
         });
+    });
 </script>
+
 
 {% endblock %}

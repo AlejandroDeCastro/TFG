@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, url_for, redirect, flash, send_file, jsonify, send_from_directory
+from flask import Flask, render_template, request, url_for, redirect, flash, send_file, jsonify
 from dash.dependencies import Input, Output
-from flask_mysqldb import MySQL
-from importlib_metadata import requires
-from numpy import True_
 from models.ModeloUsuario import ModeloUsuario
 from models.entidades.Usuario import Usuario
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -12,7 +9,6 @@ from datetime import datetime, timedelta
 import os
 import requests
 import xmltodict
-import shutil
 import dash
 import dash_core_components as dcc 
 import dash_html_components as html
@@ -23,11 +19,13 @@ import json
 import zipfile
 from io import BytesIO
 import database as db
-from multiprocessing import Process
 from gestor import iniciar_demonios, diccionarioURLs, parar_registro, iniciar_registro, eliminarFavoritos, consultar_peticiones
-from zipfile import ZipFile
 
-
+from flask_mysqldb import MySQL
+from importlib_metadata import requires
+from numpy import True_
+import shutil
+from multiprocessing import Process
 
 #Datos disponibles
 diccionarioDatosDisponibles=diccionarioURLs(db)
@@ -164,6 +162,7 @@ def home():
     return render_template('index.html', listaCiudades=listaCiudades, registros = registros_adaptados, ciudades = listaCiudades, dicConjuntosFav = dicConjuntosFav)
 
 @server.route('/get_caracteristicas', methods=['POST'])
+@csrf.exempt
 def get_caracteristicas():
     ciudad = request.form['ciudad']
     caracteristicas = list(diccionarioDatosDisponibles[ciudad].keys())

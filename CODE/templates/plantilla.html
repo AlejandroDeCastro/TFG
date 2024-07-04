@@ -28,6 +28,7 @@
     }
 </style>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 {% endblock %}
 
@@ -109,54 +110,58 @@
 <script src="{{ url_for('static', filename='js/ordenación.js') }}"></script>
 
 <script>
-        document.querySelectorAll('.checkbox-label input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const selectedOptions = Array.from(document.querySelectorAll('.checkbox-label input[type="checkbox"]:checked'))
-                    .map(cb => cb.value);
+    document.querySelectorAll('.checkbox-label input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const selectedOptions = Array.from(document.querySelectorAll('.checkbox-label input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                fetch('/update_options', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ selected_options: selectedOptions })
-                }).then(response => response.json())
-                  .then(data => {
-                      if (data.success) {
-                          // Actualiza el mapa sin recargar la página
-                          loadData();
-                      }
-                  });
-            });
-        });
-
-        document.querySelectorAll('.checkbox-custom').forEach(customCheckbox => {
-            customCheckbox.addEventListener('click', function() {
-                const checkbox = customCheckbox.previousElementSibling;
-                checkbox.checked = !checkbox.checked;
-                checkbox.dispatchEvent(new Event('change'));
-            });
-        });
-
-        // Maneja el evento de clic en el icono de favorito
-        const favoritoIcon = document.getElementById('favoritoIcon');
-        favoritoIcon.addEventListener('click', function() {
-            const esFavorito = favoritoIcon.classList.contains('favorito');
-            const url = esFavorito ? '/desmarcar_favorito' : '/marcar_favorito';
-
-            fetch(url, {
+            fetch('/update_options', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken  // Añadir token CSRF
                 },
-                body: JSON.stringify({ ciudad: "{{ ciudad }}", conjunto: "{{ opcionElegida }}" })
+                body: JSON.stringify({ selected_options: selectedOptions })
             }).then(response => response.json())
               .then(data => {
                   if (data.success) {
-                      favoritoIcon.classList.toggle('favorito', !esFavorito);
+                      // Actualiza el mapa sin recargar la página
+                      loadData();
                   }
               });
         });
+    });
+
+    document.querySelectorAll('.checkbox-custom').forEach(customCheckbox => {
+        customCheckbox.addEventListener('click', function() {
+            const checkbox = customCheckbox.previousElementSibling;
+            checkbox.checked = !checkbox.checked;
+            checkbox.dispatchEvent(new Event('change'));
+        });
+    });
+
+    // Maneja el evento de clic en el icono de favorito
+    const favoritoIcon = document.getElementById('favoritoIcon');
+    favoritoIcon.addEventListener('click', function() {
+        const esFavorito = favoritoIcon.classList.contains('favorito');
+        const url = esFavorito ? '/desmarcar_favorito' : '/marcar_favorito';
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken  // Añadir token CSRF
+            },
+            body: JSON.stringify({ ciudad: "{{ ciudad }}", conjunto: "{{ opcionElegida }}" })
+        }).then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  favoritoIcon.classList.toggle('favorito', !esFavorito);
+              }
+          });
+    });
 </script>
 
 {% endblock %}
