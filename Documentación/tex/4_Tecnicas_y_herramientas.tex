@@ -98,6 +98,9 @@ Postman es una herramienta de desarrollo de \textit{API}\footnote{Interfaz de Pr
 
 Se modeló un diseño de ventanas previo al diseño estético o \textit{front-end} de la aplicación para poder analizar el diseño \textbf{\textit{UX}}\footnote{User Experience} y \textbf{\textit{UI}}\footnote{User Interface} de la aplicación, objetivos clave en este proyecto como se ha remarcado en la sección de objetivos\ref{objetivos-generales}. Para ello se utilizó \textbf{Pencil}\footnote{\url{https://pencil.evolus.vn}}, una aplicación de código abierto utilizada para la creación de prototipos y el diseño de interfaces de usuario (\textbf{\textit{UI}}).
 
+\subsubsection{\textit{Gitbook}}
+Esta herramienta ha sido empleada para el desarrollo de una guía de usuario visual y fácil de seguir gracias a la esquematización y división en apartados de la misma.
+
 
 \subsection{Lenguajes de programación y librerías}
 
@@ -111,37 +114,33 @@ Otras opción que se planteó fue Java, y aunque ambas opciones poseen bibliotec
 Se decidió usar \textit{Flask} por cumplir con varios de los objetivos principales del proyecto especificados en la sección de objetivos generales \ref{objetivos-generales}, permitiendo al usuario un acceso rápido a cualquier conjunto, solo introduciendo la \textit{url} del conjunto al que desea acceder. También se garantiza un acceso cómodo, ya que al ser mediante una dirección web, no es necesario descargar ningún tipo de aplicación para su uso.
 
 \subsubsection{Librerías}
-La tabla~\ref{tabla-librerías} contiene la información de las librerías usadas en el desarrollo del proyecto, así como la versión y una breve descripción.
+La tabla~\ref{tabla-librerías} contiene la información de las principales librerías usadas en el desarrollo del proyecto, así como la versión y una breve descripción.
 \begin{table}
 	\scalebox{0.80}{
-		\begin{tabular}{@{}p{10em} p{6em} p{20em}@{}}
+		\begin{tabular}{@{}p{14em} p{6em} p{20em}@{}}
 			\toprule
 			\textbf{Librería} & \textbf{Versión} & \textbf{Descripción}\\
 			\midrule
-			\texttt{\textbf{\underline{id}}} & \texttt{\textbf{\underline{PK}}} & Identificador. Generado automáticamente. \\
-			\texttt{ciudad} &  \texttt{VARCHAR(25)} & Ciudad en la que se encuentra el conjunto de datos.\\
-
+            \texttt{\textbf{Flask}} & \texttt{3.0.3} & Un microframework para aplicaciones web en Python, diseñado para ser simple y escalable. \\
+			\texttt{\textbf{Flask-MySQLdb}} & \texttt{2.0.0} & Extensión para Flask que proporciona conexión a bases de datos MySQL. \\
+            \texttt{\textbf{Flask-WTF}} & \texttt{1.2.1} & Integración de Flask con WTForms para renderizar formularios, validación y protección CSRF. \\
+            \texttt{\textbf{mysql-connector-python}} & \texttt{9.0.0} & Conector de MySQL escrito en Python que implementa la especificación DB API v2.0. \\
+            \texttt{\textbf{dash}} & \texttt{2.17.1} & Framework para construir aplicaciones web interactivas de ciencia de datos y ML. \\
+            \texttt{\textbf{pandas}} & \texttt{2.2.2} & Biblioteca para manipulación y análisis de datos, proporcionando estructuras de datos y operaciones para manipular tablas numéricas y series temporales. \\
+            \texttt{\textbf{xmltodict}} & \texttt{0.13.0} & Biblioteca para convertir datos XML en diccionarios de Python de manera sencilla. \\
 			\bottomrule
 		\end{tabular}
 	}
-	\caption{Diccionario de Datos - Tabla Registros.}
+	\caption{Tabla de librerías}
     \label{tabla-librerías}
 \end{table}
 
 
 \subsubsection{\textit{Otros lenguajes}}
-Redactar:
-HTML5 
-CSS3 
-BOOTSTRAP 
-JavaScript 
+Las diversas vistas de la aplicación han sido meticulosamente desarrolladas utilizando \textit{HTML5}, lo que garantiza una estructura semántica y moderna. Para complementar y embellecer estas vistas, se ha empleado \textit{CSS3}, permitiendo así un estilo visual atractivo y personalizado que mejora la experiencia del usuario. Además, en ciertos apartados específicos, se ha integrado la potente herramienta \textit{Bootstrap}\footnote{\url{https://getbootstrap.com}}, la cual facilita la creación de diseños responsivos y consistentes.
 
+Es importante destacar que, para la implementación de funcionalidades interactivas y dinámicas, se han desarrollado \textit{scripts} en \textit{JavaScript}. Estos \textit{scripts} no solo añaden interactividad, sino que también mejoran la usabilidad y la eficiencia de la aplicación, proporcionando una experiencia de usuario más rica y fluida.
 
-
-
-Tratamiento de JSON online
-Dash
-Gitbook
 
 \subsection{Revisión de código}
-SonarQube
+Para garantizar la calidad del código, se ha utilizado la herramienta SonarQube. SonarQube es una plataforma de código abierto que permite la inspección continua de la calidad del código. Esta herramienta realiza revisiones automáticas mediante análisis estático del código, detectando errores y vulnerabilidades.

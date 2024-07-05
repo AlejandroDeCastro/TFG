@@ -62,7 +62,7 @@ El OCB es un servidor que implementa una API que se basa en el modelo de informa
 
 El servidor OCB siempre está escuchando en un puerto que generalmente es el 1026. el OCB utiliza la base de datos es MongoDB para almacenar el estatus actual de las entidades, no se almacena información histórica de sus cambios. Para este propósito se debe utilizar una base de datos externa al OCB, como es el caso de Cygnus\footnote{Cygnus es un componente de la plataforma FIWARE que actúa como un conector de datos y tiene la función principal de persistir la información de contexto gestionada por el Orion Context Broker en diferentes sistemas de almacenamiento a largo plazo. Cygnus recibe notificaciones de Orion cuando hay actualizaciones en la información de contexto y las almacena en bases de datos u otros sistemas de almacenamiento seleccionados por el usuario \cite{fiware_cygnus}.} , componente el cual se estudió su implementación en este proyecto  \cite{orion}.
 
-En esta imagen se puede apreciar el esquema de funcionamiento del OCB:
+En la imagen \ref{fig:OCBserver} extraída de la documentación oficial\footnote{Imagen extraída de \url{https://fiware-training.readthedocs.io/es-mx/latest/ecosistemaFIWARE/ocb/}} se puede apreciar el esquema de funcionamiento del OCB:
 \imagen{OCBserver}{Diagrama de OCB}{.6}
 
 
