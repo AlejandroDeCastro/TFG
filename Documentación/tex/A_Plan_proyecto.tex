@@ -159,4 +159,75 @@ Por otro lado, si fuese necesario se podría añadir anuncios de manera que gene
 
 \subsection{Viabilidad legal}
 
+Al ser una aplicación pensada para ser usada en cualquier ciudad del mundo, es muy difícil tratar de realizar un estudio legal sobre el proyecto, ya que, cada país tiene su propias leyes de protección de datos o acceso a datos públicos. Por lo tanto, se va a tomar como referencia las leyes de la legislación española, lugar donde se realiza este proyecto.
+Los principales puntos a tratar para mantener la aplicación dentro del marco legal españon son los siguientes:
+\begin{itemize}
+    \item \textbf{Derecho de Acceso a la Información Pública:} En España, el derecho de acceso a la información pública está regulado por la Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno \cite{ley-transparencia}.
+
+    \item \textbf{Licencias de Datos Abiertos:} Los datos abiertos proporcionados por instituciones públicas en España suelen estar bajo la licencia Open Government License - España \cite{ogl-es}, la cual permite su uso, redistribución y modificación bajo ciertas condiciones.
+
+    \item \textbf{Protección de Datos Personales:} El tratamiento de datos personales en España está regulado por la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales \cite{lopdgdd}. Es crucial cumplir con los principios de protección de datos, obtener consentimiento cuando sea necesario y garantizar la seguridad de los datos personales.
+
+    \item \textbf{Derechos de Autor:} En España, los datos en sí no están protegidos por derechos de autor, pero las bases de datos pueden tener protección si cumplen con los requisitos establecidos en la Ley de Propiedad Intelectual \cite{lpi}.
+
+    \item \textbf{Normativas Aplicables a Aplicaciones Web:} Además de las leyes específicas mencionadas, la aplicación debe cumplir con la normativa general aplicable a las aplicaciones web en términos de comercio electrónico, protección de consumidores y usuarios, entre otros.
+\end{itemize}
+
+Es importante considerar las licencias de las librerías y otros componentes de software utilizados en la aplicación. En la tabla \ref{tabla-licencias} se detallan las librerías utilizadas y sus respectivas licencias:
+
+\begin{table}
+	\scalebox{0.80}{
+		\begin{tabular}{@{}p{14em} p{6em} p{20em}@{}}
+			\toprule
+			\textbf{Librería} & \textbf{Versión} & \textbf{Licencia}\\
+			\midrule
+            \texttt{\textbf{blinker}} & \texttt{1.8.2} & MIT License \\
+            \texttt{\textbf{certifi}} & \texttt{2024.7.4} & Mozilla Public License 2.0 (MPL-2.0) \\
+            \texttt{\textbf{charset-normalizer}} & \texttt{3.3.2} & MIT License \\
+            \texttt{\textbf{click}} & \texttt{8.1.7} & BSD-3-Clause License \\
+            \texttt{\textbf{colorama}} & \texttt{0.4.6} & BSD-3-Clause License \\
+            \texttt{\textbf{dash}} & \texttt{2.17.1} & MIT License \\
+            \texttt{\textbf{dash-core-components}} & \texttt{2.0.0} & MIT License \\
+            \texttt{\textbf{dash-html-components}} & \texttt{2.0.0} & MIT License \\
+            \texttt{\textbf{dash-table}} & \texttt{5.0.0} & MIT License \\
+            \texttt{\textbf{Flask}} & \texttt{3.0.3} & BSD-3-Clause License \\
+            \texttt{\textbf{Flask-Login}} & \texttt{0.6.3} & MIT License \\
+            \texttt{\textbf{Flask-MySQLdb}} & \texttt{2.0.0} & MIT License \\
+            \texttt{\textbf{Flask-WTF}} & \texttt{1.2.1} & BSD-3-Clause License \\
+            \texttt{\textbf{idna}} & \texttt{3.7} & BSD-3-Clause License \\
+            \texttt{\textbf{importlib\_metadata}} & \texttt{8.0.0} & Apache License 2.0 \\
+            \texttt{\textbf{itsdangerous}} & \texttt{2.2.0} & BSD-3-Clause License \\
+            \texttt{\textbf{Jinja2}} & \texttt{3.1.4} & BSD-3-Clause License \\
+            \texttt{\textbf{MarkupSafe}} & \texttt{2.1.5} & BSD-3-Clause License \\
+            \texttt{\textbf{mysql-connector-python}} & \texttt{9.0.0} & GPL-2.0 License \\
+            \texttt{\textbf{mysqlclient}} & \texttt{2.2.4} & GPL-2.0 License \\
+            \texttt{\textbf{nest-asyncio}} & \texttt{1.6.0} & BSD-3-Clause License \\
+            \texttt{\textbf{numpy}} & \texttt{2.0.0} & BSD-3-Clause License \\
+            \texttt{\textbf{packaging}} & \texttt{24.1} & Apache License 2.0 \\
+            \texttt{\textbf{pandas}} & \texttt{2.2.2} & BSD-3-Clause License \\
+            \texttt{\textbf{plotly}} & \texttt{5.22.0} & MIT License \\
+            \texttt{\textbf{python-dateutil}} & \texttt{2.9.0.post0} & BSD License \\
+            \texttt{\textbf{pytz}} & \texttt{2024.1} & MIT License \\
+            \texttt{\textbf{requests}} & \texttt{2.32.3} & Apache License 2.0 \\
+            \texttt{\textbf{retrying}} & \texttt{1.3.4} & Apache License 2.0 \\
+            \texttt{\textbf{setuptools}} & \texttt{70.2.0} & MIT License \\
+            \texttt{\textbf{six}} & \texttt{1.16.0} & MIT License \\
+            \texttt{\textbf{tenacity}} & \texttt{8.4.2} & MIT License \\
+            \texttt{\textbf{typing\_extensions}} & \texttt{4.12.2} & MIT License \\
+            \texttt{\textbf{tzdata}} & \texttt{2024.1} & MIT License \\
+            \texttt{\textbf{urllib3}} & \texttt{2.2.2} & MIT License \\
+            \texttt{\textbf{Werkzeug}} & \texttt{3.0.3} & BSD-3-Clause License \\
+            \texttt{\textbf{WTForms}} & \texttt{3.1.2} & BSD-3-Clause License \\
+            \texttt{\textbf{xmltodict}} & \texttt{0.13.0} & MIT License \\
+            \texttt{\textbf{zipp}} & \texttt{3.19.2} & MIT License \\
+			\bottomrule
+		\end{tabular}
+	}
+	\caption{Tabla de licencias}
+    \label{tabla-licencias}
+\end{table}
+
+Entre las licencias mencionadas para las librerías, la más restrictiva es la GPL-2.0 License (General Public License versión 2.0). Esta licencia impone fuertes requisitos de copyleft, lo que significa que cualquier software derivado de una obra licenciada bajo la GPL-2.0 también debe ser distribuido bajo la misma licencia. Esto no se aplica a las licencias más permisivas como MIT, BSD-3-Clause, o Apache License 2.0, que permiten una mayor flexibilidad en el uso y redistribución del software.
+Por lo tanto la linecia escogida para la distribución del software es la licencia  GPL-2.0 License (General Public License versión 2.0)\footnote{\url{https://www.gnu.org/licenses/old-licenses/gpl-2.0.html#SEC1}}.
+
 
