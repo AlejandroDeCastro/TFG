@@ -23,11 +23,11 @@ Con este mini programa se permite al usuario:
     \item Instalar y desinstalar los \textit{dockers}.
 \end{itemize}
 
-\imagen{GestorOCB}{Programa gestor del OCB}{.8}
+\imagen{GestorOCB}{Programa gestor del \textit{OCB}}{.8}
 
-En esta etapa mediante la herramienta Postman\footnote{Herramienta para probar y gestionar APIs}, se hicieron pruebas con el Orion Context Broker, creando, consultando, actualizando y borrando entidades el servidor. Así se podía verificar que el servidor funcionaba correctamente y estaba preparado para almacenar las distintas entidades.
+En esta etapa mediante la herramienta \textit{Postman}\footnote{Herramienta para probar y gestionar \textit{APIs}}, se hicieron pruebas con el \textit{Orion Context Broker}, creando, consultando, actualizando y borrando entidades el servidor. Así se podía verificar que el servidor funcionaba correctamente y estaba preparado para almacenar las distintas entidades.
 Las cuales posteriormente serían consultadas, actualizadas o eliminadas desde la aplicación con peticiones \textit{GET}\footnote{Se utiliza para solicitar datos de un recurso específico.}, \textit{PATCH}\footnote{Se utiliza para hacer actualizaciones parciales a un recurso existente.} o \textit{DELETE}\footnote{Se utiliza para eliminar un recurso específico.} de \textit{HTTP} y poder consultadas con peticiones \textit{GET} de \textit{HTTP} en el puerto 1026, que es el usado por el servidor.
-\imagen{POST - Postman}{Ejemplo de uso de POST en Postman}{.9}\label{fig:post-postman}
+\imagen{POST - Postman}{Ejemplo de uso de POST en \textit{Postman}}{.9}\label{fig:post-postman}
 
 \subsection{Simulador de conjunto de datos usando el modelo \textit{NGSI-LD}}\label{simulador}
 
@@ -55,7 +55,7 @@ Para el desarrollo de la aplicación se hizo un análisis de los posibles perfil
     \item \textbf{Usuario avanzado:} este usuario sería un perfil más próximo a un analista de datos, que desearía consultar uno o varios conjuntos, durante un periodo de tiempo determinado con una frecuencia establecida.
 \end{itemize}
 
-Una vez establecidos los perfiles y las necesidades a cubrir, se empezó con el análisis y diseño de la aplicación. Y posteriormente su desarrollo, el cuál, ha sido complejo ya que requería de cubrir las necesidades de los usuarios actuales y de usuarios futuros con un modelo de información diferente, el modelo NGSI-LD, mencionado en el apartado \ref{modelo-ngsi-ld}.
+Una vez establecidos los perfiles y las necesidades a cubrir, se empezó con el análisis y diseño de la aplicación. Y posteriormente su desarrollo, el cuál, ha sido complejo ya que requería de cubrir las necesidades de los usuarios actuales y de usuarios futuros con un modelo de información diferente, el modelo \textit{NGSI-LD}, mencionado en el apartado \ref{modelo-ngsi-ld}.
 
 Para su desarrollo se ha tenido en cuenta que entre los objetivos generales, se encuentren objetivos tales como permitir al usuario tener una experiencia sencilla, cómoda y rápida. Es por ello que un usuario puede marcar que parámetros desea visualizar de un conjunto, o marcar varios conjuntos como favoritos y poder acceder desde el menú de inicio de manera rápida.
 
@@ -79,7 +79,7 @@ Otras funcionalidades principales que solo tienen los administradores son:
 \end{itemize}
 
 \subsection{Revisión de código}
-CUANDO SE TERMINE EL USO DE SONARQUBE
+El código ha sido revisado utilizando \textit{SonarQube}, una herramienta de análisis estático de código que permite identificar errores, vulnerabilidades y problemas de calidad. Después de realizar el análisis, se corrigieron los principales problemas detectados para asegurar que el código cumpla con los estándares de calidad y seguridad requeridos.
 
 \begin{comment}
 
