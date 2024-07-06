@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      FLASK_ENV: development
+      FLASK_APP: CODE/app.py  # Nombre del archivo principal de tu aplicación Flask
+    volumes:
+      - .:/CODE
+    command: ["flask", "run", "--host=0.0.0.0"]
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password  # Contraseña para el usuario root de MySQL
+      MYSQL_DATABASE: tfg  # Nombre de la base de datos
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d  # Monta el directorio db/ como una carpeta para inicializar la base de datos
+
+volumes:
+  db-data:

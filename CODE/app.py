@@ -27,6 +27,9 @@ from numpy import True_
 import shutil
 from multiprocessing import Process
 
+
+
+
 #Datos disponibles
 diccionarioDatosDisponibles=diccionarioURLs(db)
 listaCiudades=list(diccionarioDatosDisponibles.keys())
@@ -1225,5 +1228,8 @@ if __name__ == "__main__":
     
     iniciar_demonios(db)
     csrf.init_app(server)
-    server.run()
+    # Registrar la conexión a la aplicación Flask
+    server.config['DB'] = db
+    server.run(host='0.0.0.0', port=5000, debug=True)
+    #server.run()
     

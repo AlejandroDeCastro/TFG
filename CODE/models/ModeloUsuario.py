@@ -187,8 +187,8 @@ class ModeloUsuario():
             cursor = db.cursor()
 
             # Insercción que se hace en la base de datos. 
-            insercción="INSERT INTO registros (id_usuario, Ciudad, Característica, Formato, Periodicidad) VALUES (%s, %s, %s, %s, %s)"
-            data = (id_usuario, ciudad, característica, formato, segundos)
+            insercción="INSERT INTO registros (id_usuario, Ciudad, Característica, Formato, Periodicidad, pid) VALUES (%s, %s, %s, %s, %s, %s)"
+            data = (id_usuario, ciudad, característica, formato, segundos, "0")
 
             # Ejecución de la insercción
             cursor.execute(insercción, data)
