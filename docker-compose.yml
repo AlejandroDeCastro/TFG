@@ -12,6 +12,7 @@ services:
       FLASK_APP: CODE/app.py  # Nombre del archivo principal de tu aplicación Flask
     volumes:
       - .:/CODE
+      - /var/run/docker.sock:/var/run/docker.sock  # Monta el socket Docker del host
     command: ["flask", "run", "--host=0.0.0.0"]
 
   db:

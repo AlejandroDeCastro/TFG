@@ -713,6 +713,43 @@ def mostrarConjunto(lugar, conjunto):
             clavesMapa=['Nombre','Horario']
 
             return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = fav)
+        elif opcion == "Calidad aire":
+
+            data=data["calidadairemediatemporales"]["calidadairemediatemporal"]
+
+            # Traduce el conjunto y trasforma las localizaciones de los cajeros en el estandar localizacion:{lon:XX,lat:XX}
+            conjuntoTraducido=[]
+            for entidad in data:
+                entidadTraducida = actualizar_claves(entidad, modeloTraducciones)
+                entidadTraducida['localizacion']={'lon': entidadTraducida['longitud'], 'lat': entidadTraducida['latitud']}
+                conjuntoTraducido.append(entidadTraducida)
+            data=conjuntoTraducido
+            
+            # Cabecero de la tabla actualizado
+            listaCaracteristicas=data[0].keys()
+
+            clavesMapa=['Nombre']
+
+            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = fav)
+        
+        elif opcion == "Perros peligrosos":
+
+            data=data["animales"]["animal"]
+
+            # Traduce el conjunto
+            conjuntoTraducido=[]
+            for entidad in data:
+                entidadTraducida = actualizar_claves(entidad, modeloTraducciones)
+                conjuntoTraducido.append(entidadTraducida)
+            data=conjuntoTraducido
+            
+            # Cabecero de la tabla actualizado
+            listaCaracteristicas=data[0].keys()
+
+
+            return render_template('plantillaSinMapa.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, favorito = fav)
+
+
     else:
         # Si se busca una ciudad que no está en la lista, mostrar una vista genérica
 
@@ -736,6 +773,12 @@ def mostrarConjunto(lugar, conjunto):
 
         clavesMapa.append("name")
         return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = fav)
+
+    print(data)
+    if "localizacion" in data:
+        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, selected_options = clavesMapa, favorito = fav)
+    else:
+        return render_template('plantillaSinMapa.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, favorito = fav)
 
 
 @server.route('/data')
@@ -878,7 +921,6 @@ def convertirADiccionario(enlace, formato):
     # Si hay un enlace para los datos, lo lee y transforma en un diccionario
     if enlace != "" and enlace!= "Simulador":
 
-
         #Extraer los datos según el formato
         if formato == formatos[0] or formato == formatos[3]: #JSON
             try:    
@@ -933,7 +975,7 @@ def convertirADiccionario(enlace, formato):
             # LLamar a una vista que indique que ese formato no existe
 
     else:
-        if enlace == "Simulador":
+        if enlace == "Simulador": 
             diccionarioDatos=obtenerDatosSimulador()
         else:
             diccionarioDatos={} #Si no hay datos devuelve un diccionario vacío
@@ -1012,16 +1054,17 @@ def adaptarListaNGSI(lista_entidades):
                 entidad_adaptada[clave]=valor
 
         lista_adaptadas.append(entidad_adaptada)
-
+    print("AA",lista_adaptadas)
     return lista_adaptadas
 
 
 # Función que busca el formato más óptimo y devueleve el formato y el enlace
-def obetenerFormatoÓptimo(diccionarioFormatos):
+def obetenerFormatoÓptimo(diccionarioFormatos):    
     for formato in formatos:
+        if diccionarioFormatos.get("NGSI"):
+            return "NGSI", "Simulador"
         if diccionarioFormatos.get(formato):
             return formato, diccionarioFormatos[formato][0]
-
     return None, None
 
 def obtenerListaFavoritos(db,id):
@@ -1229,7 +1272,7 @@ if __name__ == "__main__":
     iniciar_demonios(db)
     csrf.init_app(server)
     # Registrar la conexión a la aplicación Flask
-    server.config['DB'] = db
-    server.run(host='0.0.0.0', port=5000, debug=True)
-    #server.run()
+    #server.config['DB'] = db
+    #server.run(host='0.0.0.0', port=5000, debug=True)
+    server.run()
     

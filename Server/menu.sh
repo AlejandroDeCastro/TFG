@@ -27,11 +27,19 @@ function menu {
     esac
 }
 
+function wait_for_orion {
+    echo "Esperando a que FIWARE Orion esté disponible..."
+    until curl -s -X GET http://localhost:1026/version > /dev/null; do
+        echo "Esperando..."
+        sleep 5
+    done
+    echo "FIWARE Orion está disponible."
+}
+
 function opcion_1 {
     docker start fiware-orion
     docker start mongo-db
-    # Espera a que se haya levantado el server para hacer el GET
-    sleep 5
+    wait_for_orion
     # Comprueba que todo haya salido bien
     curl -X GET http://localhost:1026/version
     read -p "Presiona Enter para continuar..."
@@ -81,7 +89,7 @@ function opcion_6 {
 function opcion_7 {
     docker pull mongo:4.2
     docker pull fiware/orion:3.10.1
-    docker network create fiware_TFG
+    docker network create fiware_TFG || true
     docker run -d --name=mongo-db --network=fiware_TFG --expose=27017 mongo:4.2 --bind_ip_all
     docker run -d --name fiware-orion -h orion --network=fiware_TFG -p 1026:1026 fiware/orion:3.10.1 -dbhost mongo-db
     read -p "Presiona Enter para continuar..."

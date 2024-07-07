@@ -15,19 +15,15 @@
 <title>{{ciudad}} - {{opcionElegida}}</title>
 
 <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico">
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
 <style>
-    .leaflet-container {
-        height: 400px;
-        width: 600px;
-        max-width: 100%;
-        max-height: 100%;
+    /* Estilo personalizado para centrar el h1 */
+    .centrar-h1 {
+        display: flex;
+        width:100%;
+        justify-content: center;
+        align-items: center;
     }
 </style>
-
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 {% endblock %}
@@ -51,26 +47,12 @@
 {% endblock %}
 
 {% block body %}
-
-<div style="display: flex; width: 100%; justify-content: center; align-items: center">
-    <h1>Mapa de {{opcionElegida}} de {{ciudad}}</h1>
+<div class="centrar-h1">
+    <h1>{{ opcionElegida }} de {{ ciudad }}</h1>
 </div>
-<div class="container-custom">
-    <div id="mapa" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"></div>
-    <div class="checkbox-container">
-        {% for option in listaCaracteristicas %}
-        <label class="checkbox-label">
-            <input type="checkbox" name="options" value="{{ option }}" {% if option in selected_options %}checked{% endif %}>
-            <span class="checkbox-custom"></span>
-            {{ option }}
-        </label>
-        {% endfor %}
-    </div>
-</div>
-
 
 <!--TABLA-->
-<div class="contenedor-tabla">
+<div class="contenedor-tabla-sin-mapa">
     <table id="tablaConOrdenación" class="table table-dark table-striped table-bordered tabla">
 
         <thead>
@@ -106,41 +88,9 @@
 
 {% block scripts %}
 
-<script src="{{ url_for('static', filename='js/mapa.js') }}"></script>
 <script src="{{ url_for('static', filename='js/ordenación.js') }}"></script>
 
 <script>
-    document.querySelectorAll('.checkbox-label input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            const selectedOptions = Array.from(document.querySelectorAll('.checkbox-label input[type="checkbox"]:checked'))
-                .map(cb => cb.value);
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            fetch('/update_options', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken  // Añadir token CSRF
-                },
-                body: JSON.stringify({ selected_options: selectedOptions })
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      // Actualiza el mapa sin recargar la página
-                      loadData();
-                  }
-              });
-        });
-    });
-
-    document.querySelectorAll('.checkbox-custom').forEach(customCheckbox => {
-        customCheckbox.addEventListener('click', function() {
-            const checkbox = customCheckbox.previousElementSibling;
-            checkbox.checked = !checkbox.checked;
-            checkbox.dispatchEvent(new Event('change'));
-        });
-    });
-
     // Maneja el evento de clic en el icono de favorito
     const favoritoIcon = document.getElementById('favoritoIcon');
     favoritoIcon.addEventListener('click', function() {

@@ -31,7 +31,7 @@ function opcion_1 {
     docker start fiware-orion
     docker start mongo-db
     # Espera a que se haya levantado el server para hacer el GET
-    sleep 5
+    sleep 15
     # Comprueba que todo haya salido bien
     curl -X GET http://localhost:1026/version
     read -p "Presiona Enter para continuar..."
