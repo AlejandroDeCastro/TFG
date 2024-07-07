@@ -4,6 +4,61 @@
 
 \section{Estructura de directorios}
 
+El repositorio de \textit{GitHub}\footnote{\url{https://github.com/AlejandroDeCastro/TFG}} donde se en encuentra el proyecto, tiene la siguiente estructura:
+\begin{itemize}
+    \item \textbf{CODE:} Directorio donde se encuentra el código de la aplicación. Tiene la siguiente estructura:
+    \begin{itemize}
+        \item \textbf{assets:} Contiene los estilos \textit{css} de \textit{Dash}:
+        \begin{itemize}
+            \item \textbf{stylesheet.css:} Fichero \textit{css} que contiene el diseño de las vistas hechas con \textit{Dash}.
+            \item \textbf{s1.css:} Fichero \textit{css} que contiene el diseño de las gráficas de las vistas hechas con \textit{Dash}.
+        \end{itemize}
+        \item \textbf{models:} Contiene los modelos de las entidades que ejecutan el programa y las acciones relacionadas con ellas:
+        \begin{itemize}
+            \item \textbf{entidades:} Directorio que contiene las distintas entidades del sistema:
+            \begin{itemize}
+                \item \textbf{Usuario.py:} Contiene la clase "Usuario". 
+            \end{itemize}
+            \item \textbf{ModeloUsuario.py:} Contiene la clase "ModeloUsuario" en \textit{Python}, la cual alberga todas acciones relacionadas con el usuario.
+        \end{itemize}
+        \item \textbf{static:} Directorio donde se encuentran los ficheros que dan soporte al \textit{front-end} de la aplicación y algunas funcionalidades en las propias pantallas de la aplicación:
+        \begin{itemize}
+            \item \textbf{css:} Directorio donde se encuentran todos los ficheros \textit{css} de la aplicación, encargados de aportar la estética de las distintas vistas.
+            \item \textbf{img:} Directorio con las distintas imágenes de la aplicación.
+            \item \textbf{js:} Directorio que contiene todos los ficheros \textit{js} de la aplicación, son los encargados de añadir algunas funcionalidades a las distintas vistas.
+        \end{itemize}
+        \item \textbf{templates:} Directorio que contiene los ficheros \textit{html} de la aplicación, estos ficheros aportan las vistas de la aplicación.
+        \item \textbf{app.py:} \textit{Script} principal de la aplicación, programado en \textit{Python}, contiene todas las rutas de la aplicación.
+        \item \textbf{database.py:} Fichero de \textit{Python} que contiene el conector con la base de datos.
+        \item \textbf{gestor.py:} Fichero de \textit{Python} que contiene todas las interacciones con la base de datos, menos las que están relacionadas con el usuario. También es el \textit{script} encargado de la gestión de registros.
+    \end{itemize}
+    \item \textbf{Documentación:} Directorio donde se encuentra toda la documentación del proyecto, organizada en documentos \LaTeX{}
+    \item \textbf{Registros:} Directorio donde se almacenan los registros solicitados por cada usuario.
+    \item \textbf{Server:} Directorio donde se encuentra el \textit{OCB} y todos los ficheros relacionados con él:
+    \begin{itemize}
+        \item \textbf{Server/Ficheros:} Directorio donde se encuentra un histórico de los ficheros \textit{JSON} del simulador.
+        \item \textbf{menu.bat:} \textit{Script} que proporciona al usuario un menú desde el cual gestionar el \textit{OCB} en \textit{Windwos}.
+        \item \textbf{menu.sh:} \textit{Script} que proporciona al usuario un menú desde el cual gestionar el \textit{OCB} en \textit{Linux}.
+        \item \textbf{generadorDatos.py:} Simulador que proporciona datos al \textit{OCB}.
+        \item \textbf{limpiador.py:} \textit{Script} que eliminar todas las entidades almacenadas en el \textit{OCB}.
+        \item \textbf{simulador.txt:} Fichero de texto plano que almacena el \textit{id} del proceso que está ejecutando el simulador para detenerlo cuando se ejecuta en segundo plano.
+        \item \textbf{transformadorDatos.py:} \textit{Script}que transforma ficheros \textit{JSON} al modelo \textit{NGSI}, actualmente en desuso.
+    \end{itemize}
+    \item \textbf{db:} Directorio que contiene la base de datos de la aplicación.
+    \begin{itemize}
+        \item \textbf{tfg.sql:} Base de datos de la aplicación.
+    \end{itemize}
+    \item \textbf{Dockerfile:} Fichero de texto plano que contiene una serie de instrucciones necesarias para crear la imagen \textit{Docker} que contiene la aplicación, para su distribución o despliegue en un servidor real.
+    \item \textbf{LICENSE:} Licencia para la  distribución del código de la aplicación.
+    \item \textbf{Readme.md:} Fichero que proporciona información útil sobre el proyecto, como la licencia, enlaces de interés, descripción, etc.
+    \item \textbf{docker-compose.yml:} Fichero de configuración para la creación del \textit{Docker} mencionado anteriormente.
+    \item \textbf{error\_log.txt:} Fichero de texto plano donde se almacenan los reportes de los usuarios cuando ha ocurrido un error.
+    \item \textbf{requirements.txt:} Bibliotecas esenciales y sus versiones para la ejecución de la aplicación.
+\end{itemize}
+
+Se han omitido los directorios \textbf{\_\_pycache\_\_} que contienen \textit{scripts} ya compilados de \textit{Python}, se genera automáticamente. No son relevantes.
+
+
 \section{Manual del programador}
 
 \section{Compilación, instalación y ejecución del proyecto}
