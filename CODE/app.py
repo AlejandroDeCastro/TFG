@@ -10,8 +10,7 @@ import os
 import requests
 import xmltodict
 import dash
-import dash_core_components as dcc 
-import dash_html_components as html
+from dash import dcc, html
 import pandas as pd
 import plotly.express as px
 import urllib.request
@@ -58,7 +57,7 @@ server.secret_key = '$$'
 
 #Inicializa la aplicación Dash
 vistaParkingValencia = dash.Dash(__name__, server=server, url_base_pathname='/ValenciaParkings/')
-vistaParkingValencia.layout = html.Div([html.H1('BB')])
+vistaParkingValencia.layout = html.Div([html.H1('404')])
 
 #Protección CSRF 
 csrf = CSRFProtect(server)
@@ -527,7 +526,7 @@ def mostrarConjunto(lugar, conjunto):
                 #Cabecero con foto
                 html.Div([
                     html.H1('Parkings Valencia'),
-                    html.Img(src='static/img/Cabecero1.jpg')
+                    html.Img(src='static/img/logo.jpg')
                     ], className = 'banner'),
 
                 #Selector de dato a mostrar
