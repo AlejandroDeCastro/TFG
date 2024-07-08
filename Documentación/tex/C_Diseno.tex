@@ -166,6 +166,8 @@ Gracias al diagrama de secuencias se puede describir en detalle cómo se lleva a
 \section{Diseño arquitectónico}
 
 \subsection{Estructura del \textit{software} del proyecto}
+Como se puede apreciar en la imagen \ref{fig:Estructura}, los sensores de las distintas ciudades publican datos que son accesibles desde la aplicación a través de las distintas \textit{APIs} de datos de las distintas instituciones. Estos datos son entregados en distintos formatos (\textit{JSON}, \textit{CSV}, \textit{XML}...).
+Gracias al \textit{OCB}, no serán necesarias dichas \textit{APIs} debido a que el acceso se podrá hacer desde el propio \textit{OCB} y en un formato estándar. Como hasta ahora no hay suficientes conjuntos de datos, se ha creado el simulador, el cual se encarga de recrear un conjunto de sensores.
 \imagen{Estructura}{Estructura del proyecto}
 
 \subsection{Arquitectura de la aplicación}
@@ -173,7 +175,7 @@ Gracias al diagrama de secuencias se puede describir en detalle cómo se lleva a
 
 \section{Diseño gráfico}
 
-Se ha elaborado un
+Se ha elaborado un diseño de interfaces como guía a la hora de ir desarrollando las diferentes pantallas. Estas son las diferentes interfaces que han sido planteadas:
 
 \subsection{Crear cuenta}
 \imagen{crear_cuenta_pantalla}{Crear cuenta - Pantalla}
