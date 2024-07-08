@@ -36,6 +36,10 @@
 % Evitar solapes en el header
 \nouppercaseheads
 
+%tablas
+\usepackage{longtable}
+\usepackage{tabularx}
+
 % Imagenes
 \usepackage{graphicx}
 \newcommand{\imagen}[2]{
@@ -114,6 +118,55 @@
    \label{tabla:#3}
   \end{center}
  \end{table}
+}
+
+% Nuevo comando para tablas de los casos de prueba.
+\newcounter{n}
+\setcounter{n}{0}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1\textwidth}}
+
+\newcommand{\cp}[8]{
+    \addtocounter{n}{1}
+
+    \raggedright
+    \def\arraystretch{1}
+    \setlength\tabcolsep{2pt}
+    \begin{table}[H]
+    \begin{tabularx}{\textwidth}{L{0.25}L{0.75}}
+    
+    \toprule
+    \multicolumn{2}{l}{Identificador: CP\arabic{n}} \\
+    \rowcolor{gray!20}
+    \multicolumn{2}{l}{Prioridad: #1} \\
+    \multicolumn{2}{l}{Fecha de ejecución: #2} \\
+    \rowcolor{gray!20}
+    \multicolumn{2}{l}{Realización: #3} \\
+    \multicolumn{2}{l}{Objetivo: #4} \\
+    \rowcolor{gray!20}
+    \multicolumn{2}{l}{Precondiciones: #6} \\
+    \multicolumn{2}{l}{Postcondiciones: #7} \\
+    \specialrule{.8pt}{1pt}{0pt}
+
+    \multicolumn{2}{@{}p{\textwidth}@{}}{
+        \begin{hyphenrules}{nohyphenation}
+        \bgroup
+        \rowcolors{2}{gray!20}{white}
+        \scriptsize
+        \begin{tabularx}{\textwidth}{L{0.15}L{0.25}L{0.25}L{0.25}>{\raggedright\arraybackslash}X}
+            \rowcolor[gray]{.9}
+            \textbf{Acción} & \textbf{Entrada} & \textbf{Salida Esperada} & \textbf{Salida Real} & \\
+            \specialrule{.4pt}{0pt}{2pt}
+            #8
+        \end{tabularx}
+        \egroup
+        \end{hyphenrules}
+    } \\
+
+    \specialrule{.8pt}{0pt}{0pt}
+    \end{tabularx}
+    \caption{CP\arabic{n}: #5}
+    \end{table}
 }
 
 %

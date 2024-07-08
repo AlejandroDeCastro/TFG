@@ -19,7 +19,7 @@ El repositorio de \textit{GitHub}\footnote{\url{https://github.com/AlejandroDeCa
             \begin{itemize}
                 \item \textbf{Usuario.py:} Contiene la clase "Usuario". 
             \end{itemize}
-            \item \textbf{ModeloUsuario.py:} Contiene la clase "ModeloUsuario" en \textit{Python}, la cual alberga todas acciones relacionadas con el usuario.
+            \item \textbf{ModeloUsuario.py:} Contiene la clase ``ModeloUsuario'' en \textit{Python}, la cual alberga todas acciones relacionadas con el usuario.
         \end{itemize}
         \item \textbf{static:} Directorio donde se encuentran los ficheros que dan soporte al \textit{front-end} de la aplicación y algunas funcionalidades en las propias pantallas de la aplicación:
         \begin{itemize}
@@ -53,7 +53,7 @@ El repositorio de \textit{GitHub}\footnote{\url{https://github.com/AlejandroDeCa
     \item \textbf{Readme.md:} Fichero que proporciona información útil sobre el proyecto, como la licencia, enlaces de interés, descripción, etc.
     \item \textbf{docker-compose.yml:} Fichero de configuración para la creación del \textit{Docker} mencionado anteriormente.
     \item \textbf{error\_log.txt:} Fichero de texto plano donde se almacenan los reportes de los usuarios cuando ha ocurrido un error.
-    \item \textbf{requirements.txt:} Bibliotecas esenciales y sus versiones para la ejecución de la aplicación.
+    \item \textbf{requirements.txt:} Librerías esenciales y sus versiones para la ejecución de la aplicación.
 \end{itemize}
 
 Se han omitido los directorios \textbf{\_\_pycache\_\_} que contienen \textit{scripts} ya compilados de \textit{Python}, se genera automáticamente. No son relevantes.
@@ -61,6 +61,154 @@ Se han omitido los directorios \textbf{\_\_pycache\_\_} que contienen \textit{sc
 
 \section{Manual del programador}
 
+Esta sección tiene como objetivo servir de guía a futuros programadores que deseen continuar con el desarrollo de la aplicación. Es por ello que, a continuación voy a detallar como descargar el código e instalar el software necesario para su uso.
+
+\subsection{Entorno de desarrollo}
+
+El entorno de desarrollo recomendado es \textit{Visual Studio 2022}\footnote{\url{https://visualstudio.microsoft.com/es/}}, ya que ha sido la empleada para el desarrollo de la aplicación y e incorpora herramientas para el desarrollo de código en diversos lenguajes usados en la aplicación (\textit{Python}, \textit{HTML5}, \textit{CSS3}, \textit{JavaScript}, etc). 
+
+\textit{Visual Studio 2022} es un \textit{IDE} completo, extensible y gratuito, con conectividad con \textit{GitHub}\footnote{Repositorio del código fuente: \url{https://github.com/AlejandroDeCastro/TFG}}, lo cual permite clonar el repositorio con el código fuente y comenzar a modificarlo de una manera muy sencilla.
+
+La aplicación en sí, está desarrollada en \textit{Python} y necesita determinadas librerías para su correcto funcionamiento. Es por ello, por lo que existe un fichero llamado ``requirements.txt'' en el repositorio, el cual contiene las librerías y las versiones necesarias. Para instalar todas las dependencias, basta con ejecutar el siguiente comando en el directorio raíz del proyecto: \texttt{\$ pip3 install -r requirements.txt}.
+
+\subsection{Base de datos}
+
+La base de datos empleada es una base de datos relacional, la cual se ha gestionado con \textit{MySQL}, más en concreto con \textit{XAMPP}\footnote{\url{https://www.apachefriends.org/es/index.html}}, una herramienta que permite trabajar en local con la base datos y gestionarla mediante una interfaz gráfica. Al ser un software libre puede ser usado por cualquier usuario de manera completamente gratuita.
+
+\subsection{Dockers}
+
+Por último, para la instalación del \textit{Orion Context Broker} es necesario tener instalado \textit{Docker} en el sistema operativo, ya que, precisa de dos \textit{dockers}: \textit{fiware-orion} y \textit{mongoDB}.
+La instalación y gestión de ambos \textit{dockers} se puede hacer cómodamente ejecutando el \textit{spript} ``menu.bat'' si se desea instalar desde \textit{Windows} o ``menu.sh'' si es desde un sistema \textit{Unix}.
+
 \section{Compilación, instalación y ejecución del proyecto}
 
+En este aparatado se detalla como compilar, instalar y ejecutar el proyecto en cinco sencillos pasos:
+\begin{enumerate}
+    \item \textbf{Clonar el repositorio:} Lo primero de todo es clonar el repositorio de \textit{GitHub} mencionado en el apartado anterior.
+    \item \textbf{Acceder a la carpeta raíz del directorio clonado:} Entrar con el comando: \texttt{cd TFG}.
+    \item \textbf{Generar la imagen de \textit{Docker}:} Con el comando \texttt{docker build -t SmartCitiesApp}.
+    \item \textbf{Ejecutar el \textit{Docker}:} Usando el comando \texttt{docker-compose up}.
+    \item \textbf{Acceder a la aplicación:} Mediante el enlace \url{http://127.0.0.1:5000/} .
+\end{enumerate}
+
 \section{Pruebas del sistema}
+
+%CP1
+\begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
+\label{CP1}
+\caption{CP-1 Crear cuenta con usuario existente}\\ 
+\hline
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-1}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Crear cuenta con usuario existente} \endfirsthead 
+\hline
+\textbf{Importancia} & Alta \\
+\rowcolor{gray!20} \textbf{Descripción} & No se permite la creación de una cuenta con un nombre de usuario ya en uso. \\
+\textbf{Precondición} & Introducir un nombre de usuario ya existente en la aplicación a la hora de crear una cuenta nueva. \\
+\rowcolor{gray!20} \textbf{Acciones} & Se comprueba si el nombre de usuario existe en la base de datos. \\
+\textbf{Postcondición} & Se notifica al usuario que debe escoger otro nombre de usuario. \\
+\hline
+\end{longtable}
+
+%CP2
+\begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
+\label{CP2}
+\caption{CP-2 Contraseñas no coinciden al crear una cuenta}\\ 
+\hline
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-2}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Contraseñas no coinciden al crear una cuenta} \endfirsthead 
+\hline
+\textbf{Importancia} & Alta \\
+\rowcolor{gray!20} \textbf{Descripción} & No permitir al usuario escribir una contraseña distinta en el campo de confirmación de contraseña respecto al campo de contraseña. \\
+\textbf{Precondición} & Introducir dos contraseñas distintas en el formulario de crear una cuenta nueva. \\
+\rowcolor{gray!20} \textbf{Acciones} & Se comprueba si ambas contraseñas coinciden. \\
+\textbf{Postcondición} & Se notifica al usuario que las contraseñas no coinciden. \\
+\hline
+\end{longtable}
+
+%CP3
+\begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
+\label{CP3}
+\caption{CP-3 Usuario inexistente al iniciar sesión}\\ 
+\hline
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-3}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Usuario inexistente al iniciar sesión} \endfirsthead 
+\hline
+\textbf{Importancia} & Media \\
+\rowcolor{gray!20} \textbf{Descripción} & Avisar al usuario que el usuario no existe en caso de que intente iniciar sesión con un usuario no registrado. \\
+\textbf{Precondición} & Introducir un nombre de usuario que no está registrado en la aplicación al iniciar sesión. \\
+\rowcolor{gray!20} \textbf{Acciones} & Se comprueba si el usuario existe. \\
+\textbf{Postcondición} & Se notifica al usuario que el usuario introducido no existe. \\
+\hline
+\end{longtable}
+
+%CP4
+\begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
+\label{CP4}
+\caption{CP-4 Contraseña incorrecta}\\ 
+\hline
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-4}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Contraseña incorrecta} \endfirsthead 
+\hline
+\textbf{Importancia} & Alta \\
+\rowcolor{gray!20} \textbf{Descripción} & Avisar al usuario que la contraseña introducida no es correcta. \\
+\textbf{Precondición} & Introducir una contraseña que incorrecta al intentar iniciar sesión. \\
+\rowcolor{gray!20} \textbf{Acciones} & Se comprueba si la contraseña es correcta. \\
+\textbf{Postcondición} & Se notifica al usuario que la contraseña introducida es incorrecta. \\
+\hline
+\end{longtable}
+
+%CP5
+\begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
+\label{CP5}
+\caption{CP-5 Conjunto de datos borrado}\\ 
+\hline
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-5}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Conjunto de datos borrado} \endfirsthead 
+\hline
+\textbf{Importancia} & Alta \\
+\rowcolor{gray!20} \textbf{Descripción} & Cuando un conjunto de datos es borrado, se elimina de los favoritos de los usuarios y se detienen los registros que accedan a ese conjunto. \\
+\textbf{Precondición} & Eliminar un conjunto de datos de la aplicación. \\
+\rowcolor{gray!20} \textbf{Acciones} & Se elimina de favoritos en los usuarios que lo tuvieran escogido y se finalizan los registros de dicho conjunto. \\
+\textbf{Postcondición} & La aplicación sigue funcionando sin ese conjunto de datos. \\
+\hline
+\end{longtable}
+
+%CP6
+\begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
+\label{CP6}
+\caption{CP-6 Conjunto de datos inaccesible}\\ 
+\hline
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-6}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Conjunto de datos inaccesible} \endfirsthead 
+\hline
+\textbf{Importancia} & Alta \\
+\rowcolor{gray!20} \textbf{Descripción} & Cuando se intenta acceder a un conjunto de datos el cual no está disponible en ese momento, se notifica al usuario y se le da la posibilidad de reportar el error. \\
+\textbf{Precondición} & intentar acceder a un conjunto de datos inaccesible. \\
+\rowcolor{gray!20} \textbf{Acciones} & Comprobar el acceso al conjunto de datos. \\
+\textbf{Postcondición} & Se notifica al usuario y se le redirige a la ventana de errores. \\
+\hline
+\end{longtable}
+
+%CP7
+\begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
+\label{CP7}
+\caption{CP-7 Acceso a una funcionalidad restringida}\\ 
+\hline
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-7}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Acceso a una funcionalidad restringida} \endfirsthead 
+\hline
+\textbf{Importancia} & Alta \\
+\rowcolor{gray!20} \textbf{Descripción} & Cuando se intenta acceder una funcionalidad de administrador siendo un usuario estándar se bloquea el acceso. \\
+\textbf{Precondición} & Siendo un usuario estándar, intentar acceder a un conjunto de datos el cuál es solo accesible para los administradores. \\
+\rowcolor{gray!20} \textbf{Acciones} & Comprobar el rol del usuario. \\
+\textbf{Postcondición} & Se notifica al usuario y se le redirige a la ventana de errores. \\
+\hline
+\end{longtable}
+
+%CP7
+\begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
+\label{CP7}
+\caption{CP-7 Acceso a una funcionalidad restringida}\\ 
+\hline
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-7}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Acceso a una funcionalidad restringida} \endfirsthead 
+\hline
+\textbf{Importancia} & Alta \\
+\rowcolor{gray!20} \textbf{Descripción} & Cuando se intenta acceder una funcionalidad de administrador siendo un usuario estándar se bloquea el acceso. \\
+\textbf{Precondición} & Siendo un usuario estándar, intentar acceder a un conjunto de datos el cuál es solo accesible para los administradores. \\
+\rowcolor{gray!20} \textbf{Acciones} & Comprobar el rol del usuario. \\
+\textbf{Postcondición} & Se notifica al usuario y se le redirige a la ventana de errores. \\
+\hline
+\end{longtable}
