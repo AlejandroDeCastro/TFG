@@ -204,7 +204,13 @@ def descargar_archivo(link, carpeta_destino, ciudad, característica, formato, p
         if not os.path.exists(carpeta_caracteristica):
             os.makedirs(carpeta_caracteristica)
 
-        carpeta_formato = os.path.join(carpeta_caracteristica, formato)
+        carpeta_periodicidad = os.path.join(carpeta_caracteristica, str(periodicidad))
+
+        #Verifica si la carpeta de la periodicidad existe
+        if not os.path.exists(carpeta_periodicidad):
+            os.makedirs(carpeta_periodicidad)
+
+        carpeta_formato = os.path.join(carpeta_periodicidad, formato)
 
         #Verifica si la carpeta de la formato existe
         if not os.path.exists(carpeta_formato):

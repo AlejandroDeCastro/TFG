@@ -171,9 +171,11 @@ def get_caracteristicas():
 @server.route("/editarRecords")
 @login_required
 def editarRecords():
-    registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    #registros_adaptados=transformarRegistrosUnidades(registros)
-    print(registros)
+    registros_no_adaptados = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
+    
+    #registros_adaptados=transformarRegistrosUnidades(registros_no_adaptados)
+    
+    
     global min_values, listaCiudadesDatos
     min_values={}
     listaCiudadesDatos = []
@@ -188,7 +190,7 @@ def editarRecords():
         ciudad, característica, formato = conjunto.split(" - ")
         min_values[conjunto]= diccionarioDatosDisponibles[ciudad][característica][formato][1]
   
-    return render_template('records/editarRecords.html', registros = registros , registros_adaptados = registros, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos, min_values=min_values)
+    return render_template('records/editarRecords.html', registros = registros_no_adaptados , opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos, min_values=min_values)
 
 @server.route('/get_min_value', methods=['GET'])
 @login_required
@@ -207,6 +209,7 @@ def descargar_registros(lugar, conjunto, formato, periodo):
     ruta = os.path.join("Registros", carpeta_usuario, lugar, conjunto, formato)
 
     if not os.path.exists(ruta):
+        print(ruta)
         return "Ruta no encontrada", 404
 
     # Crea un archivo ZIP en memoria
@@ -1140,13 +1143,13 @@ def segundosAUnidadÓptima(segundos):
     
     return ', '.join(tiempo)
 
-def transformarRegistrosUnidades(registros):
-    registros_adaptados=registros
+def transformarRegistrosUnidades(registros_no_adaptados):
+    registros_adaptados=registros_no_adaptados
 
-    for id, registro in registros.items():
+    for id, registro in registros_no_adaptados.items():
         periodoTransformado=segundosAUnidadÓptima(registro[3])
         registros_adaptados[id]=[registro[0],registro[1],registro[2],periodoTransformado]
-
+  
     return registros_adaptados
 
 def read_json_files(directory):
