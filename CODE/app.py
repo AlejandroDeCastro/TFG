@@ -1237,7 +1237,8 @@ if __name__ == "__main__":
     iniciar_demonios(db)
     csrf.init_app(server)
     # Registrar la conexión a la aplicación Flask
-    #server.config['DB'] = db
-    #server.run(host='0.0.0.0', port=5000, debug=True)
-    server.run()
+    server.config['DB'] = db
+    server.run(host='0.0.0.0', port=5000, debug=True)
+    #Local
+    #server.run()
     
