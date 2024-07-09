@@ -38,7 +38,7 @@ posiblesLatitud=['Latitud','Lat']
 posiblesLongitud=['Longitud','Lon']
 #modeloTraducciones={'totalSpotNumber' : 'Plazas totales','availableSpotNumber' : 'Plazas libres','precio_iv' : 'Precio', 'potenc_ia' : 'Potencia', 'observacio': 'Observaciones','emplazamie' : 'Dirección', 'geo_point_2d' : 'localizacion', 'horario' : 'Horario','titulo' : 'Nombre','ParkingCode' : 'Código del parking', 'Name' : 'Nombre',  'Address' : 'Dirección', 'ParkingAccess' : 'Acceso al parking', 'MaxWidth' : 'Anchura máxima', 'MaxHeight' : 'Altura máxima', 'Guarded' : 'Vigilado', 'InformationPoint' : 'Punto de información', 'Open': 'Apertura', 'Close' : 'Cierre', 'HandicapAccess' : 'Acceso discapacitados', 'ElectricCharger' : 'Cargadores eléctricos', 'WC' : 'Baños', 'Elevator' : 'Ascensor', 'Consigna' : 'Taquillas', 'ParkingPriceList' : 'Precios', 'ReferenceRate' : 'Calificación', 'Ownership' : 'Propiedad', 'ParkingType' : 'Tipo de parking', 'ParkingURL' : 'Web', 'VehicleTypesList' : 'Lista tipos de vehículos', 'PhoneCoverage' : 'Cobertura telefónica', 'plazaslibr' : 'plazas libres', 'plazastota' : 'plazas totales'}
 # Lista de campos que son booleans para traducirlos a Sí o No
-booleans=['Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
+booleans=['Wifi','Vigilado','Punto de información', 'Exterior', 'Acceso discapacitados', 'Cargadores eléctricos', 'Baños', 'Ascensor', 'Taquillas', 'Propiedad']
 # Lista de roles disponibles
 roles = ["administrador", "usuario"]
 LOG_FILE = 'error_log.txt'
@@ -159,8 +159,6 @@ def home():
         lista.append(conjunto)
         dicConjuntosFav[lugar]=lista
 
-        print(dicConjuntosFav)
-
     return render_template('index.html', listaCiudades=listaCiudades, registros = registros_adaptados, ciudades = listaCiudades, dicConjuntosFav = dicConjuntosFav)
 
 @server.route('/get_caracteristicas', methods=['POST'])
@@ -174,6 +172,7 @@ def get_caracteristicas():
 @login_required
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
+    registros_adaptados=transformarRegistrosUnidades(registros)
     global min_values, listaCiudadesDatos
     min_values={}
     listaCiudadesDatos = []
@@ -188,7 +187,7 @@ def editarRecords():
         ciudad, característica, formato = conjunto.split(" - ")
         min_values[conjunto]= diccionarioDatosDisponibles[ciudad][característica][formato][1]
   
-    return render_template('records/editarRecords.html', registros = registros, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos, min_values=min_values)
+    return render_template('records/editarRecords.html', registros = registros_adaptados, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos, min_values=min_values)
 
 @server.route('/get_min_value', methods=['GET'])
 @login_required
@@ -467,7 +466,7 @@ def mostrarConjunto(lugar, conjunto):
 
             return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
         
-        else:
+        elif opcion == "Centros comerciales" or opcion == "Desfibriladores":
 
             listaEntidades=[]
             for entidad in data['features']:
@@ -510,7 +509,7 @@ def mostrarConjunto(lugar, conjunto):
             dataFrameParkingsValencia['lat'] = dataFrameParkingsValencia['localizacion'].apply(lambda loc: loc['lat'])
 
             # mapa
-            mapa = px.scatter_mapbox(dataFrameParkingsValencia, lat="lat", lon="lon", hover_name="nombre", hover_data={"lat" : False, "lon" : False, "Plazas libres" : True, "Plazas totales" : True},
+            mapa = px.scatter_mapbox(dataFrameParkingsValencia, lat="lat", lon="lon", hover_name="nombre", hover_data={"lat" : False, "lon" : False, "plazaslibr" : True, "plazastota" : True},
                                     color_discrete_sequence=["blue"], zoom=11, height=300)
 
             # Configura el estilo del mapa y el tamaño de los puntos
@@ -618,58 +617,34 @@ def mostrarConjunto(lugar, conjunto):
 
     elif ciudad == "Barcelona":
 
-        #PARKING BARCELONA
-        if opcion=="Parkings":
+        conjuntoTraducido = []
 
-            conjuntoTraducido = []
+        # Se recorre uno a uno los parkings para ir tratando los datos 
+        for entidad in data:
+            # Se traducen los campos del parking
+            entidadTraducida = actualizar_claves(entidad, modeloTraducciones)
 
-            # Se recorre uno a uno los parkings para ir tratando los datos 
-            for parking in data["ParkingList"]["Parking"]:
+            # Se recorren todos los campos que pueden estar en boolean y se traducen con Sí o No
+            for boolean in booleans:        
+                if boolean in entidadTraducida:
+                    if entidadTraducida[boolean] == 1:
+                        entidadTraducida[boolean] = "Sí"
+                    elif entidadTraducida[boolean] == 0:
+                        entidadTraducida[boolean] = "No"
 
-                # Se traducen los campos del parking
-                parkingTraducido = actualizar_claves(parking, modeloTraducciones)
-
-                # Se recorren todos los campos que pueden estar en boolean y se traducen con Sí o No
-                for boolean in booleans:        
-                    if boolean in parkingTraducido:
-                        if parkingTraducido[boolean] == 1:
-                            parkingTraducido[boolean] = "Sí"
-                        elif parkingTraducido[boolean] == 0:
-                            parkingTraducido[boolean] = "No"
-
-                # Añade la longitud y latitud con el modelo estándar
-                listaAccesos=[]
-                if parkingTraducido['Acceso al parking'] != None:
-                    listaAccesos=parkingTraducido['Acceso al parking']['Access']
+            # Añade la longitud y latitud con el modelo estándar
+            if opcion == "Puntos de carga":
+                for info_nombre, info_valor in entidadTraducida['Sockets'][0].items():
+                    entidadTraducida[info_nombre]=info_valor
+                entidadTraducida.pop('Sockets')
+                entidadTraducida['localizacion']={'lon': entidadTraducida['Station_lng'], 'lat': entidadTraducida['Station_lat']}
                 
-                if len(listaAccesos) != 0:
-                    if not isinstance(listaAccesos, dict):
-                        lon=listaAccesos[0]['Longitude']
-                        lat=listaAccesos[0]['Latitude']
-                    else:
-                        lon=listaAccesos['Longitude']
-                        lat=listaAccesos['Latitude']
-                
-                    parkingTraducido['localizacion']={'lon': lon, 'lat': lat}
-
-                # Cambio el horario a estandar
-                parkingTraducido['Horario'] = "De "+str(parkingTraducido['Apertura'])+" a "+str(parkingTraducido['Cierre'])
-                parkingTraducido.pop('Apertura')
-                parkingTraducido.pop('Cierre')
-
-                conjuntoTraducido.append(parkingTraducido)
-            data=conjuntoTraducido
+            conjuntoTraducido.append(entidadTraducida)
+        data=conjuntoTraducido
             
-            listaCaracteristicas=data[0].keys()
-            
-            # Claves que se muestran el tooltip del mapa
-            clavesMapa=['Nombre', 'Horario', 'Baños', 'Ascensor']
-
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa, favorito = fav)
-     
-        else:
-            #Si se busca una opción que no está en la lista, muestra una vista genérica
-            return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
+        listaCaracteristicas=data[0].keys()
+        #Si se busca una opción que no está en la lista, muestra una vista genérica
+        return render_template('plantilla.html', ciudad = ciudad, opcionElegida = opcion, enlace = enlace, data = data, listaCaracteristicas = listaCaracteristicas, clavesMapa = clavesMapa)
     
     elif ciudad == "Bilbao":
         listaEntidades=[]
@@ -759,8 +734,6 @@ def mostrarConjunto(lugar, conjunto):
                 nuevaEntidad={}
                 for clave, valor in entidad['properties'].items():
                     nuevaEntidad[clave]=valor
-                print(nuevaEntidad)
-                print(entidad['geometry']['coordinates'])
                 nuevaEntidad['localizacion']={'lon': entidad['geometry']['coordinates'][0], 'lat': entidad['geometry']['coordinates'][1]}
                 listaEntidades.append(nuevaEntidad)
         
@@ -782,7 +755,6 @@ def mostrarConjunto(lugar, conjunto):
 
 @server.route('/data')
 def obtenerdatos():
-    #print(data,clavesMapa)
     return jsonify({'data': data, 'clavesMapa': clavesMapa})
 
 @server.route('/update_options', methods=['POST'])
@@ -800,7 +772,6 @@ def marcar_favorito():
     conjunto = data.get('conjunto')
     cadena_favoritos = ModeloUsuario.get_favoritos_by_id(db.database,current_user.id)
     if cadena_favoritos != "":
-        print("CADE",cadena_favoritos)
         lista_favoritos = cadena_favoritos.split(", ")
     else:
         lista_favoritos = []
@@ -809,15 +780,12 @@ def marcar_favorito():
 
     cadena_favoritos=""
     if len(lista_favoritos) > 1:
-        print("LEEEN",len(lista_favoritos))
         cadena_favoritos = ", ".join(lista_favoritos)
     else:
         cadena_favoritos = lista_favoritos[0]
 
-    print(cadena_favoritos)
 
     ModeloUsuario.update_favoritos(db.database,current_user.id,cadena_favoritos)
-    print("MARCADO FAVORITO",ciudad,conjunto)   
     return jsonify(success=True)
 
 @server.route('/desmarcar_favorito', methods=['POST'])
@@ -837,7 +805,6 @@ def desmarcar_favorito():
 
     cadena_favoritos=""
     if len(lista_favoritos) > 1:
-        print("LEEEN",len(lista_favoritos))
         cadena_favoritos = ", ".join(lista_favoritos)
     elif len(lista_favoritos) == 1:
         cadena_favoritos = lista_favoritos[0]
@@ -846,7 +813,6 @@ def desmarcar_favorito():
 
     print(cadena_favoritos)
     ModeloUsuario.update_favoritos(db.database,current_user.id,cadena_favoritos)
-    print("DESMARCADO FAVORITO",ciudad,conjunto)
     return jsonify(success=True)
 
 @server.route('/actualizar_rol', methods=['POST'])

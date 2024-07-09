@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-07-2024 a las 03:25:58
+-- Tiempo de generación: 09-07-2024 a las 08:37:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,7 +43,6 @@ CREATE TABLE `datos` (
 
 INSERT INTO `datos` (`id`, `ciudad`, `característica`, `enlace`, `id_usuario`, `formato`, `periodicidad`) VALUES
 (1, 'Valencia', 'Parkings', 'https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/parkings/records?limit=29', 1, 'JSON', 300),
-(2, 'Barcelona', 'Parkings', 'https://opendata-ajuntament.barcelona.cat/data/dataset/68b29854-7c61-4126-9004-83ed792d675c/resource/7a7c8e90-80f2-47a4-bff1-0915166fd409/download', 1, 'JSON', 60),
 (3, 'Madrid', 'Parkings', 'https://datos.madrid.es/egob/catalogo/202625-0-aparcamientos-publicos.json', 1, 'JSON', 60),
 (4, 'Badajoz', 'Centros culturales', 'https://datosabiertos.dip-badajoz.es/dataset/e94c8e11-faff-4211-a999-3e16800e09ac/resource/7f697576-34e6-4104-96fb-d00656c76734/download/centrosculturales2023.json', 3, 'JSON', 60),
 (7, 'Málaga', 'Desfibriladores', 'https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_desfibriladores-25830.geojson', 1, 'GEOJSON', 60),
@@ -56,7 +55,11 @@ INSERT INTO `datos` (`id`, `ciudad`, `característica`, `enlace`, `id_usuario`, 
 (18, 'Málaga', 'Centros comerciales', 'https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/da_centrosComerciales-4326.geojson', 1, 'GEOJSON', 60),
 (23, 'Málaga', 'Parkings', 'https://datosabiertos.malaga.eu/recursos/aparcamientos/ubappublicosmun/da_aparcamientosPublicosMunicipales-25830.geojson', 3, 'GEOJSON', 0),
 (24, 'Burgos', 'Parkings', 'Simulador', 1, 'NGSI', 0),
-(25, 'Valencia', 'Expendedores ORA', 'https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/expendedors-ora-expendedores-ora/exports/json?lang=es&timezone=Europe%2FBerlin', 1, 'JSON', 86400);
+(25, 'Valencia', 'Expendedores ORA', 'https://valencia.opendatasoft.com/api/explore/v2.1/catalog/datasets/expendedors-ora-expendedores-ora/exports/json?lang=es&timezone=Europe%2FBerlin', 1, 'JSON', 86400),
+(26, 'Gijón', 'Calidad aire', 'https://opendata.gijon.es/descargar.php?id=1&tipo=JSON', 1, 'JSON', 0),
+(27, 'Gijón', 'Perros peligrosos', 'https://opendata.gijon.es/descargar.php?id=37&tipo=JSON', 1, 'JSON', 0),
+(28, 'Barcelona', 'Puntos de carga', 'https://opendata-ajuntament.barcelona.cat/resources/auto/trimestral/2023_2T_Punts_Recarrega_Vehicle_Electric.json', 7, 'JSON', 0),
+(32, 'Málaga', 'Comedores sociales', 'https://datosabiertos.malaga.eu/recursos/urbanismoEInfraestructura/equipamientos/higiali/da_higialim_comedores-25830.csv', 7, 'CSV', 0);
 
 -- --------------------------------------------------------
 
@@ -79,8 +82,9 @@ CREATE TABLE `registros` (
 --
 
 INSERT INTO `registros` (`id`, `id_usuario`, `Ciudad`, `Característica`, `Formato`, `Periodicidad`, `pid`) VALUES
-(71, 1, 'Valencia', 'Puntos de carga', 'JSON', 60, 19688),
-(80, 1, 'Bilbao', 'Puntos de carga', 'JSON', 86400, 18912);
+(71, 1, 'Valencia', 'Puntos de carga', 'JSON', 60, 23540),
+(80, 1, 'Bilbao', 'Puntos de carga', 'JSON', 86400, 3508),
+(83, 1, 'Gijón', 'Cajeros', 'JSON', 60, 23956);
 
 -- --------------------------------------------------------
 
@@ -106,9 +110,7 @@ INSERT INTO `traducciones` (`id`, `original`, `traducción`) VALUES
 (8, 'potenc_ia', 'potencia'),
 (9, 'tipo_carga', 'tipo de carga'),
 (10, 'availableSpotNumber', 'Plazas libres'),
-(11, 'totalSpotNumber', 'Plazas totales'),
-(12, 'plazastota', 'Plazas totales'),
-(13, 'plazaslibr', 'Plazas libres');
+(11, 'totalSpotNumber', 'Plazas totales');
 
 -- --------------------------------------------------------
 
@@ -130,7 +132,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `contraseña`, `nombre_completo`, `favoritos`, `rol`) VALUES
-(1, 'JUAN', 'scrypt:32768:8:1$tzddfppapymlneuy$082fd4e9c1104c61b671cde8d27d1f450733359e26a24fe7eb4e50b4eba01abb55fc1abe7869485a06d54a08e9f8e7472c9abe5d3226471e93e4a2dfbf631d50', 'Juan Pérez', 'Gijón - Cajeros, Burgos - Parkings, Valencia - Puntos de carga', 'usuario'),
+(1, 'JUAN', 'scrypt:32768:8:1$tzddfppapymlneuy$082fd4e9c1104c61b671cde8d27d1f450733359e26a24fe7eb4e50b4eba01abb55fc1abe7869485a06d54a08e9f8e7472c9abe5d3226471e93e4a2dfbf631d50', 'Juan Pérez', 'Burgos - Parkings, Valencia - Puntos de carga', 'usuario'),
 (7, 'Alejandro', 'scrypt:32768:8:1$bHalGcEbXmu9zlC5$0136f1ff846dc31538c3fbcc79dc9896e3afbda616891c35cb0e7fd2270d33199ec714573f5428943cd75318cbbba820c7cadda677f43941c76f96056fd242a1', 'Alejandro de Castro', 'Valencia - Puntos de carga', 'administrador');
 
 --
@@ -169,13 +171,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `datos`
 --
 ALTER TABLE `datos`
-  MODIFY `id` smallint(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` smallint(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `registros`
 --
 ALTER TABLE `registros`
-  MODIFY `id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` smallint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT de la tabla `traducciones`
