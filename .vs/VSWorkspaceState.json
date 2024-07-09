@@ -7,7 +7,8 @@
     "\\CODE\\models\\entidades",
     "\\CODE\\static",
     "\\CODE\\static\\css",
-    "\\CODE\\templates"
+    "\\CODE\\templates",
+    "\\Documentación"
   ],
   "SelectedNode": "\\CODE\\app.py",
   "PreviewInSolutionExplorer": false

@@ -172,7 +172,8 @@ def get_caracteristicas():
 @login_required
 def editarRecords():
     registros = ModeloUsuario.get_registros_by_id(db.database,current_user.id)
-    registros_adaptados=transformarRegistrosUnidades(registros)
+    #registros_adaptados=transformarRegistrosUnidades(registros)
+    print(registros)
     global min_values, listaCiudadesDatos
     min_values={}
     listaCiudadesDatos = []
@@ -187,7 +188,7 @@ def editarRecords():
         ciudad, característica, formato = conjunto.split(" - ")
         min_values[conjunto]= diccionarioDatosDisponibles[ciudad][característica][formato][1]
   
-    return render_template('records/editarRecords.html', registros = registros_adaptados, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos, min_values=min_values)
+    return render_template('records/editarRecords.html', registros = registros , registros_adaptados = registros, opciones = listaCiudadesDatos, unidades = unidades, formatos = formatos, min_values=min_values)
 
 @server.route('/get_min_value', methods=['GET'])
 @login_required
