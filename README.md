@@ -17,8 +17,8 @@ Añadir enlace guía
 ## Enlaces de interés
 [![Youtube](https://youtube.com)
 [![GitBook](https://app.gitbook.com/o/4BX5FV48VxDJONTvZNTI/s/MSz5qiARMQIgynfD8ti0/smart-cities/home)
-[![Memoria](CODE/Documentación/memoria.pdf)
-[![Anexos](https://app.gitbook.com/o/4BX5FV48VxDJONTvZNTI/s/MSz5qiARMQIgynfD8ti0/smart-cities/home)
+[![Memoria](Documentación/memoria.pdf)
+[![Anexos](Documentación/anexos.pdf)
 
 
 ## Contacto
