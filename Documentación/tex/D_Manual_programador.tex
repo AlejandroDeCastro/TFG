@@ -1,6 +1,14 @@
 \apendice{Documentación técnica de programación}
 
 \section{Introducción}
+En esta sección se recoge la información más relevante relacionada el código de la aplicación, así como las herramientas clave para su desarrollo, compilación y ejecución. También se incluyen distintas pruebas que se han realizado para asegurar el correcto funcionamiento del mismo.
+Esta sección tiene la siguiente estructura:
+\begin{itemize}
+    \item \textbf{Estructura de directorios:} contiene la estructura del repositorio donde se encuentra el código.
+    \item \textbf{Manual del programador:} se detalla el software empleado para el desarrollo de la aplicación.
+    \item \textbf{Compilación, instalación y ejecución del proyecto:} contiene una guía para la compilación, instalación y ejecución del proyecto
+    \item \textbf{Pruebas del sistema:} se detallan distintas pruebas que se han hecho en la aplicación.
+\end{itemize}
 
 \section{Estructura de directorios}
 
@@ -92,6 +100,8 @@ En este aparatado se detalla como compilar, instalar y ejecutar el proyecto en c
 \end{enumerate}
 
 \section{Pruebas del sistema}
+
+Se han elaborado algunas pruebas del sistema para verificar que no haya errores.
 
 %CP1
 \begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
@@ -198,17 +208,17 @@ En este aparatado se detalla como compilar, instalar y ejecutar el proyecto en c
 \hline
 \end{longtable}
 
-%CP7
+%CP8
 \begin{longtable}{>{\hspace{0pt}}m{0.25\linewidth}>{\hspace{0pt}}m{0.764\linewidth}}
-\label{CP7}
-\caption{CP-7 Acceso a una funcionalidad restringida}\\ 
+\label{CP8}
+\caption{CP-8 Añadir traducciones}\\ 
 \hline
-\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-7}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Acceso a una funcionalidad restringida} \endfirsthead 
+\rowcolor{gray!20} \multicolumn{1}{|>{\hspace{0pt}}m{0.25\linewidth}|}{\textbf{CP-8}} & \multicolumn{1}{>{\hspace{0pt}}m{0.764\linewidth}|}{Añadir traducciones} \endfirsthead 
 \hline
-\textbf{Importancia} & Alta \\
-\rowcolor{gray!20} \textbf{Descripción} & Cuando se intenta acceder una funcionalidad de administrador siendo un usuario estándar se bloquea el acceso. \\
-\textbf{Precondición} & Siendo un usuario estándar, intentar acceder a un conjunto de datos el cuál es solo accesible para los administradores. \\
-\rowcolor{gray!20} \textbf{Acciones} & Comprobar el rol del usuario. \\
-\textbf{Postcondición} & Se notifica al usuario y se le redirige a la ventana de errores. \\
+\textbf{Importancia} & Media \\
+\rowcolor{gray!20} \textbf{Descripción} & Cuando se añade una traducción nueva debe estar disponible para todos los usuarios. \\
+\textbf{Precondición} & Añadir una nueva traducción a una palabra. \\
+\rowcolor{gray!20} \textbf{Acciones} & Añadir esa tupla en la base de datos para que los conjuntos sen traducidos. \\
+\textbf{Postcondición} & Los usuarios dejan de ver la palabra sin traducir y ahora ven la traducción. \\
 \hline
 \end{longtable}
