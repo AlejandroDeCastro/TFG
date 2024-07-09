@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-07-2024 a las 08:37:52
+-- Tiempo de generación: 09-07-2024 a las 09:10:31
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -82,9 +82,9 @@ CREATE TABLE `registros` (
 --
 
 INSERT INTO `registros` (`id`, `id_usuario`, `Ciudad`, `Característica`, `Formato`, `Periodicidad`, `pid`) VALUES
-(71, 1, 'Valencia', 'Puntos de carga', 'JSON', 60, 23540),
-(80, 1, 'Bilbao', 'Puntos de carga', 'JSON', 86400, 3508),
-(83, 1, 'Gijón', 'Cajeros', 'JSON', 60, 23956);
+(71, 1, 'Valencia', 'Puntos de carga', 'JSON', 60, 13280),
+(80, 1, 'Bilbao', 'Puntos de carga', 'JSON', 86400, 26200),
+(83, 1, 'Gijón', 'Cajeros', 'JSON', 60, 9328);
 
 -- --------------------------------------------------------
 
@@ -132,7 +132,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `contraseña`, `nombre_completo`, `favoritos`, `rol`) VALUES
-(1, 'JUAN', 'scrypt:32768:8:1$tzddfppapymlneuy$082fd4e9c1104c61b671cde8d27d1f450733359e26a24fe7eb4e50b4eba01abb55fc1abe7869485a06d54a08e9f8e7472c9abe5d3226471e93e4a2dfbf631d50', 'Juan Pérez', 'Burgos - Parkings, Valencia - Puntos de carga', 'usuario'),
+(1, 'JUAN', 'scrypt:32768:8:1$tzddfppapymlneuy$082fd4e9c1104c61b671cde8d27d1f450733359e26a24fe7eb4e50b4eba01abb55fc1abe7869485a06d54a08e9f8e7472c9abe5d3226471e93e4a2dfbf631d50', 'Juan Pérez', 'Valencia - Puntos de carga, Gijón - Perros peligrosos, Gijón - Cajeros', 'usuario'),
 (7, 'Alejandro', 'scrypt:32768:8:1$bHalGcEbXmu9zlC5$0136f1ff846dc31538c3fbcc79dc9896e3afbda616891c35cb0e7fd2270d33199ec714573f5428943cd75318cbbba820c7cadda677f43941c76f96056fd242a1', 'Alejandro de Castro', 'Valencia - Puntos de carga', 'administrador');
 
 --
