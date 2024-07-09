@@ -6,23 +6,14 @@ El proyecto consiste en el desarrollo de una aplicación que permita al usuario 
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=AlejandroDeCastro_TFG)](https://sonarcloud.io/summary/new_code?id=AlejandroDeCastro_TFG)
 
-## Características
-- Característica 1
-- Característica 2
-- Característica 3
-
-## Guía de usuario
-Añadir enlace guía
-
 ## Enlaces de interés
-[![Youtube](https://youtube.com)
-[![GitBook](https://app.gitbook.com/o/4BX5FV48VxDJONTvZNTI/s/MSz5qiARMQIgynfD8ti0/smart-cities/home)
-[![Memoria](Documentación/memoria.pdf)
-[![Anexos](Documentación/anexos.pdf)
 
+- [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com)
+- [![GitBook](https://img.shields.io/badge/GitBook-000000?style=for-the-badge&logo=gitbook&logoColor=white)](https://app.gitbook.com/o/4BX5FV48VxDJONTvZNTI/s/MSz5qiARMQIgynfD8ti0/smart-cities/home)
+- [![Memoria](https://img.shields.io/badge/Memoria-0078D4?style=for-the-badge&logo=microsoft-word&logoColor=white)](Documentación/memoria.pdf)
+- [![Anexos](https://img.shields.io/badge/Anexos-0078D4?style=for-the-badge&logo=microsoft-word&logoColor=white)](Documentación/anexos.pdf)
 
 ## Contacto
 No dudes en contactar conmigo a través del siguiente correo: ada1009@alu.ubu.es
 
-## Licencia
 
