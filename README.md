@@ -9,7 +9,7 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 
 ## Enlaces de interés
 [![](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/visualization.svg)](./README.md)
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]([https://youtube.com](https://youtu.be/sm2y3Q6PV0E))  [![GitBook](https://img.shields.io/badge/GitBook-000000?style=for-the-badge&logo=gitbook&logoColor=white)](https://app.gitbook.com/o/4BX5FV48VxDJONTvZNTI/s/MSz5qiARMQIgynfD8ti0/smart-cities/home)  [![Memoria](https://img.shields.io/badge/Memoria-0078D4?style=for-the-badge&logo=microsoft-word&logoColor=white)](Documentación/memoria.pdf)  [![Anexos](https://img.shields.io/badge/Anexos-0078D4?style=for-the-badge&logo=microsoft-word&logoColor=white)](Documentación/anexos.pdf) [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=AlejandroDeCastro_TFG)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]((https://youtu.be/sm2y3Q6PV0E))  [![GitBook](https://img.shields.io/badge/GitBook-000000?style=for-the-badge&logo=gitbook&logoColor=white)](https://app.gitbook.com/o/4BX5FV48VxDJONTvZNTI/s/MSz5qiARMQIgynfD8ti0/smart-cities/home)  [![Memoria](https://img.shields.io/badge/Memoria-0078D4?style=for-the-badge&logo=microsoft-word&logoColor=white)](Documentación/memoria.pdf)  [![Anexos](https://img.shields.io/badge/Anexos-0078D4?style=for-the-badge&logo=microsoft-word&logoColor=white)](Documentación/anexos.pdf) [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=AlejandroDeCastro_TFG)
 
 
 ## Contacto
