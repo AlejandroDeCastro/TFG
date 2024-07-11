@@ -5,7 +5,7 @@
 El proyecto consiste en el desarrollo de una aplicación que permita al usuario una experiencia más cómoda en una ciudad, mediante el tratamiento de datos abiertos incorporando FIWARE. Se ofrece al usuario diversas funcionalidades con los datos obtenidos de su ciudad (aforos, localizaciones, teléfonos, horarios...), como la consulta, registro de datos periódicamente, entre otras funcionalidades.
 
 This project is part of [FIWARE](https://www.fiware.org/). For more information check the FIWARE Catalogue entry for
-[<chapter>](https://github.com/Fiware/catalogue/tree/master/visualization.com).
+[visualization](https://github.com/Fiware/catalogue/tree/master/visualization.com).
 
 ## Enlaces de interés
 [![](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/visualization.svg)](./README.md)
